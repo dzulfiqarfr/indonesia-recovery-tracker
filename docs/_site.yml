@@ -1,0 +1,17 @@
+name: "Indonesia's recovery"
+navbar:
+  title: "Tracking Indonesia's recovery"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "About"
+      icon: fa-info
+      href: about.html
+  right:    
+    - text: "GitHub"
+      icon: fa-github
+      href: https://github.com/dzulfiqarfr/
+output:
+  html_document: 
+    theme: flatly
