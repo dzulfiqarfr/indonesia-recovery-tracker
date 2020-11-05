@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "Get to know this tracker"
 output: html_document
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
@@ -8,4 +8,12 @@ knit: (function(input_file, encoding) {
  output_file=file.path(dirname(input_file), out_dir, 'about.html'))})
 ---
 
-Lorem ipsum.
+Hi! I am Dzulfiqar Fathur Rahman, a journalist covering economic issues for The Jakarta Post, a leading English-speaking newspaper in Indonesia. This is my personal site.
+
+I build this site to see how the COVID-19 pandemic takes a hit on Indonesia's economy and track the country's recovery from the shock.
+
+While I know that it is important to keep track of the development, I build this tracker mainly for a less serious purpose. That is, I want to casually keep my tabs on this recovery stuff open but not get too caught up in it.
+
+The tracker does not cover all available economic indicators out there. But I try to choose the ones that are timely and relevant with regards to Indonesia's economic recovery.
+
+If you have any suggestions or find any bug, please let me know through [Twitter](https://twitter.com/dzulfiqarfr).

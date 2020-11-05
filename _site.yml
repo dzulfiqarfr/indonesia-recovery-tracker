@@ -1,0 +1,13 @@
+name: "Indonesia's recovery tracker"
+output_dir: "docs"
+navbar:
+  title: "Indonesia's COVID-19 recovery"
+  right:    
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output:
+  html_document: 
+    theme: cosmo
+exclude: ["data", "img", "script"]  
