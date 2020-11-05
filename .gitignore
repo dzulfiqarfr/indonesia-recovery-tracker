@@ -37,3 +37,7 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Data
+data/Google_mobility_raw.csv
+docs/data/Google_mobility_raw.csv
