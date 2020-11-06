@@ -8,7 +8,7 @@ knit: (function(input_file, encoding) {
  output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 ---
 
-<br><br>  
+<br>  
 
 Indicators                                   | Latest          | 2020  
 -------------------------------------------- | --------------- | -----------------  
@@ -19,27 +19,51 @@ Poverty rate (percent)                       | 9.78 (Mar) | 12.37<sup>‡</sup>
 
 <i style="color: #a9a9a9;font-size: 10px;">Note: *The Economist Intelligence Unit's forecast <sup>†</sup>Indonesian government's worst-case scenario projection <sup>‡</sup> SMERU Research Institute's worst-case scenario projection</i>
 
-<br><br>  
+<br>  
+
+```{r setup, echo = F}
+knitr::opts_chunk$set(
+  echo = F,
+  message = F,
+  warning = F
+)
+```
+
 
 # Explore {.tabset .tabset-pills}
 
 ## GDP
 
-<iframe width="700" height="400" frameborder="0" scrolling="no" src="https://plotly.com/~dzulfiqarfr/5.embed?autosize=false&link=false&modebar=false"></iframe>
+```{r growth plot}
+source("script/growth_script.R", local = knitr::knit_global())
+
+growth_plot
+```
+
 
 ## Consumer confidence
 
-<iframe width="700" height="400" frameborder="0" scrolling="no" src="https://plotly.com/~dzulfiqarfr/7.embed?autosize=false&link=false&modebar=false"></iframe>
+```{r CCI plot}
+source("script/cci_script.R", local = knitr::knit_global())
+
+CCI_plot
+```
+
 
 ## Retail sales
 
-<iframe width="700" height="400" frameborder="0" scrolling="no" src="https://plotly.com/~dzulfiqarfr/9.embed?autosize=false&link=false&modebar=false"></iframe>
+```{r SPE plot}
+source("script/spe_script.R", local = knitr::knit_global())
+
+SPE_plot
+```
+
 
 ## Mobility {.tabset}
 
 ### National
 
-```{r, echo = F, message = F, warning = F}
+```{r national mobility plot}
 source("script/mob-ntl_script.R", local = knitr::knit_global())
 
 mob_ntl_plot
@@ -48,7 +72,7 @@ mob_ntl_plot
 
 ### Regional
 
-```{r echo = F, message = F, warning = F}
+```{r regional mobility plot}
 source("script/mob-prov_script.R", local = knitr::knit_global())
 
 # Arrange views
@@ -59,7 +83,7 @@ bscols(
 )
 ```
 
-```{js set default value, echo = F}
+```{js set default value for regional mobility plot}
 function filter_default() {
     document.getElementById("Province_filter").getElementsByClassName("selectized")[0].selectize.setValue("Jakarta");
 }

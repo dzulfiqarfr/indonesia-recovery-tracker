@@ -11,7 +11,7 @@
 
 
 
-<title>Get to know this tracker</title>
+<title>Data</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -259,6 +262,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -266,6 +332,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -315,19 +391,46 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Get to know this tracker</h1>
+<h1 class="title toc-ignore">Data</h1>
 
 </div>
 
 
-<p>Hi! I am Dzulfiqar Fathur Rahman, a journalist covering economic issues for <a href="https://thejakartapost.com">The Jakarta Post</a>, a leading English-speaking newspaper in Indonesia. This is my personal site.</p>
-<p>I build this site to see how the COVID-19 pandemic takes a hit on Indonesia’s economy and track the country’s recovery from the shock.</p>
-<p>While I know that it is important to keep track of the development, I build this tracker mainly for a less serious purpose. That is, I just want to casually keep my tabs on this recovery stuff open but not get too caught up in it. I publish this site for anyone wanting to do the same.</p>
-<p>The tracker does not cover all available economic indicators out there. But I try to choose the ones that are timely and relevant with regards to Indonesia’s economic recovery.</p>
-<p>If you have any suggestions or find a bug, please let me know through <a href="https://twitter.com/dzulfiqarfr">Twitter</a>.</p>
+<p>All datasets are available for download <a href="https://github.com/dzulfiqarfr/indonesia-recovery-tracker/tree/main/data">here</a>, except for the mobility data.</p>
+<p>The data for the summary table are obtained from <a href="https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html">the Indonesian government</a>, <a href="https://bps.go.id">Statistics Indonesia</a>, <a href="https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators">the Economist</a> and <a href="https://smeru.or.id/id/content/dampak-pandemi-covid-19-terhadap-kemiskinan-estimasi-bagi-indonesia">SMERU Research Institute</a>.</p>
+<p><br><br></p>
+<div id="economic-growth" class="section level1">
+<h1>Economic growth</h1>
+<p>The data for economic growth is based on the quarterly gross domestic product in constant 2010 prices from <a href="https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html">Statistics Indonesia</a>.</p>
+<p><br></p>
+</div>
+<div id="consumer-confidence-index" class="section level1">
+<h1>Consumer confidence index</h1>
+<p>The data for consumer confidence index is based on a monthly survey by <a href="https://www.bi.go.id/id/publikasi/survei/konsumen/Default.aspx">Bank Indonesia</a> on around 4,600 households with an income above Rp 1 million in 18 cities.</p>
+<p>The consumer confidence index is the arithmetic mean of the current economic condition index and consumer expectation index.</p>
+<p>Index points above 100 mean optimistic responses outweigh the pessimistic ones while index points below 100 mean the opposite.</p>
+<p>Read the data documentation further <a href="https://www.bi.go.id/id/statistik/metadata/survei/Documents/1-Metadata-SK-2016.pdf">here</a>.</p>
+<p><br></p>
+</div>
+<div id="retail-sales-index" class="section level1">
+<h1>Retail sales index</h1>
+<p>The data for retail sales index is based on a monthly survey by <a href="https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx">Bank Indonesia</a> on 700 retailers in 10 big cities.</p>
+<p>The retail sales index is the comparison between total sales in a given month and the total sales in January 2010 as the base period.</p>
+<p>Read the data documentation further <a href="https://www.bi.go.id/id/statistik/metadata/survei/Documents/4-Metadata-SPE-2016.pdf">here</a>.</p>
+<p><br></p>
+</div>
+<div id="mobility" class="section level1">
+<h1>Mobility</h1>
+<p>The data for movement trends is obtained from <a href="https://www.google.com/covid19/mobility/index.html?hl=en">Google COVID-19 mobility report</a>. While the data frequency is daily, Google takes between two and three days to update the data.</p>
+<p>The headline numbers represent the change in the number of visitors relative to the median level in the January 3-February 6 period.</p>
+<p>To smooth the curve, I add the seven-day moving average figures.</p>
+<p>Download the data <a href="https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv">here</a>. Read the data documentation further <a href="https://www.google.com/covid19/mobility/data_documentation.html?hl=en">here</a>.</p>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -360,6 +463,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

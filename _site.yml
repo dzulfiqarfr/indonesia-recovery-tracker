@@ -1,12 +1,18 @@
 name: "Indonesia's recovery tracker"
 output_dir: "docs"
 navbar:
-  title: "Indonesia's COVID-19 recovery"
+  title: "Indonesia | COVID-19 recovery tracker"
   right:    
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
+    - text: "Resources"
+      menu:
+      - text: "Dataset"
+        href: dataset.html
+      - text: "Code"
+        href: code.html
 output:
   html_document: 
     theme: cosmo

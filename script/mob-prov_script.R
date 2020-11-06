@@ -5,7 +5,6 @@
 
 library(conflicted)
 library(tidyverse)
-library(readxl)
 library(lubridate)
 library(zoo)
 library(viridis)
@@ -122,7 +121,7 @@ remove <- c(
   "resetScale2d"
 )
 
-# Source, byline
+# Byline, source annotations
 byline_source_google <- list(
   x = 0,
   xref = "paper",

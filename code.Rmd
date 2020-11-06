@@ -1,0 +1,13 @@
+---
+title: "Code"
+output: html_document
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'code.html'))})
+---
+
+I make the plots in `R` using [Plotly](https://plotly.com/r) via the `plotly` package. Plotly allows its users to modify many features of a plot through the `R` package. However, it is also possible to replicate all the plots on this site through the Chart Studio.
+
+The source code for all the plots are available [here](https://github.com/dzulfiqarfr/indonesia-recovery-tracker/tree/main/script).
