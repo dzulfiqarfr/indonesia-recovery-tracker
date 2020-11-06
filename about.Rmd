@@ -12,7 +12,7 @@ Hi! I am Dzulfiqar Fathur Rahman, a journalist covering economic issues for [The
 
 I build this site to see how the COVID-19 pandemic takes a hit on Indonesia's economy and track the country's recovery from the shock.
 
-While I know that it is important to keep track of the development, I build this tracker mainly for a less serious purpose. That is, I just want to casually keep my tabs on this recovery stuff open but not get too caught up in it. I publish this site for anyone wanting to do the same.
+While I know that it is important to keep track of the development, I build this tracker mainly for a less serious purpose. That is, I just want to casually keep my tabs on this recovery stuff but not get too caught up in it. I publish this site for anyone wanting to do the same.
 
 The tracker does not cover all available economic indicators out there. But I try to choose the ones that are timely and relevant with regards to Indonesia's economic recovery.
 
