@@ -1,9 +1,7 @@
 ---
 title: "Data"
 output: 
-   html_document:
-     toc: true
-     toc_float: true
+   html_document
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
@@ -15,16 +13,20 @@ All datasets are available for download [here](https://github.com/dzulfiqarfr/in
 
 The data for the summary table are obtained from [the Indonesian government](https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html), [Statistics Indonesia](https://bps.go.id), [the Economist](https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators) and [SMERU Research Institute](https://smeru.or.id/id/content/dampak-pandemi-covid-19-terhadap-kemiskinan-estimasi-bagi-indonesia).
 
-<br><br>  
+<br>  
 
-# Economic growth  
-
-The data for economic growth is based on the quarterly gross domestic product in constant 2010 prices from [Statistics Indonesia](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html).  
+<div class="panel panel-default">
+  <div class="panel-heading">Economic growth</div>
+  <div class="panel-body">  
+The data for economic growth is based on the quarterly gross domestic product in constant 2010 prices from [Statistics Indonesia](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html). 
+  </div>
+</div>
 
 <br>
 
-# Consumer confidence index  
-
+<div class="panel panel-default">
+  <div class="panel-heading">Consumer confidence</div>
+  <div class="panel-body">  
 The data for consumer confidence index is based on a monthly survey by [Bank Indonesia](https://www.bi.go.id/id/publikasi/survei/konsumen/Default.aspx) on around 4,600 households with an income above Rp 1 million in 18 cities.  
 
 The consumer confidence index is the arithmetic mean of the current economic condition index and consumer expectation index.  
@@ -32,25 +34,33 @@ The consumer confidence index is the arithmetic mean of the current economic con
 Index points above 100 mean optimistic responses outweigh the pessimistic ones while index points below 100 mean the opposite.  
 
 Read the data documentation further [here](https://www.bi.go.id/id/statistik/metadata/survei/Documents/1-Metadata-SK-2016.pdf).  
+  </div>
+</div>
 
 <br>
 
-# Retail sales index  
-
+<div class="panel panel-default">
+  <div class="panel-heading">Retail sales</div>
+  <div class="panel-body">  
 The data for retail sales index is based on a monthly survey by [Bank Indonesia](https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx) on 700 retailers in 10 big cities.  
 
 The retail sales index is the comparison between total sales in a given month and the total sales in January 2010 as the base period.  
 
 Read the data documentation further [here](https://www.bi.go.id/id/statistik/metadata/survei/Documents/4-Metadata-SPE-2016.pdf).  
+  </div>
+</div>
 
 <br>  
 
-# Mobility  
-
+<div class="panel panel-default">
+  <div class="panel-heading">Mobility</div>
+  <div class="panel-body">  
 The data for movement trends is obtained from [Google COVID-19 mobility report](https://www.google.com/covid19/mobility/index.html?hl=en). While the data frequency is daily, Google takes between two and three days to update the data.  
 
 The headline numbers represent the change in the number of visitors relative to the median level in the January 3-February 6 period.
 
 To smooth the curve, I add the seven-day moving average figures.
 
-Download the data [here](https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv). Read the data documentation further [here](https://www.google.com/covid19/mobility/data_documentation.html?hl=en).
+Download the data [here](https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv). Read the data documentation further [here](https://www.google.com/covid19/mobility/data_documentation.html?hl=en).  
+  </div>
+</div>
