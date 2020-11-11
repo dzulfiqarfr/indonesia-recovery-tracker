@@ -2,9 +2,7 @@ name: "Indonesia's recovery tracker"
 output_dir: "docs"
 navbar:
   title: "Indonesia | COVID-19 recovery tracker"
-  right:    
-    - text: "Home"
-      href: index.html
+  right:  
     - text: "About"
       href: about.html
     - text: "Resources"

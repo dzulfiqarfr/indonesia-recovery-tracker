@@ -28,7 +28,7 @@ SPE_raw <- SPE_raw %>%
   dplyr::select(-last(names(SPE_raw)))
 
 # Rename date columns
-SPE_col_names <- seq(ymd("2012-01-01"), ymd("2020-09-01"), by = "month")
+SPE_col_names <- seq(ymd("2012-01-01"), ymd("2020-10-01"), by = "month")
 SPE_col_names <- SPE_col_names %>%
   tibble() %>% 
   dplyr::mutate(
@@ -62,31 +62,30 @@ SPE_tidy$Retail_sales_i <- round(SPE_tidy$Retail_sales_i, digits = 2)
 
 # Create the plot ---------------------------------------------------------
 
-# Modebar buttons to remove
-remove <- c(
-  "zoom2d",
-  "pan2d", 
-  "select2d", 
-  "lasso2d",
-  "zoomIn2d", 
-  "zoomOut2d",
-  "toggleSpikelines",
-  "autoScale2d",
-  "toImage",
-  "resetScale2d"
-)
-
 # Byline, source annotations
 byline_source_BI <- list(
   x = 0,
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.25,
+  y = -0.3,
   yref = "paper",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Bank Indonesia",
   font = list(color = "darkgrey"),
+  showarrow = F
+)
+
+# Footnote
+footnote <- list(
+  x = 0,
+  xref = "paper",
+  xshift = 0,
+  y = -0.20,
+  yref = "paper",
+  yshift = 0,
+  text = "*October figure is a forecast",
+  font = list(size = 10, color = "darkgrey"),
   showarrow = F
 )
 
@@ -103,10 +102,10 @@ SPE_plot <- plot_ly(
   plotly::layout(
     title = list(
       text = str_c(
-        "<b>Retail sales index</b>",
+        "<b>Stalled rebound looms in October</b>",
         "<br>",
         "<sup>",
-        "January 2010 = 100",
+        "Retail sales index*, January 2010 = 100",
         "</sup>"
       ),
       xref = "paper",
@@ -136,7 +135,9 @@ SPE_plot <- plot_ly(
       autorange = F,
       range = c(50, 251)
     ),
-    annotations = list(byline_source_BI),
+    annotations = list(
+      byline_source_BI,
+      footnote),
     margin = list(
       t = 75,
       l = 0,
@@ -145,3 +146,4 @@ SPE_plot <- plot_ly(
     )
   ) %>% 
   config(displayModeBar = F)
+

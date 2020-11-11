@@ -91,20 +91,6 @@ growth_tidy$Year <- growth_tidy$Year %>%
 
 # Create the plot -----------------------------------------------------------
 
-# Modebar buttons to remove
-remove <- c(
-  "zoom2d",
-  "pan2d", 
-  "select2d", 
-  "lasso2d",
-  "zoomIn2d", 
-  "zoomOut2d",
-  "toggleSpikelines",
-  "autoScale2d",
-  "toImage",
-  "resetScale2d"
-)
-
 # Byline, source annotations
 byline_source_BPS <- list(
   x = 0,
@@ -134,7 +120,7 @@ growth_plot <- plot_ly(
   plotly::layout(
     title = list(
       text = str_c(
-        "<b>Growth rate</b>",
+        "<b>Sign of recovery</b>",
         "<br>",
         "<sup>",
         "GDP in constant 2010 prices (percent change from a year earlier)",
@@ -174,11 +160,9 @@ growth_plot <- plot_ly(
       autorange = F,
       range = c(-12, 9),
       dtick = 4,
-      zerolinecolor = "red"
+      zerolinecolor = "#ff5e4b"
     ),
-    annotations = list(
-      byline_source_BPS
-    ),
+    annotations = list(byline_source_BPS),
     margin = list(
       t = 75,
       l = 0,
@@ -186,6 +170,4 @@ growth_plot <- plot_ly(
       b = 75
     )
   ) %>% 
-  config(
-    displayModeBar = F
-  )
+  config(displayModeBar = F)

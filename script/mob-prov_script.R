@@ -127,11 +127,27 @@ byline_source_google <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.175,
+  y = -0.20,
   yref = "paper",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Google",
-  font = list(color = "darkgrey"),
+  font = list(size = 10, color = "darkgrey"),
+  showarrow = F
+)
+
+# Timestamp
+mob_timestamp <- list(
+  x = 0,
+  xref = "paper",
+  xanchor = "left",
+  xshift = 0,
+  y = -0.25,
+  yref = "paper",
+  yshift = 0,
+  text = str_c("Last updated on ",
+               format(Sys.time(), "%b %d, %Y")
+  ),
+  font = list(size = 10, color = "darkgrey"),
   showarrow = F
 )
 
@@ -187,7 +203,7 @@ mob_prov_plot <- plot_ly(
       dtick = 20,
       zerolinecolor = "red"
     ),
-    annotations = list(byline_source_google),
+    annotations = list(byline_source_google, mob_timestamp),
     legend = list(
       font = list(size = 10),
       traceorder = "reversed",

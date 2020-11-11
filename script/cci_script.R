@@ -29,7 +29,7 @@ CCI_raw <- CCI_raw %>%
   dplyr::select(-last(names(CCI_raw)))
 
 # Rename date columns
-CCI_col_names <- seq(ymd("2012-01-01"), ymd("2020-09-01"), by = "month")
+CCI_col_names <- seq(ymd("2012-01-01"), ymd("2020-10-01"), by = "month")
 
 CCI_col_names <- CCI_col_names %>%
   tibble() %>% 
@@ -62,20 +62,6 @@ CCI_tidy$CCI <- round(CCI_tidy$CCI, digits =2)
 
 
 # Create the plot ---------------------------------------------------------
-
-# Modebar buttons to remove
-remove <- c(
-  "zoom2d",
-  "pan2d", 
-  "select2d", 
-  "lasso2d",
-  "zoomIn2d", 
-  "zoomOut2d",
-  "toggleSpikelines",
-  "autoScale2d",
-  "toImage",
-  "resetScale2d"
-)
 
 # Byline, source annotations
 byline_source_BI <- list(
@@ -114,7 +100,13 @@ CCI_plot <- plot_ly(
   ) %>% 
   plotly::layout(
     title = list(
-      text = "<b>Consumer confidence index</b>",
+      text = str_c(
+        "<b>Widespread pessimism returns</b>",
+        "<br>",
+        "<sup>",
+        "Consumer confidence index",
+        "</sup>"
+      ),
       xref = "paper",
       x = 0,
       xanchor = "left",

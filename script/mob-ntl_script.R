@@ -13,6 +13,13 @@ library(plotly)
 
 # Tidy the data -----------------------------------------------------------
 
+# Download data
+download.file(
+  "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv",
+  destfile = "data/Google_mobility_raw.csv",
+  quiet = T
+)
+
 # Import data 
 mob_raw <- read.csv("data/Google_mobility_raw.csv",
                     header = T,
@@ -125,11 +132,27 @@ byline_source_google <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.175,
+  y = -0.20,
   yref = "paper",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Google",
-  font = list(color = "darkgrey"),
+  font = list(size = 10, color = "darkgrey"),
+  showarrow = F
+)
+
+# Timestamp
+mob_timestamp <- list(
+  x = 0,
+  xref = "paper",
+  xanchor = "left",
+  xshift = 0,
+  y = -0.25,
+  yref = "paper",
+  yshift = 0,
+  text = str_c("Last updated on ",
+               format(Sys.time(), "%b %d, %Y")
+  ),
+  font = list(size = 10, color = "darkgrey"),
   showarrow = F
 )
 
@@ -142,15 +165,14 @@ mob_ntl_plot <- plot_ly(width = 700, height = 400) %>%
     color = ~Categories, 
     colors = "viridis",
     alpha = 0.1,
-    mode = "scatter",
+    type = "scatter",
     hovertemplate = "%{y} percent<br>%{x}"
-  ) %>% 
-  add_trace(
+  ) %>%
+  add_lines(
     data = mob_ntl[mob_ntl$Categories %in% cat_line, ],
     x = ~Date, 
     y = ~Mobility,
     color = ~Categories,
-    mode = "lines",
     colors = "viridis",
     hovertemplate = "Seven-day moving averages<br>%{y} percent<br>%{x}"
   ) %>% 
@@ -188,7 +210,7 @@ mob_ntl_plot <- plot_ly(width = 700, height = 400) %>%
       range = c(-100, 41),
       zerolinecolor = "red"
     ),
-    annotations = list(byline_source_google),
+    annotations = list(byline_source_google, mob_timestamp),
     legend = list(
       font = list(size = 10),
       traceorder = "reversed",
