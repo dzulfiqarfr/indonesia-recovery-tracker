@@ -1,7 +1,8 @@
 ---
-title: "Data"
+pagetitle: "Data"
 output: 
-   html_document
+  html_document: 
+    anchor_sections: false
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
@@ -9,58 +10,126 @@ knit: (function(input_file, encoding) {
  output_file=file.path(dirname(input_file), out_dir, 'dataset.html'))})
 ---
 
-All datasets are available for download [here](https://github.com/dzulfiqarfr/indonesia-recovery-tracker/tree/main/data), except for the mobility data.
+<h2 style="text-align:center;">Data</h2>
 
-The data for the summary table are obtained from [the Indonesian government](https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html), [Statistics Indonesia](https://bps.go.id), [the Economist](https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators) and [SMERU Research Institute](https://smeru.or.id/id/content/dampak-pandemi-covid-19-terhadap-kemiskinan-estimasi-bagi-indonesia).
+<hr style="width:50%;text-align:center;">
+
+<br>
+
+This website uses publicly available data that can be found on the website of its respective sources. But you can also download some of datasets [here](https://github.com/dzulfiqarfr/indonesia-recovery-tracker/tree/main/data).
 
 <br>  
 
 <div class="panel panel-default">
-  <div class="panel-heading">Economic growth</div>
+  <div class="panel-heading"><h5>GDP</h5></div>
   <div class="panel-body">  
-The data for economic growth is based on the quarterly gross domestic product in constant 2010 prices from [Statistics Indonesia](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html). 
+This website uses data on the year-on-year (yoy) percent change of quarterly GDP in constant 2010 prices for the economic growth indicator. The data on growth by sectors is accessible through the Dynamic Table feature on Statistics Indonesia's (BPS) website.
+
+The estimate for this year's economic growth is obtained from the Economist Intelligence Unit (EIU).
+
+<b>Source</b>: [BPS](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html); [EIU](https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators)    
+
+<b>Last updated</b>: Nov 5, 2020
   </div>
 </div>
 
 <br>
 
 <div class="panel panel-default">
-  <div class="panel-heading">Consumer confidence</div>
+  <div class="panel-heading"><h5>Inflation</h5></div>
   <div class="panel-body">  
-The data for consumer confidence index is based on a monthly survey by [Bank Indonesia](https://www.bi.go.id/id/publikasi/survei/konsumen/Default.aspx) on around 4,600 households with an income above Rp 1 million in 18 cities.  
+This website uses data on the year-on-year (yoy) percent change of the consumer price index (CPI) with 2018 as the base year from BPS for the inflation indicator.
 
-The consumer confidence index is the arithmetic mean of the current economic condition index and consumer expectation index.  
+The estimate for this year's inflation rate is obtained from the EIU.
 
-Index points above 100 mean optimistic responses outweigh the pessimistic ones while index points below 100 mean the opposite.  
+<b>Source</b>: [BPS](https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html); [EIU](https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators)  
 
-Read the data documentation further [here](https://www.bi.go.id/id/statistik/metadata/survei/Documents/1-Metadata-SK-2016.pdf).  
+<b>Last updated</b>: Nov 3, 2020 (BPS)
   </div>
 </div>
 
 <br>
 
 <div class="panel panel-default">
-  <div class="panel-heading">Retail sales</div>
+  <div class="panel-heading"><h5>Unemployment</h5></div>
   <div class="panel-body">  
-The data for retail sales index is based on a monthly survey by [Bank Indonesia](https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx) on 700 retailers in 10 big cities.  
+This website uses data on unemployment rate based on the National Labor Force Survey (Sakernas) from BPS. Surveys in the first, second and fourth quarter takes a sample of 50,000 households, while the one in the third quarter 200,000 households.
 
-The retail sales index is the comparison between total sales in a given month and the total sales in January 2010 as the base period.  
+The estimate for this year's unemployment rate is obtained from the government.
 
-Read the data documentation further [here](https://www.bi.go.id/id/statistik/metadata/survei/Documents/4-Metadata-SPE-2016.pdf).  
+<b>Source</b>: [BPS](https://www.bps.go.id/indicator/6/543/1/tingkat-pengangguran-terbuka-menurut-provinsi.html); [National Development Planning Minister](https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html)
+
+<b>Last updated</b>: Nov 5, 2020 (BPS)
+  </div>
+</div>
+
+<br>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h5>Poverty</h5></div>
+  <div class="panel-body">  
+This website uses data on poverty rate based on the National Social and Economic Survey (Susenas) from BPS. The survey conducted in March takes a sample of 300,000 households, while the one in September 75,000 households.
+
+The estimate for this year's poverty rate is obtained from SMERU Research Institute.
+
+<b>Source</b>: [BPS](https://www.bps.go.id/indicator/23/192/1/persentase-penduduk-miskin-menurut-provinsi.html); [SMERU Rsearch Institute](https://smeru.or.id/id/content/dampak-pandemi-covid-19-terhadap-kemiskinan-estimasi-bagi-indonesia)
+
+<b>Last updated</b>: July 17, 2020
+  </div>
+</div>
+
+<br>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h5>Consumer confidence</h5></div>
+  <div class="panel-body">  
+This website uses data on consumer confidence index for the consumer confidence indicator. The consumer confidence index is obtained from a monthly survey. It is the arithmentic mean of the current economic condition index and consumer expectation index.
+
+Index points above the 100 threshold suggest that optimistic responses outweigh the pessimistic ones and index points below the threshold suggest the opposite.
+
+<b>Source</b>: [Bank Indonesia (BI)](https://www.bi.go.id/id/publikasi/survei/konsumen/Default.aspx)
+
+<b>Last updated</b>: Nov 9, 2020
+  </div>
+</div>
+
+<br>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h5>Retail sales</h5></div>
+  <div class="panel-body">  
+This website uses data on retail sales index for the retail sales indicator. The retail sales index is obtained from a monthly survey on 700 retailers in 10 big cities. It is the comparison between total sales in a given month and the total sales in January 2010 as the base period. 
+
+<b>Source</b>: [BI](https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx)  
+
+<b>Last updated</b>:  Nov 11, 2020  
   </div>
 </div>
 
 <br>  
 
 <div class="panel panel-default">
-  <div class="panel-heading">Mobility</div>
+  <div class="panel-heading"><h5>Mobility</h5></div>
   <div class="panel-body">  
-The data for movement trends is obtained from [Google COVID-19 mobility report](https://www.google.com/covid19/mobility/index.html?hl=en). While the data frequency is daily, Google takes between two and three days to update the data.  
+This website uses data on the number of visitors by place categories for the mobility indicator. The headline numbers represent the change in the number of visitors relative to the median level in the January 3--February 6 period.
 
-The headline numbers represent the change in the number of visitors relative to the median level in the January 3-February 6 period.
+<b>Source</b>: [Google](https://www.google.com/covid19/mobility/index.html?hl=en) 
 
-To smooth the curve, I add the seven-day moving average figures.
+<b>Last updated</b>: `r format(Sys.time(), "%b %d, %Y")`
+  </div>
+</div>
 
-Download the data [here](https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv). Read the data documentation further [here](https://www.google.com/covid19/mobility/data_documentation.html?hl=en).  
+<br>  
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h5>COVID-19</h5></div>
+  <div class="panel-body">  
+This website uses data on the number of confirmed cases, confirmed deaths and tests from the government.
+
+The positive rate is the number of confirmed cases divided by the number of tests. The test dataset merges the observation for May 21 and May 22 to account for the low tests performed on the former date and prevent an outlier in the positive rate data. The [World Health Organization (WHO)](https://www.who.int/docs/default-source/coronaviruse/transcripts/who-audio-emergencies-coronavirus-press-conference-full-30mar2020.pdf?sfvrsn=6b68bc4a_2) considered the positive rate of 10 percent to be the general benchmark of enough testing to find all cases.
+
+<b>Source</b>: [Indonesian COVID-19 Task Force](https://bnpb-inacovid19.hub.arcgis.com/datasets/statistik-perkembangan-covid19-indonesia-new/data?orderBy=Jumlah_Kasus_Kumulatif&orderByAsc=false) 
+
+<b>Last updated</b>: `r format(Sys.time(), "%b %d, %Y")`
   </div>
 </div>

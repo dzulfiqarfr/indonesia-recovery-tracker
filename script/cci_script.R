@@ -69,8 +69,9 @@ byline_source_BI <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.25,
+  y = -0.1,
   yref = "paper",
+  yanchor = "top",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Bank Indonesia",
   font = list(color = "darkgrey"),
@@ -78,17 +79,14 @@ byline_source_BI <- list(
 )
 
 # Plot
-CCI_plot <- plot_ly(
-  CCI_tidy,
-  width = 700,
-  height = 400
-) %>%
+CCI_plot <- plot_ly(CCI_tidy) %>%
   add_segments(
     x = "2012-01-01", 
-    xend = "2020-09-01",
+    xend = "2020-10-01",
     y = 100,
     yend = 100,
-    color = I("#ff5e4b"),
+    color = I("#ff856c"),
+    line = list(width = 1),
     hoverinfo = "none",
     showlegend = F
   ) %>% 
@@ -116,13 +114,16 @@ CCI_plot <- plot_ly(
     xaxis = list (
       title = NA,
       fixedrange = T,
+      autorange = F,
+      range = c("2012-01-01", "2020-10-01"),
       showgrid = F,
       showline = T,
+      tickmode = "auto",
       dtick = "M12",
       nticks = 6,
       ticks = "outside",
-      tickangle = 0,
-      hoverformat = "%b '%y"
+      hoverformat = "%b '%y",
+      automargin = T
     ),
     yaxis = list(
       side = "right",
@@ -136,28 +137,33 @@ CCI_plot <- plot_ly(
     ),
     annotations = list(
       list(
-        x = "2013-03-01",
+        x = "2013-09-01",
         y = 130,
         text = "More optimistic views &#9650;",
         xref = "x",
         yref = "y",
-        showarrow = F
+        showarrow = F,
+        font = list(size = 10, color = "darkgrey"),
+        align = "left"
       ),
       list(
-        x = "2013-03-01",
+        x = "2013-09-01",
         y = 90,
         text = "More pessimistic views &#9660;",
         xref = "x",
         yref = "y",
-        showarrow = F
+        showarrow = F,
+        font = list(size = 10, color = "darkgrey"),
+        align = "left"
       ),
       byline_source_BI
     ),
     margin = list(
       t = 75,
-      l = 0,
-      r = 0,
-      b = 75
-    )
+      b = 75,
+      l = 25,
+      r = 25
+    ),
+    autosize = T
   ) %>% 
   config(displayModeBar = F)

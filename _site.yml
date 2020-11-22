@@ -1,17 +1,25 @@
 name: "Indonesia's recovery tracker"
 output_dir: "docs"
 navbar:
-  title: "Indonesia | COVID-19 recovery tracker"
+  title: "Indonesia COVID-19 recovery tracker"
   right:  
     - text: "About"
-      href: about.html
+      menu:
+      - text: "About this tracker"  
+        href: about_tracker.html
+      - text: "About the author"  
+        href: about_author.html
     - text: "Resources"
       menu:
-      - text: "Dataset"
+      - text: "Data"
         href: dataset.html
       - text: "Code"
         href: code.html
 output:
   html_document: 
-    theme: cosmo
+    theme: paper
+    includes: 
+       in_header: GA-script.html
+       after_body: _footer.html
+    css: "style.css"   
 exclude: ["data", "img", "script"]  

@@ -15,15 +15,22 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FP7388WD59"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FP7388WD59');
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -79,6 +86,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -113,33 +121,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 64px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .dropdown-submenu {
   position: relative;
@@ -278,15 +286,27 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Indonesia | COVID-19 recovery tracker</a>
+      <a class="navbar-brand" href="index.html">Indonesia COVID-19 recovery tracker</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="about.html">About</a>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="about_tracker.html">About this tracker</a>
+    </li>
+    <li>
+      <a href="about_author.html">About the author</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -296,7 +316,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="dataset.html">Dataset</a>
+      <a href="dataset.html">Data</a>
     </li>
     <li>
       <a href="code.html">Code</a>
@@ -312,14 +332,30 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Code</h1>
 
 </div>
 
 
-<p>I make the plots in <code>R</code> using <a href="https://plotly.com/r">Plotly</a> via the <code>plotly</code> package. Plotly allows its users to modify many features of a plot through the <code>R</code> package. However, it is also possible to replicate all the plots on this site through the Chart Studio.</p>
-<p>The source code for all the plots are available <a href="https://github.com/dzulfiqarfr/indonesia-recovery-tracker/tree/main/script">here</a>.</p>
+<h2 style="text-align:center;">
+Code
+</h2>
+<hr style="width:50%;text-align:center;">
+<p><br></p>
+<p>This website is developed using <code>R</code>. For the graphs, it uses <a href="https://plotly.com/r">Plotly</a> through the <code>plotly</code> package. (It is also possible to replicate the plots using Plotly’s Chart Studio.) For the tables, it uses the <code>gt</code> package.</p>
+<p>You can browse the source code for this website and the plots <a href="https://github.com/dzulfiqarfr/indonesia-recovery-tracker/">here</a>.</p>
 
+<footer class="footer">
+  <p style="float:left;">2020&nbsp;&nbsp;•&nbsp;&nbsp;Dzulfiqar Fathur Rahman</p>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <p style="float:right;">
+    <a href="https://twitter.com/dzulfiqarfr" class="fa fa-twitter" style="color:white"></a>&nbsp;&nbsp;&nbsp;
+    <a href="https://www.linkedin.com/in/dzulfiqar-fathur-rahman-09aa6a177/" class="fa fa-linkedin" style="color:white"></a>&nbsp;&nbsp;&nbsp;
+    <a href="https://medium.com/@DzulfiqarFR" class="fa fa-medium" style="color:white"></a>&nbsp;&nbsp;&nbsp;
+    <a href="https://github.com/dzulfiqarfr/" class="fa fa-github" style="color:white"></a>
+  </p>
+  </footer>
 
 
 

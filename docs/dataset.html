@@ -15,15 +15,22 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FP7388WD59"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FP7388WD59');
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -79,6 +86,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -113,33 +121,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 64px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 69px;
+  margin-top: -69px;
 }
 .dropdown-submenu {
   position: relative;
@@ -278,15 +286,27 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Indonesia | COVID-19 recovery tracker</a>
+      <a class="navbar-brand" href="index.html">Indonesia COVID-19 recovery tracker</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="about.html">About</a>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="about_tracker.html">About this tracker</a>
+    </li>
+    <li>
+      <a href="about_author.html">About the author</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -296,7 +316,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="dataset.html">Dataset</a>
+      <a href="dataset.html">Data</a>
     </li>
     <li>
       <a href="code.html">Code</a>
@@ -312,61 +332,140 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Data</h1>
 
 </div>
 
 
-<p>All datasets are available for download <a href="https://github.com/dzulfiqarfr/indonesia-recovery-tracker/tree/main/data">here</a>, except for the mobility data.</p>
-<p>The data for the summary table are obtained from <a href="https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html">the Indonesian government</a>, <a href="https://bps.go.id">Statistics Indonesia</a>, <a href="https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators">the Economist</a> and <a href="https://smeru.or.id/id/content/dampak-pandemi-covid-19-terhadap-kemiskinan-estimasi-bagi-indonesia">SMERU Research Institute</a>.</p>
+<h2 style="text-align:center;">
+Data
+</h2>
+<hr style="width:50%;text-align:center;">
+<p><br></p>
+<p>This website uses publicly available data that can be found on the website of its respective sources. But you can also download some of datasets <a href="https://github.com/dzulfiqarfr/indonesia-recovery-tracker/tree/main/data">here</a>.</p>
 <p><br></p>
 <div class="panel panel-default">
 <div class="panel-heading">
-Economic growth
+<h5>
+GDP
+</h5>
 </div>
 <div class="panel-body">
-The data for economic growth is based on the quarterly gross domestic product in constant 2010 prices from <a href="https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html">Statistics Indonesia</a>.
+<p>This website uses data on the year-on-year (yoy) percent change of quarterly GDP in constant 2010 prices for the economic growth indicator. The data on growth by sectors is accessible through the Dynamic Table feature on Statistics Indonesia’s (BPS) website.</p>
+<p>The estimate for this year’s economic growth is obtained from the Economist Intelligence Unit (EIU).</p>
+<p><b>Source</b>: <a href="https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html">BPS</a>; <a href="https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators">EIU</a></p>
+<b>Last updated</b>: Nov 5, 2020
 </div>
 </div>
 <p><br></p>
 <div class="panel panel-default">
 <div class="panel-heading">
+<h5>
+Inflation
+</h5>
+</div>
+<div class="panel-body">
+<p>This website uses data on the year-on-year (yoy) percent change of the consumer price index (CPI) with 2018 as the base year from BPS for the inflation indicator.</p>
+<p>The estimate for this year’s inflation rate is obtained from the EIU.</p>
+<p><b>Source</b>: <a href="https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html">BPS</a>; <a href="https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators">EIU</a></p>
+<b>Last updated</b>: Nov 3, 2020 (BPS)
+</div>
+</div>
+<p><br></p>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h5>
+Unemployment
+</h5>
+</div>
+<div class="panel-body">
+<p>This website uses data on unemployment rate based on the National Labor Force Survey (Sakernas) from BPS. Surveys in the first, second and fourth quarter takes a sample of 50,000 households, while the one in the third quarter 200,000 households.</p>
+<p>The estimate for this year’s unemployment rate is obtained from the government.</p>
+<p><b>Source</b>: <a href="https://www.bps.go.id/indicator/6/543/1/tingkat-pengangguran-terbuka-menurut-provinsi.html">BPS</a>; <a href="https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html">National Development Planning Minister</a></p>
+<b>Last updated</b>: Nov 5, 2020 (BPS)
+</div>
+</div>
+<p><br></p>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h5>
+Poverty
+</h5>
+</div>
+<div class="panel-body">
+<p>This website uses data on poverty rate based on the National Social and Economic Survey (Susenas) from BPS. The survey conducted in March takes a sample of 300,000 households, while the one in September 75,000 households.</p>
+<p>The estimate for this year’s poverty rate is obtained from SMERU Research Institute.</p>
+<p><b>Source</b>: <a href="https://www.bps.go.id/indicator/23/192/1/persentase-penduduk-miskin-menurut-provinsi.html">BPS</a>; <a href="https://smeru.or.id/id/content/dampak-pandemi-covid-19-terhadap-kemiskinan-estimasi-bagi-indonesia">SMERU Rsearch Institute</a></p>
+<b>Last updated</b>: July 17, 2020
+</div>
+</div>
+<p><br></p>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h5>
 Consumer confidence
+</h5>
 </div>
 <div class="panel-body">
-<p>The data for consumer confidence index is based on a monthly survey by <a href="https://www.bi.go.id/id/publikasi/survei/konsumen/Default.aspx">Bank Indonesia</a> on around 4,600 households with an income above Rp 1 million in 18 cities.</p>
-<p>The consumer confidence index is the arithmetic mean of the current economic condition index and consumer expectation index.</p>
-<p>Index points above 100 mean optimistic responses outweigh the pessimistic ones while index points below 100 mean the opposite.</p>
-Read the data documentation further <a href="https://www.bi.go.id/id/statistik/metadata/survei/Documents/1-Metadata-SK-2016.pdf">here</a>.<br />
-
+<p>This website uses data on consumer confidence index for the consumer confidence indicator. The consumer confidence index is obtained from a monthly survey. It is the arithmentic mean of the current economic condition index and consumer expectation index.</p>
+<p>Index points above the 100 threshold suggest that optimistic responses outweigh the pessimistic ones and index points below the threshold suggest the opposite.</p>
+<p><b>Source</b>: <a href="https://www.bi.go.id/id/publikasi/survei/konsumen/Default.aspx">Bank Indonesia (BI)</a></p>
+<b>Last updated</b>: Nov 9, 2020
 </div>
 </div>
 <p><br></p>
 <div class="panel panel-default">
 <div class="panel-heading">
+<h5>
 Retail sales
+</h5>
 </div>
 <div class="panel-body">
-<p>The data for retail sales index is based on a monthly survey by <a href="https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx">Bank Indonesia</a> on 700 retailers in 10 big cities.</p>
-<p>The retail sales index is the comparison between total sales in a given month and the total sales in January 2010 as the base period.</p>
-Read the data documentation further <a href="https://www.bi.go.id/id/statistik/metadata/survei/Documents/4-Metadata-SPE-2016.pdf">here</a>.<br />
+<p>This website uses data on retail sales index for the retail sales indicator. The retail sales index is obtained from a monthly survey on 700 retailers in 10 big cities. It is the comparison between total sales in a given month and the total sales in January 2010 as the base period.</p>
+<p><b>Source</b>: <a href="https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx">BI</a></p>
+<b>Last updated</b>: Nov 11, 2020<br />
 
 </div>
 </div>
 <p><br></p>
 <div class="panel panel-default">
 <div class="panel-heading">
+<h5>
 Mobility
+</h5>
 </div>
 <div class="panel-body">
-<p>The data for movement trends is obtained from <a href="https://www.google.com/covid19/mobility/index.html?hl=en">Google COVID-19 mobility report</a>. While the data frequency is daily, Google takes between two and three days to update the data.</p>
-<p>The headline numbers represent the change in the number of visitors relative to the median level in the January 3-February 6 period.</p>
-<p>To smooth the curve, I add the seven-day moving average figures.</p>
-Download the data <a href="https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv">here</a>. Read the data documentation further <a href="https://www.google.com/covid19/mobility/data_documentation.html?hl=en">here</a>.<br />
-
+<p>This website uses data on the number of visitors by place categories for the mobility indicator. The headline numbers represent the change in the number of visitors relative to the median level in the January 3–February 6 period.</p>
+<p><b>Source</b>: <a href="https://www.google.com/covid19/mobility/index.html?hl=en">Google</a></p>
+<b>Last updated</b>: Nov 22, 2020
+</div>
+</div>
+<p><br></p>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h5>
+COVID-19
+</h5>
+</div>
+<div class="panel-body">
+<p>This website uses data on the number of confirmed cases, confirmed deaths and tests from the government.</p>
+<p>The positive rate is the number of confirmed cases divided by the number of tests. The test dataset merges the observation for May 21 and May 22 to account for the low tests performed on the former date and prevent an outlier in the positive rate data. The <a href="https://www.who.int/docs/default-source/coronaviruse/transcripts/who-audio-emergencies-coronavirus-press-conference-full-30mar2020.pdf?sfvrsn=6b68bc4a_2">World Health Organization (WHO)</a> considered the positive rate of 10 percent to be the general benchmark of enough testing to find all cases.</p>
+<p><b>Source</b>: <a href="https://bnpb-inacovid19.hub.arcgis.com/datasets/statistik-perkembangan-covid19-indonesia-new/data?orderBy=Jumlah_Kasus_Kumulatif&amp;orderByAsc=false">Indonesian COVID-19 Task Force</a></p>
+<b>Last updated</b>: Nov 22, 2020
 </div>
 </div>
 
+<footer class="footer">
+  <p style="float:left;">2020&nbsp;&nbsp;•&nbsp;&nbsp;Dzulfiqar Fathur Rahman</p>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <p style="float:right;">
+    <a href="https://twitter.com/dzulfiqarfr" class="fa fa-twitter" style="color:white"></a>&nbsp;&nbsp;&nbsp;
+    <a href="https://www.linkedin.com/in/dzulfiqar-fathur-rahman-09aa6a177/" class="fa fa-linkedin" style="color:white"></a>&nbsp;&nbsp;&nbsp;
+    <a href="https://medium.com/@DzulfiqarFR" class="fa fa-medium" style="color:white"></a>&nbsp;&nbsp;&nbsp;
+    <a href="https://github.com/dzulfiqarfr/" class="fa fa-github" style="color:white"></a>
+  </p>
+  </footer>
 
 
 

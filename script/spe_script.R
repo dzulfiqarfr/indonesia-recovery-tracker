@@ -68,11 +68,12 @@ byline_source_BI <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.3,
+  y = -0.2,
   yref = "paper",
+  yanchor = "top",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Bank Indonesia",
-  font = list(color = "darkgrey"),
+  font = list(size = 10, color = "darkgrey"),
   showarrow = F
 )
 
@@ -81,8 +82,9 @@ footnote <- list(
   x = 0,
   xref = "paper",
   xshift = 0,
-  y = -0.20,
+  y = -0.15,
   yref = "paper",
+  yanchor = "top",
   yshift = 0,
   text = "*October figure is a forecast",
   font = list(size = 10, color = "darkgrey"),
@@ -94,9 +96,7 @@ SPE_plot <- plot_ly(
   SPE_tidy, 
   x = ~Year, 
   y = ~Retail_sales_i,
-  hovertemplate = "%{y}<br>%{x}<extra></extra>",
-  width = 700,
-  height = 400
+  hovertemplate = "%{y}<br>%{x}<extra></extra>"
 ) %>% 
   add_lines(colors = "#1d81a2") %>% 
   plotly::layout(
@@ -119,11 +119,12 @@ SPE_plot <- plot_ly(
       fixedrange = T,
       showgrid = F,
       showline = T,
+      tickmode = "auto",
       dtick = "M12",
       nticks = 6,
-      tickangle = 0,
       ticks = "outside",
-      hoverformat = "%b '%y"
+      hoverformat = "%b '%y",
+      automargin = T
     ),
     yaxis = list(
       side = "right",
@@ -140,10 +141,10 @@ SPE_plot <- plot_ly(
       footnote),
     margin = list(
       t = 75,
-      l = 0,
-      r = 0,
-      b = 75
-    )
+      b = 75,
+      l = 25,
+      r = 25
+    ),
+    autosize = T
   ) %>% 
   config(displayModeBar = F)
-

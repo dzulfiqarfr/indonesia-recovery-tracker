@@ -1,6 +1,8 @@
 ---
-title: "Tracking Indonesia's recovery from COVID-19 pandemic"
-output: html_document
+pagetitle: "Indonesia COVID-19 Recovery Tracker"
+output: 
+  html_document: 
+    anchor_sections: false
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
@@ -8,74 +10,87 @@ knit: (function(input_file, encoding) {
  output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 ---
 
-<br>  
+<h2 style="text-align:center;">Tracking Indonesia’s recovery<br>from COVID-19</h2>
 
-Indicators                                   | Latest          | 2020  
--------------------------------------------- | --------------- | -----------------  
-GDP (percent change on a year earlier)       | -3.49 (Q3)      | -2.2*  
-Inflation (percent change on a year earlier) | 1.4 (Oct)       | 1.9*  
-Unemployment rate (percent)                  | 7.07 (Aug)      | 9.2<sup>†</sup>   
-Poverty rate (percent)                       | 9.78 (Mar) | 12.37<sup>‡</sup>  
+<hr style="width:50%;text-align:center;">
 
-<i style="color: #a9a9a9;font-size: 10px;">Note: *The Economist Intelligence Unit's forecast <sup>†</sup>Indonesian government's worst-case scenario projection <sup>‡</sup>SMERU Research Institute's worst-case scenario projection</i>
-
-<br>  
-
-```{r setup, echo = F}
+```{r setup, echo = F, message = F, warning = F}
 knitr::opts_chunk$set(
   echo = F,
   message = F,
   warning = F
 )
+
+library(crosstalk)
 ```
 
+```{r}
+source("script/summary_script.R", local = knitr::knit_global())
 
-# Explore {.tabset .tabset-pills}
+gt_summary
+```
 
-## GDP
+<hr>  
+
+## Explore {.tabset .tabset-pills}  
+
+<br>  
+
+### GDP {.tabset}
+
+#### Economic growth
 
 ```{r growth plot}
 source("script/growth_script.R", local = knitr::knit_global())
 
-growth_plot
+bscols(growth_plot, widths = 12)
+```
+
+#### Growth by sectors
+
+```{r growth by sectors table}
+source("script/growth-sectors_script.R", 
+       local = knitr::knit_global()
+       )
+
+sectors_gt
 ```
 
 
-## Consumer confidence
+
+### Consumer confidence
 
 ```{r CCI plot}
 source("script/cci_script.R", local = knitr::knit_global())
 
-CCI_plot
+bscols(CCI_plot, widths = 12)
 ```
 
 
-## Retail sales
+### Retail sales
 
 ```{r SPE plot}
 source("script/spe_script.R", local = knitr::knit_global())
 
-SPE_plot
+bscols(SPE_plot, widths = 12)
 ```
 
 
-## Mobility {.tabset}
+### Mobility {.tabset}
 
-### National
+#### National
 
 ```{r national mobility plot}
 source("script/mob-ntl_script.R", local = knitr::knit_global())
 
-mob_ntl_plot
+bscols(mob_ntl_plot, widths = 12)
 ```
 
-
-### Regional
+#### Regional
 
 ```{r regional mobility plot}
 source("script/mob-prov_script.R", local = knitr::knit_global())
 
-# Arrange views
 bscols(
   mob_prov_fil,
   mob_prov_plot,
@@ -89,3 +104,26 @@ function filter_default() {
 }
 window.onload = filter_default;
 ```
+
+### COVID-19 {.tabset}
+
+#### Cases
+
+```{r covid-19 cases plot}
+source("script/cov-ntl_script.R", local = knitr::knit_global())
+
+bscols(case_plot, widths = 12)
+```
+
+#### Deaths
+
+```{r covid-19 deaths plot}
+bscols(death_plot, widths = 12)
+```
+
+#### Tests
+
+```{r test plot}
+bscols(test_pos_plot, widths = 12)
+```
+

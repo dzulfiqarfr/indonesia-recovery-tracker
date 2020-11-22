@@ -1,4 +1,4 @@
-# Economic growth plot
+# Overall economic growth plot
 
 
 # Setup ----------------------------------------------------------------
@@ -41,21 +41,9 @@ GDP_col_names <- seq10_20 %>%
 names(growth_raw)[2:ncol(growth_raw)] <- as.character(GDP_col_names$date)
 
 # Rename components
-growth_comp_id <- c(
-  "1. Pengeluaran Konsumsi Rumahtangga",
-  "3. Pengeluaran Konsumsi Pemerintah",
-  "4. Pembentukan Modal Tetap Domestik Bruto",
-  "7. Dikurangi Impor Barang dan Jasa",
-  "8. PRODUK DOMESTIK BRUTO"
-)
+growth_comp_id <- c("8. PRODUK DOMESTIK BRUTO")
 
-growth_comp_en <- c(
-  "Household expenditure",
-  "Government expenditure",
-  "Gross fixed capital formation",
-  "Net export",
-  "Gross domestic product"
-)
+growth_comp_en <- c("Gross domestic product")
 
 growth_raw$Comp[growth_raw$Comp %in% growth_comp_id] <- growth_comp_en
 
@@ -77,17 +65,6 @@ growth_tidy <- growth_raw %>%
 # Correct data types
 growth_tidy$Year <- ymd(growth_tidy$Year)
 
-# Replace time values with quarters
-growth_tidy$Year <- growth_tidy$Year %>%
-  str_replace_all(
-    c(
-      "-01-01" = " Q1",
-      "-04-01" = " Q2",
-      "-07-01" = " Q3",
-      "-10-01" = " Q4"
-    )
-  )
-
 
 # Create the plot -----------------------------------------------------------
 
@@ -97,33 +74,48 @@ byline_source_BPS <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.25,
+  y = -0.1,
   yref = "paper",
+  yanchor = "top",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)",
   font = list(color = "darkgrey"),
   showarrow = F
 )
 
+# Quarter names
+q_names <- rep(
+  str_c("Q", 1:4),
+  times = length(unique(format(growth_tidy$Year, "%Y")))
+)
+
+q_names <- q_names[-length(q_names)] 
+
 # Plot
 growth_plot <- plot_ly(
   growth_tidy[growth_tidy$Comp == "Gross domestic product", ],
   x = ~Year,
-  y = ~Growth,
-  hovertemplate = "%{y} percent<br>%{x}<extra></extra>",
-  width = 700,
-  height = 400
+  y = ~Growth
 ) %>%
   add_lines(
+    text = q_names,
+    hovertemplate = str_c(
+      "%{y} percent<br>",
+      "%{text} ",
+      "%{x}",
+      "<extra></extra>"
+    ),
     colors = "#1d81a2"
   ) %>% 
   plotly::layout(
     title = list(
       text = str_c(
-        "<b>Sign of recovery</b>",
+        "<b>Uptick amid recession</b>",
         "<br>",
         "<sup>",
-        "GDP in constant 2010 prices (percent change from a year earlier)",
+        "GDP",
+        "<br>",
+        "<sup>(percent change from a year earlier)</sup>",
         "</sup>"
       ),
       xref = "paper",
@@ -137,18 +129,10 @@ growth_plot <- plot_ly(
       fixedrange = T,
       showgrid = F,
       showline = T,
-      tickmode = "array",
-      nticks = 8,
-      tickvals = c(
-        "2010 Q3",
-        "2012 Q3",
-        "2014 Q3",
-        "2016 Q3", 
-        "2018 Q3",
-        "2020 Q3"
-      ),
       ticks = "outside",
-      tickangle = 0
+      nticks = 6,
+      hoverformat = "%Y",
+      automargin = T
     ),
     yaxis = list(
       side = "right",
@@ -160,14 +144,15 @@ growth_plot <- plot_ly(
       autorange = F,
       range = c(-12, 9),
       dtick = 4,
-      zerolinecolor = "#ff5e4b"
+      zerolinecolor = "#ff856c"
     ),
     annotations = list(byline_source_BPS),
     margin = list(
       t = 75,
-      l = 0,
-      r = 0,
-      b = 75
-    )
+      b = 75,
+      l = 25,
+      r = 25
+    ),
+    autosize = T
   ) %>% 
   config(displayModeBar = F)

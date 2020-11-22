@@ -7,7 +7,6 @@ library(conflicted)
 library(tidyverse)
 library(lubridate)
 library(zoo)
-library(viridis)
 library(plotly)
 library(crosstalk)
 
@@ -88,7 +87,7 @@ mob_prov$Categories <- mob_prov$Categories %>%
 
 # Create the plot ---------------------------------------------------------
 
-# Create object for filtering data in the plot
+# Create object to filter data in the plot
 cat_line <- c(
   "Retail & recreation (7-day moving average)",
   "Grocery & pharmacy (7-day moving average)",
@@ -98,28 +97,22 @@ cat_line <- c(
   "Residential (7-day moving average)"
 )
 
-cat_point <- c(
-  "Retail & recreation",
-  "Grocery & pharmacy",
-  "Parks",
-  "Transit stations",
-  "Workplaces",
-  "Residential"
-)
+# Filter data
+mob_prov_7day <- mob_prov %>% 
+  dplyr::filter(Categories %in% cat_line)
 
-# Modebar buttons to remove
-remove <- c(
-  "zoom2d",
-  "pan2d", 
-  "select2d", 
-  "lasso2d",
-  "zoomIn2d", 
-  "zoomOut2d",
-  "toggleSpikelines",
-  "autoScale2d",
-  "toImage",
-  "resetScale2d"
-)
+# Rename categories
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Grocery & pharmacy (7-day moving average)"] <- "Grocery & pharmacy"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Parks (7-day moving average)"] <- "Parks"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Residential (7-day moving average)"] <- "Residential"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Retail & recreation (7-day moving average)"] <- "Retail & recreation"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Transit stations (7-day moving average)"] <- "Transit stations"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Workplaces (7-day moving average)"] <- "Workplaces"
 
 # Byline, source annotations
 byline_source_google <- list(
@@ -127,7 +120,8 @@ byline_source_google <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.20,
+  y = -0.15,
+  yanchor = "top",
   yref = "paper",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Google",
@@ -141,8 +135,9 @@ mob_timestamp <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.25,
+  y = -0.2,
   yref = "paper",
+  yanchor = "top",
   yshift = 0,
   text = str_c("Last updated on ",
                format(Sys.time(), "%b %d, %Y")
@@ -152,9 +147,7 @@ mob_timestamp <- list(
 )
 
 # Create a shared data
-mob_prov_key <- highlight_key(
-  mob_prov[mob_prov$Categories %in% cat_line, ]
-)
+mob_prov_key <- highlight_key(mob_prov_7day)
 
 # Plot
 mob_prov_plot <- plot_ly(
@@ -162,19 +155,36 @@ mob_prov_plot <- plot_ly(
   x = ~Date,
   y = ~Mobility,
   color = ~Categories,
-  colors = "viridis",
+  colors = c(
+    "#09bb9f", #Grocery
+    "#607d8b", #Parks
+    "#1d81a2", #Residential
+    "#ff5e4b", #Retail & recreation
+    "#ffca76", #Transit stations
+    "#5cccfa" #Workplaces
+  ),
+  type = "scatter",
   mode = "line",
-  hovertemplate = "%{y} percent<br>%{x}<extra></extra>",
-  width = 700,
-  height = 400
+  hovertemplate = str_c(
+    "7-day moving average",
+    "<br>",
+    "%{y} percent",
+    "<br>",
+    "%{x}",
+    "<extra></extra>"
+  )
 ) %>% 
   plotly::layout(
     title = list(
       text = str_c(
-        "<b>Mobility trends in Indonesias provinces</b>",
+        "<b>Mobility trends in provinces</b>",
+        "<br>",
+        '<sup>',
+        "Number of visitors, by place categories",
         "<br>",
         "<sup>",
-        "Number of visitors, by place categories (percent change from the median value for the Jan 3-Feb 6 period)",
+        "(percent change from Jan 3-Feb 6 period, 7-day moving average)",
+        "</sup>",
         "</sup>"
       ),
       xref = "paper",
@@ -189,40 +199,43 @@ mob_prov_plot <- plot_ly(
       showgrid = F,
       showline = T,
       ticks = "outside",
-      tickangle = 0,
-      hovertemplate = "%b %d, '%y"
+      hoverformat = "%b %d, %Y",
+      tickformat = "%b",
+      automargin = T
     ),
     yaxis = list(
-      side = "right",
+      side = "left",
       title = NA,
       type = "linear",
       fixedrange = T,
       gridcolor = "lightgrey",
       autorange = F,
-      range = c(-100, 65),
+      range = c(-100, max(mob_prov_7day$Mobility, na.rm = T) + 10),
       dtick = 20,
-      zerolinecolor = "red"
+      zerolinecolor = "#ff856c"
     ),
-    annotations = list(byline_source_google, mob_timestamp),
+    annotations = list(
+      byline_source_google, 
+      mob_timestamp
+    ),
     legend = list(
-      font = list(size = 10),
-      traceorder = "reversed",
-      itemclick = "toggleothers",
-      itemdoubleclick = "toggle",
-      xanchor = "right",
-      x = 2
+      xanchor = "left",
+      y = 1.01,
+      yanchor = "top",
+      font = list(
+        size = 7.5
+      )
     ),
+    clickmode = "none",
     margin = list(
-      t = 75,
-      l = 0,
-      r = 0,
-      b = 75
-    )
+      t = 100,
+      b = 75,
+      l = 25,
+      r = 25
+    ),
+    autosize = T
   ) %>% 
-  config(
-    displaylogo = F,
-    modeBarButtonsToRemove = remove
-  )
+  config(displayModeBar = F)
 
 # Create the filter button
 mob_prov_fil <- filter_select(

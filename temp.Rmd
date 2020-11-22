@@ -1,0 +1,13 @@
+---
+title: "temp"
+author: "Dzulfiqar Fathur Rahman"
+date: "11/22/2020"
+output: html_document
+---
+
+```{r}
+source("script/summary_script.R", local = knitr::knit_global())
+
+gt_summary
+```
+

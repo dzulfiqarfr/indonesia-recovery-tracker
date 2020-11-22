@@ -7,18 +7,10 @@ library(conflicted)
 library(tidyverse)
 library(lubridate)
 library(zoo)
-library(viridis)
 library(plotly)
 
 
 # Tidy the data -----------------------------------------------------------
-
-# Download data
-download.file(
-  "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv",
-  destfile = "data/Google_mobility_raw.csv",
-  quiet = T
-)
 
 # Import data 
 mob_raw <- read.csv("data/Google_mobility_raw.csv",
@@ -93,7 +85,7 @@ mob_ntl$Categories <- mob_ntl$Categories %>%
 
 # Create the plot ---------------------------------------------------------
 
-# Create object for filtering data in the plot
+# Create object to filter data in the plot
 cat_line <- c(
   "Retail & recreation (7-day moving average)",
   "Grocery & pharmacy (7-day moving average)",
@@ -103,28 +95,22 @@ cat_line <- c(
   "Residential (7-day moving average)"
 )
 
-cat_point <- c(
-  "Retail & recreation",
-  "Grocery & pharmacy",
-  "Parks",
-  "Transit stations",
-  "Workplaces",
-  "Residential"
-)
+# Filter data
+mob_ntl_7day <- mob_ntl %>% 
+  dplyr::filter(Categories %in% cat_line)
 
-# Modebar buttons to remove
-remove <- c(
-  "zoom2d",
-  "pan2d", 
-  "select2d", 
-  "lasso2d",
-  "zoomIn2d", 
-  "zoomOut2d",
-  "toggleSpikelines",
-  "autoScale2d",
-  "toImage",
-  "resetScale2d"
-)
+# Rename categories
+mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Grocery & pharmacy (7-day moving average)"] <- "Grocery & pharmacy"
+
+mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Parks (7-day moving average)"] <- "Parks"
+
+mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Residential (7-day moving average)"] <- "Residential"
+
+mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Retail & recreation (7-day moving average)"] <- "Retail & recreation"
+
+mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Transit stations (7-day moving average)"] <- "Transit stations"
+
+mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Workplaces (7-day moving average)"] <- "Workplaces"
 
 # Byline, source annotations
 byline_source_google <- list(
@@ -132,8 +118,9 @@ byline_source_google <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.20,
+  y = -0.15,
   yref = "paper",
+  yanchor = "top",
   yshift = 0,
   text = "Chart: @dzulfiqarfr | Source: Google",
   font = list(size = 10, color = "darkgrey"),
@@ -146,8 +133,9 @@ mob_timestamp <- list(
   xref = "paper",
   xanchor = "left",
   xshift = 0,
-  y = -0.25,
+  y = -0.2,
   yref = "paper",
+  yanchor = "top",
   yshift = 0,
   text = str_c("Last updated on ",
                format(Sys.time(), "%b %d, %Y")
@@ -157,32 +145,118 @@ mob_timestamp <- list(
 )
 
 # Plot
-mob_ntl_plot <- plot_ly(width = 700, height = 400) %>% 
-  add_markers(
-    data = mob_ntl[mob_ntl$Categories %in% cat_point, ],
+mob_ntl_plot <- plot_ly() %>% 
+  add_trace(
+    data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Retail & recreation", ],
     x = ~Date, 
     y = ~Mobility,
     color = ~Categories, 
-    colors = "viridis",
-    alpha = 0.1,
+    line = list(color = "#ff5e4b"),
     type = "scatter",
-    hovertemplate = "%{y} percent<br>%{x}"
-  ) %>%
-  add_lines(
-    data = mob_ntl[mob_ntl$Categories %in% cat_line, ],
+    mode = "lines",
+    hovertemplate = str_c(
+      "7-day moving averages",
+      "<br>",
+      "%{y} percent",
+      "<br>",
+      "%{x}",
+      "<extra></extra>"
+    )
+  ) %>% 
+  add_trace(
+    data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Grocery & pharmacy", ],
     x = ~Date, 
     y = ~Mobility,
-    color = ~Categories,
-    colors = "viridis",
-    hovertemplate = "Seven-day moving averages<br>%{y} percent<br>%{x}"
-  ) %>% 
+    color = ~Categories, 
+    line = list(color = "#09bb9f"),
+    type = "scatter",
+    mode = "lines",
+    hovertemplate = str_c(
+      "7-day moving averages",
+      "<br>",
+      "%{y} percent",
+      "<br>",
+      "%{x}",
+      "<extra></extra>"
+    )
+  ) %>%
+  add_trace(
+    data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Parks", ],
+    x = ~Date, 
+    y = ~Mobility,
+    color = ~Categories, 
+    line = list(color = "#607d8b"),
+    type = "scatter",
+    mode = "lines",
+    hovertemplate = str_c(
+      "7-day moving averages",
+      "<br>",
+      "%{y} percent",
+      "<br>",
+      "%{x}",
+      "<extra></extra>"
+    )
+  ) %>%
+  add_trace(
+    data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Transit stations", ],
+    x = ~Date, 
+    y = ~Mobility,
+    color = ~Categories, 
+    line = list(color = "#ffca76"),
+    type = "scatter",
+    mode = "lines",
+    hovertemplate = str_c(
+      "7-day moving averages",
+      "<br>",
+      "%{y} percent",
+      "<br>",
+      "%{x}",
+      "<extra></extra>"
+    )
+  ) %>%
+  add_trace(
+    data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Workplaces", ],
+    x = ~Date, 
+    y = ~Mobility,
+    color = ~Categories, 
+    line = list(color = "#5cccfa"),
+    type = "scatter",
+    mode = "lines",
+    hovertemplate = str_c(
+      "7-day moving averages",
+      "<br>",
+      "%{y} percent",
+      "<br>",
+      "%{x}",
+      "<extra></extra>"
+    )
+  ) %>%
+  add_trace(
+    data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Residential", ],
+    x = ~Date, 
+    y = ~Mobility,
+    color = ~Categories, 
+    line = list(color = "#1d81a2"),
+    type = "scatter",
+    mode = "lines",
+    hovertemplate = str_c(
+      "7-day moving averages",
+      "<br>",
+      "%{y} percent",
+      "<br>",
+      "%{x}",
+      "<extra></extra>"
+    )
+  ) %>%
   plotly::layout(
     title = list(
       text = str_c(
         "<b>Mobility trends in Indonesia</b>",
         "<br>",
-        "<sup>",
-        "Number of visitors, by place categories (percent change from the median value for the Jan 3-Feb 6 period)",
+        '<sup>',
+        "Number of visitors, by place categories",
+        "<br>",
+        "<sup>(percent change from Jan 3-Feb 6 period, 7-day moving average)</sup>",
         "</sup>"
       ),
       xref = "paper",
@@ -197,36 +271,39 @@ mob_ntl_plot <- plot_ly(width = 700, height = 400) %>%
       showgrid = F,
       showline = T,
       ticks = "outside",
-      tickangle = 0,
-      hovertemplate = "%b %d, '%y"
+      hoverformat = "%b %d, %Y",
+      tickformat = "%b",
+      automargin = T
     ),
     yaxis = list(
-      side = "right",
+      side = "left",
       title = NA,
       type = "linear",
       gridcolor = "lightgrey",
       fixedrange = T,
       autorange = F,
-      range = c(-100, 41),
-      zerolinecolor = "red"
+      range = c(-100, max(mob_ntl_7day$Mobility, na.rm = T) + 25),
+      dtick = 20,
+      zerolinecolor = "#ff856c"
     ),
-    annotations = list(byline_source_google, mob_timestamp),
+    annotations = list(
+      byline_source_google,
+      mob_timestamp
+    ),
     legend = list(
-      font = list(size = 10),
-      traceorder = "reversed",
-      itemclick = "toggleothers",
-      itemdoubleclick = "toggle",
-      xanchor = "right",
-      x = 2
+      xanchor = "left",
+      y = 1.01,
+      yanchor = "top",
+      font = list(
+        size = 7.5
+      )
     ),
     margin = list(
-      t = 75,
-      l = 0,
-      r = 0,
-      b = 75
-    )
+      t = 100,
+      b = 75,
+      l = 25,
+      r = 25
+    ),
+    autosize = T
   ) %>% 
-  config(
-    displaylogo = F,
-    modeBarButtonsToRemove = remove
-  )
+  config(displayModeBar = F)
