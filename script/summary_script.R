@@ -73,15 +73,28 @@ gt_summary <- summary %>%
   cols_align("right", 2) %>% 
   cols_align("right", 3) %>% 
   tab_style(
-    style = list(cell_text(weight = "bold")),
+    style = cell_text(weight = "bold"),
     locations = cells_column_labels(everything())
+  ) %>% 
+  tab_style(
+    style = cell_borders(
+      sides = "left",
+      color = "lightgrey",
+      weight = 1
+    ),
+    locations = list(
+      cells_body(columns = 2:3)
+    )
   ) %>% 
   tab_options(
     column_labels.border.top.color = "white",
     column_labels.border.bottom.color = "black",
     column_labels.border.bottom.width = px(2),
+    column_labels.font.size = 12,
+    table_body.vlines.width = 1, 
     table.border.bottom.color = "white",
+    table.font.size = 12,
     data_row.padding = px(7.5),
     table.width = pct(100)
   ) %>% 
-  cols_width(vars(Indicators) ~ pct(60))
+  cols_width(vars(Indicators) ~ pct(45))

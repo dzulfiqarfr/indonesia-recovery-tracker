@@ -8,6 +8,10 @@ body {
   margin-bottom: 60px;
 }
 
+.navbar-default {
+  position: absolute;
+}
+
 @media (min-width: 280px) and (max-width: 320px) {
   .navbar-brand {
     font-size: 10px;
@@ -108,6 +112,7 @@ body {
 a {
   color: #666666;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
