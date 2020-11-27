@@ -46,15 +46,7 @@ cases_deaths_raw$Jumlah_Kasus_Baru_per_Hari[262] <- 4265
 
 cases_deaths_raw$Jumlah_Kasus_Meninggal_per_Hari[262] <- 110
 
-case_death_date_corr <- seq(
-  ymd("2020-11-20"), 
-  ymd(format(Sys.time(), "%Y-%m-%d")),
-  by = "1 day"
-)
-
-cases_deaths_raw$date[
-  263:nrow(cases_deaths_raw)
-] <- case_death_date_corr
+cases_deaths_raw$date[262] <- "2020-11-18"
 
 cases_deaths_raw <- rbind(
   cases_deaths_raw, 
@@ -138,7 +130,7 @@ test_raw$Jumlah_Kasus_Kumulatif[261] <- 478720
 
 test_raw$Jumlah_Kasus_Diperiksa[261] <- 3415613
 
-test_raw$date[262:nrow(test_raw)] <- case_death_date_corr
+test_raw$date[261] <- "2020-11-18"
 
 test_raw <- rbind(test_raw, test_correction_Nov19) %>% 
   arrange(date)

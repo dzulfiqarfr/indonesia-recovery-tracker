@@ -53,7 +53,7 @@ The estimate for this year's inflation rate is obtained from the EIU.
 <div class="panel panel-default">
   <div class="panel-heading"><h5>Unemployment</h5></div>
   <div class="panel-body">  
-This website uses data on unemployment rate based on the National Labor Force Survey (Sakernas) from BPS. Surveys in the first, second and fourth quarter takes a sample of 50,000 households, while the one in the third quarter 200,000 households.
+This website uses data on unemployment rate based on the National Labor Force Survey (Sakernas) from BPS. The agency carries out the survey on February and August.
 
 The estimate for this year's unemployment rate is obtained from the government.
 

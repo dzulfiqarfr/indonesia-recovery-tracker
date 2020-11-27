@@ -166,6 +166,7 @@ sectors_gt <- sectors_tidy %>%
     table_body.hlines.color = "white",
     column_labels.border.top.color = "white",
     table.border.bottom.color = "white",
+    table.font.size = 12,
     data_row.padding = px(10),
     table.width = pct(100)
   ) %>% 
