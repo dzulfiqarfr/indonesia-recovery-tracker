@@ -44,7 +44,7 @@ The estimate for this year's inflation rate is obtained from the EIU.
 
 <b>Source</b>: [BPS](https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html); [EIU](https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators)  
 
-<b>Last updated</b>: Nov 3, 2020 (BPS)
+<b>Last updated</b>: Dec 1, 2020 (BPS)
   </div>
 </div>
 

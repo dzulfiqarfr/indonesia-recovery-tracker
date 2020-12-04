@@ -22,9 +22,9 @@ knit: (function(input_file, encoding) {
 
 Hi!
 
-I am Dzulfiqar Fathur Rahman. Currently, I am working as a journalist covering agriculture, investment, trade and whatnot for [The Jakarta Post](https://thejakartapost.com). (But this is a personal website.)
+I am Dzulfiqar Fathur Rahman. Currently, I am working as a journalist covering agriculture, investment, trade and whatnot. This is my personal website.
 
-My interest lies in the intersection of economics and politics. I love combining analysis, writing and data visualization.
+My interest lies in the intersection of economics and politics. I like combining analysis, writing and data visualization.
 
 ::: 
  
@@ -40,8 +40,8 @@ My interest lies in the intersection of economics and politics. I love combining
 
 ::::  
 
-While my work mostly involves writing (and interviewing), I also write code and make data visualization in statistical programming language `R`. In addition, I use online charting tool [Datawrapper](https://www.datawrapper.de/) to make web-based interactive graphs.
+While my work mostly involves writing (and interviewing), I also code and make data visualization in statistical programming language `R`. In addition, I use online charting tool [Datawrapper](https://www.datawrapper.de/) to make web-based interactive graphs.
 
 Outside work, I just read books, play Mario Kart, draw or binge watch a series.
 
-If you want to get in touch, feel free to reach me via frdzulfiqar@gmail.com or [Twitter](https://twitter.com/dzulfiqarfr). I would love to have a good chat over a cup of coffee but, given how the pandemic is still playing out, an e-mail conversation will do.
+If you want to get in touch, feel free to reach me via frdzulfiqar@gmail.com or [Twitter](https://twitter.com/dzulfiqarfr).

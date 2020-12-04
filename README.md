@@ -7,7 +7,7 @@ While the tracker uses interactive charts, it also uses a summary table of some 
 Indicators                                   | Latest          | 2020  
 -------------------------------------------- | --------------- | -----------------  
 GDP (percent change on a year earlier)       | -3.49 (Q3)      | -2.2*  
-Inflation (percent change on a year earlier) | 1.4 (Oct)       | 1.9*  
+Inflation (percent change on a year earlier) | 1.6 (Nov)       | 2*  
 Unemployment rate (percent)                  | 7.07 (Aug)      | 9.2<sup>†</sup>   
 Poverty rate (percent)                       | 9.78 (Mar)      | 12.37<sup>‡</sup>  
 

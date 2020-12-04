@@ -249,21 +249,21 @@ case_plot <- plot_ly(
       title = NA,
       gridcolor = "lightgrey",
       fixedrange = T,
-      range = c(0, max(cases_deaths_tidy$daily_new_cases) + 1000),
-      dtick = 1500,
+      range = c(0, max(cases_deaths_tidy$daily_new_cases) + 2000),
+      dtick = 2000,
       tickformat = ","
     ),
     annotations = list(
       byline_source_cov, 
       cov_timestamp,
       list(
-        x = "2020-09-23",
+        x = "2020-09-07",
         ax = -25,
         xref = "x",
         xanchor = "right",
         xshift = 0,
-        y = 4056.4,
-        ay = 4056.4,
+        y = 3170.4,
+        ay = 3170.4,
         ayref = "y",
         yref = "y",
         yshift = 0,
@@ -409,7 +409,7 @@ test_plot <- plot_ly(showlegend = F) %>%
       title = NA,
       gridcolor = "lightgrey",
       fixedrange = T,
-      range = c(0, max(test_tidy$tests) + 1),
+      range = c(0, max(test_tidy$tests) + 2),
       dtick = 1
     ),
     annotations = list(
