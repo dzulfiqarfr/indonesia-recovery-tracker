@@ -59,6 +59,26 @@ SPE_tidy$Retail_sales_i <- as.numeric(SPE_tidy$Retail_sales_i)
 # Round SPE to two decimal places
 SPE_tidy$Retail_sales_i <- round(SPE_tidy$Retail_sales_i, digits = 2)
 
+# Reshape data
+seq_2019 <- seq(ymd("2020-01-01"), ymd("2020-12-01"), by = "month")
+
+month <- format(seq_2019, "%b")
+
+SPE_res <- SPE_tidy %>% 
+  slice(49:106) %>% 
+  mutate(category = rep(2016:2020, each = 12, length.out = 58))
+
+SPE_res$Year <- rep(month, times = 5, length.out = 58)
+
+SPE_wide <- SPE_res %>% 
+  pivot_wider(names_from = category, values_from = Retail_sales_i) %>% 
+  rowwise() %>% 
+  mutate(
+    four_year_avg = mean(`2016`:`2019`)
+  )
+
+names(SPE_wide)[1] <- "month"
+
 
 # Create the plot ---------------------------------------------------------
 
@@ -91,14 +111,88 @@ footnote <- list(
   showarrow = F
 )
 
+#Annotations
+label_2020 <- list(
+  x = "Sep",
+  y = 185,
+  text = "<b>2020</b>",
+  font = list(size = 8, color = "#ff5e4b"),
+  showarrow = F
+)
+
+label_4y_avg <- list(
+  x = "Oct",
+  xref = "x",
+  xshift = 0,
+  y = 206.43,
+  ay = 230,
+  ayref = "y",
+  text = "Four-year average",
+  font = list(size = 8, color = "#607D8B"),
+  arrowhead = 0,
+  arrowwidth = 1,
+  arrowcolor = "#607D8B",
+  bgcolor = "white"
+)
+
+label_2016_2019 <- list(
+  x = "Jul",
+  xshift = 7.5,
+  y = 235,
+  text = "2016-2019",
+  font = list (size = 8, color = "darkgrey"),
+  showarrow = F,
+  bgcolor = "white"
+)
+
 # Plot
 SPE_plot <- plot_ly(
-  SPE_tidy, 
-  x = ~Year, 
-  y = ~Retail_sales_i,
-  hovertemplate = "%{y}<br>%{x}<extra></extra>"
+  SPE_wide,
+  type = "scatter", 
+  mode = "lines"
 ) %>% 
-  add_lines(colors = "#1d81a2") %>% 
+  add_trace(
+    x = ~month,
+    y = ~`2016`, 
+    name = "2016",
+    line = list(color = "#CFD8DC"),
+    hovertemplate = "%{y}<br>%{x}, 2016<extra></extra>"
+  ) %>% 
+  add_trace(
+    x = ~month,
+    y = ~`2017`, 
+    name = "2017",
+    line = list(color = "#CFD8DC"),
+    hovertemplate = "%{y}<br>%{x}, 2017<extra></extra>"
+  ) %>% 
+  add_trace(
+    x = ~month,
+    y = ~`2018`, 
+    name = "2018",
+    line = list(color = "#CFD8DC"),
+    hovertemplate = "%{y}<br>%{x}, 2018<extra></extra>"
+  ) %>% 
+  add_trace(
+    x = ~month,
+    y = ~`2019`,
+    name = "2019",
+    line = list(color = "#CFD8DC"),
+    hovertemplate = "%{y}<br>%{x}, 2019<extra></extra>"
+  ) %>% 
+  add_trace(
+    x = ~month,
+    y = ~four_year_avg, 
+    name = "Four year average",
+    line = list(color = "#607D8B"),
+    hovertemplate = "%{y}<br>%{x}<br>Four-year average<extra></extra>"
+  ) %>% 
+  add_trace(
+    x = ~month,
+    y = ~`2020`,
+    name = "2020",
+    line = list(color = "#ff5e4b", width = 2.5),
+    hovertemplate = "%{y}<br>%{x}, 2020<extra></extra>"
+  ) %>% 
   plotly::layout(
     title = list(
       text = str_c(
@@ -123,8 +217,10 @@ SPE_plot <- plot_ly(
       dtick = "M12",
       nticks = 6,
       ticks = "outside",
-      hoverformat = "%b '%y",
-      automargin = T
+      tickmode = "array",
+      automargin = T,
+      categoryorder = "array",
+      categoryarray = SPE_wide$month
     ),
     yaxis = list(
       side = "right",
@@ -134,17 +230,23 @@ SPE_plot <- plot_ly(
       gridcolor = "lightgrey",
       fixedrange = T,
       autorange = F,
-      range = c(50, 251)
+      range = c(160, 270),
+      dtick = 20
     ),
     annotations = list(
       byline_source_BI,
-      footnote),
+      footnote,
+      label_2020,
+      label_4y_avg,
+      label_2016_2019
+    ),
     margin = list(
       t = 75,
       b = 75,
       l = 25,
       r = 25
     ),
-    autosize = T
+    autosize = T,
+    showlegend = F
   ) %>% 
   config(displayModeBar = F)
