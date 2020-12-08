@@ -29,7 +29,7 @@ CCI_raw <- CCI_raw %>%
   dplyr::select(-last(names(CCI_raw)))
 
 # Rename date columns
-CCI_col_names <- seq(ymd("2012-01-01"), ymd("2020-10-01"), by = "month")
+CCI_col_names <- seq(ymd("2012-01-01"), ymd("2020-11-01"), by = "month")
 
 CCI_col_names <- CCI_col_names %>%
   tibble() %>% 
@@ -82,7 +82,7 @@ byline_source_BI <- list(
 CCI_plot <- plot_ly(CCI_tidy) %>%
   add_segments(
     x = "2012-01-01", 
-    xend = "2020-10-01",
+    xend = "2020-11-01",
     y = 100,
     yend = 100,
     color = I("#ff856c"),
@@ -99,7 +99,7 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
   plotly::layout(
     title = list(
       text = str_c(
-        "<b>Widespread pessimism returns</b>",
+        "<b>Rebound in consumer optimism</b>",
         "<br>",
         "<sup>",
         "Consumer confidence index",
@@ -115,7 +115,7 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
       title = NA,
       fixedrange = T,
       autorange = F,
-      range = c("2012-01-01", "2020-10-01"),
+      range = c("2012-01-01", "2020-11-01"),
       showgrid = F,
       showline = T,
       tickmode = "auto",
@@ -143,7 +143,7 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
         xref = "x",
         yref = "y",
         showarrow = F,
-        font = list(size = 10, color = "darkgrey"),
+        font = list(size = 10),
         align = "left"
       ),
       list(
@@ -153,7 +153,7 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
         xref = "x",
         yref = "y",
         showarrow = F,
-        font = list(size = 10, color = "darkgrey"),
+        font = list(size = 10),
         align = "left"
       ),
       byline_source_BI
