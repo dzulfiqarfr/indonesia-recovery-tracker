@@ -46,6 +46,7 @@ source("script/growth_script.R", local = knitr::knit_global())
 bscols(growth_plot, widths = 12)
 ```
 
+
 #### Growth by sectors
 
 ```{r growth by sectors table}
@@ -55,7 +56,6 @@ source("script/growth-sectors_script.R",
 
 sectors_gt
 ```
-
 
 
 ### Consumer confidence
@@ -81,7 +81,7 @@ bscols(SPE_plot, widths = 12)
 #### National
 
 ```{r national mobility plot}
-source("script/mob-ntl_script.R", local = knitr::knit_global())
+source("script/mobility_script.R", local = knitr::knit_global())
 
 bscols(mob_ntl_plot, widths = 12)
 ```
@@ -89,8 +89,6 @@ bscols(mob_ntl_plot, widths = 12)
 #### Regional
 
 ```{r regional mobility plot}
-source("script/mob-prov_script.R", local = knitr::knit_global())
-
 bscols(
   mob_prov_fil,
   mob_prov_plot,

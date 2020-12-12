@@ -28,7 +28,7 @@ SPE_raw <- SPE_raw %>%
   dplyr::select(-last(names(SPE_raw)))
 
 # Rename date columns
-SPE_col_names <- seq(ymd("2012-01-01"), ymd("2020-10-01"), by = "month")
+SPE_col_names <- seq(ymd("2012-01-01"), ymd("2020-11-01"), by = "month")
 SPE_col_names <- SPE_col_names %>%
   tibble() %>% 
   dplyr::mutate(
@@ -65,10 +65,10 @@ seq_2019 <- seq(ymd("2020-01-01"), ymd("2020-12-01"), by = "month")
 month <- format(seq_2019, "%b")
 
 SPE_res <- SPE_tidy %>% 
-  slice(49:106) %>% 
-  mutate(category = rep(2016:2020, each = 12, length.out = 58))
+  slice(49:nrow(SPE_tidy)) %>% 
+  mutate(category = rep(2016:2020, each = 12, length.out = 59))
 
-SPE_res$Year <- rep(month, times = 5, length.out = 58)
+SPE_res$Year <- rep(month, times = 5, length.out = 59)
 
 SPE_wide <- SPE_res %>% 
   pivot_wider(names_from = category, values_from = Retail_sales_i) %>% 
@@ -196,7 +196,7 @@ SPE_plot <- plot_ly(
   plotly::layout(
     title = list(
       text = str_c(
-        "<b>Stalled rebound looms in October</b>",
+        "<b>Further declines in November</b>",
         "<br>",
         "<sup>",
         "Retail sales index*, January 2010 = 100",

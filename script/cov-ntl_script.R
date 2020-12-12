@@ -218,7 +218,7 @@ case_plot <- plot_ly(
       "%{x}",
       "<extra></extra>"
     ),
-    line = list(color = "#1d81a2")
+    line = list(color = "#1d81a2", width = 2.5)
   ) %>% 
   plotly::layout(
     title = list(
@@ -313,7 +313,7 @@ death_plot <- plot_ly(
       "%{x}",
       "<extra></extra>"
     ),
-    line = list(color = "#ee493a")
+    line = list(color = "#ee493a", width = 2.5)
   ) %>% 
   plotly::layout(
     title = list(
@@ -392,7 +392,7 @@ test_plot <- plot_ly(showlegend = F) %>%
     ),
     type = "scatter",
     mode = "lines",
-    line = list(color = "#1d81a2")
+    line = list(color = "#1d81a2", width = 2.5)
   ) %>% 
   plotly::layout(
     xaxis = list (
@@ -444,7 +444,7 @@ pos_rate_plot <- plot_ly(showlegend = F) %>%
     ),
     type = "scatter",
     mode = "lines",
-    line = list(color = "#ff5e4b")
+    line = list(color = "#ff5e4b", width = 2.5)
   ) %>% 
   plotly::layout(
     xaxis = list (

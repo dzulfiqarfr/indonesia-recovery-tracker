@@ -8,6 +8,7 @@ library(tidyverse)
 library(lubridate)
 library(zoo)
 library(plotly)
+library(crosstalk)
 
 
 # Tidy the data -----------------------------------------------------------
@@ -35,6 +36,10 @@ names(mob_raw)[c(2, 3, 8:14)] <- c(
 mob_raw$Date <- ymd(mob_raw$Date)
 
 mob_raw[, 2:3] <- lapply(mob_raw[, 2:3], as.factor)
+
+
+# National ----------------------------------------------------------------
+
 
 # Subset observations for national level, reshape data
 mob_ntl <- mob_raw %>% 
@@ -83,7 +88,49 @@ mob_ntl$Categories <- mob_ntl$Categories %>%
   str_replace_all(mob_cat_rpl)
 
 
-# Create the plot ---------------------------------------------------------
+# Regional ----------------------------------------------------------------
+
+# Subset observations for regional level, reshape data
+mob_prov <- mob_raw %>% 
+  dplyr::filter(Country == "Indonesia", !is.na(Province)) %>% 
+  dplyr::select(Province, 8:14) %>% 
+  group_by(Province) %>% 
+  arrange(Date) %>% 
+  mutate(
+    Retail_Recreation_avg = rollmean(
+      Retail_Recreation, k = 7, fill = NA, align = "right"
+    ),
+    Grocery_Pharmacy_avg = rollmean(
+      Grocery_Pharmacy, k = 7, fill = NA, align = "right"
+    ),
+    Parks_avg = rollmean(
+      Parks, k = 7, fill = NA, align = "right"
+    ),
+    Transit_stations_avg = rollmean(
+      Transit_stations, k = 7, fill = NA, align = "right"
+    ),
+    Workplaces_avg = rollmean(
+      Workplaces, k = 7, fill = NA, align = "right"
+    ),
+    Residential_avg = rollmean(
+      Residential, k = 7, fill = NA, align = "right"
+    )
+  ) %>% 
+  pivot_longer(3:14, names_to = "Categories", values_to = "Mobility") %>%
+  arrange(Province, Categories, Date)
+
+# Round Mobility to two decimal places
+mob_prov$Mobility <- round(mob_prov$Mobility, digits = 2)
+
+# Correct data types
+mob_prov$Categories <- as.factor(mob_prov$Categories)
+
+# Replace category names with human-readable category names
+mob_prov$Categories <- mob_prov$Categories %>% 
+  str_replace_all(mob_cat_rpl)
+
+
+# Create the plot for national observations---------------------------------------------------------
 
 # Create object to filter data in the plot
 cat_line <- c(
@@ -145,7 +192,7 @@ mob_timestamp <- list(
 )
 
 # Plot
-mob_ntl_plot <- plot_ly() %>% 
+mob_ntl_plot <- plot_ly(line = list(width = 2.5)) %>% 
   add_trace(
     data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Retail & recreation", ],
     x = ~Date, 
@@ -307,3 +354,125 @@ mob_ntl_plot <- plot_ly() %>%
     autosize = T
   ) %>% 
   config(displayModeBar = F)
+
+
+# Create the plot for regional observations ---------------------------------------------------------
+
+
+# Filter data
+mob_prov_7day <- mob_prov %>% 
+  dplyr::filter(Categories %in% cat_line)
+
+# Rename categories
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Grocery & pharmacy (7-day moving average)"] <- "Grocery & pharmacy"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Parks (7-day moving average)"] <- "Parks"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Residential (7-day moving average)"] <- "Residential"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Retail & recreation (7-day moving average)"] <- "Retail & recreation"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Transit stations (7-day moving average)"] <- "Transit stations"
+
+mob_prov_7day$Categories[mob_prov_7day$Categories %in% "Workplaces (7-day moving average)"] <- "Workplaces"
+
+# Create a shared data
+mob_prov_key <- highlight_key(mob_prov_7day)
+
+# Plot
+mob_prov_plot <- plot_ly(
+  mob_prov_key,
+  x = ~Date,
+  y = ~Mobility,
+  color = ~Categories,
+  colors = c(
+    "#09bb9f", #Grocery
+    "#607d8b", #Parks
+    "#1d81a2", #Residential
+    "#ff5e4b", #Retail & recreation
+    "#ffca76", #Transit stations
+    "#5cccfa" #Workplaces
+  ),
+  type = "scatter",
+  mode = "line",
+  hovertemplate = str_c(
+    "7-day moving average",
+    "<br>",
+    "%{y} percent",
+    "<br>",
+    "%{x}",
+    "<extra></extra>"
+  ),
+  line = list(width = 2.5)
+) %>% 
+  plotly::layout(
+    title = list(
+      text = str_c(
+        "<b>Mobility trends in provinces</b>",
+        "<br>",
+        '<sup>',
+        "Number of visitors, by place categories",
+        "<br>",
+        "<sup>",
+        "(percent change from Jan 3-Feb 6 period, 7-day moving average)",
+        "</sup>",
+        "</sup>"
+      ),
+      xref = "paper",
+      x = 0,
+      xanchor = "left",
+      yref = "paper",
+      y = 2
+    ),
+    xaxis = list (
+      title = NA,
+      fixedrange = T,
+      showgrid = F,
+      showline = T,
+      ticks = "outside",
+      hoverformat = "%b %d, %Y",
+      tickformat = "%b",
+      automargin = T
+    ),
+    yaxis = list(
+      side = "left",
+      title = NA,
+      type = "linear",
+      fixedrange = T,
+      gridcolor = "lightgrey",
+      autorange = F,
+      range = c(-100, max(mob_prov_7day$Mobility, na.rm = T) + 10),
+      dtick = 20,
+      zerolinecolor = "#ff856c"
+    ),
+    annotations = list(
+      byline_source_google, 
+      mob_timestamp
+    ),
+    legend = list(
+      xanchor = "left",
+      y = 1.01,
+      yanchor = "top",
+      font = list(
+        size = 7.5
+      )
+    ),
+    clickmode = "none",
+    margin = list(
+      t = 100,
+      b = 75,
+      l = 25,
+      r = 25
+    ),
+    autosize = T
+  ) %>% 
+  config(displayModeBar = F)
+
+# Create the filter button
+mob_prov_fil <- filter_select(
+  "Province_filter",
+  "Select a province",
+  mob_prov_key,
+  ~Province,
+  multiple = F
+)

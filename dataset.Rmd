@@ -102,7 +102,7 @@ This website uses data on retail sales index for the retail sales indicator. The
 
 <b>Source</b>: [BI](https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx)  
 
-<b>Last updated</b>:  Nov 11, 2020  
+<b>Last updated</b>:  Dec 10, 2020  
   </div>
 </div>
 

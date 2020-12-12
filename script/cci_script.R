@@ -94,7 +94,8 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
     x = ~Year, 
     y = ~CCI,
     color = I("#1d81a2"),
-    hovertemplate = "%{y}<br>%{x}<extra></extra>"
+    hovertemplate = "%{y}<br>%{x}<extra></extra>",
+    line = list(width = 2.5)
   ) %>% 
   plotly::layout(
     title = list(

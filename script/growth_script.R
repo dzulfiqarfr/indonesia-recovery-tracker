@@ -105,7 +105,8 @@ growth_plot <- plot_ly(
       "%{x}",
       "<extra></extra>"
     ),
-    colors = "#1d81a2"
+    colors = "#1d81a2",
+    line = list(width = 2.5)
   ) %>% 
   plotly::layout(
     title = list(
