@@ -106,7 +106,7 @@ footnote <- list(
   yref = "paper",
   yanchor = "top",
   yshift = 0,
-  text = "*October figure is a forecast",
+  text = "*November figure is an estimate",
   font = list(size = 10, color = "darkgrey"),
   showarrow = F
 )
@@ -116,7 +116,7 @@ label_2020 <- list(
   x = "Sep",
   y = 185,
   text = "<b>2020</b>",
-  font = list(size = 8, color = "#ff5e4b"),
+  font = list(size = 10, color = "#ff5e4b"),
   showarrow = F
 )
 
@@ -128,7 +128,7 @@ label_4y_avg <- list(
   ay = 230,
   ayref = "y",
   text = "Four-year average",
-  font = list(size = 8, color = "#607D8B"),
+  font = list(size = 10, color = "#607D8B"),
   arrowhead = 0,
   arrowwidth = 1,
   arrowcolor = "#607D8B",
@@ -137,10 +137,10 @@ label_4y_avg <- list(
 
 label_2016_2019 <- list(
   x = "Jul",
-  xshift = 7.5,
+  xshift = 10,
   y = 235,
   text = "2016-2019",
-  font = list (size = 8, color = "darkgrey"),
+  font = list (size = 10, color = "darkgrey"),
   showarrow = F,
   bgcolor = "white"
 )

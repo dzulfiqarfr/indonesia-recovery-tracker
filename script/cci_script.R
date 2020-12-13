@@ -138,7 +138,7 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
     ),
     annotations = list(
       list(
-        x = "2013-09-01",
+        x = "2013-10-01",
         y = 130,
         text = "More optimistic views &#9650;",
         xref = "x",
@@ -148,7 +148,7 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
         align = "left"
       ),
       list(
-        x = "2013-09-01",
+        x = "2013-10-01",
         y = 90,
         text = "More pessimistic views &#9660;",
         xref = "x",

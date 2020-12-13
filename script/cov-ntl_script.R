@@ -268,7 +268,7 @@ case_plot <- plot_ly(
         yref = "y",
         yshift = 0,
         text = "7-day moving average",
-        font = list(size = 8),
+        font = list(size = 10),
         showarrow = T,
         arrowhead = 0,
         arrowwidth = 1
@@ -362,7 +362,7 @@ death_plot <- plot_ly(
         yref = "y",
         yshift = 0,
         text = "7-day moving average",
-        font = list(size = 8),
+        font = list(size = 10),
         showarrow = T,
         arrowhead = 0,
         arrowwidth = 1
@@ -423,7 +423,7 @@ test_plot <- plot_ly(showlegend = F) %>%
         yanchor = "top",
         yshift = 0,
         text = "Cumulative tests<br>(million)",
-        font = list(size = 10),
+        font = list(size = 12),
         showarrow = F,
         align = "left"
       )
@@ -474,8 +474,8 @@ pos_rate_plot <- plot_ly(showlegend = F) %>%
         yref = "paper",
         yanchor = "top",
         yshift = 0,
-        text = "Share of tests returning positive<br>(percent)",
-        font = list(size = 10),
+        text = "Share of positive tests<br>(percent)",
+        font = list(size = 12),
         showarrow = F,
         align = "left"
       )

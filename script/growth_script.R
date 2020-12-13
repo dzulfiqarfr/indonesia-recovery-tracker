@@ -114,10 +114,7 @@ growth_plot <- plot_ly(
         "<b>Uptick amid recession</b>",
         "<br>",
         "<sup>",
-        "GDP",
-        "<br>",
-        "<sup>(percent change from a year earlier)</sup>",
-        "</sup>"
+        "GDP (percent change from a year earlier)"
       ),
       xref = "paper",
       x = 0,

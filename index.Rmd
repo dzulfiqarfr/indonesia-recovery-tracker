@@ -33,6 +33,7 @@ gt_summary
 <hr>  
 
 ## Explore {.tabset .tabset-pills}  
+<hr style="width:7.5%;text-align:left;margin-left:0;background-color:#263238;height:4px">
 
 <br>  
 

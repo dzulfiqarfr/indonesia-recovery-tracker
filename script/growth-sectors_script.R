@@ -162,11 +162,14 @@ sectors_gt <- sectors_tidy %>%
   tab_options(
     heading.align = "left",
     heading.border.bottom.color = "white",
+    heading.title.font.size = 14,
+    heading.subtitle.font.size = 13,
     table.border.top.color = "white",
     table_body.hlines.color = "white",
     column_labels.border.top.color = "white",
+    column_labels.font.size = 14,
     table.border.bottom.color = "white",
-    table.font.size = 12,
+    table.font.size = 13,
     data_row.padding = px(10),
     table.width = pct(100)
   ) %>% 

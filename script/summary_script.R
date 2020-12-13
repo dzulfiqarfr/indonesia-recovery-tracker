@@ -90,11 +90,11 @@ gt_summary <- summary %>%
     column_labels.border.top.color = "white",
     column_labels.border.bottom.color = "black",
     column_labels.border.bottom.width = px(2),
-    column_labels.font.size = 12,
+    column_labels.font.size = 14,
     table_body.vlines.width = 1, 
     table.border.bottom.color = "white",
-    table.font.size = 12,
+    table.font.size = 13,
     data_row.padding = px(7.5),
     table.width = pct(100)
   ) %>% 
-  cols_width(vars(Indicators) ~ pct(45))
+  cols_width(vars(Indicators) ~ pct(60))
