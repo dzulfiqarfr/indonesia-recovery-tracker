@@ -54,6 +54,23 @@ cases_deaths_raw <- rbind(
 ) %>% 
   arrange(date)
 
+# Correct data for Dec 20-21
+case_death_corr_Dec21 <- cases_deaths_raw %>% 
+  slice(294) %>% 
+  summarize(
+    date = ymd("2020-12-21"),
+    Jumlah_Kasus_Baru_per_Hari = Jumlah_Kasus_Baru_per_Hari - 6982,
+    Jumlah_Kasus_Meninggal_per_Hari = Jumlah_Kasus_Meninggal_per_Hari - 221
+  )
+
+cases_deaths_raw[294, 2:3] <- c(6982, 221)
+
+cases_deaths_raw[295, 1] <- ymd("2020-12-22")
+
+cases_deaths_raw <- cases_deaths_raw %>% 
+  rbind(case_death_corr_Dec21) %>% 
+  arrange(date)
+
 # Calculate moving averages
 cases_deaths_tidy <- cases_deaths_raw %>% 
   mutate(
@@ -133,6 +150,21 @@ test_raw$Jumlah_Kasus_Diperiksa[261] <- 3415613
 test_raw$date[261] <- "2020-11-18"
 
 test_raw <- rbind(test_raw, test_correction_Nov19) %>% 
+  arrange(date)
+
+# Correct data for Dec 20-21
+test_corr_Dec20 <- test_raw %>% 
+  slice(293) %>% 
+  summarize(
+    date = ymd("2020-12-20"),
+    Jumlah_Kasus_Kumulatif = Jumlah_Kasus_Kumulatif - 6848,
+    Jumlah_Kasus_Diperiksa = Jumlah_Kasus_Diperiksa - 24753
+  )
+
+test_raw[293:294, 1] <- c(ymd("2020-12-21"), ymd("2020-12-22"))
+
+test_raw <- test_raw %>% 
+  rbind(test_corr_Dec20) %>% 
   arrange(date)
 
 # Calculate positive rate
@@ -344,8 +376,8 @@ death_plot <- plot_ly(
       title = NA,
       gridcolor = "lightgrey",
       fixedrange = T,
-      range = c(0, max(cases_deaths_tidy$daily_new_deaths) + 25),
-      dtick = 60
+      range = c(0, max(cases_deaths_tidy$daily_new_deaths) + 30),
+      dtick = 40
     ),
     annotations = list(
       byline_source_cov,
