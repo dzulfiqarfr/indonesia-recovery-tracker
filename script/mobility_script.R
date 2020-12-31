@@ -14,10 +14,7 @@ library(crosstalk)
 # Tidy the data -----------------------------------------------------------
 
 # Import data 
-mob_raw <- read.csv("data/Google_mobility_raw.csv",
-                    header = T,
-                    na.strings = ""
-)
+mob_raw <- read_csv("data/Google_mobility_raw.csv", na = "")
 
 # Rename columns
 names(mob_raw)[c(2, 3, 8:14)] <- c(

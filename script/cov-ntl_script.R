@@ -12,7 +12,10 @@ library(plotly)
 # Tidy the data -----------------------------------------------------------
 
 # Import
-cov_raw <- read.csv("https://opendata.arcgis.com/datasets/6f0a390ef3dc491c99c41526d90eff7a_0.csv")
+cov_raw <- read_csv(
+  "https://opendata.arcgis.com/datasets/5d4f1b90101b418997b82ce7d532a770_0.csv",
+  na = ""
+)
 
 # Cases, deaths data ------------------------------------------------------
 
@@ -63,7 +66,9 @@ case_death_corr_Dec21 <- cases_deaths_raw %>%
     Jumlah_Kasus_Meninggal_per_Hari = Jumlah_Kasus_Meninggal_per_Hari - 221
   )
 
-cases_deaths_raw[294, 2:3] <- c(6982, 221)
+cases_deaths_raw$Jumlah_Kasus_Baru_per_Hari[294] <- 6982
+
+cases_deaths_raw$Jumlah_Kasus_Meninggal_per_Hari[294] <- 221
 
 cases_deaths_raw[295, 1] <- ymd("2020-12-22")
 
@@ -441,7 +446,7 @@ test_plot <- plot_ly(showlegend = F) %>%
       title = NA,
       gridcolor = "lightgrey",
       fixedrange = T,
-      range = c(0, max(test_tidy$tests) + 1),
+      range = c(0, max(test_tidy$tests) + 1.5),
       dtick = 1
     ),
     annotations = list(
@@ -506,7 +511,7 @@ pos_rate_plot <- plot_ly(showlegend = F) %>%
         yref = "paper",
         yanchor = "top",
         yshift = 0,
-        text = "Share of positive tests<br>(percent)",
+        text = "Share of cumulative positive tests<br>(percent)",
         font = list(size = 12),
         showarrow = F,
         align = "left"

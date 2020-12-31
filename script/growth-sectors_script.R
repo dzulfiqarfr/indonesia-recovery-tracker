@@ -13,9 +13,9 @@ library(scales)
 # Tidy the data -----------------------------------------------------------
 
 # Import
-sectors_raw <- read.csv("Data/BPS_growth-sectors_raw.csv",
+sectors_raw <- read_csv("Data/BPS_growth-sectors_raw.csv",
                        skip = 2, 
-                       na.strings = c("-", "")
+                       na = c("-", "")
 )
 
 # Rename indicator variable

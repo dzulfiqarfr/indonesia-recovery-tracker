@@ -39,7 +39,7 @@ gt_summary
 
 ### GDP {.tabset}
 
-#### Economic growth
+#### Growth
 
 ```{r growth plot}
 source("script/growth_script.R", local = knitr::knit_global())
@@ -48,7 +48,7 @@ bscols(growth_plot, widths = 12)
 ```
 
 
-#### Growth by sectors
+#### By sector
 
 ```{r growth by sectors table}
 source("script/growth-sectors_script.R", 
@@ -56,6 +56,15 @@ source("script/growth-sectors_script.R",
        )
 
 sectors_gt
+```
+
+
+#### By expenditure
+
+```{r ctg plot}
+source("script/growth-exp_script.R", local = knitr::knit_global())
+
+bscols(ctg_plot, widths = 12)
 ```
 
 

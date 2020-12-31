@@ -12,9 +12,9 @@ library(plotly)
 # Tidy the data -----------------------------------------------------------
 
 # Import
-growth_raw <- read.csv("Data/BPS_growth-rate_raw.csv",
+growth_raw <- read_csv("Data/BPS_growth-rate_raw.csv",
                        skip = 2, 
-                       na.strings = c("-", "")
+                       na = c("-", "")
 )
 
 # Rename indicator variable
