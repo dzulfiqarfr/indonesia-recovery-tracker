@@ -11,7 +11,7 @@ Inflation (percent change on a year earlier) | 1.7 (Dec)       | 2.3 (2021)*
 Unemployment rate (percent)                  | 7.07 (Aug)      | 9.2 (2020)<sup>†</sup>   
 Poverty rate (percent)                       | 9.78 (Mar)      | 12.37 (2020)<sup>‡</sup>  
 
-<i style="color: #a9a9a9;font-size: 10px;">Note: 
+<i style="color: #a9a9a9;font-size: 10px;">Note:  
 *World Bank's December 2020 projection  
 <sup>†</sup>Government's worst-case scenario projection  
 <sup>‡</sup>SMERU Research Institute's worst-case scenario projection</i>
