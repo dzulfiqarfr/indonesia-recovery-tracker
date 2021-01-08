@@ -25,11 +25,11 @@ This website uses publicly available data that can be found on the website of it
   <div class="panel-body">  
 This website uses data on the year-on-year (yoy) percent change of quarterly GDP in constant 2010 prices for the economic growth indicator. The data on growth by sectors is accessible through the Dynamic Table feature on Statistics Indonesia's (BPS) website.
 
-The estimate for this year's economic growth is obtained from the Economist Intelligence Unit (EIU).
+The projection for this year's economic growth is obtained from the World Bank.
 
-<b>Source</b>: [BPS](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html); [EIU](https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators)    
+<b>Source</b>: [BPS](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010-menurut-pengeluaran.html); [World Bank](https://www.worldbank.org/en/news/press-release/2020/12/17/indonesia-support-for-public-health-and-affected-households-and-firms-critical-for-a-secure-and-fast-recovery)    
 
-<b>Last updated</b>: Nov 5, 2020
+<b>Last updated</b>: a) BPS: Nov 5, 2020; b) World Bank: Dec 17, 2020
   </div>
 </div>
 
@@ -40,11 +40,11 @@ The estimate for this year's economic growth is obtained from the Economist Inte
   <div class="panel-body">  
 This website uses data on the year-on-year (yoy) percent change of the consumer price index (CPI) with 2018 as the base year from BPS for the inflation indicator.
 
-The estimate for this year's inflation rate is obtained from the EIU.
+The projection for this year's inflation rate is obtained from the World Bank.
 
-<b>Source</b>: [BPS](https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html); [EIU](https://www.economist.com/economic-and-financial-indicators/2018/03/20/economic-and-financial-indicators)  
+<b>Source</b>: [BPS](https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html); [World Bank](https://www.worldbank.org/en/news/press-release/2020/12/17/indonesia-support-for-public-health-and-affected-households-and-firms-critical-for-a-secure-and-fast-recovery)  
 
-<b>Last updated</b>: Dec 1, 2020 (BPS)
+<b>Last updated</b>: a) BPS: Jan 4, 2021; b) World Bank: Dec 17, 2020
   </div>
 </div>
 
@@ -55,11 +55,11 @@ The estimate for this year's inflation rate is obtained from the EIU.
   <div class="panel-body">  
 This website uses data on unemployment rate based on the National Labor Force Survey (Sakernas) from BPS. The agency carries out the survey on February and August.
 
-The estimate for this year's unemployment rate is obtained from the government.
+The projection for unemployment rate in 2020 is obtained from the government.
 
-<b>Source</b>: [BPS](https://www.bps.go.id/indicator/6/543/1/tingkat-pengangguran-terbuka-menurut-provinsi.html); [National Development Planning Minister](https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html)
+<b>Source</b>: [BPS](https://www.bps.go.id/indicator/6/543/1/tingkat-pengangguran-terbuka-menurut-provinsi.html); [National Development Planning Minister (Bappenas)](https://www.thejakartapost.com/news/2020/06/22/govt-expects-unemployment-to-worsen-continue-into-next-year.html)
 
-<b>Last updated</b>: Nov 5, 2020 (BPS)
+<b>Last updated</b>: a) BPS: Nov 5, 2020; b) Bappenas: June 22, 2020
   </div>
 </div>
 
@@ -70,11 +70,11 @@ The estimate for this year's unemployment rate is obtained from the government.
   <div class="panel-body">  
 This website uses data on poverty rate based on the National Social and Economic Survey (Susenas) from BPS. The survey conducted in March takes a sample of 300,000 households, while the one in September 75,000 households.
 
-The estimate for this year's poverty rate is obtained from SMERU Research Institute.
+The projection for poverty rate in 2020 is obtained from SMERU Research Institute.
 
 <b>Source</b>: [BPS](https://www.bps.go.id/indicator/23/192/1/persentase-penduduk-miskin-menurut-provinsi.html); [SMERU Rsearch Institute](https://smeru.or.id/id/content/dampak-pandemi-covid-19-terhadap-kemiskinan-estimasi-bagi-indonesia)
 
-<b>Last updated</b>: July 17, 2020
+<b>Last updated</b>: a) BPS: July 17, 2020; b) SMERU: April 2020
   </div>
 </div>
 

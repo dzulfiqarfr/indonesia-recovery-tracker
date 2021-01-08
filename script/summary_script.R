@@ -20,15 +20,15 @@ summary <- tibble(
   ),
   Latest = c(
     "-3.49 (Q3)",
-    "1.6 (Nov)",
+    "1.7 (Dec)",
     "7.07 (Aug)",
     "9.78 (Mar)"
   ),
-  `2020` = c(
-    "-2.2*",
-    "2*",
-    "9.2",
-    "12.37"
+  Projection = c(
+    "4.4 (2021)*",
+    "2.3 (2021)*",
+    "9.2 (2020)",
+    "12.37 (2020)"
   )
 )
 
@@ -40,8 +40,8 @@ gt_summary <- summary %>%
   gt() %>% 
   text_transform(
     locations = cells_body(
-      columns = vars(`2020`),
-      rows = `2020` == "9.2"
+      columns = vars(Projection),
+      rows = Projection == "9.2 (2020)"
     ),
     fn = function(x) {
       str_c(x, "<sup>&#8224;</sup>")
@@ -49,8 +49,8 @@ gt_summary <- summary %>%
   ) %>% 
   text_transform(
     locations = cells_body(
-      columns = vars(`2020`),
-      rows = `2020` == "12.37"
+      columns = vars(Projection),
+      rows = Projection == "12.37 (2020)"
     ),
     fn = function(x) {
       str_c(x, "<sup>&#8225;</sup>")
@@ -61,11 +61,11 @@ gt_summary <- summary %>%
       '<p style="color: #a9a9a9;font-size: 10px;">',
       "<b>Note:</b>",
       "<br>",
-      "*The Economist Intelligence Unit's forecast",
+      "* World Bank's December 2020 projection",
       "<br>",
-      "<sup>&#8224;</sup>Indonesian government's worst-case scenario projection ",
+      "<sup>&#8224;</sup> Government's worst-case scenario projection",
       "<br>",
-      "<sup>&#8225;</sup>SMERU Research Institute's worst-case scenario projection",
+      "<sup>&#8225;</sup> SMERU Research Institute's worst-case scenario projection",
       "</p>"
     )
     )
