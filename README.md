@@ -4,8 +4,6 @@ This site puts together several indicators to see how the coronavirus pandemic a
 
 While the tracker uses interactive charts, it also uses a summary table of some indicators:
 
-<br>
-
 Indicators                                   | Latest          | Projection  
 -------------------------------------------- | --------------- | -----------------  
 GDP (percent change on a year earlier)       | -3.49 (Q3)      | 4.4 (2021)*  
@@ -14,11 +12,9 @@ Unemployment rate (percent)                  | 7.07 (Aug)      | 9.2 (2020)<sup>
 Poverty rate (percent)                       | 9.78 (Mar)      | 12.37 (2020)<sup>‡</sup>  
 
 <i style="color: #a9a9a9;font-size: 10px;">Note: 
-* World Bank's December 2020 projection
-<sup>†</sup> Government's worst-case scenario projection
+* World Bank's December 2020 projection  
+<sup>†</sup> Government's worst-case scenario projection  
 <sup>‡</sup>SMERU Research Institute's worst-case scenario projection</i>
-
-<br>
 
 The site is developed using R Markdown.
 
