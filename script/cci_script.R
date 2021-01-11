@@ -1,6 +1,11 @@
 # Consumer confidence index plot
 
 
+# Date --------------------------------------------------------------------
+
+cci_latest_update <- "2020-12-01"
+
+
 # Setup -------------------------------------------------------------------
 
 library(conflicted)
@@ -29,7 +34,7 @@ CCI_raw <- CCI_raw %>%
   dplyr::select(-last(names(CCI_raw)))
 
 # Rename date columns
-CCI_col_names <- seq(ymd("2012-01-01"), ymd("2020-12-01"), by = "month")
+CCI_col_names <- seq(ymd("2012-01-01"), ymd(cci_latest_update), by = "month")
 
 CCI_col_names <- CCI_col_names %>%
   tibble() %>% 
@@ -82,7 +87,7 @@ byline_source_BI <- list(
 CCI_plot <- plot_ly(CCI_tidy) %>%
   add_segments(
     x = "2012-01-01", 
-    xend = "2020-12-01",
+    xend = cci_latest_update,
     y = 100,
     yend = 100,
     color = I("#ff856c"),
@@ -116,7 +121,7 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
       title = NA,
       fixedrange = T,
       autorange = F,
-      range = c("2012-01-01", "2020-12-01"),
+      range = c("2012-01-01", cci_latest_update),
       showgrid = F,
       showline = T,
       tickmode = "auto",

@@ -1,6 +1,11 @@
 # Retail sales index plot
 
 
+# Date --------------------------------------------------------------------
+
+spe_latest_update <- "2020-11-01"
+
+
 # Setup -------------------------------------------------------------------
 
 library(conflicted)
@@ -28,7 +33,7 @@ SPE_raw <- SPE_raw %>%
   dplyr::select(-last(names(SPE_raw)))
 
 # Rename date columns
-SPE_col_names <- seq(ymd("2012-01-01"), ymd("2020-11-01"), by = "month")
+SPE_col_names <- seq(ymd("2012-01-01"), ymd(spe_latest_update), by = "month")
 SPE_col_names <- SPE_col_names %>%
   tibble() %>% 
   dplyr::mutate(
