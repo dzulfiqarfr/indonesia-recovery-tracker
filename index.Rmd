@@ -118,7 +118,7 @@ window.onload = filter_default;
 #### Cases
 
 ```{r covid-19 cases plot}
-source("script/cov-ntl_script.R", local = knitr::knit_global())
+source("script/cov-case-death_script.R", local = knitr::knit_global())
 
 bscols(case_plot, widths = 12)
 ```
@@ -132,6 +132,8 @@ bscols(death_plot, widths = 12)
 #### Tests
 
 ```{r test plot}
+source("script/cov-test_script.R", local = knitr::knit_global())
+
 bscols(test_pos_plot, widths = 12)
 ```
 

@@ -87,7 +87,7 @@ This website uses data on consumer confidence index for the consumer confidence 
 
 Index points above the 100 threshold suggest that optimistic responses outweigh the pessimistic ones and index points below the threshold suggest the opposite.
 
-<b>Source</b>: [Bank Indonesia (BI)](https://www.bi.go.id/id/publikasi/survei/konsumen/Default.aspx)
+<b>Source</b>: Bank Indonesia (BI)
 
 <b>Last updated</b>: Dec 8, 2020
   </div>
@@ -100,7 +100,7 @@ Index points above the 100 threshold suggest that optimistic responses outweigh 
   <div class="panel-body">  
 This website uses data on retail sales index for the retail sales indicator. The retail sales index is obtained from a monthly survey on 700 retailers in 10 big cities. It is the comparison between total sales in a given month and the total sales in January 2010 as the base period. 
 
-<b>Source</b>: [BI](https://www.bi.go.id/id/publikasi/survei/penjualan-eceran/Default.aspx)  
+<b>Source</b>: BI  
 
 <b>Last updated</b>:  Dec 10, 2020  
   </div>
@@ -128,7 +128,7 @@ This website uses data on the number of confirmed cases, confirmed deaths and te
 
 The positive rate is the number of confirmed cases divided by the number of tests. The test dataset merges the observation for May 21 and May 22 to account for the low tests performed on the former date and prevent an outlier in the positive rate data. The [World Health Organization (WHO)](https://www.who.int/docs/default-source/coronaviruse/transcripts/who-audio-emergencies-coronavirus-press-conference-full-30mar2020.pdf?sfvrsn=6b68bc4a_2) considered the positive rate of 10 percent to be the general benchmark of enough testing to find all cases.
 
-<b>Source</b>: [Indonesian COVID-19 Task Force](https://bnpb-inacovid19.hub.arcgis.com/datasets/statistik-perkembangan-covid19-indonesia-new/data?orderBy=Jumlah_Kasus_Kumulatif&orderByAsc=false) 
+<b>Source</b>: [cases and deaths](https://data.covid19.go.id/public/api/update.json); [test](https://bnpb-inacovid19.hub.arcgis.com/datasets/statistik-perkembangan-covid19-indonesia-new/data?orderBy=Jumlah_Kasus_Kumulatif&orderByAsc=false) 
 
 <b>Last updated</b>: `r format(Sys.time(), "%b %d, %Y")`
   </div>
