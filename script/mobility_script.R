@@ -181,8 +181,12 @@ mob_timestamp <- list(
   yref = "paper",
   yanchor = "top",
   yshift = 0,
-  text = str_c("Last updated on ",
-               format(Sys.time(), "%b %d, %Y")
+  text = str_c(
+    "Last updated on ",
+    format(
+      Sys.time(), 
+      "%b %d, %Y"
+    )
   ),
   font = list(size = 10, color = "darkgrey"),
   showarrow = F

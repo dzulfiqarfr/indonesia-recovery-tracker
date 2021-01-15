@@ -3,7 +3,7 @@
 
 # Date --------------------------------------------------------------------
 
-spe_latest_update <- "2020-11-01"
+spe_latest_update <- "2020-12-01"
 
 
 # Setup -------------------------------------------------------------------
@@ -18,9 +18,10 @@ library(plotly)
 # Tidy the data -----------------------------------------------------------
 
 # Import
-SPE_raw <- read_excel("Data/BI_SPE_raw.xlsx", 
-                      sheet = "Tabel 1",
-                      skip = 3,
+SPE_raw <- read_excel(
+  "Data/BI_SPE_raw.xlsx", 
+  sheet = "Tabel 1",
+  skip = 3
 ) 
 
 # Rename indicator variable
@@ -33,7 +34,12 @@ SPE_raw <- SPE_raw %>%
   dplyr::select(-last(names(SPE_raw)))
 
 # Rename date columns
-SPE_col_names <- seq(ymd("2012-01-01"), ymd(spe_latest_update), by = "month")
+SPE_col_names <- seq(
+  ymd("2012-01-01"), 
+  ymd(spe_latest_update), 
+  by = "month"
+)
+
 SPE_col_names <- SPE_col_names %>%
   tibble() %>% 
   dplyr::mutate(
@@ -65,22 +71,36 @@ SPE_tidy$Retail_sales_i <- as.numeric(SPE_tidy$Retail_sales_i)
 SPE_tidy$Retail_sales_i <- round(SPE_tidy$Retail_sales_i, digits = 2)
 
 # Reshape data
-seq_2019 <- seq(ymd("2020-01-01"), ymd("2020-12-01"), by = "month")
+seq_2019 <- seq(
+  ymd("2020-01-01"),
+  ymd("2020-12-01"),
+  by = "month"
+)
 
 month <- format(seq_2019, "%b")
 
 SPE_res <- SPE_tidy %>% 
   slice(49:nrow(SPE_tidy)) %>% 
-  mutate(category = rep(2016:2020, each = 12, length.out = 59))
+  mutate(category = rep(
+    2016:2020, 
+    each = 12, 
+    length.out = nrow(.)
+  )
+  )
 
-SPE_res$Year <- rep(month, times = 5, length.out = 59)
+SPE_res$Year <- rep(
+  month, 
+  times = 5, 
+  length.out = nrow(SPE_res)
+)
 
 SPE_wide <- SPE_res %>% 
-  pivot_wider(names_from = category, values_from = Retail_sales_i) %>% 
+  pivot_wider(
+    names_from = category, 
+    values_from = Retail_sales_i
+  ) %>% 
   rowwise() %>% 
-  mutate(
-    four_year_avg = mean(`2016`:`2019`)
-  )
+  mutate(four_year_avg = mean(`2016`:`2019`))
 
 names(SPE_wide)[1] <- "month"
 
@@ -111,7 +131,11 @@ footnote <- list(
   yref = "paper",
   yanchor = "top",
   yshift = 0,
-  text = "*November figure is an estimate",
+  text = str_c(
+    "*",
+    format(Sys.time() - months(1), "%B"),
+    " figure is an estimate"
+  ),
   font = list(size = 10, color = "darkgrey"),
   showarrow = F
 )
@@ -201,7 +225,7 @@ SPE_plot <- plot_ly(
   plotly::layout(
     title = list(
       text = str_c(
-        "<b>Further declines in November</b>",
+        "<b>Unusual year end</b>",
         "<br>",
         "<sup>",
         "Retail sales index*, January 2010 = 100",

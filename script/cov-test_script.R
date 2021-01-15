@@ -24,7 +24,11 @@ test_raw <- cov_raw %>%
     Jumlah_Kasus_Kumulatif,
     Jumlah_Kasus_Diperiksa
   ) %>% 
-  separate(Tanggal, into = c("date", "rm"), sep = " ") %>% 
+  separate(
+    Tanggal, 
+    into = c("date", "rm"), 
+    sep = " "
+  ) %>% 
   select(-rm) %>% 
   arrange(date) %>% 
   na.omit()
@@ -125,10 +129,17 @@ cov_timestamp <- list(
   yref = "paper",
   yanchor = "top",
   yshift = 0,
-  text = str_c("Last updated on ",
-               format(Sys.time(), "%b %d, %Y")
+  text = str_c(
+    "Last updated on ",
+    format(
+      Sys.time(),
+      "%b %d, %Y"
+    )
   ),
-  font = list(size = 10, color = "darkgrey"),
+  font = list(
+    size = 10, 
+    color = "darkgrey"
+  ),
   showarrow = F
 )
 
@@ -163,8 +174,8 @@ test_plot <- plot_ly(showlegend = F) %>%
       title = NA,
       gridcolor = "lightgrey",
       fixedrange = T,
-      range = c(0, max(test_tidy$tests) + 1.5),
-      dtick = 1
+      range = c(0, max(test_tidy$tests) + 1),
+      dtick = 2
     ),
     annotations = list(
       list(
@@ -215,8 +226,8 @@ pos_rate_plot <- plot_ly(showlegend = F) %>%
       title = NA,
       gridcolor = "lightgrey",
       fixedrange = T,
-      range = c(0, max(test_tidy$pos_rate) + 6),
-      dtick = 7
+      range = c(0, max(test_tidy$pos_rate) + 1),
+      dtick = 5
     ),
     annotations = list(
       list(
