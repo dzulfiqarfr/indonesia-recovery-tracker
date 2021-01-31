@@ -15,6 +15,8 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Cache renv packages
@@ -32,14 +34,13 @@ jobs:
         run: |
           rmarkdown::render_site()
         shell: Rscript {0}
-      - name: Publish website
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git checkout gh-pages
-          git checkout main docs/
-          git commit -am "Daily update"
-          git push origin gh-pages
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs
+          CLEAN: true
       - name: Commit results to main branch
         run: |
           git config --local user.email "actions@github.com"
