@@ -38,4 +38,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add --all
           git commit --message "Daily update"
-          git push origin
+          git push https://${{github.actor}}:${{secrets.GH_TOKEN}}@github.com/${{github.repository}}.git HEAD:${{ github.ref }}
