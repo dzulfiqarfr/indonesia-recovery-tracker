@@ -3,7 +3,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0,30 3-6 * * *'
+    - cron: '30 15-18 * * *'
     
 name: Daily update
 
@@ -37,5 +37,5 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add --all
-          git commit --message "Daily update"
+          git commit -am "Daily update"
           git push origin
