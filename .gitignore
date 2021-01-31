@@ -44,3 +44,6 @@ data/Google_mobility_raw.csv
 # Script
 GA-script.html
 docs/GA-script.html
+
+# renv folder
+renv/
