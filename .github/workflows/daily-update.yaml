@@ -1,11 +1,11 @@
+name: Daily update
+
 on:
+  schedule:
+    - cron:  '*/30 15-18 * * *'
   push:
     branches:
       - main
-  schedule:
-    - cron: '30 15-18 * * *'
-    
-name: Daily update
 
 jobs:
   render:
@@ -32,7 +32,15 @@ jobs:
         run: |
           rmarkdown::render_site()
         shell: Rscript {0}
-      - name: Commit results
+      - name: Publish website
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git checkout gh-pages
+          git checkout main docs/
+          git commit -am "Daily update"
+          git push --set-upstream origin gh-pages
+      - name: Commit results to main branch
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
