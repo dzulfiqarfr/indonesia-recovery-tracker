@@ -39,7 +39,7 @@ jobs:
           git checkout gh-pages
           git checkout main docs/
           git commit -am "Daily update"
-          git push --set-upstream origin gh-pages
+          git push origin gh-pages
       - name: Commit results to main branch
         run: |
           git config --local user.email "actions@github.com"
