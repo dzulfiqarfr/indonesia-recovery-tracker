@@ -226,8 +226,8 @@ pos_rate_plot <- plot_ly(showlegend = F) %>%
       title = NA,
       gridcolor = "lightgrey",
       fixedrange = T,
-      range = c(0, max(test_tidy$pos_rate) + 1),
-      dtick = 5
+      range = c(0, 30),
+      dtick = 7
     ),
     annotations = list(
       list(

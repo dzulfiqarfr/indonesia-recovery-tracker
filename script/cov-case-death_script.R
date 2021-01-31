@@ -168,7 +168,7 @@ case_plot <- plot_ly(
       gridcolor = "lightgrey",
       fixedrange = T,
       range = c(0, max(case_death$case_daily) + 2000),
-      dtick = 2000,
+      dtick = 4000,
       tickformat = ","
     ),
     annotations = list(
@@ -263,7 +263,7 @@ death_plot <- plot_ly(
       gridcolor = "lightgrey",
       fixedrange = T,
       range = c(0, max(case_death$death_daily) + 30),
-      dtick = 40
+      dtick = 100
     ),
     annotations = list(
       byline_source_cov,
