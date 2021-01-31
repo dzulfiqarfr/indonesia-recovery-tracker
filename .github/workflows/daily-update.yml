@@ -32,10 +32,9 @@ jobs:
         run: |
           rmarkdown::render_site()
         shell: Rscript {0}
-      - name: Commit & push results
+      - name: Commit results
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add --all
           git commit --message "Daily update"
-          git push https://${{github.actor}}:${{secrets.GH_TOKEN}}@github.com/${{github.repository}}.git HEAD:${{ github.ref }}
+          git push origin
