@@ -8,6 +8,8 @@ library(tidyverse)
 library(lubridate)
 library(gt)
 library(scales)
+library(ggthemes)
+library(paletteer)
 
 
 # Tidy the data -----------------------------------------------------------
