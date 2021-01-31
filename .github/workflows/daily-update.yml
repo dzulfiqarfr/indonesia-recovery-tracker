@@ -11,26 +11,26 @@ jobs:
   render:
     name: Daily update
     runs-on: macOS-latest
-  env:
-    GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-  steps:
-    - uses: actions/checkout@v1
-    - uses: r-lib/actions/setup-r@v1
-    - uses: r-lib/actions/setup-pandoc@v1
-    - name: Install rmarkdown, remotes, and the local package
-      run: |
-        install.packages("remotes")
-        remotes::install_local(".")
-        remotes::install_cran("rmarkdown")
-      shell: Rscript {0}
-    - name: Render website
-      run: |
-        rmarkdown::render_site()
-      shell: Rscript {0}
-    - name: Commit & push results
-      run: |
-        git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Actions"
-        git add .
-        git commit -am "Daily update"
-        git push
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-pandoc@v1
+      - name: Install rmarkdown, remotes, and the local package
+        run: |
+          install.packages("remotes")
+          remotes::install_local(".")
+          remotes::install_cran("rmarkdown")
+        shell: Rscript {0}
+      - name: Render website
+        run: |
+          rmarkdown::render_site()
+        shell: Rscript {0}
+      - name: Commit & push results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -am "Daily update"
+          git push
