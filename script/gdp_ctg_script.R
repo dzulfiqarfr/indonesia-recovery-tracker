@@ -2,7 +2,6 @@
 
 # Setup ----------------------------------------------------------------
 
-library(conflicted)
 library(tidyverse)
 library(lubridate)
 library(plotly)
@@ -133,35 +132,8 @@ exp_ctg[, 2:ncol(exp_ctg)] <- lapply(
 
 # Create the plot --------------------------------------------------------------------
 
-# Category order
-exp_ctg %>% 
-  pivot_longer(
-    2:ncol(.), 
-    names_to = "comp",
-    values_to = "exp"
-  ) %>% 
-  arrange(date, exp)
-
-# Byline, source annotations
-byline_source_BPS <- list(
-  x = 0,
-  xref = "paper",
-  xanchor = "left",
-  xshift = 0,
-  y = -0.15,
-  yref = "paper",
-  yanchor = "top",
-  yshift = 0,
-  text = "Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)",
-  font = list(color = "darkgrey"),
-  showarrow = F
-)
-
-# Quarter names
-q_names <- rep(
-  str_c("Q", 1:4),
-  length.out = length(unique(exp_ctg$date))
-)
+# create quarter labels
+q_names <- str_c("Q", quarter(exp_ctg$date))
 
 # Plot
 ctg_plot <- plot_ly(
@@ -177,7 +149,8 @@ ctg_plot <- plot_ly(
     "%{text} ",
     "%{x}",
     "<extra></extra>"
-  )
+  ),
+  height = 300
 ) %>% 
   add_trace(
     y = ~gfcf_exp, 
@@ -186,7 +159,7 @@ ctg_plot <- plot_ly(
   ) %>% 
   add_trace(
     y = ~govt_exp, 
-    name = "Government spending",
+    name = "Government consumption",
     marker = list(color = "#09bb9f")
   ) %>% 
   add_trace(
@@ -205,42 +178,36 @@ ctg_plot <- plot_ly(
     marker = list(color = "#607d8b")
   ) %>%
   plotly::layout(
-    title = list(
-      text = str_c(
-        "<b>Consumption, investment contraction</b>",
-        "<br>",
-        "<sup>",
-        "GDP, contribution to growth (percentage points)"
-      ),
-      xref = "paper",
-      x = 0,
-      xanchor = "left",
-      yref = "paper",
-      y = 2
-    ),
     barmode = "relative",
     xaxis = list (
       title = NA,
       fixedrange = T,
+      range = c("2015-07-01", as.character(last(exp_ctg$date) + 120)),
       showgrid = F,
       showline = T,
       ticks = "outside",
-      nticks = 6,
+      tickvals = c(
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020"
+      ),
       hoverformat = "%Y",
+      tickformat = "%Y",
       automargin = T
     ),
     yaxis = list(
       title = NA,
       type = "linear",
       showgrid = T,
-      gridcolor = "lightgrey",
+      gridcolor = "#CFD8DC",
       fixedrange = T,
       autorange = F,
       range = c(-12, 9),
       dtick = 4,
       zerolinecolor = "#ff856c"
     ),
-    annotations = list(byline_source_BPS),
     legend = list(
       xanchor = "left",
       y = 1.01,
@@ -251,11 +218,11 @@ ctg_plot <- plot_ly(
       itemsizing = "constant"
     ),
     margin = list(
-      t = 75,
-      b = 75,
-      l = 25,
-      r = 25
+      t = 5,
+      b = 0,
+      l = 0,
+      r = 0
     ),
     bargap = 0.35
   ) %>% 
-  config(displayModeBar = F)
+  plotly::config(displayModeBar = F)

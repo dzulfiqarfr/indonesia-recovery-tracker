@@ -15,13 +15,19 @@ knit: (function(input_file, encoding) {
 <hr style="width:50%;text-align:center;">
 
 ```{r setup, echo = F, message = F, warning = F}
+# r markdown global options
 knitr::opts_chunk$set(
   echo = F,
   message = F,
   warning = F
 )
 
+# packages
 library(crosstalk)
+library(htmltools)
+
+# api
+BPS_KEY <- Sys.getenv("BPS_KEY")
 ```
 
 ```{r}
@@ -39,32 +45,55 @@ gt_summary
 
 ### GDP {.tabset}
 
-#### Growth
+#### Headline
 
 ```{r growth plot}
-source("script/growth_script.R", local = knitr::knit_global())
+source(
+  "script/gdp_headline_script.R", 
+  local = knitr::knit_global()
+)
 
-bscols(growth_plot, widths = 12)
+div(
+  h4(strong("Uptick amid recession")),
+  h5("GDP (percent change from a year earlier)"),
+  bscols(growth_plot, widths = 12),
+  "Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)"
+)
+```
+
+#### Expenditure
+
+```{r growth by expenditure table}
+growth_table
 ```
 
 
-#### By sector
+#### Sectors
 
 ```{r growth by sectors table}
-source("script/growth-sectors_script.R", 
-       local = knitr::knit_global()
-       )
+source(
+  "script/growth-sectors_script.R", 
+  local = knitr::knit_global()
+)
 
 sectors_gt
 ```
 
 
-#### By expenditure
+#### Contribution to growth
 
 ```{r ctg plot}
-source("script/growth-exp_script.R", local = knitr::knit_global())
+source("script/gdp_ctg_script.R", local = knitr::knit_global())
 
-bscols(ctg_plot, widths = 12)
+div(
+  h4(strong("Contraction in main drivers")),
+  h5(
+    "GDP, contribution to growth by expenditure",  
+    br("(percent change from a year earlier)")
+  ),
+  bscols(ctg_plot, widths = 12),
+  "Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)"
+)
 ```
 
 
@@ -73,7 +102,12 @@ bscols(ctg_plot, widths = 12)
 ```{r CCI plot}
 source("script/cci_script.R", local = knitr::knit_global())
 
-bscols(CCI_plot, widths = 12)
+div(
+  h4(strong("Rebound in consumer optimism")),
+  h5("Consumer confidence index"),
+  bscols(CCI_plot, widths = 12),
+  "Chart: @dzulfiqarfr | Source: Bank Indonesia"
+)
 ```
 
 
@@ -82,7 +116,17 @@ bscols(CCI_plot, widths = 12)
 ```{r SPE plot}
 source("script/spe_script.R", local = knitr::knit_global())
 
-bscols(SPE_plot, widths = 12)
+div(
+  h4(strong("Unsual year end")),
+  h5("Retail sales index*, January 2010 = 100"),
+  bscols(SPE_plot, widths = 12),
+  str_c(
+    "*", 
+    format(last(SPE_tidy$Year), "%B"),
+    " figure is an estimate"
+  ),
+  br("Chart: @dzulfiqarfr | Source: Bank Indonesia")
+)
 ```
 
 
@@ -93,16 +137,34 @@ bscols(SPE_plot, widths = 12)
 ```{r national mobility plot}
 source("script/mobility_script.R", local = knitr::knit_global())
 
-bscols(mob_ntl_plot, widths = 12)
+div(
+  h4(strong("Mobility trends in Indonesia")),
+  h5(
+    "Number of visitors, by place categories",
+    br("(percent change from Jan-Feb period, 7-day moving average)")
+  ),
+  bscols(mob_ntl_plot, widths = 12),
+  str_c("Last updated on ", Sys.Date()),
+  br("Chart: @dzulfiqarfr | Source: Google")
+)
 ```
 
 #### Regional
 
 ```{r regional mobility plot}
-bscols(
-  mob_prov_fil,
-  mob_prov_plot,
-  widths = c(12, 12)
+div(
+  h4(strong("Mobility trends across provinces")),
+  h5(
+    "Number of visitors, by place categories",
+    br("(percent change from Jan-Feb period, 7-day moving average)")
+  ),
+  bscols(
+    mob_prov_fil,
+    mob_prov_plot,
+    widths = c(12, 12)
+  ),
+  str_c("Last updated on ", Sys.Date()),
+  br("Chart: @dzulfiqarfr | Source: Google")
 )
 ```
 
@@ -118,22 +180,52 @@ window.onload = filter_default;
 #### Cases
 
 ```{r covid-19 cases plot}
-source("script/cov-case-death_script.R", local = knitr::knit_global())
+source(
+  "script/cov-case-death_script.R", 
+  local = knitr::knit_global()
+)
 
-bscols(case_plot, widths = 12)
+div(
+  h4(strong("Daily new cases")),
+  h5("Number of confirmed cases per day"),
+  bscols(case_plot, widths = 12),
+  str_c("Last updated on ", Sys.Date()),
+  br("Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)")
+)
 ```
 
 #### Deaths
 
 ```{r covid-19 deaths plot}
-bscols(death_plot, widths = 12)
+div(
+  h4(strong("Daily new deaths")),
+  h5("Number of confirmed deaths per day"),
+  bscols(death_plot, widths = 12),
+  str_c("Last updated on ", Sys.Date()),
+  br("Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)")
+)
 ```
 
-#### Tests
+#### Testing
 
 ```{r test plot}
-source("script/cov-test_script.R", local = knitr::knit_global())
+source("script/cov_testing_script.R", local = knitr::knit_global())
 
-bscols(test_pos_plot, widths = 12)
+div(
+  h4(strong("COVID-19 tests")),
+  bscols(
+    widths = c(6, 6),
+    div(
+      h5("Number of cumulative tests", br("(in million)")),
+      test_plot
+    ),
+    div(
+      h5("Cumulative positive rate", br("(in percent)")),
+      pos_rate_plot
+    )
+  ),
+  str_c("Last updated on ", Sys.Date()),
+  br("Chart: @dzulfiqarfr | Source: Our World in Data; Indonesian government")
+)
 ```
 

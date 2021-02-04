@@ -3,6 +3,7 @@ name: Daily update
 on:
   schedule:
     - cron:  '30 8-10 * * *'
+    - cron:  '30 4-6 5 2,5,8,11 *'
   push:
     branches:
       - main
@@ -29,7 +30,10 @@ jobs:
           R -e 'install.packages("renv")'
           R -e 'renv::restore()'
       - name: Render website
+        env:
+          BPS_KEY: ${{ secrets.BPS_KEY }}
         run: |
+          BPS_KEY <- Sys.getenv("BPS_KEY")
           rmarkdown::render_site()
         shell: Rscript {0}
       - name: Deploy to Github Pages

@@ -3,7 +3,6 @@
 
 # Setup ----------------------------------------------------------------
 
-library(conflicted)
 library(tidyverse)
 library(lubridate)
 library(gt)
@@ -164,8 +163,8 @@ sectors_gt <- sectors_tidy %>%
   tab_options(
     heading.align = "left",
     heading.border.bottom.color = "white",
-    heading.title.font.size = 14,
-    heading.subtitle.font.size = 13,
+    heading.title.font.size = 18,
+    heading.subtitle.font.size = 16,
     table.border.top.color = "white",
     table_body.hlines.color = "white",
     column_labels.border.top.color = "white",

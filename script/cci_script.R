@@ -8,7 +8,6 @@ cci_latest_update <- "2020-12-01"
 
 # Setup -------------------------------------------------------------------
 
-library(conflicted)
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -68,60 +67,35 @@ CCI_tidy$CCI <- round(CCI_tidy$CCI, digits =2)
 
 # Create the plot ---------------------------------------------------------
 
-# Byline, source annotations
-byline_source_BI <- list(
-  x = 0,
-  xref = "paper",
-  xanchor = "left",
-  xshift = 0,
-  y = -0.1,
-  yref = "paper",
-  yanchor = "top",
-  yshift = 0,
-  text = "Chart: @dzulfiqarfr | Source: Bank Indonesia",
-  font = list(color = "darkgrey"),
-  showarrow = F
-)
+# covid text annotation
+covid_text <- list(
+  x = "2020-01-02",
+  xanchor = "right",
+  y = 70,
+  text = "COVID-19<br>pandemic",
+  font = list(size = 10, color = "#90A4AE"),
+  showarrow = F,
+  bgcolor = "white"
+) 
 
 # Plot
-CCI_plot <- plot_ly(CCI_tidy) %>%
-  add_segments(
-    x = "2012-01-01", 
-    xend = cci_latest_update,
-    y = 100,
-    yend = 100,
-    color = I("#ff856c"),
-    line = list(width = 1),
-    hoverinfo = "none",
-    showlegend = F
-  ) %>% 
+CCI_plot <- plot_ly(
+  CCI_tidy,
+  height = 300
+) %>%
   add_lines(
     x = ~Year, 
     y = ~CCI,
     color = I("#1d81a2"),
     hovertemplate = "%{y}<br>%{x}<extra></extra>",
-    line = list(width = 2.5)
+    line = list(width = 3)
   ) %>% 
   plotly::layout(
-    title = list(
-      text = str_c(
-        "<b>Rebound in consumer optimism</b>",
-        "<br>",
-        "<sup>",
-        "Consumer confidence index",
-        "</sup>"
-      ),
-      xref = "paper",
-      x = 0,
-      xanchor = "left",
-      yref = "paper",
-      y = 2
-    ),
     xaxis = list (
       title = NA,
       fixedrange = T,
       autorange = F,
-      range = c("2012-01-01", cci_latest_update),
+      range = c("2011-10-01", as.character(last(CCI_tidy$Year) + 90)),
       showgrid = F,
       showline = T,
       tickmode = "auto",
@@ -136,10 +110,34 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
       title = NA,
       type = "linear",
       showgrid = T,
-      gridcolor = "lightgrey",
+      gridcolor = "#CFD8DC",
       fixedrange = T,
       autorange = F,
       range = c(40, 141)
+    ),
+    shapes = list(
+      list(
+        type = "line",
+        line = list(color = "#ff856c", size = 1),
+        xref = "x",
+        yref = "y",
+        x0 = "2011-10-01",
+        x1 = as.character(last(CCI_tidy$Year) + 90),
+        y0 = 100,
+        y1 = 100,
+        layer = "below"
+      ),
+      list(
+        type = "line",
+        line = list(color = "#90A4AE", dash = "dash"),
+        xref = "x",
+        yref = "y",
+        x0 = "2020-03-02",
+        x1 = "2020-03-02",
+        y0 = 40,
+        y1 = 140,
+        layer = "below"
+      )
     ),
     annotations = list(
       list(
@@ -162,14 +160,14 @@ CCI_plot <- plot_ly(CCI_tidy) %>%
         font = list(size = 10),
         align = "left"
       ),
-      byline_source_BI
+      covid_text
     ),
     margin = list(
-      t = 75,
-      b = 75,
-      l = 25,
-      r = 25
+      t = 5,
+      b = 0,
+      l = 0,
+      r = 0
     ),
     autosize = T
   ) %>% 
-  config(displayModeBar = F)
+  plotly::config(displayModeBar = F)

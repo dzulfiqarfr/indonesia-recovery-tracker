@@ -3,7 +3,6 @@
 
 # Setup ----------------------------------------------------------------
 
-library(conflicted)
 library(tidyverse)
 library(lubridate)
 library(zoo)
@@ -159,44 +158,11 @@ mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Transit stations (7-day mo
 
 mob_ntl_7day$Categories[mob_ntl_7day$Categories %in% "Workplaces (7-day moving average)"] <- "Workplaces"
 
-# Byline, source annotations
-byline_source_google <- list(
-  x = 0,
-  xref = "paper",
-  xanchor = "left",
-  xshift = 0,
-  y = -0.15,
-  yref = "paper",
-  yanchor = "top",
-  yshift = 0,
-  text = "Chart: @dzulfiqarfr | Source: Google",
-  font = list(size = 10, color = "darkgrey"),
-  showarrow = F
-)
-
-# Timestamp
-mob_timestamp <- list(
-  x = 0,
-  xref = "paper",
-  xanchor = "left",
-  xshift = 0,
-  y = -0.2,
-  yref = "paper",
-  yanchor = "top",
-  yshift = 0,
-  text = str_c(
-    "Last updated on ",
-    format(
-      Sys.time(), 
-      "%b %d, %Y"
-    )
-  ),
-  font = list(size = 10, color = "darkgrey"),
-  showarrow = F
-)
-
 # Plot
-mob_ntl_plot <- plot_ly(line = list(width = 2.5)) %>% 
+mob_ntl_plot <- plot_ly(
+  line = list(width = 3),
+  height = 300
+) %>% 
   add_trace(
     data = mob_ntl_7day[mob_ntl_7day$Categories %in% "Retail & recreation", ],
     x = ~Date, 
@@ -300,25 +266,13 @@ mob_ntl_plot <- plot_ly(line = list(width = 2.5)) %>%
     )
   ) %>%
   plotly::layout(
-    title = list(
-      text = str_c(
-        "<b>Mobility trends in Indonesia</b>",
-        "<br>",
-        '<sup>',
-        "Number of visitors, by place categories",
-        "<br>",
-        "<sup>(percent change from Jan 3-Feb 6 period, 7-day moving average)</sup>",
-        "</sup>"
-      ),
-      xref = "paper",
-      x = 0,
-      xanchor = "left",
-      yref = "paper",
-      y = 2
-    ),
     xaxis = list (
       title = NA,
       fixedrange = T,
+      range = c(
+        as.character(first(mob_ntl_7day$Date) - 14),
+        as.character(last(mob_ntl_7day$Date) + 14)
+      ),
       showgrid = F,
       showline = T,
       ticks = "outside",
@@ -330,16 +284,12 @@ mob_ntl_plot <- plot_ly(line = list(width = 2.5)) %>%
       side = "left",
       title = NA,
       type = "linear",
-      gridcolor = "lightgrey",
+      gridcolor = "#CFD8DC",
       fixedrange = T,
       autorange = F,
-      range = c(-100, max(mob_ntl_7day$Mobility, na.rm = T) + 25),
-      dtick = 20,
+      range = c(-100, 55),
+      dtick = 25,
       zerolinecolor = "#ff856c"
-    ),
-    annotations = list(
-      byline_source_google,
-      mob_timestamp
     ),
     legend = list(
       xanchor = "left",
@@ -350,14 +300,14 @@ mob_ntl_plot <- plot_ly(line = list(width = 2.5)) %>%
       )
     ),
     margin = list(
-      t = 100,
-      b = 75,
-      l = 25,
-      r = 25
+      t = 5,
+      b = 0,
+      l = 0,
+      r = 0
     ),
     autosize = T
   ) %>% 
-  config(displayModeBar = F)
+  plotly::config(displayModeBar = F)
 
 
 # Create the plot for regional observations ---------------------------------------------------------
@@ -407,30 +357,17 @@ mob_prov_plot <- plot_ly(
     "%{x}",
     "<extra></extra>"
   ),
-  line = list(width = 2.5)
+  line = list(width = 3),
+  height = 300
 ) %>% 
   plotly::layout(
-    title = list(
-      text = str_c(
-        "<b>Mobility trends in provinces</b>",
-        "<br>",
-        '<sup>',
-        "Number of visitors, by place categories",
-        "<br>",
-        "<sup>",
-        "(percent change from Jan 3-Feb 6 period, 7-day moving average)",
-        "</sup>",
-        "</sup>"
-      ),
-      xref = "paper",
-      x = 0,
-      xanchor = "left",
-      yref = "paper",
-      y = 2
-    ),
     xaxis = list (
       title = NA,
       fixedrange = T,
+      range = c(
+        as.character(first(mob_prov_7day$Date) - 14),
+        as.character(last(mob_prov_7day$Date) + 14)
+      ),
       showgrid = F,
       showline = T,
       ticks = "outside",
@@ -443,15 +380,11 @@ mob_prov_plot <- plot_ly(
       title = NA,
       type = "linear",
       fixedrange = T,
-      gridcolor = "lightgrey",
+      gridcolor = "#CFD8DC",
       autorange = F,
-      range = c(-100, max(mob_prov_7day$Mobility, na.rm = T) + 10),
-      dtick = 20,
+      range = c(-100, 55),
+      dtick = 25,
       zerolinecolor = "#ff856c"
-    ),
-    annotations = list(
-      byline_source_google, 
-      mob_timestamp
     ),
     legend = list(
       xanchor = "left",
@@ -463,19 +396,19 @@ mob_prov_plot <- plot_ly(
     ),
     clickmode = "none",
     margin = list(
-      t = 100,
-      b = 75,
-      l = 25,
-      r = 25
+      t = 5,
+      b = 0,
+      l = 0,
+      r = 0
     ),
     autosize = T
   ) %>% 
-  config(displayModeBar = F)
+  plotly::config(displayModeBar = F)
 
 # Create the filter button
 mob_prov_fil <- filter_select(
   "Province_filter",
-  "Select a province",
+  "Select a province...",
   mob_prov_key,
   ~Province,
   multiple = F

@@ -8,7 +8,6 @@ spe_latest_update <- "2020-12-01"
 
 # Setup -------------------------------------------------------------------
 
-library(conflicted)
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -107,39 +106,6 @@ names(SPE_wide)[1] <- "month"
 
 # Create the plot ---------------------------------------------------------
 
-# Byline, source annotations
-byline_source_BI <- list(
-  x = 0,
-  xref = "paper",
-  xanchor = "left",
-  xshift = 0,
-  y = -0.2,
-  yref = "paper",
-  yanchor = "top",
-  yshift = 0,
-  text = "Chart: @dzulfiqarfr | Source: Bank Indonesia",
-  font = list(size = 10, color = "darkgrey"),
-  showarrow = F
-)
-
-# Footnote
-footnote <- list(
-  x = 0,
-  xref = "paper",
-  xshift = 0,
-  y = -0.15,
-  yref = "paper",
-  yanchor = "top",
-  yshift = 0,
-  text = str_c(
-    "*",
-    format(Sys.time() - months(1), "%B"),
-    " figure is an estimate"
-  ),
-  font = list(size = 10, color = "darkgrey"),
-  showarrow = F
-)
-
 #Annotations
 label_2020 <- list(
   x = "Sep",
@@ -178,7 +144,9 @@ label_2016_2019 <- list(
 SPE_plot <- plot_ly(
   SPE_wide,
   type = "scatter", 
-  mode = "lines"
+  mode = "lines",
+  line = list(width = 3),
+  height = 300
 ) %>% 
   add_trace(
     x = ~month,
@@ -219,32 +187,16 @@ SPE_plot <- plot_ly(
     x = ~month,
     y = ~`2020`,
     name = "2020",
-    line = list(color = "#ff5e4b", width = 2.5),
+    line = list(color = "#ff5e4b"),
     hovertemplate = "%{y}<br>%{x}, 2020<extra></extra>"
   ) %>% 
   plotly::layout(
-    title = list(
-      text = str_c(
-        "<b>Unusual year end</b>",
-        "<br>",
-        "<sup>",
-        "Retail sales index*, January 2010 = 100",
-        "</sup>"
-      ),
-      xref = "paper",
-      x = 0,
-      xanchor = "left",
-      yref = "paper",
-      y = 2
-    ),
     xaxis = list (
       title = NA,
       fixedrange = T,
       showgrid = F,
       showline = T,
       tickmode = "auto",
-      dtick = "M12",
-      nticks = 6,
       ticks = "outside",
       tickmode = "array",
       automargin = T,
@@ -256,26 +208,24 @@ SPE_plot <- plot_ly(
       title = NA,
       type = "linear",
       showgrid = T,
-      gridcolor = "lightgrey",
+      gridcolor = "#CFD8DC",
       fixedrange = T,
       autorange = F,
       range = c(160, 270),
       dtick = 20
     ),
     annotations = list(
-      byline_source_BI,
-      footnote,
       label_2020,
       label_4y_avg,
       label_2016_2019
     ),
     margin = list(
-      t = 75,
-      b = 75,
-      l = 25,
-      r = 25
+      t = 5,
+      b = 0,
+      l = 0,
+      r = 0
     ),
     autosize = T,
     showlegend = F
   ) %>% 
-  config(displayModeBar = F)
+  plotly::config(displayModeBar = F)

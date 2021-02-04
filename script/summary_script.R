@@ -20,7 +20,7 @@ summary <- tibble(
   ),
   Latest = c(
     "-3.49 (Q3)",
-    "1.7 (Dec)",
+    "1.55 (Jan)",
     "7.07 (Aug)",
     "9.78 (Mar)"
   ),
@@ -79,7 +79,7 @@ gt_summary <- summary %>%
   tab_style(
     style = cell_borders(
       sides = "left",
-      color = "lightgrey",
+      color = "#CFD8DC",
       weight = 1
     ),
     locations = list(

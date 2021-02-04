@@ -2,7 +2,6 @@
 
 # Setup -------------------------------------------------------------------
 
-library(conflicted)
 library(tidyverse)
 library(jsonlite)
 library(lubridate)
@@ -75,42 +74,11 @@ case_death[, 4:ncol(case_death)] <- lapply(
 
 # Create the plot ---------------------------------------------------------
 
-# Byline, source annotations
-byline_source_cov <- list(
-  x = 0,
-  xref = "paper",
-  xanchor = "left",
-  xshift = 0,
-  y = -0.15,
-  yanchor = "top",
-  yref = "paper",
-  yshift = 0,
-  text = "Chart: @dzulfiqarfr | Source: Indonesian COVID-19 task force",
-  font = list(size = 10, color = "darkgrey"),
-  showarrow = F
-)
-
-# Timestamp
-cov_timestamp <- list(
-  x = 0,
-  xref = "paper",
-  xanchor = "left",
-  xshift = 0,
-  y = -0.2,
-  yref = "paper",
-  yanchor = "top",
-  yshift = 0,
-  text = str_c("Last updated on ",
-               format(Sys.time(), "%b %d, %Y")
-  ),
-  font = list(size = 10, color = "darkgrey"),
-  showarrow = F
-)
-
 # Cases plot
 case_plot <- plot_ly(
   data = case_death,
-  showlegend = F
+  showlegend = F,
+  height = 300
 ) %>% 
   add_bars(
     x = ~date,
@@ -136,26 +104,16 @@ case_plot <- plot_ly(
       "%{x}",
       "<extra></extra>"
     ),
-    line = list(color = "#1d81a2", width = 2.5)
+    line = list(color = "#1d81a2", width = 3)
   ) %>% 
   plotly::layout(
-    title = list(
-      text = str_c(
-        "<b>Daily new cases</b>",
-        "<br>",
-        "<sup>",
-        "Number of confirmed cases per day",
-        "</sup>"
-      ),
-      xref = "paper",
-      x = 0,
-      xanchor = "left",
-      yref = "paper",
-      y = 2
-    ),
     xaxis = list (
       title = NA,
       fixedrange = T,
+      range = c(
+        as.character(first(case_death$date) - 14),
+        as.character(last(case_death$date) + 14)
+      ),
       showgrid = F,
       showline = T,
       ticks = "outside",
@@ -165,15 +123,13 @@ case_plot <- plot_ly(
     yaxis = list(
       side = "right",
       title = NA,
-      gridcolor = "lightgrey",
+      gridcolor = "#CFD8DC",
       fixedrange = T,
-      range = c(0, max(case_death$case_daily) + 2000),
-      dtick = 4000,
+      range = c(0, round(max(case_death$case_daily), -3) + 100),
+      dtick = 5000,
       tickformat = ","
     ),
     annotations = list(
-      byline_source_cov, 
-      cov_timestamp,
       list(
         x = "2020-09-07",
         ax = -25,
@@ -193,19 +149,20 @@ case_plot <- plot_ly(
       )
     ),
     margin = list(
-      t = 75,
-      b = 75,
-      l = 25,
-      r = 25
+      t = 5,
+      b = 0,
+      l = 0,
+      r = 0
     ),
     autosize = T
   ) %>% 
-  config(displayModeBar = F)
+  plotly::config(displayModeBar = F)
 
 # deaths plot
 death_plot <- plot_ly(
   data = case_death,
-  showlegend = F
+  showlegend = F,
+  height = 300
 ) %>% 
   add_bars(
     x = ~date,
@@ -231,26 +188,16 @@ death_plot <- plot_ly(
       "%{x}",
       "<extra></extra>"
     ),
-    line = list(color = "#ee493a", width = 2.5)
+    line = list(color = "#ee493a", width = 3)
   ) %>% 
   plotly::layout(
-    title = list(
-      text = str_c(
-        "<b>Daily new deaths</b>",
-        "<br>",
-        "<sup>",
-        "Number of confirmed deaths per day",
-        "</sup>"
-      ),
-      xref = "paper",
-      x = 0,
-      xanchor = "left",
-      yref = "paper",
-      y = 2
-    ),
     xaxis = list (
       title = NA,
       fixedrange = T,
+      range = c(
+        as.character(first(case_death$date) - 14),
+        as.character(last(case_death$date) + 14)
+      ),
       showgrid = F,
       showline = T,
       ticks = "outside",
@@ -260,14 +207,12 @@ death_plot <- plot_ly(
     yaxis = list(
       side = "right",
       title = NA,
-      gridcolor = "lightgrey",
+      gridcolor = "#CFD8DC",
       fixedrange = T,
-      range = c(0, max(case_death$death_daily) + 30),
+      range = c(0, round(max(case_death$death_daily), -2) + 5),
       dtick = 100
     ),
     annotations = list(
-      byline_source_cov,
-      cov_timestamp,
       list(
         x = "2020-07-22",
         ax = -25,
@@ -287,11 +232,11 @@ death_plot <- plot_ly(
       )
     ),
     margin = list(
-      t = 75,
-      b = 75,
-      l = 25,
-      r = 25
+      t = 5,
+      b = 0,
+      l = 0,
+      r = 0
     ),
     autosize = T
   ) %>% 
-  config(displayModeBar = F)
+  plotly::config(displayModeBar = F)
