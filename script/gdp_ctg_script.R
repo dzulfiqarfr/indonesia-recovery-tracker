@@ -182,7 +182,7 @@ ctg_plot <- plot_ly(
     xaxis = list (
       title = NA,
       fixedrange = T,
-      range = c("2015-07-01", as.character(last(exp_ctg$date) + 120)),
+      range = c("2015-07-01", as.character(last(exp_ctg$date) + 180)),
       showgrid = F,
       showline = T,
       ticks = "outside",

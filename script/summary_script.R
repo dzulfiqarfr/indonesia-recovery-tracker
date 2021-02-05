@@ -19,7 +19,7 @@ summary <- tibble(
     "Poverty rate (percent)"
   ),
   Latest = c(
-    "-3.49 (Q3)",
+    "-2.07 (2020)",
     "1.55 (Jan)",
     "7.07 (Aug)",
     "9.78 (Mar)"

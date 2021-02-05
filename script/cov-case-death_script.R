@@ -126,7 +126,7 @@ case_plot <- plot_ly(
       gridcolor = "#CFD8DC",
       fixedrange = T,
       range = c(0, round(max(case_death$case_daily), -3) + 100),
-      dtick = 5000,
+      dtick = 3000,
       tickformat = ","
     ),
     annotations = list(
@@ -145,7 +145,8 @@ case_plot <- plot_ly(
         font = list(size = 10),
         showarrow = T,
         arrowhead = 0,
-        arrowwidth = 1
+        arrowwidth = 1,
+        bgcolor = "white"
       )
     ),
     margin = list(
@@ -228,7 +229,8 @@ death_plot <- plot_ly(
         font = list(size = 10),
         showarrow = T,
         arrowhead = 0,
-        arrowwidth = 1
+        arrowwidth = 1,
+        bgcolor = "white"
       )
     ),
     margin = list(

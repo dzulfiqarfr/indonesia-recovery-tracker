@@ -95,7 +95,7 @@ CCI_plot <- plot_ly(
       title = NA,
       fixedrange = T,
       autorange = F,
-      range = c("2011-10-01", as.character(last(CCI_tidy$Year) + 90)),
+      range = c("2011-10-01", as.character(last(CCI_tidy$Year) + 180)),
       showgrid = F,
       showline = T,
       tickmode = "auto",

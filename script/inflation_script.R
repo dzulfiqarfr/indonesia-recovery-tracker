@@ -25,7 +25,7 @@ cpi_pre2020_req <- GET(
     model = "data",
     domain = "0000",
     var = "2",
-    key = api_key
+    key = BPS_KEY
   )
 )
 

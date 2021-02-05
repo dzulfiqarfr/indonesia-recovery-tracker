@@ -122,7 +122,7 @@ div(
   bscols(SPE_plot, widths = 12),
   str_c(
     "*", 
-    format(last(SPE_tidy$Year), "%B"),
+    format(last(SPE_tidy$Year), "%B %Y"),
     " figure is an estimate"
   ),
   br("Chart: @dzulfiqarfr | Source: Bank Indonesia")
@@ -216,7 +216,7 @@ div(
   bscols(
     widths = c(6, 6),
     div(
-      h5("Number of cumulative tests", br("(in million)")),
+      h5("Cumulative tests", br("(in million)")),
       test_plot
     ),
     div(

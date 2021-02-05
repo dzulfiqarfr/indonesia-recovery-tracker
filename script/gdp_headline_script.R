@@ -172,7 +172,7 @@ growth_plot <- growth_py %>%
     xaxis = list (
       title = NA,
       fixedrange = T,
-      range = c("2009-07-01", as.character(last(growth_py$date) + 120)),
+      range = c("2009-07-01", as.character(last(growth_py$date) + 180)),
       showgrid = F,
       showline = T,
       ticks = "outside",
