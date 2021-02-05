@@ -122,7 +122,7 @@ CCI_plot <- plot_ly(
         xref = "x",
         yref = "y",
         x0 = "2011-10-01",
-        x1 = as.character(last(CCI_tidy$Year) + 90),
+        x1 = as.character(last(CCI_tidy$Year) + 180),
         y0 = 100,
         y1 = 100,
         layer = "below"
