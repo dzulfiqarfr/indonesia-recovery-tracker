@@ -3,7 +3,6 @@ name: Daily update
 on:
   schedule:
     - cron:  '30 8-10 * * *'
-    - cron:  '30 4-6 5 2,5,8,11 *'
   push:
     branches:
       - main

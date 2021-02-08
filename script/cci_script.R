@@ -3,7 +3,7 @@
 
 # Date --------------------------------------------------------------------
 
-cci_latest_update <- "2020-12-01"
+cci_latest_update <- "2021-01-01"
 
 
 # Setup -------------------------------------------------------------------
@@ -17,10 +17,11 @@ library(plotly)
 # Tidy the data -----------------------------------------------------------
 
 # Import
-CCI_raw <- read_excel("Data/BI_IKK_raw.xlsx",
-                      sheet = "Tabel 1",
-                      skip = 5,
-                      na = c("-", "")
+CCI_raw <- read_excel(
+  "Data/BI_IKK_raw.xlsx",
+  sheet = "Tabel 1",
+  skip = 5,
+  na = c("-", "")
 )
 
 # Rename indicator variable
