@@ -39,7 +39,7 @@ gt_summary
 <hr>  
 
 ## Explore {.tabset .tabset-pills}  
-<hr style="width:7.5%;text-align:left;margin-left:0;background-color:#263238;height:4px">
+<hr style="width:6%;text-align:left;margin-left:0;background-color:#263238;height:4px">
 
 <br>  
 
@@ -54,7 +54,7 @@ source(
 )
 
 div(
-  h4(strong("Uptick amid recession")),
+  h4(strong("Sign of recovery after recession")),
   h5("GDP (percent change from a year earlier)"),
   bscols(growth_plot, widths = 12),
   "Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)"
@@ -103,7 +103,7 @@ div(
 source("script/cci_script.R", local = knitr::knit_global())
 
 div(
-  h4(strong("Rebound in consumer optimism")),
+  h4(strong("Consumer pessimism returns")),
   h5("Consumer confidence index"),
   bscols(CCI_plot, widths = 12),
   "Chart: @dzulfiqarfr | Source: Bank Indonesia"
@@ -117,8 +117,9 @@ div(
 source("script/spe_script.R", local = knitr::knit_global())
 
 div(
-  h4(strong("Unsual year end")),
+  h4(strong("Upward blip")),
   h5("Retail sales index*, January 2010 = 100"),
+  h6("(percent change on a year earlier)"),
   bscols(SPE_plot, widths = 12),
   str_c(
     "*", 

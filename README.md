@@ -6,8 +6,8 @@ While the tracker uses interactive charts, it also uses a summary table of some 
 
 Indicators                                   | Latest          | Projection  
 -------------------------------------------- | --------------- | -----------------  
-GDP (percent change on a year earlier)       | -3.49 (Q3)      | 4.4 (2021)*  
-Inflation (percent change on a year earlier) | 1.7 (Dec)       | 2.3 (2021)*  
+GDP (percent change on a year earlier)       | -2.07 (2020)      | 4.4 (2021)*  
+Inflation (percent change on a year earlier) | 1.55 (Jan)       | 2.3 (2021)*  
 Unemployment rate (percent)                  | 7.07 (Aug)      | 9.2 (2020)<sup>†</sup>   
 Poverty rate (percent)                       | 9.78 (Mar)      | 12.37 (2020)<sup>‡</sup>  
 

@@ -3,7 +3,7 @@
 
 # Date --------------------------------------------------------------------
 
-spe_latest_update <- "2020-12-01"
+spe_latest_update <- "2021-01-01"
 
 
 # Setup -------------------------------------------------------------------
@@ -69,139 +69,66 @@ SPE_tidy$Retail_sales_i <- as.numeric(SPE_tidy$Retail_sales_i)
 # Round SPE to two decimal places
 SPE_tidy$Retail_sales_i <- round(SPE_tidy$Retail_sales_i, digits = 2)
 
-# Reshape data
-seq_2019 <- seq(
-  ymd("2020-01-01"),
-  ymd("2020-12-01"),
-  by = "month"
-)
+# Calculate growth
+SPE_growth <- SPE_tidy %>% 
+  mutate(mo = month(Year)) %>% 
+  group_by(mo) %>% 
+  mutate(
+    diff = Retail_sales_i - dplyr::lag(Retail_sales_i, 1),
+    pct_change_yoy = round(diff / dplyr::lag(Retail_sales_i, 1) * 100, 2)
+  ) %>%
+  ungroup() %>% 
+  select(-mo) %>% 
+  dplyr::filter(!is.na(pct_change_yoy))
 
-month <- format(seq_2019, "%b")
-
-SPE_res <- SPE_tidy %>% 
-  slice(49:nrow(SPE_tidy)) %>% 
-  mutate(category = rep(
-    2016:2020, 
-    each = 12, 
-    length.out = nrow(.)
-  )
-  )
-
-SPE_res$Year <- rep(
-  month, 
-  times = 5, 
-  length.out = nrow(SPE_res)
-)
-
-SPE_wide <- SPE_res %>% 
-  pivot_wider(
-    names_from = category, 
-    values_from = Retail_sales_i
-  ) %>% 
-  rowwise() %>% 
-  mutate(four_year_avg = mean(`2016`:`2019`))
-
-names(SPE_wide)[1] <- "month"
 
 
 # Create the plot ---------------------------------------------------------
 
-#Annotations
-label_2020 <- list(
-  x = "Sep",
-  y = 185,
-  text = "<b>2020</b>",
-  font = list(size = 10, color = "#ff5e4b"),
-  showarrow = F
-)
-
-label_4y_avg <- list(
-  x = "Oct",
-  xref = "x",
-  xshift = 0,
-  y = 206.43,
-  ay = 230,
-  ayref = "y",
-  text = "Four-year average",
-  font = list(size = 10, color = "#607D8B"),
-  arrowhead = 0,
-  arrowwidth = 1,
-  arrowcolor = "#607D8B",
-  bgcolor = "white"
-)
-
-label_2016_2019 <- list(
-  x = "Jul",
-  xshift = 10,
-  y = 235,
-  text = "2016-2019",
-  font = list (size = 10, color = "darkgrey"),
+# covid text annotation
+covid_text <- list(
+  x = "2020-01-02",
+  xanchor = "right",
+  y = 25,
+  text = "COVID-19<br>pandemic",
+  font = list(size = 10, color = "#90A4AE"),
   showarrow = F,
   bgcolor = "white"
-)
+) 
+
 
 # Plot
 SPE_plot <- plot_ly(
-  SPE_wide,
+  SPE_growth,
   type = "scatter", 
   mode = "lines",
   line = list(width = 3),
   height = 300
-) %>% 
-  add_trace(
-    x = ~month,
-    y = ~`2016`, 
-    name = "2016",
-    line = list(color = "#CFD8DC"),
-    hovertemplate = "%{y}<br>%{x}, 2016<extra></extra>"
-  ) %>% 
-  add_trace(
-    x = ~month,
-    y = ~`2017`, 
-    name = "2017",
-    line = list(color = "#CFD8DC"),
-    hovertemplate = "%{y}<br>%{x}, 2017<extra></extra>"
-  ) %>% 
-  add_trace(
-    x = ~month,
-    y = ~`2018`, 
-    name = "2018",
-    line = list(color = "#CFD8DC"),
-    hovertemplate = "%{y}<br>%{x}, 2018<extra></extra>"
-  ) %>% 
-  add_trace(
-    x = ~month,
-    y = ~`2019`,
-    name = "2019",
-    line = list(color = "#CFD8DC"),
-    hovertemplate = "%{y}<br>%{x}, 2019<extra></extra>"
-  ) %>% 
-  add_trace(
-    x = ~month,
-    y = ~four_year_avg, 
-    name = "Four year average",
-    line = list(color = "#607D8B"),
-    hovertemplate = "%{y}<br>%{x}<br>Four-year average<extra></extra>"
-  ) %>% 
-  add_trace(
-    x = ~month,
-    y = ~`2020`,
-    name = "2020",
-    line = list(color = "#ff5e4b"),
-    hovertemplate = "%{y}<br>%{x}, 2020<extra></extra>"
+) %>%
+  add_lines(
+    x = ~Year, 
+    y = ~pct_change_yoy,
+    color = I("#1d81a2"),
+    hovertemplate = "%{y}<br>%{x}<extra></extra>",
+    line = list(width = 3)
   ) %>% 
   plotly::layout(
     xaxis = list (
       title = NA,
       fixedrange = T,
+      autorange = F,
+      range = c(
+        as.character(first(SPE_growth$Year) - 180), 
+        as.character(last(SPE_growth$Year) + 180)
+      ),
       showgrid = F,
       showline = T,
       tickmode = "auto",
+      dtick = "M12",
+      nticks = 6,
       ticks = "outside",
-      tickmode = "array",
-      automargin = T,
-      categoryorder = "array",
-      categoryarray = SPE_wide$month
+      hoverformat = "%b '%y",
+      automargin = T
     ),
     yaxis = list(
       side = "right",
@@ -211,14 +138,24 @@ SPE_plot <- plot_ly(
       gridcolor = "#CFD8DC",
       fixedrange = T,
       autorange = F,
-      range = c(160, 270),
-      dtick = 20
+      range = c(-45, 31),
+      dtick = 15,
+      zerolinecolor = "#ff856c"
     ),
-    annotations = list(
-      label_2020,
-      label_4y_avg,
-      label_2016_2019
+    shapes = list(
+      list(
+        type = "line",
+        line = list(color = "#90A4AE", dash = "dash"),
+        xref = "x",
+        yref = "y",
+        x0 = "2020-03-02",
+        x1 = "2020-03-02",
+        y0 = -45,
+        y1 = 30,
+        layer = "below"
+      )
     ),
+    annotations = list(covid_text),
     margin = list(
       t = 5,
       b = 0,
