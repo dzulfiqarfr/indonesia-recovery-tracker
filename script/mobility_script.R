@@ -13,28 +13,39 @@ library(crosstalk)
 # Tidy the data -----------------------------------------------------------
 
 # Import data 
-mob_raw <- read_csv(
+mob_base <- read_csv(
   "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv", 
   na = ""
 )
 
-# Rename columns
-names(mob_raw)[c(2, 3, 8:14)] <- c(
-  "Country",
-  "Province",
-  "Date",
-  "Retail_Recreation",
-  "Grocery_Pharmacy",
-  "Parks",
-  "Transit_stations",
-  "Workplaces",
-  "Residential"
-)
+# Subset Indonesia observations, rename variables
+mob_raw <- mob_base %>% 
+  dplyr::filter(country_region == "Indonesia") %>% 
+  select(
+    country_region,
+    sub_region_1,
+    date,
+    retail_and_recreation_percent_change_from_baseline,
+    grocery_and_pharmacy_percent_change_from_baseline,
+    parks_percent_change_from_baseline,
+    transit_stations_percent_change_from_baseline,
+    workplaces_percent_change_from_baseline,
+    residential_percent_change_from_baseline
+  ) %>% 
+  rename(
+    "Country" = 1,
+    "Province" = 2,
+    "Date" = 3,
+    "Retail_Recreation" = 4,
+    "Grocery_Pharmacy" = 5,
+    "Parks" = 6,
+    "Transit_stations" = 7,
+    "Workplaces" = 8,
+    "Residential" = 9
+  )
 
-# Correct data types
-mob_raw$Date <- ymd(mob_raw$Date)
-
-mob_raw[, 2:3] <- lapply(mob_raw[, 2:3], as.factor)
+# Correct data types for `Country`, `Province`
+mob_raw[, 1:2] <- lapply(mob_raw[, 1:2], as.factor)
 
 
 # National ----------------------------------------------------------------
@@ -42,30 +53,18 @@ mob_raw[, 2:3] <- lapply(mob_raw[, 2:3], as.factor)
 
 # Subset observations for national level, reshape data
 mob_ntl <- mob_raw %>% 
-  dplyr::filter(Country == "Indonesia", is.na(Province)) %>% 
-  dplyr::select(8:14) %>% 
+  dplyr::filter(is.na(Province)) %>% 
+  dplyr::select(-(1:2)) %>% 
   arrange(Date) %>% 
   mutate(
-    Retail_Recreation_avg = rollmean(
-      Retail_Recreation, k = 7, fill = NA, align = "right"
-    ),
-    Grocery_Pharmacy_avg = rollmean(
-      Grocery_Pharmacy, k = 7, fill = NA, align = "right"
-    ),
-    Parks_avg = rollmean(
-      Parks, k = 7, fill = NA, align = "right"
-    ),
-    Transit_stations_avg = rollmean(
-      Transit_stations, k = 7, fill = NA, align = "right"
-    ),
-    Workplaces_avg = rollmean(
-      Workplaces, k = 7, fill = NA, align = "right"
-    ),
-    Residential_avg = rollmean(
-      Residential, k = 7, fill = NA, align = "right"
-    )
+    Retail_Recreation_avg = rollmean(Retail_Recreation, k = 7, fill = NA, align = "right"),
+    Grocery_Pharmacy_avg = rollmean(Grocery_Pharmacy, k = 7, fill = NA, align = "right"),
+    Parks_avg = rollmean(Parks, k = 7, fill = NA, align = "right"),
+    Transit_stations_avg = rollmean(Transit_stations, k = 7, fill = NA, align = "right"),
+    Workplaces_avg = rollmean(Workplaces, k = 7, fill = NA, align = "right"),
+    Residential_avg = rollmean(Residential, k = 7, fill = NA, align = "right")
   ) %>% 
-  pivot_longer(2:13, names_to = "Categories", values_to = "Mobility") %>%
+  pivot_longer(2:ncol(.), names_to = "Categories", values_to = "Mobility") %>%
   arrange(Categories, Date)
 
 # Round Mobility to two decimal places
@@ -91,31 +90,19 @@ mob_ntl$Categories <- mob_ntl$Categories %>%
 
 # Subset observations for regional level, reshape data
 mob_prov <- mob_raw %>% 
-  dplyr::filter(Country == "Indonesia", !is.na(Province)) %>% 
-  dplyr::select(Province, 8:14) %>% 
+  dplyr::filter(!is.na(Province)) %>% 
+  dplyr::select(-1) %>% 
   group_by(Province) %>% 
   arrange(Date) %>% 
   mutate(
-    Retail_Recreation_avg = rollmean(
-      Retail_Recreation, k = 7, fill = NA, align = "right"
-    ),
-    Grocery_Pharmacy_avg = rollmean(
-      Grocery_Pharmacy, k = 7, fill = NA, align = "right"
-    ),
-    Parks_avg = rollmean(
-      Parks, k = 7, fill = NA, align = "right"
-    ),
-    Transit_stations_avg = rollmean(
-      Transit_stations, k = 7, fill = NA, align = "right"
-    ),
-    Workplaces_avg = rollmean(
-      Workplaces, k = 7, fill = NA, align = "right"
-    ),
-    Residential_avg = rollmean(
-      Residential, k = 7, fill = NA, align = "right"
-    )
+    Retail_Recreation_avg = rollmean(Retail_Recreation, k = 7, fill = NA, align = "right"),
+    Grocery_Pharmacy_avg = rollmean(Grocery_Pharmacy, k = 7, fill = NA, align = "right"),
+    Parks_avg = rollmean(Parks, k = 7, fill = NA, align = "right"),
+    Transit_stations_avg = rollmean(Transit_stations, k = 7, fill = NA, align = "right"),
+    Workplaces_avg = rollmean(Workplaces, k = 7, fill = NA, align = "right"),
+    Residential_avg = rollmean(Residential, k = 7, fill = NA, align = "right")
   ) %>% 
-  pivot_longer(3:14, names_to = "Categories", values_to = "Mobility") %>%
+  pivot_longer(3:ncol(.), names_to = "Categories", values_to = "Mobility") %>%
   arrange(Province, Categories, Date)
 
 # Round Mobility to two decimal places

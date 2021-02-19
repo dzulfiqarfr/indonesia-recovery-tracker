@@ -2,7 +2,7 @@ name: Daily update
 
 on:
   schedule:
-    - cron:  '30 8-10 * * *'
+    - cron:  '30 9 * * *'
   push:
     branches:
       - main
