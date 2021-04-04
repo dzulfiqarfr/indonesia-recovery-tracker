@@ -218,7 +218,6 @@ plot_inf_comp <- lapply(
           fixedrange = T,
           dtick = 1,
           showline = F,
-          linewidth = 0,
           showgrid = T,
           gridcolor = "#CFD8DC",
           zerolinecolor = "#ff856c",
@@ -242,13 +241,13 @@ anno_sub_core <- list(
   x = 0,
   xanchor = "left",
   yref = "paper",
-  y = 1.125,
+  y = 1.2,
   yanchor = "top"
 )
 
 ## administered prices
 anno_sub_adm_pr <- list(
-  text = "<b>Administered prices<b>",
+  text = "<b>Administered<br>prices<b>",
   font = list(size = 12),
   align = "left",
   showarrow = F,
@@ -256,7 +255,7 @@ anno_sub_adm_pr <- list(
   x = 0.345,
   xanchor = "left",
   yref = "paper",
-  y = 1.125,
+  y = 1.2,
   yanchor = "top"
 )
 
@@ -270,7 +269,7 @@ anno_sub_vol <- list(
   x = 0.68,
   xanchor = "left",
   yref = "paper",
-  y = 1.125,
+  y = 1.2,
   yanchor = "top"
 )
 
@@ -282,10 +281,10 @@ anno_text_2020 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "paper",
-  x = .052,
+  x = 0.052,
   xanchor = "left",
   yref = "y",
-  y = .9,
+  y = 0.9,
   yanchor = "top"
 ) 
 
@@ -297,10 +296,10 @@ anno_text_2021 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "paper",
-  x = .015,
+  x = 0.015,
   xanchor = "left",
   yref = "paper",
-  y = .475,
+  y = 0.475,
   yanchor = "top"
 ) 
 
@@ -308,17 +307,11 @@ anno_text_2021 <- list(
 sm_inf_comp <- subplot(
   plot_inf_comp,
   nrows = 1,
-  margin = c(0.0125, 0.0125, 0, 0),
-  shareX = F,
-  shareY = T,
-  titleX = F,
-  titleY = F
+  margin = c(0.0125, 0.0125, 0.1, 0.1),
+  shareY = T
 ) %>% 
   plotly::layout(
-    yaxis = list(
-      showline = F,
-      linewidth = 0
-    ), 
+    yaxis = list(showline = F), 
     annotations = list(
       anno_sub_core,
       anno_sub_adm_pr,
@@ -326,7 +319,7 @@ sm_inf_comp <- subplot(
       anno_text_2020,
       anno_text_2021
     ),
-    margin = list(l = 0, r = 0, t = 40, b = 0)
+    margin = list(l = 0, r = 0, t = 50, b = 0)
   )
 
 

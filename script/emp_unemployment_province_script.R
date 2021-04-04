@@ -224,7 +224,7 @@ plot_unemp_prov <- plot_ly(
       "<extra></extra>"
     ),
     marker = list(
-      size = 12.5, 
+      size = 10, 
       color = "#FFCCBC",
       line = list(width = 1, color = "white")
     )
@@ -240,7 +240,7 @@ plot_unemp_prov <- plot_ly(
       "<extra></extra>"
     ),
     marker = list(
-      size = 15, 
+      size = 10, 
       color = "#F4511E", 
       line = list(width = 1, color = "white")
     )
@@ -256,7 +256,8 @@ plot_unemp_prov <- plot_ly(
       automargin = T,
       tickangle = -90,
       showline = T,
-      showgrid = F
+      showgrid = T,
+      gridcolor = "#CFD8DC"
     ),
     yaxis = list(
       title = NA,

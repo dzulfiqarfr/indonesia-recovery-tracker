@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-04-03
+# last updated: 2021-04-04
 # page: inflation
 
 
@@ -212,10 +212,11 @@ anno_mom_2020 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "x",
-  x = 3.5,
-  xanchor = "right",
+  x = 2.75,
+  xanchor = "left",
   yref = "y",
-  y = 0.25
+  y = 0.25,
+  yanchor = "top"
 )
 
 # 2021
@@ -225,10 +226,11 @@ anno_mom_2021 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "x",
-  x = 1.5,
-  xanchor = "right",
+  x = 1,
+  xanchor = "left",
   yref = "y",
-  y = 0.1
+  y = 0.05,
+  yanchor = "top"
 ) 
 
 #  plot
@@ -264,11 +266,10 @@ plot_inf_mom <- plot_ly(
       title = NA,
       type = "linear",
       autorange = F,
-      range = c(-.5, .6),
+      range = c(-0.5, 0.6),
       fixedrange = T,
-      dtick = .25,
+      dtick = 0.25,
       showline = F,
-      linewidth = 0,
       showgrid = T,
       gridcolor = "#CFD8DC",
       zerolinecolor = "#ff856c",
@@ -293,9 +294,10 @@ anno_yoy_2020 <- list(
   showarrow = F,
   xref = "x",
   x = 6,
-  xanchor = "right",
+  xanchor = "left",
   yref = "y",
-  y = 2.4
+  y = 2.4,
+  yanchor = "top"
 )
 
 # 2021
@@ -306,9 +308,10 @@ anno_yoy_2021 <- list(
   showarrow = F,
   xref = "x",
   x = 1.5,
-  xanchor = "right",
+  xanchor = "left",
   yref = "y",
-  y = 1.2
+  y = 1.2,
+  yanchor = "top"
 ) 
 
 # plot
@@ -346,7 +349,7 @@ plot_inf_yoy <- plot_ly(
       autorange = F,
       range = c(0, 3.1),
       fixedrange = T,
-      dtick = .6,
+      dtick = 0.6,
       showline = F,
       showgrid = T,
       gridcolor = "#CFD8DC",

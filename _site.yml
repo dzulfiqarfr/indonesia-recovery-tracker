@@ -11,6 +11,7 @@ google_analytics: "G-FP7388WD59"
 twitter:
   creator: "@dzulfiqarfr"
 navbar:
+  search: true
   right:
     - text: "Indicators"
       menu:

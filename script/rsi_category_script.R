@@ -220,7 +220,7 @@ anno_sub_fuel <- list(
 
 ## information, communication tools
 anno_sub_info <- list(
-  text = "<b>Information and<br>communication tools<b>",
+  text = "<b>ICT<sup>*</sup><b>",
   font = list(size = 8),
   align = "left",
   showarrow = F,
@@ -248,7 +248,7 @@ anno_sub_hh <- list(
 
 ## cultural, recreational goods
 anno_sub_culture <- list(
-  text = "<b>Cultural and<br>recreational goods<b>",
+  text = "<b>CRG<sup>&#10013;</sup><b>",
   font = list(size = 8),
   align = "left",
   showarrow = F,
@@ -369,10 +369,7 @@ sm_rsi_by_cat_chg <- subplot(
   shareY = T
 ) %>% 
   plotly::layout(
-    yaxis = list(
-      showline = F,
-      linewidth = 0
-    ),
+    yaxis = list(showline = F),
     annotations = list(
       anno_text_covid,
       anno_sub_spare,
@@ -419,7 +416,7 @@ plot_rsi_by_cat_idx <- lapply(
           fixedrange = T,
           tickmode = "array",
           tickvals = c(3, 6, 9, 12),
-          ticktext = c("March", "June", "Sep", "Dec"),
+          ticktext = c("Mar", "Jun", "Sep", "Dec"),
           ticks = "outside",
           automargin = T,
           tickfont = list(size = 8),
@@ -435,7 +432,6 @@ plot_rsi_by_cat_idx <- lapply(
           dtick = 100,
           tickfont = list(size = 8),
           showline = F,
-          linewidth = 0,
           showgrid = T,
           gridcolor = "#CFD8DC",
           side = "left"
@@ -456,10 +452,10 @@ anno_1619 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "paper",
-  x = .1,
+  x = 0.1,
   xanchor = "left",
   yref = "paper",
-  y = .78,
+  y = 0.78,
   yanchor = "top"
 ) 
 
@@ -471,10 +467,10 @@ anno_2020 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "paper",
-  x = .15,
+  x = 0.15,
   xanchor = "left",
   yref = "paper",
-  y = .675,
+  y = 0.675,
   yanchor = "top"
 ) 
 
@@ -486,10 +482,10 @@ anno_2021 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "paper",
-  x = .015,
+  x = 0.015,
   xanchor = "left",
   yref = "paper",
-  y = .675,
+  y = 0.675,
   yanchor = "top"
 ) 
 
@@ -498,16 +494,10 @@ sm_rsi_by_cat_idx <- subplot(
   plot_rsi_by_cat_idx,
   nrows = 2,
   margin = c(0.0125, 0.0125, 0.1, 0.1),
-  shareX = F,
-  shareY = T,
-  titleX = F,
-  titleY = F
+  shareY = T
 ) %>% 
   plotly::layout(
-    yaxis = list(
-      showline = F,
-      linewidth = 0
-    ),
+    yaxis = list(showline = F),
     annotations = list(
       anno_sub_spare,
       anno_sub_food,

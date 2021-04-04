@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
-    toc_depth: 4
 preview: fig/ier_inflation-annual_void_plot.png
 ---
 
@@ -94,9 +93,7 @@ embed_chart_inf_comp <- xfun::embed_file(
 ### Overall
 
 ::: {.panelset}
-
 ::: {.panel}
-
 #### Monthly
 
 (percent)
@@ -106,11 +103,9 @@ source("script/inflation_script.R", local = knitr::knit_global())
 
 div(plot_inf_mom)
 ```
-
 :::
 
 ::: {.panel}
-
 #### Annual
 
 (percent)
@@ -118,9 +113,7 @@ div(plot_inf_mom)
 ```{r plot: annual overall inflation}
 div(plot_inf_yoy)
 ```
-
 :::
-
 :::
 
 ```{r description: overall inflation}

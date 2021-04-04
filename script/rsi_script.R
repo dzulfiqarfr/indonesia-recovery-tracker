@@ -223,10 +223,11 @@ anno_1619 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "x",
-  x = 10,
-  xanchor = "right",
+  x = 9,
+  xanchor = "left",
   yref = "y",
-  y = 225
+  y = 230,
+  yanchor = "top"
 ) 
 
 # 2020
@@ -236,10 +237,11 @@ anno_2020 <- list(
   bgcolor = "white",
   showarrow = F,
   xref = "x",
-  x = 11.5,
-  xanchor = "right",
+  x = 10,
+  xanchor = "left",
   yref = "y",
-  y = 175
+  y = 177.5,
+  yanchor = "top"
 ) 
 
 # 2021
@@ -250,9 +252,10 @@ anno_2021 <- list(
   showarrow = F,
   xref = "x",
   x = 1.5,
-  xanchor = "right",
+  xanchor = "left",
   yref = "y",
-  y = 175
+  y = 177.5,
+  yanchor = "top"
 ) 
 
 # plot
@@ -292,7 +295,6 @@ plot_rsi_index <- plot_ly(
       fixedrange = T,
       dtick = 25,
       showline = F,
-      linewidth = 0,
       showgrid = T,
       gridcolor = "#CFD8DC",
       side = "right"

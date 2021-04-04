@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
-    toc_depth: 4
 preview: fig/ier_poverty-rate_void_plot.png
 ---
 
@@ -101,9 +100,7 @@ embed_chart_poor <- xfun::embed_file(
 ### Poverty rate
 
 ::: {.panelset}
-
 ::: {.panel}
-
 #### Rate
 
 By area (percent)
@@ -113,11 +110,9 @@ source("script/poverty_script.R", local = knitr::knit_global())
 
 div(plot_pov_rate)
 ```
-
 :::
 
 ::: {.panel}
-
 #### Change
 
 By area (percentage point change from a year earlier)
@@ -125,9 +120,7 @@ By area (percentage point change from a year earlier)
 ```{r plot: change in poverty rate}
 div(plot_pov_diff)
 ```
-
 :::
-
 :::
 
 *Tips: click the legend item to select or deselect a trace.*
@@ -194,9 +187,7 @@ source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>%
 ### Number of poor people
 
 ::: {.panelset}
-
 ::: {.panel}
-
 #### Total
 
 By area (millions)
@@ -206,11 +197,9 @@ source("script/poverty_poor_script.R", local = knitr::knit_global())
 
 div(plot_poor_total)
 ```
-
 :::
 
 ::: {.panel}
-
 #### Change
 
 By area (millions)
@@ -218,9 +207,7 @@ By area (millions)
 ```{r plot: change in the number of poor people}
 div(plot_poor_diff)
 ```
-
 :::
-
 :::
 
 *Tips: click the legend item to select or deselect a trace.*

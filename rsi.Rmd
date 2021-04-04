@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
-    toc_depth: 4
 preview: fig/ier_rsi_void_plot.png
 ---
 
@@ -107,9 +106,7 @@ embed_chart_rsi_cat <- xfun::embed_file(
 ### Overall
 
 ::: {.panelset}
-
 ::: {.panel}
-
 #### Change
 
 (percent change from a year earlier)
@@ -119,22 +116,18 @@ source("script/rsi_script.R", local = knitr::knit_global())
 
 div(plot_rsi_change)
 ```
-
 :::
 
 ::: {.panel}
-
 #### Index
 
 ```{r plot: rsi}
 div(plot_rsi_index)
 ```
-
+:::
 :::
 
-:::
-
-<p style="color: #999;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.</p>  
+<p style="color: #999; font-size: 12px;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.</p>  
 
 The Retail Sales Index was estimated to `r ier_compare_rise(last(rsi_trf$pct_change_yoy))` by **`r last(rsi_trf$pct_change_yoy)`** percent year-on-year (yoy) to **`r last(rsi_trf$rsi)`** in `r format(last(rsi_trf$date), "%B")`, `r ier_compare_sev(last(rsi_trf$pct_change_yoy),  rsi_trf$pct_change_yoy[nrow(rsi_trf) - 1])` than the previous month. 
 
@@ -160,9 +153,7 @@ The pandemic has led the index to fall to its steepest decline at **20.61** perc
 ### By category
 
 ::: {.panelset}
-
 ::: {.panel}
-
 #### Change
 
 (percent change from a year earlier)
@@ -172,19 +163,15 @@ source("script/rsi_category_script.R", local = knitr::knit_global())
 
 div(sm_rsi_by_cat_chg)
 ```
-
 :::
 
 ::: {.panel}
-
 #### Index
 
 ```{r plot: rsi by category}
 div(sm_rsi_by_cat_idx)
 ```
-
 :::
-
 :::
 
 ```{r description: rsi by category}
@@ -211,7 +198,11 @@ rsi_by_cat_worse <- rsi_by_cat_trf %>%
 rsi_by_cat_worse_lower <- str_to_lower(rsi_by_cat_worse$Indices)
 ```
 
-<p style="color: #999;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.</p>  
+<div style="color: #999; font-size: 12px;">
+<sup>*</sup>Information and communication tools  
+<sup>&#10013;</sup>Cultural and recreational goods  
+Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.  
+</div>
 
 The Retail Sales Index of `r rsi_by_cat_imp_lower[-length(rsi_by_cat_imp_lower)]` and `r rsi_by_cat_imp_lower[length(rsi_by_cat_imp_lower)]` improved in `r format(last(rsi_trf$date), "%B")` from the previous month in terms of change from a year earlier.
 

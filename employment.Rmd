@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
-    toc_depth: 4
 preview: fig/ier_unemployment-rate_void_plot.png    
 ---
 
@@ -122,9 +121,7 @@ embed_chart_unemp_prov <- xfun::embed_file(
 ### Unemployment
 
 ::: {.panelset}
-
 ::: {.panel}
-
 #### Rate
 
 (percent)
@@ -134,11 +131,9 @@ source("script/emp_unemployment_script.R", local = knitr::knit_global())
 
 div(plot_unemp_rate)
 ```
-
 :::
 
 ::: {.panel}
-
 #### Workers
 
 (millions)
@@ -148,9 +143,7 @@ source("script/emp_unemployed_script.R", local = knitr::knit_global())
 
 div(plot_unemp_ppl)
 ```
-
 :::
-
 :::
 
 ```{r description: unemployment}
