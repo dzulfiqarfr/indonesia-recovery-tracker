@@ -99,9 +99,11 @@ embed_chart_poor <- xfun::embed_file(
 
 ### Poverty rate
 
-::: {.panelset}
+::::: {.panelset}
+
 ::: {.panel}
-#### Rate
+
+#### Rate {.panel-name}
 
 By area (percent)
 
@@ -110,18 +112,22 @@ source("script/poverty_script.R", local = knitr::knit_global())
 
 div(plot_pov_rate)
 ```
+
 :::
 
 ::: {.panel}
-#### Change
+
+#### Change  {.panel-name}
 
 By area (percentage point change from a year earlier)
 
 ```{r plot: change in poverty rate}
 div(plot_pov_diff)
 ```
+
 :::
-:::
+
+:::::
 
 *Tips: click the legend item to select or deselect a trace.*
 
@@ -186,9 +192,11 @@ source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>%
 
 ### Number of poor people
 
-::: {.panelset}
+::::: {.panelset}
+
 ::: {.panel}
-#### Total
+
+#### Total {.panel-name}
 
 By area (millions)
 
@@ -197,18 +205,22 @@ source("script/poverty_poor_script.R", local = knitr::knit_global())
 
 div(plot_poor_total)
 ```
+
 :::
 
 ::: {.panel}
-#### Change
+
+#### Change {.panel-name}
 
 By area (millions)
 
 ```{r plot: change in the number of poor people}
 div(plot_poor_diff)
 ```
+
 :::
-:::
+
+:::::
 
 *Tips: click the legend item to select or deselect a trace.*
 

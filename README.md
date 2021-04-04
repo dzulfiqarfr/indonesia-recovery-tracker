@@ -33,6 +33,6 @@ The datasets are available in a tidy format in CSVs, which you can find in the [
 - the layout was updated and now used the [distill](https://rstudio.github.io/distill/) 📦;  
 - added charts on the Consumer Confidence Index by income group and the Retail Sales Index by category;  
 - added charts and tables on inflation, employment and poverty;  
-- made the tables filterable and sortable by moving to the [reactable](https://glin.github.io/reactable/index.html) 📦 from [gt](https://gt.rstudio.com/index.html) 📦;  
+- made the tables filterable and sortable by moving to the [reactable](https://glin.github.io/reactable/index.html) 📦 from the [gt](https://gt.rstudio.com/index.html) 📦;  
 - added links to download datasets and charts; and  
 - improved chart tooltips

@@ -105,9 +105,11 @@ embed_chart_rsi_cat <- xfun::embed_file(
 
 ### Overall
 
-::: {.panelset}
+::::: {.panelset}
+
 ::: {.panel}
-#### Change
+
+#### Change {.panel-name}
 
 (percent change from a year earlier)
 
@@ -116,16 +118,20 @@ source("script/rsi_script.R", local = knitr::knit_global())
 
 div(plot_rsi_change)
 ```
+
 :::
 
 ::: {.panel}
-#### Index
+
+#### Index {.panel-name}
 
 ```{r plot: rsi}
 div(plot_rsi_index)
 ```
+
 :::
-:::
+
+:::::
 
 <p style="color: #999; font-size: 12px;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.</p>  
 
@@ -152,9 +158,11 @@ The pandemic has led the index to fall to its steepest decline at **20.61** perc
 
 ### By category
 
-::: {.panelset}
+::::: {.panelset}
+
 ::: {.panel}
-#### Change
+
+#### Change {.panel-name}
 
 (percent change from a year earlier)
 
@@ -163,16 +171,20 @@ source("script/rsi_category_script.R", local = knitr::knit_global())
 
 div(sm_rsi_by_cat_chg)
 ```
+
 :::
 
 ::: {.panel}
-#### Index
+
+#### Index {.panel-name}
 
 ```{r plot: rsi by category}
 div(sm_rsi_by_cat_idx)
 ```
+
 :::
-:::
+
+:::::
 
 ```{r description: rsi by category}
 # categories showing improvements

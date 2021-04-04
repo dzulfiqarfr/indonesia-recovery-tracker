@@ -92,9 +92,11 @@ embed_chart_inf_comp <- xfun::embed_file(
 
 ### Overall
 
-::: {.panelset}
+::::: {.panelset}
+
 ::: {.panel}
-#### Monthly
+
+#### Monthly {.panel-name}
 
 (percent)
 
@@ -103,18 +105,22 @@ source("script/inflation_script.R", local = knitr::knit_global())
 
 div(plot_inf_mom)
 ```
+
 :::
 
 ::: {.panel}
-#### Annual
+
+#### Annual {.panel-name}
 
 (percent)
 
 ```{r plot: annual overall inflation}
 div(plot_inf_yoy)
 ```
+
 :::
-:::
+
+:::::
 
 ```{r description: overall inflation}
 # latest values

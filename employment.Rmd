@@ -120,9 +120,11 @@ embed_chart_unemp_prov <- xfun::embed_file(
 
 ### Unemployment
 
-::: {.panelset}
+::::: {.panelset}
+
 ::: {.panel}
-#### Rate
+
+#### Rate {.panel-name}
 
 (percent)
 
@@ -131,10 +133,12 @@ source("script/emp_unemployment_script.R", local = knitr::knit_global())
 
 div(plot_unemp_rate)
 ```
+
 :::
 
 ::: {.panel}
-#### Workers
+
+#### Workers {.panel-name}
 
 (millions)
 
@@ -143,8 +147,10 @@ source("script/emp_unemployed_script.R", local = knitr::knit_global())
 
 div(plot_unemp_ppl)
 ```
+
 :::
-:::
+
+:::::
 
 ```{r description: unemployment}
 # latest unemployment rate data

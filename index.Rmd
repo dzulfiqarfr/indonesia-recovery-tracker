@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <h1 style="text-align: center;">Tracking Indonesia's economic recovery from COVID-19</h1>
 
-<hr style="width: 50%; margin: auto;">
+<hr style="width: 50%;">  
 
 Charts and tables to explore how the pandemic has affected Indonesia's economy as the virus has battered the nation's public health since early March 2020.
 
