@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-04-03
+# last updated: 2021-04-04
 # page: index
 
 
@@ -497,14 +497,12 @@ pos_rate <- covid_ntl %>%
   ) %>% 
   rename(latest_date = date, latest_fig = positive_rate)
 
-# latest daily new case, death, people vaccinated figures
-case_death_vaccination <- covid_ntl %>% 
+# latest daily new case, death
+case_death <- covid_ntl %>% 
   select(
     date, 
     new_cases,
-    new_deaths,
-    people_vaccinated_per_hundred, 
-    people_fully_vaccinated_per_hundred
+    new_deaths
   ) %>% 
   dplyr::filter(date == last(date)) %>% 
   pivot_longer(
@@ -518,18 +516,44 @@ case_death_vaccination <- covid_ntl %>%
       indicator,
       c(
         new_cases = "Daily new COVID-19 cases",
-        new_deaths = "Daily new COVID-19 deaths",
+        new_deaths = "Daily new COVID-19 deaths"
+      )
+    ),
+    unit = c(rep("(people)", 2))
+  ) %>% 
+  rename(latest_date = date)
+
+# latest people vaccinated
+vaccination <- covid_ntl %>% 
+  select(
+    date, 
+    people_vaccinated_per_hundred, 
+    people_fully_vaccinated_per_hundred
+  ) %>% 
+  dplyr::filter(!is.na(people_vaccinated_per_hundred)) %>% 
+  tail(1) %>% 
+  pivot_longer(
+    2:ncol(.),
+    names_to = "indicator",
+    values_to = "latest_fig"
+  ) %>% 
+  mutate(
+    date = format(date, "%b %d, '%y"),
+    indicator = str_replace_all(
+      indicator,
+      c(
         people_vaccinated_per_hundred = "Share of population who have received at least one dose of vaccine",
         people_fully_vaccinated_per_hundred = "Share of population fully vaccinated"
       )
     ),
-    unit = c(rep("(people)", 2), rep("(percent)", 2))
+    unit = c(rep("(percent)", 2))
   ) %>% 
   rename(latest_date = date)
 
+
 # merge, create empty column for projection
-covid_ntl_trf <- case_death_vaccination %>% 
-  rbind(pos_rate) %>% 
+covid_ntl_trf <- case_death %>% 
+  rbind(pos_rate, vaccination) %>% 
   select(indicator, unit, latest_date, latest_fig) %>%
   mutate(proj_fig = NA) %>% 
   arrange(indicator)
@@ -571,7 +595,7 @@ reactable_key_ind <- key_ind_econ_covid %>%
         align = "right"
       ),
       proj_fig = colDef(
-        name = "2021",
+        name = "2021<br>projection",
         html = T,
         align = "right"
       )
