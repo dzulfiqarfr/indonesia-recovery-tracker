@@ -26,12 +26,13 @@ Data | Source
 The datasets are available in a tidy format in CSVs, which you can find in the [data :folder:](/data).
 
 
-## Changelog
+## What's new
 
-**April 5, 2021**:
+**April 4, 2021**:
 - the name was changed to Indonesia EconRecovery;  
 - the layout was updated and now used the [distill](https://rstudio.github.io/distill/);  
 - added charts on the Consumer Confidence Index by income group and the Retail Sales Index by category;  
 - add charts and tables on inflation, employment and poverty;  
 - made the tables filterable and sortable by moving to [reactable](https://glin.github.io/reactable/index.html) from [gt](https://gt.rstudio.com/index.html); and  
 - added links to download datasets and charts  
+- improved chart tooltips
