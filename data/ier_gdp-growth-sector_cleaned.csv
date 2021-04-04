@@ -1,0 +1,681 @@
+key_sector,date,pct_change_yoy
+"Agriculture, forestry and fishery",2011-01-01,4.18
+"Agriculture, forestry and fishery",2011-04-01,4.95
+"Agriculture, forestry and fishery",2011-07-01,3.69
+"Agriculture, forestry and fishery",2011-10-01,2.89
+"Agriculture, forestry and fishery",2012-01-01,5.49
+"Agriculture, forestry and fishery",2012-04-01,4.21
+"Agriculture, forestry and fishery",2012-07-01,5.6
+"Agriculture, forestry and fishery",2012-10-01,2.78
+"Agriculture, forestry and fishery",2013-01-01,4.21
+"Agriculture, forestry and fishery",2013-04-01,4.6
+"Agriculture, forestry and fishery",2013-07-01,3.51
+"Agriculture, forestry and fishery",2013-10-01,4.63
+"Agriculture, forestry and fishery",2014-01-01,5.16
+"Agriculture, forestry and fishery",2014-04-01,4.88
+"Agriculture, forestry and fishery",2014-07-01,3.6
+"Agriculture, forestry and fishery",2014-10-01,3.32
+"Agriculture, forestry and fishery",2015-01-01,3.71
+"Agriculture, forestry and fishery",2015-04-01,6.54
+"Agriculture, forestry and fishery",2015-07-01,2.88
+"Agriculture, forestry and fishery",2015-10-01,1.64
+"Agriculture, forestry and fishery",2016-01-01,1.48
+"Agriculture, forestry and fishery",2016-04-01,3.53
+"Agriculture, forestry and fishery",2016-07-01,3.22
+"Agriculture, forestry and fishery",2016-10-01,5.5
+"Agriculture, forestry and fishery",2017-01-01,7.14
+"Agriculture, forestry and fishery",2017-04-01,3.35
+"Agriculture, forestry and fishery",2017-07-01,2.86
+"Agriculture, forestry and fishery",2017-10-01,2.47
+"Agriculture, forestry and fishery",2018-01-01,3.34
+"Agriculture, forestry and fishery",2018-04-01,4.7
+"Agriculture, forestry and fishery",2018-07-01,3.62
+"Agriculture, forestry and fishery",2018-10-01,3.84
+"Agriculture, forestry and fishery",2019-01-01,1.79
+"Agriculture, forestry and fishery",2019-04-01,5.28
+"Agriculture, forestry and fishery",2019-07-01,3.07
+"Agriculture, forestry and fishery",2019-10-01,4.25
+"Agriculture, forestry and fishery",2020-01-01,0.02
+"Agriculture, forestry and fishery",2020-04-01,2.19
+"Agriculture, forestry and fishery",2020-07-01,2.16
+"Agriculture, forestry and fishery",2020-10-01,2.59
+Mining,2011-01-01,5.12
+Mining,2011-04-01,2.72
+Mining,2011-07-01,2.8
+Mining,2011-10-01,6.52
+Mining,2012-01-01,7.27
+Mining,2012-04-01,5.49
+Mining,2012-07-01,0.62
+Mining,2012-10-01,-0.84
+Mining,2013-01-01,0.84
+Mining,2013-04-01,1.46
+Mining,2013-07-01,4.17
+Mining,2013-10-01,3.63
+Mining,2014-01-01,-1.22
+Mining,2014-04-01,0.71
+Mining,2014-07-01,0.73
+Mining,2014-10-01,1.46
+Mining,2015-01-01,0.58
+Mining,2015-04-01,-3.59
+Mining,2015-07-01,-4.41
+Mining,2015-10-01,-6.03
+Mining,2016-01-01,1.22
+Mining,2016-04-01,1.04
+Mining,2016-07-01,0.17
+Mining,2016-10-01,1.35
+Mining,2017-01-01,-1.3
+Mining,2017-04-01,2.11
+Mining,2017-07-01,1.83
+Mining,2017-10-01,0.04
+Mining,2018-01-01,1.06
+Mining,2018-04-01,2.65
+Mining,2018-07-01,2.67
+Mining,2018-10-01,2.25
+Mining,2019-01-01,2.32
+Mining,2019-04-01,-0.71
+Mining,2019-07-01,2.34
+Mining,2019-10-01,0.94
+Mining,2020-01-01,0.45
+Mining,2020-04-01,-2.72
+Mining,2020-07-01,-4.28
+Mining,2020-10-01,-1.2
+Manufacturing,2011-01-01,4.59
+Manufacturing,2011-04-01,6.26
+Manufacturing,2011-07-01,7.14
+Manufacturing,2011-10-01,7
+Manufacturing,2012-01-01,5.88
+Manufacturing,2012-04-01,5.39
+Manufacturing,2012-07-01,5.23
+Manufacturing,2012-10-01,5.98
+Manufacturing,2013-01-01,4.62
+Manufacturing,2013-04-01,5.2
+Manufacturing,2013-07-01,3.51
+Manufacturing,2013-10-01,4.17
+Manufacturing,2014-01-01,4.45
+Manufacturing,2014-04-01,4.86
+Manufacturing,2014-07-01,5.02
+Manufacturing,2014-10-01,4.25
+Manufacturing,2015-01-01,4.07
+Manufacturing,2015-04-01,4.2
+Manufacturing,2015-07-01,4.6
+Manufacturing,2015-10-01,4.43
+Manufacturing,2016-01-01,4.68
+Manufacturing,2016-04-01,4.62
+Manufacturing,2016-07-01,4.47
+Manufacturing,2016-10-01,3.28
+Manufacturing,2017-01-01,4.28
+Manufacturing,2017-04-01,3.5
+Manufacturing,2017-07-01,4.88
+Manufacturing,2017-10-01,4.51
+Manufacturing,2018-01-01,4.61
+Manufacturing,2018-04-01,3.89
+Manufacturing,2018-07-01,4.36
+Manufacturing,2018-10-01,4.25
+Manufacturing,2019-01-01,3.85
+Manufacturing,2019-04-01,3.52
+Manufacturing,2019-07-01,4.14
+Manufacturing,2019-10-01,3.67
+Manufacturing,2020-01-01,2.06
+Manufacturing,2020-04-01,-6.19
+Manufacturing,2020-07-01,-4.34
+Manufacturing,2020-10-01,-3.14
+Electricity and gas procurement,2011-01-01,6.58
+Electricity and gas procurement,2011-04-01,4.2
+Electricity and gas procurement,2011-07-01,5.27
+Electricity and gas procurement,2011-10-01,6.73
+Electricity and gas procurement,2012-01-01,6.55
+Electricity and gas procurement,2012-04-01,10.99
+Electricity and gas procurement,2012-07-01,12.13
+Electricity and gas procurement,2012-10-01,10.43
+Electricity and gas procurement,2013-01-01,9.76
+Electricity and gas procurement,2013-04-01,4.7
+Electricity and gas procurement,2013-07-01,2.43
+Electricity and gas procurement,2013-10-01,4.42
+Electricity and gas procurement,2014-01-01,3.29
+Electricity and gas procurement,2014-04-01,6.45
+Electricity and gas procurement,2014-07-01,5.93
+Electricity and gas procurement,2014-10-01,7.81
+Electricity and gas procurement,2015-01-01,1.73
+Electricity and gas procurement,2015-04-01,0.78
+Electricity and gas procurement,2015-07-01,0.58
+Electricity and gas procurement,2015-10-01,0.57
+Electricity and gas procurement,2016-01-01,7.5
+Electricity and gas procurement,2016-04-01,6.24
+Electricity and gas procurement,2016-07-01,4.88
+Electricity and gas procurement,2016-10-01,3.14
+Electricity and gas procurement,2017-01-01,1.6
+Electricity and gas procurement,2017-04-01,-2.53
+Electricity and gas procurement,2017-07-01,4.88
+Electricity and gas procurement,2017-10-01,2.27
+Electricity and gas procurement,2018-01-01,3.31
+Electricity and gas procurement,2018-04-01,7.56
+Electricity and gas procurement,2018-07-01,5.58
+Electricity and gas procurement,2018-10-01,5.46
+Electricity and gas procurement,2019-01-01,4.12
+Electricity and gas procurement,2019-04-01,2.2
+Electricity and gas procurement,2019-07-01,3.75
+Electricity and gas procurement,2019-10-01,6.01
+Electricity and gas procurement,2020-01-01,3.85
+Electricity and gas procurement,2020-04-01,-5.46
+Electricity and gas procurement,2020-07-01,-2.44
+Electricity and gas procurement,2020-10-01,-5.01
+"Water, waste and recycling management procurement",2011-01-01,8.37
+"Water, waste and recycling management procurement",2011-04-01,4.78
+"Water, waste and recycling management procurement",2011-07-01,3.54
+"Water, waste and recycling management procurement",2011-10-01,2.48
+"Water, waste and recycling management procurement",2012-01-01,3.28
+"Water, waste and recycling management procurement",2012-04-01,3.81
+"Water, waste and recycling management procurement",2012-07-01,3.62
+"Water, waste and recycling management procurement",2012-10-01,2.67
+"Water, waste and recycling management procurement",2013-01-01,3.2
+"Water, waste and recycling management procurement",2013-04-01,2.88
+"Water, waste and recycling management procurement",2013-07-01,3.35
+"Water, waste and recycling management procurement",2013-10-01,3.84
+"Water, waste and recycling management procurement",2014-01-01,4.46
+"Water, waste and recycling management procurement",2014-04-01,5.16
+"Water, waste and recycling management procurement",2014-07-01,5.29
+"Water, waste and recycling management procurement",2014-10-01,6.02
+"Water, waste and recycling management procurement",2015-01-01,5.07
+"Water, waste and recycling management procurement",2015-04-01,7.32
+"Water, waste and recycling management procurement",2015-07-01,8.43
+"Water, waste and recycling management procurement",2015-10-01,7.41
+"Water, waste and recycling management procurement",2016-01-01,5.39
+"Water, waste and recycling management procurement",2016-04-01,4.12
+"Water, waste and recycling management procurement",2016-07-01,2.36
+"Water, waste and recycling management procurement",2016-10-01,2.66
+"Water, waste and recycling management procurement",2017-01-01,4.38
+"Water, waste and recycling management procurement",2017-04-01,3.66
+"Water, waste and recycling management procurement",2017-07-01,4.81
+"Water, waste and recycling management procurement",2017-10-01,5.51
+"Water, waste and recycling management procurement",2018-01-01,3.7
+"Water, waste and recycling management procurement",2018-04-01,4.32
+"Water, waste and recycling management procurement",2018-07-01,6.19
+"Water, waste and recycling management procurement",2018-10-01,7.92
+"Water, waste and recycling management procurement",2019-01-01,8.95
+"Water, waste and recycling management procurement",2019-04-01,8.34
+"Water, waste and recycling management procurement",2019-07-01,4.85
+"Water, waste and recycling management procurement",2019-10-01,5.38
+"Water, waste and recycling management procurement",2020-01-01,4.56
+"Water, waste and recycling management procurement",2020-04-01,4.56
+"Water, waste and recycling management procurement",2020-07-01,5.94
+"Water, waste and recycling management procurement",2020-10-01,4.98
+Construction,2011-01-01,8.24
+Construction,2011-04-01,10.4
+Construction,2011-07-01,8.12
+Construction,2011-10-01,9.3
+Construction,2012-01-01,6.32
+Construction,2012-04-01,5.79
+Construction,2012-07-01,6.82
+Construction,2012-10-01,7.24
+Construction,2013-01-01,5.41
+Construction,2013-04-01,6.31
+Construction,2013-07-01,6.46
+Construction,2013-10-01,6.21
+Construction,2014-01-01,7.22
+Construction,2014-04-01,6.46
+Construction,2014-07-01,6.53
+Construction,2014-10-01,7.67
+Construction,2015-01-01,6.03
+Construction,2015-04-01,5.35
+Construction,2015-07-01,6.82
+Construction,2015-10-01,7.13
+Construction,2016-01-01,6.76
+Construction,2016-04-01,5.12
+Construction,2016-07-01,4.95
+Construction,2016-10-01,4.21
+Construction,2017-01-01,5.96
+Construction,2017-04-01,6.95
+Construction,2017-07-01,6.98
+Construction,2017-10-01,7.24
+Construction,2018-01-01,7.35
+Construction,2018-04-01,5.73
+Construction,2018-07-01,5.79
+Construction,2018-10-01,5.58
+Construction,2019-01-01,5.91
+Construction,2019-04-01,5.69
+Construction,2019-07-01,5.65
+Construction,2019-10-01,5.79
+Construction,2020-01-01,2.9
+Construction,2020-04-01,-5.39
+Construction,2020-07-01,-4.52
+Construction,2020-10-01,-5.67
+Wholesale and retail trade; car and motorcycle repair,2011-01-01,7.07
+Wholesale and retail trade; car and motorcycle repair,2011-04-01,11.25
+Wholesale and retail trade; car and motorcycle repair,2011-07-01,11.95
+Wholesale and retail trade; car and motorcycle repair,2011-10-01,8.28
+Wholesale and retail trade; car and motorcycle repair,2012-01-01,7.46
+Wholesale and retail trade; car and motorcycle repair,2012-04-01,5.46
+Wholesale and retail trade; car and motorcycle repair,2012-07-01,4.49
+Wholesale and retail trade; car and motorcycle repair,2012-10-01,4.36
+Wholesale and retail trade; car and motorcycle repair,2013-01-01,3.08
+Wholesale and retail trade; car and motorcycle repair,2013-04-01,4.9
+Wholesale and retail trade; car and motorcycle repair,2013-07-01,4.98
+Wholesale and retail trade; car and motorcycle repair,2013-10-01,6.2
+Wholesale and retail trade; car and motorcycle repair,2014-01-01,6.09
+Wholesale and retail trade; car and motorcycle repair,2014-04-01,5.08
+Wholesale and retail trade; car and motorcycle repair,2014-07-01,5.18
+Wholesale and retail trade; car and motorcycle repair,2014-10-01,4.44
+Wholesale and retail trade; car and motorcycle repair,2015-01-01,3.78
+Wholesale and retail trade; car and motorcycle repair,2015-04-01,1.57
+Wholesale and retail trade; car and motorcycle repair,2015-07-01,1.45
+Wholesale and retail trade; car and motorcycle repair,2015-10-01,3.46
+Wholesale and retail trade; car and motorcycle repair,2016-01-01,4.31
+Wholesale and retail trade; car and motorcycle repair,2016-04-01,4.29
+Wholesale and retail trade; car and motorcycle repair,2016-07-01,3.66
+Wholesale and retail trade; car and motorcycle repair,2016-10-01,3.86
+Wholesale and retail trade; car and motorcycle repair,2017-01-01,4.61
+Wholesale and retail trade; car and motorcycle repair,2017-04-01,3.46
+Wholesale and retail trade; car and motorcycle repair,2017-07-01,5.22
+Wholesale and retail trade; car and motorcycle repair,2017-10-01,4.54
+Wholesale and retail trade; car and motorcycle repair,2018-01-01,4.98
+Wholesale and retail trade; car and motorcycle repair,2018-04-01,5.21
+Wholesale and retail trade; car and motorcycle repair,2018-07-01,5.26
+Wholesale and retail trade; car and motorcycle repair,2018-10-01,4.41
+Wholesale and retail trade; car and motorcycle repair,2019-01-01,5.21
+Wholesale and retail trade; car and motorcycle repair,2019-04-01,4.61
+Wholesale and retail trade; car and motorcycle repair,2019-07-01,4.4
+Wholesale and retail trade; car and motorcycle repair,2019-10-01,4.22
+Wholesale and retail trade; car and motorcycle repair,2020-01-01,1.6
+Wholesale and retail trade; car and motorcycle repair,2020-04-01,-7.57
+Wholesale and retail trade; car and motorcycle repair,2020-07-01,-5.05
+Wholesale and retail trade; car and motorcycle repair,2020-10-01,-3.64
+Transportation and warehouse,2011-01-01,9.4
+Transportation and warehouse,2011-04-01,9.13
+Transportation and warehouse,2011-07-01,8.31
+Transportation and warehouse,2011-10-01,6.56
+Transportation and warehouse,2012-01-01,7.18
+Transportation and warehouse,2012-04-01,6.33
+Transportation and warehouse,2012-07-01,7.45
+Transportation and warehouse,2012-10-01,7.45
+Transportation and warehouse,2013-01-01,6.93
+Transportation and warehouse,2013-04-01,7.97
+Transportation and warehouse,2013-07-01,6.32
+Transportation and warehouse,2013-10-01,6.7
+Transportation and warehouse,2014-01-01,6.99
+Transportation and warehouse,2014-04-01,7.56
+Transportation and warehouse,2014-07-01,7.7
+Transportation and warehouse,2014-10-01,7.2
+Transportation and warehouse,2015-01-01,6.26
+Transportation and warehouse,2015-04-01,6.03
+Transportation and warehouse,2015-07-01,6.96
+Transportation and warehouse,2015-10-01,7.51
+Transportation and warehouse,2016-01-01,7.42
+Transportation and warehouse,2016-04-01,6.52
+Transportation and warehouse,2016-07-01,8.18
+Transportation and warehouse,2016-10-01,7.64
+Transportation and warehouse,2017-01-01,8.06
+Transportation and warehouse,2017-04-01,8.8
+Transportation and warehouse,2017-07-01,8.88
+Transportation and warehouse,2017-10-01,8.21
+Transportation and warehouse,2018-01-01,8.48
+Transportation and warehouse,2018-04-01,8.71
+Transportation and warehouse,2018-07-01,5.73
+Transportation and warehouse,2018-10-01,5.48
+Transportation and warehouse,2019-01-01,5.43
+Transportation and warehouse,2019-04-01,5.86
+Transportation and warehouse,2019-07-01,6.65
+Transportation and warehouse,2019-10-01,7.55
+Transportation and warehouse,2020-01-01,1.29
+Transportation and warehouse,2020-04-01,-30.8
+Transportation and warehouse,2020-07-01,-16.71
+Transportation and warehouse,2020-10-01,-13.42
+Accommodation and food and beverage services,2011-01-01,7.88
+Accommodation and food and beverage services,2011-04-01,6.99
+Accommodation and food and beverage services,2011-07-01,6.14
+Accommodation and food and beverage services,2011-10-01,6.49
+Accommodation and food and beverage services,2012-01-01,6.89
+Accommodation and food and beverage services,2012-04-01,6.3
+Accommodation and food and beverage services,2012-07-01,6.13
+Accommodation and food and beverage services,2012-10-01,7.23
+Accommodation and food and beverage services,2013-01-01,6.97
+Accommodation and food and beverage services,2013-04-01,7
+Accommodation and food and beverage services,2013-07-01,6.94
+Accommodation and food and beverage services,2013-10-01,6.3
+Accommodation and food and beverage services,2014-01-01,6.44
+Accommodation and food and beverage services,2014-04-01,6.35
+Accommodation and food and beverage services,2014-07-01,5.78
+Accommodation and food and beverage services,2014-10-01,4.57
+Accommodation and food and beverage services,2015-01-01,3.31
+Accommodation and food and beverage services,2015-04-01,3.71
+Accommodation and food and beverage services,2015-07-01,4.45
+Accommodation and food and beverage services,2015-10-01,5.73
+Accommodation and food and beverage services,2016-01-01,5.73
+Accommodation and food and beverage services,2016-04-01,5.16
+Accommodation and food and beverage services,2016-07-01,5
+Accommodation and food and beverage services,2016-10-01,4.82
+Accommodation and food and beverage services,2017-01-01,5.36
+Accommodation and food and beverage services,2017-04-01,5.62
+Accommodation and food and beverage services,2017-07-01,5.54
+Accommodation and food and beverage services,2017-10-01,5.14
+Accommodation and food and beverage services,2018-01-01,5.2
+Accommodation and food and beverage services,2018-04-01,5.62
+Accommodation and food and beverage services,2018-07-01,5.93
+Accommodation and food and beverage services,2018-10-01,5.96
+Accommodation and food and beverage services,2019-01-01,5.86
+Accommodation and food and beverage services,2019-04-01,5.53
+Accommodation and food and beverage services,2019-07-01,5.39
+Accommodation and food and beverage services,2019-10-01,6.36
+Accommodation and food and beverage services,2020-01-01,1.95
+Accommodation and food and beverage services,2020-04-01,-22.02
+Accommodation and food and beverage services,2020-07-01,-11.81
+Accommodation and food and beverage services,2020-10-01,-8.88
+Information and communication,2011-01-01,13.16
+Information and communication,2011-04-01,9.43
+Information and communication,2011-07-01,8.16
+Information and communication,2011-10-01,9.58
+Information and communication,2012-01-01,12.27
+Information and communication,2012-04-01,12.42
+Information and communication,2012-07-01,12.81
+Information and communication,2012-10-01,11.64
+Information and communication,2013-01-01,10.62
+Information and communication,2013-04-01,11.41
+Information and communication,2013-07-01,10.13
+Information and communication,2013-10-01,9.49
+Information and communication,2014-01-01,9.89
+Information and communication,2014-04-01,10.72
+Information and communication,2014-07-01,9.75
+Information and communication,2014-10-01,10.12
+Information and communication,2015-01-01,9.66
+Information and communication,2015-04-01,9.25
+Information and communication,2015-07-01,10.65
+Information and communication,2015-10-01,9.24
+Information and communication,2016-01-01,7.58
+Information and communication,2016-04-01,9.31
+Information and communication,2016-07-01,8.93
+Information and communication,2016-10-01,9.62
+Information and communication,2017-01-01,10.48
+Information and communication,2017-04-01,11.06
+Information and communication,2017-07-01,8.82
+Information and communication,2017-10-01,8.27
+Information and communication,2018-01-01,7.76
+Information and communication,2018-04-01,5.11
+Information and communication,2018-07-01,8.14
+Information and communication,2018-10-01,7.09
+Information and communication,2019-01-01,9.06
+Information and communication,2019-04-01,9.6
+Information and communication,2019-07-01,9.24
+Information and communication,2019-10-01,9.78
+Information and communication,2020-01-01,9.8
+Information and communication,2020-04-01,10.83
+Information and communication,2020-07-01,10.72
+Information and communication,2020-10-01,10.91
+Financial and insurance services,2011-01-01,8.61
+Financial and insurance services,2011-04-01,9.49
+Financial and insurance services,2011-07-01,6.45
+Financial and insurance services,2011-10-01,3.4
+Financial and insurance services,2012-01-01,3.65
+Financial and insurance services,2012-04-01,5.3
+Financial and insurance services,2012-07-01,13.23
+Financial and insurance services,2012-10-01,16.25
+Financial and insurance services,2013-01-01,12.57
+Financial and insurance services,2013-04-01,10.32
+Financial and insurance services,2013-07-01,8.82
+Financial and insurance services,2013-10-01,3.75
+Financial and insurance services,2014-01-01,3.6
+Financial and insurance services,2014-04-01,5.46
+Financial and insurance services,2014-07-01,1.9
+Financial and insurance services,2014-10-01,7.87
+Financial and insurance services,2015-01-01,8.55
+Financial and insurance services,2015-04-01,2.61
+Financial and insurance services,2015-07-01,10.34
+Financial and insurance services,2015-10-01,12.77
+Financial and insurance services,2016-01-01,9.33
+Financial and insurance services,2016-04-01,13.62
+Financial and insurance services,2016-07-01,9.08
+Financial and insurance services,2016-10-01,4.21
+Financial and insurance services,2017-01-01,6.01
+Financial and insurance services,2017-04-01,5.93
+Financial and insurance services,2017-07-01,6.14
+Financial and insurance services,2017-10-01,3.83
+Financial and insurance services,2018-01-01,4.3
+Financial and insurance services,2018-04-01,3.09
+Financial and insurance services,2018-07-01,3.11
+Financial and insurance services,2018-10-01,6.23
+Financial and insurance services,2019-01-01,7.23
+Financial and insurance services,2019-04-01,4.5
+Financial and insurance services,2019-07-01,6.16
+Financial and insurance services,2019-10-01,8.51
+Financial and insurance services,2020-01-01,10.62
+Financial and insurance services,2020-04-01,1.05
+Financial and insurance services,2020-07-01,-0.95
+Financial and insurance services,2020-10-01,2.37
+Real estate,2011-01-01,10.72
+Real estate,2011-04-01,9.11
+Real estate,2011-07-01,6.54
+Real estate,2011-10-01,4.69
+Real estate,2012-01-01,5.2
+Real estate,2012-04-01,6.37
+Real estate,2012-07-01,8.5
+Real estate,2012-10-01,9.48
+Real estate,2013-01-01,8.91
+Real estate,2013-04-01,7.66
+Real estate,2013-07-01,5.45
+Real estate,2013-10-01,4.33
+Real estate,2014-01-01,4.66
+Real estate,2014-04-01,4.93
+Real estate,2014-07-01,5.07
+Real estate,2014-10-01,5.3
+Real estate,2015-01-01,4.54
+Real estate,2015-04-01,4.31
+Real estate,2015-07-01,4.07
+Real estate,2015-10-01,3.54
+Real estate,2016-01-01,5.25
+Real estate,2016-04-01,5.15
+Real estate,2016-07-01,4.36
+Real estate,2016-10-01,4.03
+Real estate,2017-01-01,3.63
+Real estate,2017-04-01,3.69
+Real estate,2017-07-01,3.52
+Real estate,2017-10-01,3.57
+Real estate,2018-01-01,3.08
+Real estate,2018-04-01,2.96
+Real estate,2018-07-01,3.72
+Real estate,2018-10-01,4.16
+Real estate,2019-01-01,5.41
+Real estate,2019-04-01,5.73
+Real estate,2019-07-01,6
+Real estate,2019-10-01,5.88
+Real estate,2020-01-01,3.79
+Real estate,2020-04-01,2.3
+Real estate,2020-07-01,1.96
+Real estate,2020-10-01,1.25
+Corporate service,2011-01-01,10.24
+Corporate service,2011-04-01,9.58
+Corporate service,2011-07-01,8.92
+Corporate service,2011-10-01,8.31
+Corporate service,2012-01-01,7.99
+Corporate service,2012-04-01,8.07
+Corporate service,2012-07-01,7.45
+Corporate service,2012-10-01,6.32
+Corporate service,2013-01-01,7.8
+Corporate service,2013-04-01,7.57
+Corporate service,2013-07-01,8.25
+Corporate service,2013-10-01,8
+Corporate service,2014-01-01,10.27
+Corporate service,2014-04-01,9.99
+Corporate service,2014-07-01,9.3
+Corporate service,2014-10-01,9.69
+Corporate service,2015-01-01,7.36
+Corporate service,2015-04-01,7.64
+Corporate service,2015-07-01,7.63
+Corporate service,2015-10-01,8.13
+Corporate service,2016-01-01,8.14
+Corporate service,2016-04-01,7.57
+Corporate service,2016-07-01,6.95
+Corporate service,2016-10-01,6.83
+Corporate service,2017-01-01,6.83
+Corporate service,2017-04-01,8.24
+Corporate service,2017-07-01,9.37
+Corporate service,2017-10-01,9.25
+Corporate service,2018-01-01,8.04
+Corporate service,2018-04-01,8.89
+Corporate service,2018-07-01,8.67
+Corporate service,2018-10-01,8.94
+Corporate service,2019-01-01,10.36
+Corporate service,2019-04-01,9.94
+Corporate service,2019-07-01,10.22
+Corporate service,2019-10-01,10.49
+Corporate service,2020-01-01,5.39
+Corporate service,2020-04-01,-12.09
+Corporate service,2020-07-01,-7.61
+Corporate service,2020-10-01,-7.02
+"Government, defense and social security administration",2011-01-01,13.67
+"Government, defense and social security administration",2011-04-01,1.14
+"Government, defense and social security administration",2011-07-01,8.36
+"Government, defense and social security administration",2011-10-01,3.63
+"Government, defense and social security administration",2012-01-01,2.37
+"Government, defense and social security administration",2012-04-01,7.6
+"Government, defense and social security administration",2012-07-01,-2.01
+"Government, defense and social security administration",2012-10-01,0.78
+"Government, defense and social security administration",2013-01-01,1.79
+"Government, defense and social security administration",2013-04-01,-1.81
+"Government, defense and social security administration",2013-07-01,6.62
+"Government, defense and social security administration",2013-10-01,3.83
+"Government, defense and social security administration",2014-01-01,2.66
+"Government, defense and social security administration",2014-04-01,-2.49
+"Government, defense and social security administration",2014-07-01,2.38
+"Government, defense and social security administration",2014-10-01,6.84
+"Government, defense and social security administration",2015-01-01,4.73
+"Government, defense and social security administration",2015-04-01,6.29
+"Government, defense and social security administration",2015-07-01,1.27
+"Government, defense and social security administration",2015-10-01,6.27
+"Government, defense and social security administration",2016-01-01,4.62
+"Government, defense and social security administration",2016-04-01,4.44
+"Government, defense and social security administration",2016-07-01,3.82
+"Government, defense and social security administration",2016-10-01,0.28
+"Government, defense and social security administration",2017-01-01,0.22
+"Government, defense and social security administration",2017-04-01,-0.03
+"Government, defense and social security administration",2017-07-01,0.67
+"Government, defense and social security administration",2017-10-01,6.93
+"Government, defense and social security administration",2018-01-01,5.72
+"Government, defense and social security administration",2018-04-01,7.16
+"Government, defense and social security administration",2018-07-01,7.87
+"Government, defense and social security administration",2018-10-01,7.1
+"Government, defense and social security administration",2019-01-01,6.4
+"Government, defense and social security administration",2019-04-01,8.86
+"Government, defense and social security administration",2019-07-01,1.85
+"Government, defense and social security administration",2019-10-01,2.04
+"Government, defense and social security administration",2020-01-01,3.16
+"Government, defense and social security administration",2020-04-01,-3.21
+"Government, defense and social security administration",2020-07-01,1.82
+"Government, defense and social security administration",2020-10-01,-1.55
+Education service,2011-01-01,14.25
+Education service,2011-04-01,4.38
+Education service,2011-07-01,4.12
+Education service,2011-10-01,5.29
+Education service,2012-01-01,8.11
+Education service,2012-04-01,10.74
+Education service,2012-07-01,3.83
+Education service,2012-10-01,10.22
+Education service,2013-01-01,11.15
+Education service,2013-04-01,2.76
+Education service,2013-07-01,7.73
+Education service,2013-10-01,8.32
+Education service,2014-01-01,4.52
+Education service,2014-04-01,4.4
+Education service,2014-07-01,6.22
+Education service,2014-10-01,6.53
+Education service,2015-01-01,4.91
+Education service,2015-04-01,11.6
+Education service,2015-07-01,7.93
+Education service,2015-10-01,5.24
+Education service,2016-01-01,5.33
+Education service,2016-04-01,5.15
+Education service,2016-07-01,1.95
+Education service,2016-10-01,3.13
+Education service,2017-01-01,4.1
+Education service,2017-04-01,0.96
+Education service,2017-07-01,3.7
+Education service,2017-10-01,5.93
+Education service,2018-01-01,4.82
+Education service,2018-04-01,5.03
+Education service,2018-07-01,6.61
+Education service,2018-10-01,4.98
+Education service,2019-01-01,5.65
+Education service,2019-04-01,6.32
+Education service,2019-07-01,7.83
+Education service,2019-10-01,5.44
+Education service,2020-01-01,5.89
+Education service,2020-04-01,1.22
+Education service,2020-07-01,2.41
+Education service,2020-10-01,1.36
+Healthcare and social activity services,2011-01-01,11.97
+Healthcare and social activity services,2011-04-01,8.1
+Healthcare and social activity services,2011-07-01,7.41
+Healthcare and social activity services,2011-10-01,9.76
+Healthcare and social activity services,2012-01-01,8.39
+Healthcare and social activity services,2012-04-01,8.18
+Healthcare and social activity services,2012-07-01,5.48
+Healthcare and social activity services,2012-10-01,9.82
+Healthcare and social activity services,2013-01-01,7.04
+Healthcare and social activity services,2013-04-01,5.4
+Healthcare and social activity services,2013-07-01,8.45
+Healthcare and social activity services,2013-10-01,10.69
+Healthcare and social activity services,2014-01-01,7.64
+Healthcare and social activity services,2014-04-01,8.74
+Healthcare and social activity services,2014-07-01,9.63
+Healthcare and social activity services,2014-10-01,6.03
+Healthcare and social activity services,2015-01-01,8.55
+Healthcare and social activity services,2015-04-01,8.32
+Healthcare and social activity services,2015-07-01,4.51
+Healthcare and social activity services,2015-10-01,5.65
+Healthcare and social activity services,2016-01-01,6.65
+Healthcare and social activity services,2016-04-01,5.2
+Healthcare and social activity services,2016-07-01,4.64
+Healthcare and social activity services,2016-10-01,4.25
+Healthcare and social activity services,2017-01-01,7.1
+Healthcare and social activity services,2017-04-01,6.38
+Healthcare and social activity services,2017-07-01,7.56
+Healthcare and social activity services,2017-10-01,6.34
+Healthcare and social activity services,2018-01-01,6.05
+Healthcare and social activity services,2018-04-01,7.07
+Healthcare and social activity services,2018-07-01,7.56
+Healthcare and social activity services,2018-10-01,7.83
+Healthcare and social activity services,2019-01-01,8.66
+Healthcare and social activity services,2019-04-01,9.15
+Healthcare and social activity services,2019-07-01,9.2
+Healthcare and social activity services,2019-10-01,7.83
+Healthcare and social activity services,2020-01-01,10.39
+Healthcare and social activity services,2020-04-01,3.71
+Healthcare and social activity services,2020-07-01,15.29
+Healthcare and social activity services,2020-10-01,16.54
+Other,2011-01-01,8.91
+Other,2011-04-01,8.61
+Other,2011-07-01,8.44
+Other,2011-10-01,7
+Other,2012-01-01,6.79
+Other,2012-04-01,5.96
+Other,2012-07-01,5.6
+Other,2012-10-01,4.76
+Other,2013-01-01,5.61
+Other,2013-04-01,5.59
+Other,2013-07-01,6.17
+Other,2013-10-01,8.2
+Other,2014-01-01,8.37
+Other,2014-04-01,9.46
+Other,2014-07-01,9.5
+Other,2014-10-01,8.38
+Other,2015-01-01,7.98
+Other,2015-04-01,8.07
+Other,2015-07-01,8.11
+Other,2015-10-01,8.15
+Other,2016-01-01,8.12
+Other,2016-04-01,8.09
+Other,2016-07-01,7.92
+Other,2016-10-01,7.91
+Other,2017-01-01,7.97
+Other,2017-04-01,8.59
+Other,2017-07-01,9.39
+Other,2017-10-01,8.95
+Other,2018-01-01,8.4
+Other,2018-04-01,9.19
+Other,2018-07-01,9.15
+Other,2018-10-01,9.04
+Other,2019-01-01,9.99
+Other,2019-04-01,10.74
+Other,2019-07-01,10.73
+Other,2019-10-01,10.8
+Other,2020-01-01,7.09
+Other,2020-04-01,-12.6
+Other,2020-07-01,-5.55
+Other,2020-10-01,-4.84

@@ -1,0 +1,1349 @@
+expenditure_key,expenditure_component,date,pct_change_yoy
+100,Household consumption,2010-01-01,4
+100,Household consumption,2010-04-01,4.54
+100,Household consumption,2010-07-01,4.21
+100,Household consumption,2010-10-01,4.29
+100,Household consumption,2011-01-01,4.12
+100,Household consumption,2011-04-01,4.58
+100,Household consumption,2011-07-01,5.89
+100,Household consumption,2011-10-01,5.57
+100,Household consumption,2012-01-01,5.55
+100,Household consumption,2012-04-01,5.51
+100,Household consumption,2012-07-01,5.47
+100,Household consumption,2012-10-01,5.45
+100,Household consumption,2013-01-01,5.68
+100,Household consumption,2013-04-01,5.38
+100,Household consumption,2013-07-01,5.32
+100,Household consumption,2013-10-01,5.33
+100,Household consumption,2014-01-01,5.23
+100,Household consumption,2014-04-01,5.15
+100,Household consumption,2014-07-01,5.12
+100,Household consumption,2014-10-01,5.08
+100,Household consumption,2015-01-01,4.99
+100,Household consumption,2015-04-01,4.97
+100,Household consumption,2015-07-01,4.96
+100,Household consumption,2015-10-01,4.92
+100,Household consumption,2016-01-01,4.96
+100,Household consumption,2016-04-01,5.09
+100,Household consumption,2016-07-01,5.02
+100,Household consumption,2016-10-01,4.98
+100,Household consumption,2017-01-01,4.93
+100,Household consumption,2017-04-01,4.94
+100,Household consumption,2017-07-01,4.91
+100,Household consumption,2017-10-01,4.99
+100,Household consumption,2018-01-01,4.96
+100,Household consumption,2018-04-01,5.17
+100,Household consumption,2018-07-01,5
+100,Household consumption,2018-10-01,5.08
+100,Household consumption,2019-01-01,5.02
+100,Household consumption,2019-04-01,5.18
+100,Household consumption,2019-07-01,5.01
+100,Household consumption,2019-10-01,4.97
+100,Household consumption,2020-01-01,2.83
+100,Household consumption,2020-04-01,-5.52
+100,Household consumption,2020-07-01,-4.05
+100,Household consumption,2020-10-01,-3.61
+110,"Food and beverages, other than restaurants",2010-01-01,4.06
+110,"Food and beverages, other than restaurants",2010-04-01,4.25
+110,"Food and beverages, other than restaurants",2010-07-01,3.39
+110,"Food and beverages, other than restaurants",2010-10-01,3.73
+110,"Food and beverages, other than restaurants",2011-01-01,1.11
+110,"Food and beverages, other than restaurants",2011-04-01,1.45
+110,"Food and beverages, other than restaurants",2011-07-01,3.91
+110,"Food and beverages, other than restaurants",2011-10-01,2.27
+110,"Food and beverages, other than restaurants",2012-01-01,3.95
+110,"Food and beverages, other than restaurants",2012-04-01,3.89
+110,"Food and beverages, other than restaurants",2012-07-01,3.51
+110,"Food and beverages, other than restaurants",2012-10-01,3.73
+110,"Food and beverages, other than restaurants",2013-01-01,4.2
+110,"Food and beverages, other than restaurants",2013-04-01,4.25
+110,"Food and beverages, other than restaurants",2013-07-01,4.58
+110,"Food and beverages, other than restaurants",2013-10-01,4.35
+110,"Food and beverages, other than restaurants",2014-01-01,4.33
+110,"Food and beverages, other than restaurants",2014-04-01,4.52
+110,"Food and beverages, other than restaurants",2014-07-01,4.88
+110,"Food and beverages, other than restaurants",2014-10-01,4.21
+110,"Food and beverages, other than restaurants",2015-01-01,5.38
+110,"Food and beverages, other than restaurants",2015-04-01,5.52
+110,"Food and beverages, other than restaurants",2015-07-01,5.34
+110,"Food and beverages, other than restaurants",2015-10-01,5.39
+110,"Food and beverages, other than restaurants",2016-01-01,5.25
+110,"Food and beverages, other than restaurants",2016-04-01,5.37
+110,"Food and beverages, other than restaurants",2016-07-01,5.42
+110,"Food and beverages, other than restaurants",2016-10-01,5.32
+110,"Food and beverages, other than restaurants",2017-01-01,5.13
+110,"Food and beverages, other than restaurants",2017-04-01,5.16
+110,"Food and beverages, other than restaurants",2017-07-01,5.34
+110,"Food and beverages, other than restaurants",2017-10-01,5.32
+110,"Food and beverages, other than restaurants",2018-01-01,5.15
+110,"Food and beverages, other than restaurants",2018-04-01,5.44
+110,"Food and beverages, other than restaurants",2018-07-01,5.22
+110,"Food and beverages, other than restaurants",2018-10-01,5.09
+110,"Food and beverages, other than restaurants",2019-01-01,5.32
+110,"Food and beverages, other than restaurants",2019-04-01,5.2
+110,"Food and beverages, other than restaurants",2019-07-01,5.06
+110,"Food and beverages, other than restaurants",2019-10-01,5.08
+110,"Food and beverages, other than restaurants",2020-01-01,5.01
+110,"Food and beverages, other than restaurants",2020-04-01,-0.73
+110,"Food and beverages, other than restaurants",2020-07-01,-0.69
+110,"Food and beverages, other than restaurants",2020-10-01,-1.39
+120,"Clothes, footwear and their care services",2010-01-01,5.14
+120,"Clothes, footwear and their care services",2010-04-01,5.73
+120,"Clothes, footwear and their care services",2010-07-01,4.87
+120,"Clothes, footwear and their care services",2010-10-01,3.39
+120,"Clothes, footwear and their care services",2011-01-01,5.26
+120,"Clothes, footwear and their care services",2011-04-01,4.92
+120,"Clothes, footwear and their care services",2011-07-01,4.04
+120,"Clothes, footwear and their care services",2011-10-01,6.91
+120,"Clothes, footwear and their care services",2012-01-01,6.32
+120,"Clothes, footwear and their care services",2012-04-01,6.68
+120,"Clothes, footwear and their care services",2012-07-01,6.53
+120,"Clothes, footwear and their care services",2012-10-01,6.41
+120,"Clothes, footwear and their care services",2013-01-01,5.64
+120,"Clothes, footwear and their care services",2013-04-01,5.11
+120,"Clothes, footwear and their care services",2013-07-01,4.9
+120,"Clothes, footwear and their care services",2013-10-01,5.5
+120,"Clothes, footwear and their care services",2014-01-01,5.17
+120,"Clothes, footwear and their care services",2014-04-01,5.36
+120,"Clothes, footwear and their care services",2014-07-01,3.88
+120,"Clothes, footwear and their care services",2014-10-01,4.03
+120,"Clothes, footwear and their care services",2015-01-01,4.08
+120,"Clothes, footwear and their care services",2015-04-01,4.99
+120,"Clothes, footwear and their care services",2015-07-01,4.24
+120,"Clothes, footwear and their care services",2015-10-01,4.27
+120,"Clothes, footwear and their care services",2016-01-01,3.2
+120,"Clothes, footwear and their care services",2016-04-01,3.88
+120,"Clothes, footwear and their care services",2016-07-01,3.09
+120,"Clothes, footwear and their care services",2016-10-01,3.28
+120,"Clothes, footwear and their care services",2017-01-01,3.32
+120,"Clothes, footwear and their care services",2017-04-01,3.82
+120,"Clothes, footwear and their care services",2017-07-01,2.21
+120,"Clothes, footwear and their care services",2017-10-01,4.15
+120,"Clothes, footwear and their care services",2018-01-01,5.03
+120,"Clothes, footwear and their care services",2018-04-01,3.75
+120,"Clothes, footwear and their care services",2018-07-01,4.31
+120,"Clothes, footwear and their care services",2018-10-01,4.12
+120,"Clothes, footwear and their care services",2019-01-01,4.48
+120,"Clothes, footwear and their care services",2019-04-01,4.89
+120,"Clothes, footwear and their care services",2019-07-01,3.98
+120,"Clothes, footwear and their care services",2019-10-01,3.73
+120,"Clothes, footwear and their care services",2020-01-01,-3.3
+120,"Clothes, footwear and their care services",2020-04-01,-5.14
+120,"Clothes, footwear and their care services",2020-07-01,-4.29
+120,"Clothes, footwear and their care services",2020-10-01,-4.09
+130,Housing and household supplies,2010-01-01,5.64
+130,Housing and household supplies,2010-04-01,5.97
+130,Housing and household supplies,2010-07-01,3.43
+130,Housing and household supplies,2010-10-01,4.21
+130,Housing and household supplies,2011-01-01,3.69
+130,Housing and household supplies,2011-04-01,4.55
+130,Housing and household supplies,2011-07-01,6.28
+130,Housing and household supplies,2011-10-01,6.21
+130,Housing and household supplies,2012-01-01,5.91
+130,Housing and household supplies,2012-04-01,5.93
+130,Housing and household supplies,2012-07-01,5.71
+130,Housing and household supplies,2012-10-01,5.92
+130,Housing and household supplies,2013-01-01,6.9
+130,Housing and household supplies,2013-04-01,5.45
+130,Housing and household supplies,2013-07-01,5.49
+130,Housing and household supplies,2013-10-01,5.45
+130,Housing and household supplies,2014-01-01,5.72
+130,Housing and household supplies,2014-04-01,4.98
+130,Housing and household supplies,2014-07-01,3.82
+130,Housing and household supplies,2014-10-01,3.84
+130,Housing and household supplies,2015-01-01,4.73
+130,Housing and household supplies,2015-04-01,4.96
+130,Housing and household supplies,2015-07-01,4.73
+130,Housing and household supplies,2015-10-01,4.81
+130,Housing and household supplies,2016-01-01,4.86
+130,Housing and household supplies,2016-04-01,4.93
+130,Housing and household supplies,2016-07-01,4.47
+130,Housing and household supplies,2016-10-01,4.46
+130,Housing and household supplies,2017-01-01,4.02
+130,Housing and household supplies,2017-04-01,3.93
+130,Housing and household supplies,2017-07-01,4.28
+130,Housing and household supplies,2017-10-01,4.51
+130,Housing and household supplies,2018-01-01,4.74
+130,Housing and household supplies,2018-04-01,5.05
+130,Housing and household supplies,2018-07-01,4.24
+130,Housing and household supplies,2018-10-01,4.52
+130,Housing and household supplies,2019-01-01,4.38
+130,Housing and household supplies,2019-04-01,4.75
+130,Housing and household supplies,2019-07-01,4.54
+130,Housing and household supplies,2019-10-01,4.95
+130,Housing and household supplies,2020-01-01,4.32
+130,Housing and household supplies,2020-04-01,2.36
+130,Housing and household supplies,2020-07-01,1.82
+130,Housing and household supplies,2020-10-01,0.71
+140,Healthcare and education,2010-01-01,4.93
+140,Healthcare and education,2010-04-01,5.38
+140,Healthcare and education,2010-07-01,4.03
+140,Healthcare and education,2010-10-01,4.49
+140,Healthcare and education,2011-01-01,5.44
+140,Healthcare and education,2011-04-01,5.43
+140,Healthcare and education,2011-07-01,4.41
+140,Healthcare and education,2011-10-01,5.99
+140,Healthcare and education,2012-01-01,5.97
+140,Healthcare and education,2012-04-01,5.95
+140,Healthcare and education,2012-07-01,5.76
+140,Healthcare and education,2012-10-01,5.66
+140,Healthcare and education,2013-01-01,5.96
+140,Healthcare and education,2013-04-01,5.52
+140,Healthcare and education,2013-07-01,5.75
+140,Healthcare and education,2013-10-01,5.67
+140,Healthcare and education,2014-01-01,5.83
+140,Healthcare and education,2014-04-01,5.42
+140,Healthcare and education,2014-07-01,5.43
+140,Healthcare and education,2014-10-01,6.4
+140,Healthcare and education,2015-01-01,5.58
+140,Healthcare and education,2015-04-01,5.45
+140,Healthcare and education,2015-07-01,5.57
+140,Healthcare and education,2015-10-01,5.19
+140,Healthcare and education,2016-01-01,5.4
+140,Healthcare and education,2016-04-01,5.7
+140,Healthcare and education,2016-07-01,5.46
+140,Healthcare and education,2016-10-01,5.32
+140,Healthcare and education,2017-01-01,6.14
+140,Healthcare and education,2017-04-01,5.02
+140,Healthcare and education,2017-07-01,5.17
+140,Healthcare and education,2017-10-01,5.52
+140,Healthcare and education,2018-01-01,5.26
+140,Healthcare and education,2018-04-01,4.76
+140,Healthcare and education,2018-07-01,5.27
+140,Healthcare and education,2018-10-01,4.72
+140,Healthcare and education,2019-01-01,5.54
+140,Healthcare and education,2019-04-01,6.3
+140,Healthcare and education,2019-07-01,7.15
+140,Healthcare and education,2019-10-01,7.35
+140,Healthcare and education,2020-01-01,7.86
+140,Healthcare and education,2020-04-01,2.02
+140,Healthcare and education,2020-07-01,2.05
+140,Healthcare and education,2020-10-01,0.64
+150,Transportation and communication,2010-01-01,2.55
+150,Transportation and communication,2010-04-01,3.43
+150,Transportation and communication,2010-07-01,5.23
+150,Transportation and communication,2010-10-01,5.01
+150,Transportation and communication,2011-01-01,6.17
+150,Transportation and communication,2011-04-01,6.32
+150,Transportation and communication,2011-07-01,6.63
+150,Transportation and communication,2011-10-01,7.12
+150,Transportation and communication,2012-01-01,6.62
+150,Transportation and communication,2012-04-01,6.84
+150,Transportation and communication,2012-07-01,6.7
+150,Transportation and communication,2012-10-01,6.86
+150,Transportation and communication,2013-01-01,6.82
+150,Transportation and communication,2013-04-01,6.74
+150,Transportation and communication,2013-07-01,6.77
+150,Transportation and communication,2013-10-01,6.1
+150,Transportation and communication,2014-01-01,5.44
+150,Transportation and communication,2014-04-01,5.7
+150,Transportation and communication,2014-07-01,5.82
+150,Transportation and communication,2014-10-01,6.22
+150,Transportation and communication,2015-01-01,4.94
+150,Transportation and communication,2015-04-01,4.58
+150,Transportation and communication,2015-07-01,4.9
+150,Transportation and communication,2015-10-01,4.71
+150,Transportation and communication,2016-01-01,5.13
+150,Transportation and communication,2016-04-01,5.12
+150,Transportation and communication,2016-07-01,5.31
+150,Transportation and communication,2016-10-01,5.36
+150,Transportation and communication,2017-01-01,5.32
+150,Transportation and communication,2017-04-01,5.56
+150,Transportation and communication,2017-07-01,5.49
+150,Transportation and communication,2017-10-01,5.17
+150,Transportation and communication,2018-01-01,4.93
+150,Transportation and communication,2018-04-01,5.69
+150,Transportation and communication,2018-07-01,5.36
+150,Transportation and communication,2018-10-01,5.89
+150,Transportation and communication,2019-01-01,5.12
+150,Transportation and communication,2019-04-01,5.07
+150,Transportation and communication,2019-07-01,4.59
+150,Transportation and communication,2019-10-01,4.37
+150,Transportation and communication,2020-01-01,-1.69
+150,Transportation and communication,2020-04-01,-15.33
+150,Transportation and communication,2020-07-01,-11.56
+150,Transportation and communication,2020-10-01,-9.45
+160,Restaurants and hotels,2010-01-01,3.34
+160,Restaurants and hotels,2010-04-01,4.73
+160,Restaurants and hotels,2010-07-01,4.85
+160,Restaurants and hotels,2010-10-01,3.61
+160,Restaurants and hotels,2011-01-01,2.84
+160,Restaurants and hotels,2011-04-01,4.63
+160,Restaurants and hotels,2011-07-01,6.69
+160,Restaurants and hotels,2011-10-01,7.93
+160,Restaurants and hotels,2012-01-01,7.72
+160,Restaurants and hotels,2012-04-01,7.57
+160,Restaurants and hotels,2012-07-01,7.15
+160,Restaurants and hotels,2012-10-01,6.28
+160,Restaurants and hotels,2013-01-01,5.83
+160,Restaurants and hotels,2013-04-01,5.32
+160,Restaurants and hotels,2013-07-01,5.02
+160,Restaurants and hotels,2013-10-01,6.87
+160,Restaurants and hotels,2014-01-01,7.21
+160,Restaurants and hotels,2014-04-01,6.24
+160,Restaurants and hotels,2014-07-01,6.2
+160,Restaurants and hotels,2014-10-01,7.08
+160,Restaurants and hotels,2015-01-01,4.97
+160,Restaurants and hotels,2015-04-01,4.89
+160,Restaurants and hotels,2015-07-01,4.94
+160,Restaurants and hotels,2015-10-01,5.22
+160,Restaurants and hotels,2016-01-01,5.35
+160,Restaurants and hotels,2016-04-01,5.6
+160,Restaurants and hotels,2016-07-01,5.5
+160,Restaurants and hotels,2016-10-01,5.31
+160,Restaurants and hotels,2017-01-01,5.53
+160,Restaurants and hotels,2017-04-01,5.73
+160,Restaurants and hotels,2017-07-01,5.02
+160,Restaurants and hotels,2017-10-01,5.32
+160,Restaurants and hotels,2018-01-01,5.73
+160,Restaurants and hotels,2018-04-01,5.17
+160,Restaurants and hotels,2018-07-01,5.86
+160,Restaurants and hotels,2018-10-01,5.75
+160,Restaurants and hotels,2019-01-01,5.64
+160,Restaurants and hotels,2019-04-01,6.25
+160,Restaurants and hotels,2019-07-01,5.79
+160,Restaurants and hotels,2019-10-01,6.17
+160,Restaurants and hotels,2020-01-01,2.44
+160,Restaurants and hotels,2020-04-01,-16.53
+160,Restaurants and hotels,2020-07-01,-10.94
+160,Restaurants and hotels,2020-10-01,-7.28
+170,Other,2010-01-01,5.18
+170,Other,2010-04-01,5.9
+170,Other,2010-07-01,6.69
+170,Other,2010-10-01,7.43
+170,Other,2011-01-01,20.35
+170,Other,2011-04-01,20.82
+170,Other,2011-07-01,20.01
+170,Other,2011-10-01,16.95
+170,Other,2012-01-01,6.4
+170,Other,2012-04-01,4.99
+170,Other,2012-07-01,9.12
+170,Other,2012-10-01,7.74
+170,Other,2013-01-01,7.17
+170,Other,2013-04-01,7.08
+170,Other,2013-07-01,3.61
+170,Other,2013-10-01,5.12
+170,Other,2014-01-01,5.21
+170,Other,2014-04-01,5.04
+170,Other,2014-07-01,5.68
+170,Other,2014-10-01,4.59
+170,Other,2015-01-01,3.23
+170,Other,2015-04-01,2.5
+170,Other,2015-07-01,2.88
+170,Other,2015-10-01,2.56
+170,Other,2016-01-01,2.46
+170,Other,2016-04-01,2.68
+170,Other,2016-07-01,2.23
+170,Other,2016-10-01,2.33
+170,Other,2017-01-01,2.48
+170,Other,2017-04-01,2.37
+170,Other,2017-07-01,2.19
+170,Other,2017-10-01,2.15
+170,Other,2018-01-01,2.37
+170,Other,2018-04-01,2.61
+170,Other,2018-07-01,2.12
+170,Other,2018-10-01,2.44
+170,Other,2019-01-01,2.4
+170,Other,2019-04-01,3.33
+170,Other,2019-07-01,4.24
+170,Other,2019-10-01,2.38
+170,Other,2020-01-01,3.65
+170,Other,2020-04-01,-3.23
+170,Other,2020-07-01,-2.06
+170,Other,2020-10-01,-0.88
+200,NPISHs consumption,2010-01-01,-10.33
+200,NPISHs consumption,2010-04-01,-11.65
+200,NPISHs consumption,2010-07-01,4.36
+200,NPISHs consumption,2010-10-01,4.58
+200,NPISHs consumption,2011-01-01,4.65
+200,NPISHs consumption,2011-04-01,5.21
+200,NPISHs consumption,2011-07-01,5.87
+200,NPISHs consumption,2011-10-01,6.37
+200,NPISHs consumption,2012-01-01,6.2
+200,NPISHs consumption,2012-04-01,6.87
+200,NPISHs consumption,2012-07-01,6.96
+200,NPISHs consumption,2012-10-01,6.66
+200,NPISHs consumption,2013-01-01,6.52
+200,NPISHs consumption,2013-04-01,6.43
+200,NPISHs consumption,2013-07-01,6.7
+200,NPISHs consumption,2013-10-01,12.82
+200,NPISHs consumption,2014-01-01,23.15
+200,NPISHs consumption,2014-04-01,22.42
+200,NPISHs consumption,2014-07-01,5.76
+200,NPISHs consumption,2014-10-01,-0.49
+200,NPISHs consumption,2015-01-01,-8.06
+200,NPISHs consumption,2015-04-01,-7.98
+200,NPISHs consumption,2015-07-01,6.57
+200,NPISHs consumption,2015-10-01,8.33
+200,NPISHs consumption,2016-01-01,6.41
+200,NPISHs consumption,2016-04-01,6.73
+200,NPISHs consumption,2016-07-01,6.67
+200,NPISHs consumption,2016-10-01,6.75
+200,NPISHs consumption,2017-01-01,8.08
+200,NPISHs consumption,2017-04-01,8.53
+200,NPISHs consumption,2017-07-01,6.04
+200,NPISHs consumption,2017-10-01,5.26
+200,NPISHs consumption,2018-01-01,8.15
+200,NPISHs consumption,2018-04-01,8.81
+200,NPISHs consumption,2018-07-01,8.66
+200,NPISHs consumption,2018-10-01,10.88
+200,NPISHs consumption,2019-01-01,16.96
+200,NPISHs consumption,2019-04-01,15.28
+200,NPISHs consumption,2019-07-01,7.4
+200,NPISHs consumption,2019-10-01,3.53
+200,NPISHs consumption,2020-01-01,-5.01
+200,NPISHs consumption,2020-04-01,-7.82
+200,NPISHs consumption,2020-07-01,-1.97
+200,NPISHs consumption,2020-10-01,-2.14
+300,Government consumption,2010-01-01,-5.24
+300,Government consumption,2010-04-01,-1
+300,Government consumption,2010-07-01,14.12
+300,Government consumption,2010-10-01,5.4
+300,Government consumption,2011-01-01,8.43
+300,Government consumption,2011-04-01,7.79
+300,Government consumption,2011-07-01,4.69
+300,Government consumption,2011-10-01,3.42
+300,Government consumption,2012-01-01,7.74
+300,Government consumption,2012-04-01,16.78
+300,Government consumption,2012-07-01,-1.96
+300,Government consumption,2012-10-01,-0.12
+300,Government consumption,2013-01-01,2.97
+300,Government consumption,2013-04-01,3.1
+300,Government consumption,2013-07-01,12.04
+300,Government consumption,2013-10-01,7.72
+300,Government consumption,2014-01-01,6.06
+300,Government consumption,2014-04-01,-1.84
+300,Government consumption,2014-07-01,1.17
+300,Government consumption,2014-10-01,0.87
+300,Government consumption,2015-01-01,2.92
+300,Government consumption,2015-04-01,2.62
+300,Government consumption,2015-07-01,7.09
+300,Government consumption,2015-10-01,7.1
+300,Government consumption,2016-01-01,3.43
+300,Government consumption,2016-04-01,6.21
+300,Government consumption,2016-07-01,-2.96
+300,Government consumption,2016-10-01,-4.02
+300,Government consumption,2017-01-01,2.68
+300,Government consumption,2017-04-01,-1.93
+300,Government consumption,2017-07-01,3.45
+300,Government consumption,2017-10-01,3.79
+300,Government consumption,2018-01-01,2.73
+300,Government consumption,2018-04-01,5.22
+300,Government consumption,2018-07-01,6.26
+300,Government consumption,2018-10-01,4.62
+300,Government consumption,2019-01-01,5.25
+300,Government consumption,2019-04-01,8.23
+300,Government consumption,2019-07-01,0.99
+300,Government consumption,2019-10-01,0.5
+300,Government consumption,2020-01-01,3.77
+300,Government consumption,2020-04-01,-6.9
+300,Government consumption,2020-07-01,9.76
+300,Government consumption,2020-10-01,1.76
+310,Collective consumption,2010-01-01,-9.91
+310,Collective consumption,2010-04-01,-2.73
+310,Collective consumption,2010-07-01,14.08
+310,Collective consumption,2010-10-01,6.25
+310,Collective consumption,2011-01-01,11.29
+310,Collective consumption,2011-04-01,13.46
+310,Collective consumption,2011-07-01,8.6
+310,Collective consumption,2011-10-01,0.3
+310,Collective consumption,2012-01-01,3.73
+310,Collective consumption,2012-04-01,12.92
+310,Collective consumption,2012-07-01,-2.82
+310,Collective consumption,2012-10-01,0.7
+310,Collective consumption,2013-01-01,2.2
+310,Collective consumption,2013-04-01,6.27
+310,Collective consumption,2013-07-01,9.76
+310,Collective consumption,2013-10-01,12.06
+310,Collective consumption,2014-01-01,5.2
+310,Collective consumption,2014-04-01,-2.12
+310,Collective consumption,2014-07-01,1.69
+310,Collective consumption,2014-10-01,0.18
+310,Collective consumption,2015-01-01,2.35
+310,Collective consumption,2015-04-01,-3.17
+310,Collective consumption,2015-07-01,9.13
+310,Collective consumption,2015-10-01,5.51
+310,Collective consumption,2016-01-01,3.6
+310,Collective consumption,2016-04-01,7.99
+310,Collective consumption,2016-07-01,-4.28
+310,Collective consumption,2016-10-01,-3.27
+310,Collective consumption,2017-01-01,1.87
+310,Collective consumption,2017-04-01,-3.13
+310,Collective consumption,2017-07-01,2.21
+310,Collective consumption,2017-10-01,4.48
+310,Collective consumption,2018-01-01,2.56
+310,Collective consumption,2018-04-01,4.41
+310,Collective consumption,2018-07-01,5.4
+310,Collective consumption,2018-10-01,5.34
+310,Collective consumption,2019-01-01,6.9
+310,Collective consumption,2019-04-01,12.87
+310,Collective consumption,2019-07-01,1.6
+310,Collective consumption,2019-10-01,0.2
+310,Collective consumption,2020-01-01,2.08
+310,Collective consumption,2020-04-01,-11.74
+310,Collective consumption,2020-07-01,5.61
+310,Collective consumption,2020-10-01,0.89
+320,Individual consumption,2010-01-01,4.06
+320,Individual consumption,2010-04-01,1.87
+320,Individual consumption,2010-07-01,14.2
+320,Individual consumption,2010-10-01,4.04
+320,Individual consumption,2011-01-01,3.49
+320,Individual consumption,2011-04-01,-1.17
+320,Individual consumption,2011-07-01,-1.38
+320,Individual consumption,2011-10-01,8.48
+320,Individual consumption,2012-01-01,15.17
+320,Individual consumption,2012-04-01,23.77
+320,Individual consumption,2012-07-01,-0.48
+320,Individual consumption,2012-10-01,-1.36
+320,Individual consumption,2013-01-01,4.25
+320,Individual consumption,2013-04-01,-2.15
+320,Individual consumption,2013-07-01,15.84
+320,Individual consumption,2013-10-01,1.11
+320,Individual consumption,2014-01-01,7.46
+320,Individual consumption,2014-04-01,-1.34
+320,Individual consumption,2014-07-01,0.34
+320,Individual consumption,2014-10-01,2.03
+320,Individual consumption,2015-01-01,3.83
+320,Individual consumption,2015-04-01,12.94
+320,Individual consumption,2015-07-01,3.84
+320,Individual consumption,2015-10-01,9.74
+320,Individual consumption,2016-01-01,3.16
+320,Individual consumption,2016-04-01,3.5
+320,Individual consumption,2016-07-01,-0.75
+320,Individual consumption,2016-10-01,-5.23
+320,Individual consumption,2017-01-01,3.98
+320,Individual consumption,2017-04-01,-0.02
+320,Individual consumption,2017-07-01,5.46
+320,Individual consumption,2017-10-01,2.67
+320,Individual consumption,2018-01-01,3
+320,Individual consumption,2018-04-01,6.47
+320,Individual consumption,2018-07-01,7.6
+320,Individual consumption,2018-10-01,3.43
+320,Individual consumption,2019-01-01,2.71
+320,Individual consumption,2019-04-01,1.21
+320,Individual consumption,2019-07-01,0.06
+320,Individual consumption,2019-10-01,1
+320,Individual consumption,2020-01-01,6.49
+320,Individual consumption,2020-04-01,1.28
+320,Individual consumption,2020-07-01,16.24
+320,Individual consumption,2020-10-01,3.21
+400,Gross fixed capital formation,2010-01-01,3.33
+400,Gross fixed capital formation,2010-04-01,9.31
+400,Gross fixed capital formation,2010-07-01,3.84
+400,Gross fixed capital formation,2010-10-01,10.38
+400,Gross fixed capital formation,2011-01-01,8.63
+400,Gross fixed capital formation,2011-04-01,8.61
+400,Gross fixed capital formation,2011-07-01,7.58
+400,Gross fixed capital formation,2011-10-01,10.53
+400,Gross fixed capital formation,2012-01-01,6.99
+400,Gross fixed capital formation,2012-04-01,10.13
+400,Gross fixed capital formation,2012-07-01,9.45
+400,Gross fixed capital formation,2012-10-01,9.78
+400,Gross fixed capital formation,2013-01-01,7.55
+400,Gross fixed capital formation,2013-04-01,5.28
+400,Gross fixed capital formation,2013-07-01,5.64
+400,Gross fixed capital formation,2013-10-01,1.99
+400,Gross fixed capital formation,2014-01-01,5.44
+400,Gross fixed capital formation,2014-04-01,4.02
+400,Gross fixed capital formation,2014-07-01,4.35
+400,Gross fixed capital formation,2014-10-01,4.05
+400,Gross fixed capital formation,2015-01-01,4.59
+400,Gross fixed capital formation,2015-04-01,4
+400,Gross fixed capital formation,2015-07-01,4.93
+400,Gross fixed capital formation,2015-10-01,6.43
+400,Gross fixed capital formation,2016-01-01,4.67
+400,Gross fixed capital formation,2016-04-01,4.18
+400,Gross fixed capital formation,2016-07-01,4.24
+400,Gross fixed capital formation,2016-10-01,4.79
+400,Gross fixed capital formation,2017-01-01,4.77
+400,Gross fixed capital formation,2017-04-01,5.34
+400,Gross fixed capital formation,2017-07-01,7.08
+400,Gross fixed capital formation,2017-10-01,7.26
+400,Gross fixed capital formation,2018-01-01,7.92
+400,Gross fixed capital formation,2018-04-01,5.81
+400,Gross fixed capital formation,2018-07-01,6.92
+400,Gross fixed capital formation,2018-10-01,6.14
+400,Gross fixed capital formation,2019-01-01,5.03
+400,Gross fixed capital formation,2019-04-01,4.55
+400,Gross fixed capital formation,2019-07-01,4.21
+400,Gross fixed capital formation,2019-10-01,4.08
+400,Gross fixed capital formation,2020-01-01,1.7
+400,Gross fixed capital formation,2020-04-01,-8.61
+400,Gross fixed capital formation,2020-07-01,-6.48
+400,Gross fixed capital formation,2020-10-01,-6.15
+410,Buildings,2010-01-01,9.87
+410,Buildings,2010-04-01,9.58
+410,Buildings,2010-07-01,7.01
+410,Buildings,2010-10-01,5.92
+410,Buildings,2011-01-01,5.71
+410,Buildings,2011-04-01,6.16
+410,Buildings,2011-07-01,4.83
+410,Buildings,2011-10-01,7.31
+410,Buildings,2012-01-01,5.46
+410,Buildings,2012-04-01,6.62
+410,Buildings,2012-07-01,8.96
+410,Buildings,2012-10-01,11.23
+410,Buildings,2013-01-01,8.01
+410,Buildings,2013-04-01,8.03
+410,Buildings,2013-07-01,7.18
+410,Buildings,2013-10-01,4.03
+410,Buildings,2014-01-01,5.51
+410,Buildings,2014-04-01,4.91
+410,Buildings,2014-07-01,4.52
+410,Buildings,2014-10-01,7.1
+410,Buildings,2015-01-01,5.71
+410,Buildings,2015-04-01,4.72
+410,Buildings,2015-07-01,6.11
+410,Buildings,2015-10-01,7.78
+410,Buildings,2016-01-01,6.78
+410,Buildings,2016-04-01,5.07
+410,Buildings,2016-07-01,4.96
+410,Buildings,2016-10-01,4.07
+410,Buildings,2017-01-01,5.87
+410,Buildings,2017-04-01,6.07
+410,Buildings,2017-07-01,6.28
+410,Buildings,2017-10-01,6.68
+410,Buildings,2018-01-01,6.12
+410,Buildings,2018-04-01,4.96
+410,Buildings,2018-07-01,5.6
+410,Buildings,2018-10-01,5.02
+410,Buildings,2019-01-01,5.48
+410,Buildings,2019-04-01,5.46
+410,Buildings,2019-07-01,5.03
+410,Buildings,2019-10-01,5.53
+410,Buildings,2020-01-01,2.76
+410,Buildings,2020-04-01,-5.26
+410,Buildings,2020-07-01,-5.6
+410,Buildings,2020-10-01,-6.63
+420,Machinery and equipment,2010-01-01,-4.15
+420,Machinery and equipment,2010-04-01,10.86
+420,Machinery and equipment,2010-07-01,16.56
+420,Machinery and equipment,2010-10-01,27.02
+420,Machinery and equipment,2011-01-01,24.43
+420,Machinery and equipment,2011-04-01,25.12
+420,Machinery and equipment,2011-07-01,20.57
+420,Machinery and equipment,2011-10-01,26.12
+420,Machinery and equipment,2012-01-01,17.83
+420,Machinery and equipment,2012-04-01,15.77
+420,Machinery and equipment,2012-07-01,13.79
+420,Machinery and equipment,2012-10-01,3.01
+420,Machinery and equipment,2013-01-01,3.93
+420,Machinery and equipment,2013-04-01,-1.65
+420,Machinery and equipment,2013-07-01,-2.37
+420,Machinery and equipment,2013-10-01,1.8
+420,Machinery and equipment,2014-01-01,-0.89
+420,Machinery and equipment,2014-04-01,1.92
+420,Machinery and equipment,2014-07-01,-2.44
+420,Machinery and equipment,2014-10-01,-8.16
+420,Machinery and equipment,2015-01-01,-1.21
+420,Machinery and equipment,2015-04-01,-4.26
+420,Machinery and equipment,2015-07-01,2.85
+420,Machinery and equipment,2015-10-01,5.19
+420,Machinery and equipment,2016-01-01,-8.23
+420,Machinery and equipment,2016-04-01,-7.31
+420,Machinery and equipment,2016-07-01,-9.47
+420,Machinery and equipment,2016-10-01,-1.88
+420,Machinery and equipment,2017-01-01,1.21
+420,Machinery and equipment,2017-04-01,-2.18
+420,Machinery and equipment,2017-07-01,15.15
+420,Machinery and equipment,2017-10-01,22.3
+420,Machinery and equipment,2018-01-01,23.73
+420,Machinery and equipment,2018-04-01,22.27
+420,Machinery and equipment,2018-07-01,22.13
+420,Machinery and equipment,2018-10-01,12.93
+420,Machinery and equipment,2019-01-01,8.4
+420,Machinery and equipment,2019-04-01,7.18
+420,Machinery and equipment,2019-07-01,7.79
+420,Machinery and equipment,2019-10-01,-2.86
+420,Machinery and equipment,2020-01-01,-3.92
+420,Machinery and equipment,2020-04-01,-12.86
+420,Machinery and equipment,2020-07-01,-21.01
+420,Machinery and equipment,2020-10-01,-7.57
+430,Vehicles,2010-01-01,1.48
+430,Vehicles,2010-04-01,1.38
+430,Vehicles,2010-07-01,-18.38
+430,Vehicles,2010-10-01,-3.39
+430,Vehicles,2011-01-01,2.64
+430,Vehicles,2011-04-01,9.6
+430,Vehicles,2011-07-01,16.51
+430,Vehicles,2011-10-01,34.43
+430,Vehicles,2012-01-01,29.24
+430,Vehicles,2012-04-01,33.4
+430,Vehicles,2012-07-01,10.42
+430,Vehicles,2012-10-01,11.07
+430,Vehicles,2013-01-01,1.82
+430,Vehicles,2013-04-01,-0.09
+430,Vehicles,2013-07-01,-2.85
+430,Vehicles,2013-10-01,-19.25
+430,Vehicles,2014-01-01,-5.34
+430,Vehicles,2014-04-01,-5.82
+430,Vehicles,2014-07-01,-5.04
+430,Vehicles,2014-10-01,-7.39
+430,Vehicles,2015-01-01,-4.98
+430,Vehicles,2015-04-01,-6.25
+430,Vehicles,2015-07-01,6.77
+430,Vehicles,2015-10-01,7.26
+430,Vehicles,2016-01-01,-0.23
+430,Vehicles,2016-04-01,5.21
+430,Vehicles,2016-07-01,14.72
+430,Vehicles,2016-10-01,27.38
+430,Vehicles,2017-01-01,25.3
+430,Vehicles,2017-04-01,12.53
+430,Vehicles,2017-07-01,5.29
+430,Vehicles,2017-10-01,-2.75
+430,Vehicles,2018-01-01,14.37
+430,Vehicles,2018-04-01,8.01
+430,Vehicles,2018-07-01,4.54
+430,Vehicles,2018-10-01,6.57
+430,Vehicles,2019-01-01,-7.37
+430,Vehicles,2019-04-01,-2.21
+430,Vehicles,2019-07-01,-6.34
+430,Vehicles,2019-10-01,-0.35
+430,Vehicles,2020-01-01,2.72
+430,Vehicles,2020-04-01,-34.12
+430,Vehicles,2020-07-01,-14.63
+430,Vehicles,2020-10-01,-6.51
+440,Other equipments,2010-01-01,3.18
+440,Other equipments,2010-04-01,12.63
+440,Other equipments,2010-07-01,17.31
+440,Other equipments,2010-10-01,19.28
+440,Other equipments,2011-01-01,19.04
+440,Other equipments,2011-04-01,12.55
+440,Other equipments,2011-07-01,9.71
+440,Other equipments,2011-10-01,6.72
+440,Other equipments,2012-01-01,3.46
+440,Other equipments,2012-04-01,10.82
+440,Other equipments,2012-07-01,3.82
+440,Other equipments,2012-10-01,0.55
+440,Other equipments,2013-01-01,6.24
+440,Other equipments,2013-04-01,-0.01
+440,Other equipments,2013-07-01,1.32
+440,Other equipments,2013-10-01,9.88
+440,Other equipments,2014-01-01,4.38
+440,Other equipments,2014-04-01,8.78
+440,Other equipments,2014-07-01,16.51
+440,Other equipments,2014-10-01,7.31
+440,Other equipments,2015-01-01,7.03
+440,Other equipments,2015-04-01,8.6
+440,Other equipments,2015-07-01,12.68
+440,Other equipments,2015-10-01,10.19
+440,Other equipments,2016-01-01,26.37
+440,Other equipments,2016-04-01,8.7
+440,Other equipments,2016-07-01,1.42
+440,Other equipments,2016-10-01,16.74
+440,Other equipments,2017-01-01,-0.53
+440,Other equipments,2017-04-01,13.49
+440,Other equipments,2017-07-01,16.82
+440,Other equipments,2017-10-01,8.14
+440,Other equipments,2018-01-01,17.81
+440,Other equipments,2018-04-01,7.21
+440,Other equipments,2018-07-01,8.9
+440,Other equipments,2018-10-01,0.85
+440,Other equipments,2019-01-01,-6.76
+440,Other equipments,2019-04-01,-3.94
+440,Other equipments,2019-07-01,-1.13
+440,Other equipments,2019-10-01,-0.84
+440,Other equipments,2020-01-01,2.39
+440,Other equipments,2020-04-01,-26.09
+440,Other equipments,2020-07-01,-15.23
+440,Other equipments,2020-10-01,-3.77
+450,Cultivated biological resources,2010-01-01,-37.51
+450,Cultivated biological resources,2010-04-01,0.46
+450,Cultivated biological resources,2010-07-01,-17.22
+450,Cultivated biological resources,2010-10-01,54.11
+450,Cultivated biological resources,2011-01-01,14.1
+450,Cultivated biological resources,2011-04-01,14.53
+450,Cultivated biological resources,2011-07-01,4.19
+450,Cultivated biological resources,2011-10-01,11.86
+450,Cultivated biological resources,2012-01-01,-3.62
+450,Cultivated biological resources,2012-04-01,7.37
+450,Cultivated biological resources,2012-07-01,9.85
+450,Cultivated biological resources,2012-10-01,6.01
+450,Cultivated biological resources,2013-01-01,13.13
+450,Cultivated biological resources,2013-04-01,2.1
+450,Cultivated biological resources,2013-07-01,3.15
+450,Cultivated biological resources,2013-10-01,-7.15
+450,Cultivated biological resources,2014-01-01,22.37
+450,Cultivated biological resources,2014-04-01,-4.84
+450,Cultivated biological resources,2014-07-01,13.3
+450,Cultivated biological resources,2014-10-01,2.01
+450,Cultivated biological resources,2015-01-01,8.98
+450,Cultivated biological resources,2015-04-01,18.8
+450,Cultivated biological resources,2015-07-01,-1.73
+450,Cultivated biological resources,2015-10-01,-8.25
+450,Cultivated biological resources,2016-01-01,2.27
+450,Cultivated biological resources,2016-04-01,10.78
+450,Cultivated biological resources,2016-07-01,1.89
+450,Cultivated biological resources,2016-10-01,4.25
+450,Cultivated biological resources,2017-01-01,-10.83
+450,Cultivated biological resources,2017-04-01,2.05
+450,Cultivated biological resources,2017-07-01,9.87
+450,Cultivated biological resources,2017-10-01,3.86
+450,Cultivated biological resources,2018-01-01,-0.47
+450,Cultivated biological resources,2018-04-01,0.02
+450,Cultivated biological resources,2018-07-01,2.54
+450,Cultivated biological resources,2018-10-01,8.67
+450,Cultivated biological resources,2019-01-01,9.32
+450,Cultivated biological resources,2019-04-01,-0.14
+450,Cultivated biological resources,2019-07-01,3
+450,Cultivated biological resources,2019-10-01,8.55
+450,Cultivated biological resources,2020-01-01,-0.04
+450,Cultivated biological resources,2020-04-01,-14.89
+450,Cultivated biological resources,2020-07-01,23.08
+450,Cultivated biological resources,2020-10-01,4.4
+460,Intellectual property products,2010-01-01,-4.5
+460,Intellectual property products,2010-04-01,41.75
+460,Intellectual property products,2010-07-01,-17.73
+460,Intellectual property products,2010-10-01,25.92
+460,Intellectual property products,2011-01-01,34.94
+460,Intellectual property products,2011-04-01,-3.42
+460,Intellectual property products,2011-07-01,25.06
+460,Intellectual property products,2011-10-01,-19.86
+460,Intellectual property products,2012-01-01,-17.77
+460,Intellectual property products,2012-04-01,44
+460,Intellectual property products,2012-07-01,1.84
+460,Intellectual property products,2012-10-01,17.67
+460,Intellectual property products,2013-01-01,18.67
+460,Intellectual property products,2013-04-01,-10.91
+460,Intellectual property products,2013-07-01,38.46
+460,Intellectual property products,2013-10-01,31.8
+460,Intellectual property products,2014-01-01,27.6
+460,Intellectual property products,2014-04-01,31.25
+460,Intellectual property products,2014-07-01,27.47
+460,Intellectual property products,2014-10-01,1.07
+460,Intellectual property products,2015-01-01,7.49
+460,Intellectual property products,2015-04-01,10.17
+460,Intellectual property products,2015-07-01,-10.98
+460,Intellectual property products,2015-10-01,3.44
+460,Intellectual property products,2016-01-01,1.18
+460,Intellectual property products,2016-04-01,5.22
+460,Intellectual property products,2016-07-01,22.65
+460,Intellectual property products,2016-10-01,2.38
+460,Intellectual property products,2017-01-01,-11.16
+460,Intellectual property products,2017-04-01,0.73
+460,Intellectual property products,2017-07-01,-3.42
+460,Intellectual property products,2017-10-01,-2.26
+460,Intellectual property products,2018-01-01,1.22
+460,Intellectual property products,2018-04-01,-12.82
+460,Intellectual property products,2018-07-01,1.48
+460,Intellectual property products,2018-10-01,8.08
+460,Intellectual property products,2019-01-01,9.13
+460,Intellectual property products,2019-04-01,-0.2
+460,Intellectual property products,2019-07-01,-4.14
+460,Intellectual property products,2019-10-01,-4.45
+460,Intellectual property products,2020-01-01,-5.89
+460,Intellectual property products,2020-04-01,-11.45
+460,Intellectual property products,2020-07-01,-3.61
+460,Intellectual property products,2020-10-01,-10.36
+500,Changes in inventories,2014-01-01,-5.66
+500,Changes in inventories,2014-04-01,-5.41
+500,Changes in inventories,2014-07-01,177.02
+500,Changes in inventories,2014-10-01,61.51
+500,Changes in inventories,2018-01-01,0
+500,Changes in inventories,2018-04-01,0
+500,Changes in inventories,2018-07-01,0
+500,Changes in inventories,2018-10-01,0
+500,Changes in inventories,2019-01-01,0
+500,Changes in inventories,2019-04-01,0
+500,Changes in inventories,2019-07-01,0
+500,Changes in inventories,2019-10-01,0
+500,Changes in inventories,2020-01-01,0
+500,Changes in inventories,2020-04-01,0
+500,Changes in inventories,2020-07-01,0
+500,Changes in inventories,2020-10-01,0
+600,Exports of goods and services,2010-01-01,24.93
+600,Exports of goods and services,2010-04-01,15.38
+600,Exports of goods and services,2010-07-01,9.12
+600,Exports of goods and services,2010-10-01,13.33
+600,Exports of goods and services,2011-01-01,11.35
+600,Exports of goods and services,2011-04-01,19.98
+600,Exports of goods and services,2011-07-01,21.26
+600,Exports of goods and services,2011-10-01,7.57
+600,Exports of goods and services,2012-01-01,6.84
+600,Exports of goods and services,2012-04-01,1.71
+600,Exports of goods and services,2012-07-01,-2.61
+600,Exports of goods and services,2012-10-01,1.05
+600,Exports of goods and services,2013-01-01,3.5
+600,Exports of goods and services,2013-04-01,2.1
+600,Exports of goods and services,2013-07-01,1.34
+600,Exports of goods and services,2013-10-01,9.44
+600,Exports of goods and services,2014-01-01,3.14
+600,Exports of goods and services,2014-04-01,1.45
+600,Exports of goods and services,2014-07-01,4.94
+600,Exports of goods and services,2014-10-01,-4.45
+600,Exports of goods and services,2015-01-01,-0.63
+600,Exports of goods and services,2015-04-01,-0.26
+600,Exports of goods and services,2015-07-01,-0.96
+600,Exports of goods and services,2015-10-01,-6.42
+600,Exports of goods and services,2016-01-01,-3.08
+600,Exports of goods and services,2016-04-01,-1.51
+600,Exports of goods and services,2016-07-01,-5.89
+600,Exports of goods and services,2016-10-01,3.9
+600,Exports of goods and services,2017-01-01,8.34
+600,Exports of goods and services,2017-04-01,2.71
+600,Exports of goods and services,2017-07-01,16.4
+600,Exports of goods and services,2017-10-01,8.49
+600,Exports of goods and services,2018-01-01,5.76
+600,Exports of goods and services,2018-04-01,7.42
+600,Exports of goods and services,2018-07-01,8.3
+600,Exports of goods and services,2018-10-01,4.63
+600,Exports of goods and services,2019-01-01,-1.46
+600,Exports of goods and services,2019-04-01,-1.84
+600,Exports of goods and services,2019-07-01,0.12
+600,Exports of goods and services,2019-10-01,-0.38
+600,Exports of goods and services,2020-01-01,0.36
+600,Exports of goods and services,2020-04-01,-12.02
+600,Exports of goods and services,2020-07-01,-11.66
+600,Exports of goods and services,2020-10-01,-7.21
+610,Goods,2010-01-01,26.51
+610,Goods,2010-04-01,15.21
+610,Goods,2010-07-01,8.87
+610,Goods,2010-10-01,13.02
+610,Goods,2011-01-01,10.82
+610,Goods,2011-04-01,21.31
+610,Goods,2011-07-01,21.96
+610,Goods,2011-10-01,6.74
+610,Goods,2012-01-01,6.03
+610,Goods,2012-04-01,0.72
+610,Goods,2012-07-01,-3.27
+610,Goods,2012-10-01,0.38
+610,Goods,2013-01-01,3.46
+610,Goods,2013-04-01,1.19
+610,Goods,2013-07-01,0.39
+610,Goods,2013-10-01,9.95
+610,Goods,2014-01-01,3
+610,Goods,2014-04-01,0.96
+610,Goods,2014-07-01,5.21
+610,Goods,2014-10-01,-5.1
+610,Goods,2015-01-01,-0.34
+610,Goods,2015-04-01,-0.3
+610,Goods,2015-07-01,-1.87
+610,Goods,2015-10-01,-7.16
+610,Goods,2016-01-01,-4.3
+610,Goods,2016-04-01,-2.01
+610,Goods,2016-07-01,-7.24
+610,Goods,2016-10-01,3.8
+610,Goods,2017-01-01,8.59
+610,Goods,2017-04-01,2.2
+610,Goods,2017-07-01,17.17
+610,Goods,2017-10-01,9.67
+610,Goods,2018-01-01,5.59
+610,Goods,2018-04-01,7.68
+610,Goods,2018-07-01,8.07
+610,Goods,2018-10-01,4.4
+610,Goods,2019-01-01,-1.46
+610,Goods,2019-04-01,-2.24
+610,Goods,2019-07-01,0.46
+610,Goods,2019-10-01,-0.87
+610,Goods,2020-01-01,2.58
+610,Goods,2020-04-01,-6.04
+610,Goods,2020-07-01,-5.4
+610,Goods,2020-10-01,-1.65
+611,Non-oil and gas,2010-01-01,20.42
+611,Non-oil and gas,2010-04-01,10.95
+611,Non-oil and gas,2010-07-01,10.33
+611,Non-oil and gas,2010-10-01,11.17
+611,Non-oil and gas,2011-01-01,10.65
+611,Non-oil and gas,2011-04-01,19.03
+611,Non-oil and gas,2011-07-01,16.49
+611,Non-oil and gas,2011-10-01,9.64
+611,Non-oil and gas,2012-01-01,4.3
+611,Non-oil and gas,2012-04-01,1.15
+611,Non-oil and gas,2012-07-01,1.15
+611,Non-oil and gas,2012-10-01,3.73
+611,Non-oil and gas,2013-01-01,8.26
+611,Non-oil and gas,2013-04-01,5.99
+611,Non-oil and gas,2013-07-01,3.33
+611,Non-oil and gas,2013-10-01,10.76
+611,Non-oil and gas,2014-01-01,4.91
+611,Non-oil and gas,2014-04-01,2.53
+611,Non-oil and gas,2014-07-01,4.24
+611,Non-oil and gas,2014-10-01,-4.92
+611,Non-oil and gas,2015-01-01,-2.14
+611,Non-oil and gas,2015-04-01,-1.51
+611,Non-oil and gas,2015-07-01,-3.51
+611,Non-oil and gas,2015-10-01,-9.94
+611,Non-oil and gas,2016-01-01,-5.68
+611,Non-oil and gas,2016-04-01,-2.54
+611,Non-oil and gas,2016-07-01,-7.08
+611,Non-oil and gas,2016-10-01,7.39
+611,Non-oil and gas,2017-01-01,10.3
+611,Non-oil and gas,2017-04-01,3.14
+611,Non-oil and gas,2017-07-01,19.73
+611,Non-oil and gas,2017-10-01,9.52
+611,Non-oil and gas,2018-01-01,7.82
+611,Non-oil and gas,2018-04-01,8.42
+611,Non-oil and gas,2018-07-01,11.05
+611,Non-oil and gas,2018-10-01,6.5
+611,Non-oil and gas,2019-01-01,-0.6
+611,Non-oil and gas,2019-04-01,2.14
+611,Non-oil and gas,2019-07-01,1.65
+611,Non-oil and gas,2019-10-01,1.7
+611,Non-oil and gas,2020-01-01,4.78
+611,Non-oil and gas,2020-04-01,-7.07
+611,Non-oil and gas,2020-07-01,-4.56
+611,Non-oil and gas,2020-10-01,-2.07
+612,Oil and gas,2010-01-01,72.26
+612,Oil and gas,2010-04-01,43.01
+612,Oil and gas,2010-07-01,1.34
+612,Oil and gas,2010-10-01,21.78
+612,Oil and gas,2011-01-01,11.69
+612,Oil and gas,2011-04-01,32.86
+612,Oil and gas,2011-07-01,52.75
+612,Oil and gas,2011-10-01,-5.83
+612,Oil and gas,2012-01-01,15.07
+612,Oil and gas,2012-04-01,-1.25
+612,Oil and gas,2012-07-01,-22.26
+612,Oil and gas,2012-10-01,-16.51
+612,Oil and gas,2013-01-01,-19.21
+612,Oil and gas,2013-04-01,-21.14
+612,Oil and gas,2013-07-01,-15.97
+612,Oil and gas,2013-10-01,4.82
+612,Oil and gas,2014-01-01,-9.11
+612,Oil and gas,2014-04-01,-8.85
+612,Oil and gas,2014-07-01,11.88
+612,Oil and gas,2014-10-01,-6.28
+612,Oil and gas,2015-01-01,12.78
+612,Oil and gas,2015-04-01,8.23
+612,Oil and gas,2015-07-01,8.59
+612,Oil and gas,2015-10-01,11.55
+612,Oil and gas,2016-01-01,4.46
+612,Oil and gas,2016-04-01,1.33
+612,Oil and gas,2016-07-01,-8.15
+612,Oil and gas,2016-10-01,-15.69
+612,Oil and gas,2017-01-01,-1.21
+612,Oil and gas,2017-04-01,-3.63
+612,Oil and gas,2017-07-01,2.47
+612,Oil and gas,2017-10-01,10.74
+612,Oil and gas,2018-01-01,-8.61
+612,Oil and gas,2018-04-01,2.81
+612,Oil and gas,2018-07-01,-11.95
+612,Oil and gas,2018-10-01,-9.98
+612,Oil and gas,2019-01-01,-7.89
+612,Oil and gas,2019-04-01,-32.6
+612,Oil and gas,2019-07-01,-9.63
+612,Oil and gas,2019-10-01,-21.62
+612,Oil and gas,2020-01-01,-15.32
+612,Oil and gas,2020-04-01,4.83
+612,Oil and gas,2020-07-01,-13.38
+612,Oil and gas,2020-10-01,2.74
+620,Services,2010-01-01,10.29
+620,Services,2010-04-01,17.21
+620,Services,2010-07-01,11.65
+620,Services,2010-10-01,16.74
+620,Services,2011-01-01,17.02
+620,Services,2011-04-01,6.28
+620,Services,2011-07-01,14.36
+620,Services,2011-10-01,16.16
+620,Services,2012-01-01,14.97
+620,Services,2012-04-01,13.43
+620,Services,2012-07-01,4.4
+620,Services,2012-10-01,7.5
+620,Services,2013-01-01,3.84
+620,Services,2013-04-01,11.7
+620,Services,2013-07-01,10.47
+620,Services,2013-10-01,4.91
+620,Services,2014-01-01,4.47
+620,Services,2014-04-01,6.13
+620,Services,2014-07-01,2.6
+620,Services,2014-10-01,1.63
+620,Services,2015-01-01,-3.23
+620,Services,2015-04-01,0.07
+620,Services,2015-07-01,7.33
+620,Services,2015-10-01,0.04
+620,Services,2016-01-01,8.43
+620,Services,2016-04-01,3.07
+620,Services,2016-07-01,5.21
+620,Services,2016-10-01,4.69
+620,Services,2017-01-01,6.27
+620,Services,2017-04-01,7.1
+620,Services,2017-07-01,10.74
+620,Services,2017-10-01,-1.05
+620,Services,2018-01-01,7.15
+620,Services,2018-04-01,5.32
+620,Services,2018-07-01,10.09
+620,Services,2018-10-01,6.69
+620,Services,2019-01-01,-1.5
+620,Services,2019-04-01,1.48
+620,Services,2019-07-01,-2.5
+620,Services,2019-10-01,3.89
+620,Services,2020-01-01,-18.09
+620,Services,2020-04-01,-60.03
+620,Services,2020-07-01,-60.46
+620,Services,2020-10-01,-53.64
+700,Imports of goods and services,2010-01-01,18.67
+700,Imports of goods and services,2010-04-01,19.5
+700,Imports of goods and services,2010-07-01,13.19
+700,Imports of goods and services,2010-10-01,15.59
+700,Imports of goods and services,2011-01-01,14.11
+700,Imports of goods and services,2011-04-01,15.5
+700,Imports of goods and services,2011-07-01,16.87
+700,Imports of goods and services,2011-10-01,13.67
+700,Imports of goods and services,2012-01-01,11.05
+700,Imports of goods and services,2012-04-01,15.43
+700,Imports of goods and services,2012-07-01,0.5
+700,Imports of goods and services,2012-10-01,5.85
+700,Imports of goods and services,2013-01-01,2.92
+700,Imports of goods and services,2013-04-01,0.88
+700,Imports of goods and services,2013-07-01,4.93
+700,Imports of goods and services,2013-10-01,-0.85
+700,Imports of goods and services,2014-01-01,5.06
+700,Imports of goods and services,2014-04-01,0.43
+700,Imports of goods and services,2014-07-01,0.21
+700,Imports of goods and services,2014-10-01,2.98
+700,Imports of goods and services,2015-01-01,-2.58
+700,Imports of goods and services,2015-04-01,-7.07
+700,Imports of goods and services,2015-07-01,-6.47
+700,Imports of goods and services,2015-10-01,-8.62
+700,Imports of goods and services,2016-01-01,-4.98
+700,Imports of goods and services,2016-04-01,-3.43
+700,Imports of goods and services,2016-07-01,-4.09
+700,Imports of goods and services,2016-10-01,2.74
+700,Imports of goods and services,2017-01-01,4.82
+700,Imports of goods and services,2017-04-01,0.21
+700,Imports of goods and services,2017-07-01,15.43
+700,Imports of goods and services,2017-10-01,11.87
+700,Imports of goods and services,2018-01-01,12.54
+700,Imports of goods and services,2018-04-01,15.2
+700,Imports of goods and services,2018-07-01,14.16
+700,Imports of goods and services,2018-10-01,7.37
+700,Imports of goods and services,2019-01-01,-6.47
+700,Imports of goods and services,2019-04-01,-6.73
+700,Imports of goods and services,2019-07-01,-8.34
+700,Imports of goods and services,2019-10-01,-7.9
+700,Imports of goods and services,2020-01-01,-3.62
+700,Imports of goods and services,2020-04-01,-18.29
+700,Imports of goods and services,2020-07-01,-23
+700,Imports of goods and services,2020-10-01,-13.52
+710,Goods,2010-01-01,16.6
+710,Goods,2010-04-01,19.88
+710,Goods,2010-07-01,12.38
+710,Goods,2010-10-01,16.05
+710,Goods,2011-01-01,16.2
+710,Goods,2011-04-01,17.07
+710,Goods,2011-07-01,18.73
+710,Goods,2011-10-01,15.27
+710,Goods,2012-01-01,11.81
+710,Goods,2012-04-01,16.7
+710,Goods,2012-07-01,1.59
+710,Goods,2012-10-01,7.08
+710,Goods,2013-01-01,3.2
+710,Goods,2013-04-01,0.64
+710,Goods,2013-07-01,4.92
+710,Goods,2013-10-01,-0.25
+710,Goods,2014-01-01,6.19
+710,Goods,2014-04-01,0.87
+710,Goods,2014-07-01,-0.27
+710,Goods,2014-10-01,2.94
+710,Goods,2015-01-01,-2.62
+710,Goods,2015-04-01,-7.89
+710,Goods,2015-07-01,-6.26
+710,Goods,2015-10-01,-8.41
+710,Goods,2016-01-01,-5.08
+710,Goods,2016-04-01,-3.19
+710,Goods,2016-07-01,-3.88
+710,Goods,2016-10-01,2.56
+710,Goods,2017-01-01,5.44
+710,Goods,2017-04-01,0.14
+710,Goods,2017-07-01,16.27
+710,Goods,2017-10-01,13.09
+710,Goods,2018-01-01,12.9
+710,Goods,2018-04-01,16.72
+710,Goods,2018-07-01,15.23
+710,Goods,2018-10-01,8.14
+710,Goods,2019-01-01,-7.43
+710,Goods,2019-04-01,-7.51
+710,Goods,2019-07-01,-9.79
+710,Goods,2019-10-01,-9.23
+710,Goods,2020-01-01,-2.39
+710,Goods,2020-04-01,-13.46
+710,Goods,2020-07-01,-19.23
+710,Goods,2020-10-01,-10.25
+711,Non-oil and gas,2010-01-01,15.22
+711,Non-oil and gas,2010-04-01,18.35
+711,Non-oil and gas,2010-07-01,16.25
+711,Non-oil and gas,2010-10-01,14.73
+711,Non-oil and gas,2011-01-01,18.9
+711,Non-oil and gas,2011-04-01,18.53
+711,Non-oil and gas,2011-07-01,16.49
+711,Non-oil and gas,2011-10-01,17.37
+711,Non-oil and gas,2012-01-01,11.93
+711,Non-oil and gas,2012-04-01,18.78
+711,Non-oil and gas,2012-07-01,5.42
+711,Non-oil and gas,2012-10-01,5.5
+711,Non-oil and gas,2013-01-01,0.03
+711,Non-oil and gas,2013-04-01,0.64
+711,Non-oil and gas,2013-07-01,2.57
+711,Non-oil and gas,2013-10-01,0.38
+711,Non-oil and gas,2014-01-01,9.28
+711,Non-oil and gas,2014-04-01,2.53
+711,Non-oil and gas,2014-07-01,-0.29
+711,Non-oil and gas,2014-10-01,0.95
+711,Non-oil and gas,2015-01-01,-2.96
+711,Non-oil and gas,2015-04-01,-11.6
+711,Non-oil and gas,2015-07-01,-8.4
+711,Non-oil and gas,2015-10-01,-7.47
+711,Non-oil and gas,2016-01-01,-6.81
+711,Non-oil and gas,2016-04-01,-3.06
+711,Non-oil and gas,2016-07-01,-5.41
+711,Non-oil and gas,2016-10-01,4.24
+711,Non-oil and gas,2017-01-01,2.82
+711,Non-oil and gas,2017-04-01,1.6
+711,Non-oil and gas,2017-07-01,20.98
+711,Non-oil and gas,2017-10-01,13.15
+711,Non-oil and gas,2018-01-01,21.09
+711,Non-oil and gas,2018-04-01,19.06
+711,Non-oil and gas,2018-07-01,18.47
+711,Non-oil and gas,2018-10-01,10.36
+711,Non-oil and gas,2019-01-01,-4.21
+711,Non-oil and gas,2019-04-01,-6.79
+711,Non-oil and gas,2019-07-01,-6.51
+711,Non-oil and gas,2019-10-01,-8.56
+711,Non-oil and gas,2020-01-01,-5.29
+711,Non-oil and gas,2020-04-01,-10.79
+711,Non-oil and gas,2020-07-01,-19.34
+711,Non-oil and gas,2020-10-01,-7.38
+712,Oil and gas,2010-01-01,22.22
+712,Oil and gas,2010-04-01,25.98
+712,Oil and gas,2010-07-01,-1.45
+712,Oil and gas,2010-10-01,21.61
+712,Oil and gas,2011-01-01,5.79
+712,Oil and gas,2011-04-01,11.55
+712,Oil and gas,2011-07-01,28.18
+712,Oil and gas,2011-10-01,6.91
+712,Oil and gas,2012-01-01,11.3
+712,Oil and gas,2012-04-01,8.34
+712,Oil and gas,2012-07-01,-13.07
+712,Oil and gas,2012-10-01,13.96
+712,Oil and gas,2013-01-01,16.96
+712,Oil and gas,2013-04-01,0.61
+712,Oil and gas,2013-07-01,15.87
+712,Oil and gas,2013-10-01,-2.8
+712,Oil and gas,2014-01-01,-5.29
+712,Oil and gas,2014-04-01,-6.39
+712,Oil and gas,2014-07-01,-0.19
+712,Oil and gas,2014-10-01,11.24
+712,Oil and gas,2015-01-01,-1.19
+712,Oil and gas,2015-04-01,9.94
+712,Oil and gas,2015-07-01,2.55
+712,Oil and gas,2015-10-01,-11.94
+712,Oil and gas,2016-01-01,2.2
+712,Oil and gas,2016-04-01,-3.65
+712,Oil and gas,2016-07-01,1.74
+712,Oil and gas,2016-10-01,-4.08
+712,Oil and gas,2017-01-01,15.51
+712,Oil and gas,2017-04-01,-5.57
+712,Oil and gas,2017-07-01,0.2
+712,Oil and gas,2017-10-01,12.87
+712,Oil and gas,2018-01-01,-15.1
+712,Oil and gas,2018-04-01,6.94
+712,Oil and gas,2018-07-01,1.86
+712,Oil and gas,2018-10-01,-1.46
+712,Oil and gas,2019-01-01,-23.16
+712,Oil and gas,2019-04-01,-10.85
+712,Oil and gas,2019-07-01,-25.49
+712,Oil and gas,2019-10-01,-12.49
+712,Oil and gas,2020-01-01,15.23
+712,Oil and gas,2020-04-01,-26.46
+712,Oil and gas,2020-07-01,-18.57
+712,Oil and gas,2020-10-01,-24.77
+720,Services,2010-01-01,29.97
+720,Services,2010-04-01,17.57
+720,Services,2010-07-01,17.53
+720,Services,2010-10-01,13.45
+720,Services,2011-01-01,3.92
+720,Services,2011-04-01,7.39
+720,Services,2011-07-01,7.28
+720,Services,2011-10-01,6.08
+720,Services,2012-01-01,6.92
+720,Services,2012-04-01,8.25
+720,Services,2012-07-01,-5.74
+720,Services,2012-10-01,-0.52
+720,Services,2013-01-01,1.33
+720,Services,2013-04-01,2.37
+720,Services,2013-07-01,5
+720,Services,2013-10-01,-4.18
+720,Services,2014-01-01,-1.5
+720,Services,2014-04-01,-2.25
+720,Services,2014-07-01,3.15
+720,Services,2014-10-01,3.21
+720,Services,2015-01-01,-2.33
+720,Services,2015-04-01,-2.02
+720,Services,2015-07-01,-7.74
+720,Services,2015-10-01,-9.86
+720,Services,2016-01-01,-4.36
+720,Services,2016-04-01,-4.83
+720,Services,2016-07-01,-5.39
+720,Services,2016-10-01,3.8
+720,Services,2017-01-01,0.93
+720,Services,2017-04-01,0.65
+720,Services,2017-07-01,10.25
+720,Services,2017-10-01,4.75
+720,Services,2018-01-01,10.23
+720,Services,2018-04-01,6.25
+720,Services,2018-07-01,7.26
+720,Services,2018-10-01,2.59
+720,Services,2019-01-01,-0.05
+720,Services,2019-04-01,-1.69
+720,Services,2019-07-01,1.68
+720,Services,2019-10-01,0.89
+720,Services,2020-01-01,-11.18
+720,Services,2020-04-01,-47.64
+720,Services,2020-07-01,-46.25
+720,Services,2020-10-01,-32.87
+790,Statistics discrepancy,2018-01-01,0
+790,Statistics discrepancy,2018-04-01,0
+790,Statistics discrepancy,2018-07-01,0
+790,Statistics discrepancy,2018-10-01,0
+790,Statistics discrepancy,2019-01-01,0
+790,Statistics discrepancy,2019-04-01,0
+790,Statistics discrepancy,2019-07-01,0
+790,Statistics discrepancy,2019-10-01,0
+790,Statistics discrepancy,2020-01-01,0
+790,Statistics discrepancy,2020-04-01,0
+790,Statistics discrepancy,2020-07-01,0
+790,Statistics discrepancy,2020-10-01,0
+800,GDP,2010-01-01,6.08
+800,GDP,2010-04-01,6.76
+800,GDP,2010-07-01,6.18
+800,GDP,2010-10-01,6.49
+800,GDP,2011-01-01,6.48
+800,GDP,2011-04-01,6.27
+800,GDP,2011-07-01,6.01
+800,GDP,2011-10-01,5.94
+800,GDP,2012-01-01,6.11
+800,GDP,2012-04-01,6.21
+800,GDP,2012-07-01,5.94
+800,GDP,2012-10-01,5.87
+800,GDP,2013-01-01,5.54
+800,GDP,2013-04-01,5.59
+800,GDP,2013-07-01,5.52
+800,GDP,2013-10-01,5.58
+800,GDP,2014-01-01,5.12
+800,GDP,2014-04-01,4.94
+800,GDP,2014-07-01,4.93
+800,GDP,2014-10-01,5.05
+800,GDP,2015-01-01,4.83
+800,GDP,2015-04-01,4.74
+800,GDP,2015-07-01,4.78
+800,GDP,2015-10-01,5.15
+800,GDP,2016-01-01,4.94
+800,GDP,2016-04-01,5.21
+800,GDP,2016-07-01,5.03
+800,GDP,2016-10-01,4.94
+800,GDP,2017-01-01,5.01
+800,GDP,2017-04-01,5.01
+800,GDP,2017-07-01,5.06
+800,GDP,2017-10-01,5.19
+800,GDP,2018-01-01,5.07
+800,GDP,2018-04-01,5.27
+800,GDP,2018-07-01,5.17
+800,GDP,2018-10-01,5.18
+800,GDP,2019-01-01,5.06
+800,GDP,2019-04-01,5.05
+800,GDP,2019-07-01,5.01
+800,GDP,2019-10-01,4.96
+800,GDP,2020-01-01,2.97
+800,GDP,2020-04-01,-5.32
+800,GDP,2020-07-01,-3.49
+800,GDP,2020-10-01,-2.19

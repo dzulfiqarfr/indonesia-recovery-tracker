@@ -1,0 +1,1063 @@
+province,date,unemployment_rate,ppt_change_yoy
+Aceh,2005-02-01,12.5,NA
+Aceh,2005-08-01,14,NA
+Aceh,2006-02-01,12.08,-0.42
+Aceh,2006-08-01,10.43,-3.57
+Aceh,2007-02-01,10.27,-1.81
+Aceh,2007-08-01,9.84,-0.59
+Aceh,2008-02-01,9.2,-1.07
+Aceh,2008-08-01,9.56,-0.28
+Aceh,2009-02-01,9.31,0.11
+Aceh,2009-08-01,8.71,-0.85
+Aceh,2010-02-01,8.6,-0.71
+Aceh,2010-08-01,8.37,-0.34
+Aceh,2011-02-01,8.62,0.02
+Aceh,2011-08-01,9,0.63
+Aceh,2012-02-01,7.94,-0.68
+Aceh,2012-08-01,9.06,0.06
+Aceh,2013-02-01,8.34,0.4
+Aceh,2013-08-01,10.12,1.06
+Aceh,2014-02-01,6.75,-1.59
+Aceh,2014-08-01,9.02,-1.1
+Aceh,2015-02-01,7.73,0.98
+Aceh,2015-08-01,9.93,0.91
+Aceh,2016-02-01,8.13,0.4
+Aceh,2016-08-01,7.57,-2.36
+Aceh,2017-02-01,7.39,-0.74
+Aceh,2017-08-01,6.57,-1
+Aceh,2018-02-01,6.54,-0.85
+Aceh,2018-08-01,6.34,-0.23
+Aceh,2019-02-01,5.48,-1.06
+Aceh,2019-08-01,6.17,-0.17
+Aceh,2020-02-01,5.4,-0.08
+Aceh,2020-08-01,6.59,0.42
+North Sumatera,2005-02-01,10.98,NA
+North Sumatera,2005-08-01,11.9,NA
+North Sumatera,2006-02-01,14.82,3.84
+North Sumatera,2006-08-01,11.51,-0.39
+North Sumatera,2007-02-01,10.63,-4.19
+North Sumatera,2007-08-01,10.1,-1.41
+North Sumatera,2008-02-01,9.55,-1.08
+North Sumatera,2008-08-01,9.1,-1
+North Sumatera,2009-02-01,8.25,-1.3
+North Sumatera,2009-08-01,8.45,-0.65
+North Sumatera,2010-02-01,8.01,-0.24
+North Sumatera,2010-08-01,7.43,-1.02
+North Sumatera,2011-02-01,7.47,-0.54
+North Sumatera,2011-08-01,8.18,0.75
+North Sumatera,2012-02-01,6.43,-1.04
+North Sumatera,2012-08-01,6.28,-1.9
+North Sumatera,2013-02-01,6.09,-0.34
+North Sumatera,2013-08-01,6.45,0.17
+North Sumatera,2014-02-01,5.95,-0.14
+North Sumatera,2014-08-01,6.23,-0.22
+North Sumatera,2015-02-01,6.39,0.44
+North Sumatera,2015-08-01,6.71,0.48
+North Sumatera,2016-02-01,6.49,0.1
+North Sumatera,2016-08-01,5.84,-0.87
+North Sumatera,2017-02-01,6.41,-0.08
+North Sumatera,2017-08-01,5.6,-0.24
+North Sumatera,2018-02-01,5.61,-0.8
+North Sumatera,2018-08-01,5.55,-0.05
+North Sumatera,2019-02-01,5.57,-0.04
+North Sumatera,2019-08-01,5.39,-0.16
+North Sumatera,2020-02-01,4.71,-0.86
+North Sumatera,2020-08-01,6.91,1.52
+Sumatera Barat,2005-02-01,11.5,NA
+Sumatera Barat,2005-08-01,13.34,NA
+Sumatera Barat,2006-02-01,12.93,1.43
+Sumatera Barat,2006-08-01,11.87,-1.47
+Sumatera Barat,2007-02-01,11.02,-1.91
+Sumatera Barat,2007-08-01,10.31,-1.56
+Sumatera Barat,2008-02-01,9.73,-1.29
+Sumatera Barat,2008-08-01,8.04,-2.27
+Sumatera Barat,2009-02-01,7.9,-1.83
+Sumatera Barat,2009-08-01,7.97,-0.07
+Sumatera Barat,2010-02-01,7.57,-0.33
+Sumatera Barat,2010-08-01,6.95,-1.02
+Sumatera Barat,2011-02-01,7.51,-0.06
+Sumatera Barat,2011-08-01,8.02,1.07
+Sumatera Barat,2012-02-01,6.49,-1.02
+Sumatera Barat,2012-08-01,6.65,-1.37
+Sumatera Barat,2013-02-01,6.39,-0.1
+Sumatera Barat,2013-08-01,7.02,0.37
+Sumatera Barat,2014-02-01,6.32,-0.07
+Sumatera Barat,2014-08-01,6.5,-0.52
+Sumatera Barat,2015-02-01,5.99,-0.33
+Sumatera Barat,2015-08-01,6.89,0.39
+Sumatera Barat,2016-02-01,5.81,-0.18
+Sumatera Barat,2016-08-01,5.09,-1.8
+Sumatera Barat,2017-02-01,5.8,-0.01
+Sumatera Barat,2017-08-01,5.58,0.49
+Sumatera Barat,2018-02-01,5.68,-0.12
+Sumatera Barat,2018-08-01,5.66,0.08
+Sumatera Barat,2019-02-01,5.38,-0.3
+Sumatera Barat,2019-08-01,5.38,-0.28
+Sumatera Barat,2020-02-01,5.25,-0.13
+Sumatera Barat,2020-08-01,6.88,1.5
+Riau,2005-02-01,13.91,NA
+Riau,2005-08-01,12.16,NA
+Riau,2006-02-01,11.46,-2.45
+Riau,2006-08-01,10.24,-1.92
+Riau,2007-02-01,10.39,-1.07
+Riau,2007-08-01,9.79,-0.45
+Riau,2008-02-01,9.35,-1.04
+Riau,2008-08-01,8.2,-1.59
+Riau,2009-02-01,8.96,-0.39
+Riau,2009-08-01,8.56,0.36
+Riau,2010-02-01,7.21,-1.75
+Riau,2010-08-01,8.72,0.16
+Riau,2011-02-01,7.51,0.3
+Riau,2011-08-01,6.09,-2.63
+Riau,2012-02-01,5.29,-2.22
+Riau,2012-08-01,4.37,-1.72
+Riau,2013-02-01,4.19,-1.1
+Riau,2013-08-01,5.48,1.11
+Riau,2014-02-01,4.99,0.8
+Riau,2014-08-01,6.56,1.08
+Riau,2015-02-01,6.72,1.73
+Riau,2015-08-01,7.83,1.27
+Riau,2016-02-01,5.94,-0.78
+Riau,2016-08-01,7.43,-0.4
+Riau,2017-02-01,5.76,-0.18
+Riau,2017-08-01,6.22,-1.21
+Riau,2018-02-01,5.55,-0.21
+Riau,2018-08-01,5.98,-0.24
+Riau,2019-02-01,5.36,-0.19
+Riau,2019-08-01,5.76,-0.22
+Riau,2020-02-01,4.92,-0.44
+Riau,2020-08-01,6.32,0.56
+Jambi,2005-02-01,8.59,NA
+Jambi,2005-08-01,10.74,NA
+Jambi,2006-02-01,7.77,-0.82
+Jambi,2006-08-01,6.62,-4.12
+Jambi,2007-02-01,6.74,-1.03
+Jambi,2007-08-01,6.22,-0.4
+Jambi,2008-02-01,5.91,-0.83
+Jambi,2008-08-01,5.14,-1.08
+Jambi,2009-02-01,5.2,-0.71
+Jambi,2009-08-01,5.54,0.4
+Jambi,2010-02-01,4.45,-0.75
+Jambi,2010-08-01,5.39,-0.15
+Jambi,2011-02-01,3.98,-0.47
+Jambi,2011-08-01,4.63,-0.76
+Jambi,2012-02-01,3.69,-0.29
+Jambi,2012-08-01,3.2,-1.43
+Jambi,2013-02-01,2.89,-0.8
+Jambi,2013-08-01,4.76,1.56
+Jambi,2014-02-01,2.5,-0.39
+Jambi,2014-08-01,5.08,0.32
+Jambi,2015-02-01,2.73,0.23
+Jambi,2015-08-01,4.34,-0.74
+Jambi,2016-02-01,4.66,1.93
+Jambi,2016-08-01,4,-0.34
+Jambi,2017-02-01,3.67,-0.99
+Jambi,2017-08-01,3.87,-0.13
+Jambi,2018-02-01,3.56,-0.11
+Jambi,2018-08-01,3.73,-0.14
+Jambi,2019-02-01,3.52,-0.04
+Jambi,2019-08-01,4.06,0.33
+Jambi,2020-02-01,4.26,0.74
+Jambi,2020-08-01,5.13,1.07
+South Sumatera,2005-02-01,8.56,NA
+South Sumatera,2005-08-01,12.82,NA
+South Sumatera,2006-02-01,12.1,3.54
+South Sumatera,2006-08-01,9.33,-3.49
+South Sumatera,2007-02-01,10.4,-1.7
+South Sumatera,2007-08-01,9.34,0.01
+South Sumatera,2008-02-01,8.45,-1.95
+South Sumatera,2008-08-01,8.08,-1.26
+South Sumatera,2009-02-01,8.38,-0.07
+South Sumatera,2009-08-01,7.61,-0.47
+South Sumatera,2010-02-01,6.55,-1.83
+South Sumatera,2010-08-01,6.65,-0.96
+South Sumatera,2011-02-01,6.29,-0.26
+South Sumatera,2011-08-01,6.6,-0.05
+South Sumatera,2012-02-01,5.6,-0.69
+South Sumatera,2012-08-01,5.66,-0.94
+South Sumatera,2013-02-01,5.41,-0.19
+South Sumatera,2013-08-01,4.84,-0.82
+South Sumatera,2014-02-01,3.84,-1.57
+South Sumatera,2014-08-01,4.96,0.12
+South Sumatera,2015-02-01,5.03,1.19
+South Sumatera,2015-08-01,6.07,1.11
+South Sumatera,2016-02-01,3.94,-1.09
+South Sumatera,2016-08-01,4.31,-1.76
+South Sumatera,2017-02-01,3.8,-0.14
+South Sumatera,2017-08-01,4.39,0.08
+South Sumatera,2018-02-01,4.08,0.28
+South Sumatera,2018-08-01,4.27,-0.12
+South Sumatera,2019-02-01,4.02,-0.06
+South Sumatera,2019-08-01,4.53,0.26
+South Sumatera,2020-02-01,3.9,-0.12
+South Sumatera,2020-08-01,5.51,0.98
+Bengkulu,2005-02-01,6.15,NA
+Bengkulu,2005-08-01,8.91,NA
+Bengkulu,2006-02-01,6.91,0.76
+Bengkulu,2006-08-01,6.04,-2.87
+Bengkulu,2007-02-01,5.12,-1.79
+Bengkulu,2007-08-01,4.68,-1.36
+Bengkulu,2008-02-01,3.98,-1.14
+Bengkulu,2008-08-01,4.9,0.22
+Bengkulu,2009-02-01,5.31,1.33
+Bengkulu,2009-08-01,5.08,0.18
+Bengkulu,2010-02-01,4.06,-1.25
+Bengkulu,2010-08-01,4.59,-0.49
+Bengkulu,2011-02-01,3.46,-0.6
+Bengkulu,2011-08-01,3.46,-1.13
+Bengkulu,2012-02-01,2.18,-1.28
+Bengkulu,2012-08-01,3.62,0.16
+Bengkulu,2013-02-01,2.1,-0.08
+Bengkulu,2013-08-01,4.61,0.99
+Bengkulu,2014-02-01,1.62,-0.48
+Bengkulu,2014-08-01,3.47,-1.14
+Bengkulu,2015-02-01,3.21,1.59
+Bengkulu,2015-08-01,4.91,1.44
+Bengkulu,2016-02-01,3.84,0.63
+Bengkulu,2016-08-01,3.3,-1.61
+Bengkulu,2017-02-01,2.81,-1.03
+Bengkulu,2017-08-01,3.74,0.44
+Bengkulu,2018-02-01,2.63,-0.18
+Bengkulu,2018-08-01,3.35,-0.39
+Bengkulu,2019-02-01,2.41,-0.22
+Bengkulu,2019-08-01,3.26,-0.09
+Bengkulu,2020-02-01,3.08,0.67
+Bengkulu,2020-08-01,4.07,0.81
+Lampung,2005-02-01,6.85,NA
+Lampung,2005-08-01,8.47,NA
+Lampung,2006-02-01,9.76,2.91
+Lampung,2006-08-01,9.13,0.66
+Lampung,2007-02-01,8.29,-1.47
+Lampung,2007-08-01,7.58,-1.55
+Lampung,2008-02-01,6.3,-1.99
+Lampung,2008-08-01,7.15,-0.43
+Lampung,2009-02-01,6.18,-0.12
+Lampung,2009-08-01,6.62,-0.53
+Lampung,2010-02-01,5.95,-0.23
+Lampung,2010-08-01,5.57,-1.05
+Lampung,2011-02-01,5.52,-0.43
+Lampung,2011-08-01,6.38,0.81
+Lampung,2012-02-01,5.21,-0.31
+Lampung,2012-08-01,5.2,-1.18
+Lampung,2013-02-01,5.07,-0.14
+Lampung,2013-08-01,5.69,0.49
+Lampung,2014-02-01,5.08,0.01
+Lampung,2014-08-01,4.79,-0.9
+Lampung,2015-02-01,3.44,-1.64
+Lampung,2015-08-01,5.14,0.35
+Lampung,2016-02-01,4.54,1.1
+Lampung,2016-08-01,4.62,-0.52
+Lampung,2017-02-01,4.43,-0.11
+Lampung,2017-08-01,4.33,-0.29
+Lampung,2018-02-01,4.32,-0.11
+Lampung,2018-08-01,4.04,-0.29
+Lampung,2019-02-01,3.95,-0.37
+Lampung,2019-08-01,4.03,-0.01
+Lampung,2020-02-01,4.26,0.31
+Lampung,2020-08-01,4.67,0.64
+Bangka Belitung Islands,2005-02-01,8.1,NA
+Bangka Belitung Islands,2005-08-01,7.19,NA
+Bangka Belitung Islands,2006-02-01,5.95,-2.15
+Bangka Belitung Islands,2006-08-01,8.99,1.8
+Bangka Belitung Islands,2007-02-01,7.36,1.41
+Bangka Belitung Islands,2007-08-01,6.49,-2.5
+Bangka Belitung Islands,2008-02-01,5.79,-1.57
+Bangka Belitung Islands,2008-08-01,5.99,-0.5
+Bangka Belitung Islands,2009-02-01,4.82,-0.97
+Bangka Belitung Islands,2009-08-01,6.14,0.15
+Bangka Belitung Islands,2010-02-01,4.24,-0.58
+Bangka Belitung Islands,2010-08-01,5.63,-0.51
+Bangka Belitung Islands,2011-02-01,3.31,-0.93
+Bangka Belitung Islands,2011-08-01,3.86,-1.77
+Bangka Belitung Islands,2012-02-01,2.82,-0.49
+Bangka Belitung Islands,2012-08-01,3.43,-0.43
+Bangka Belitung Islands,2013-02-01,3.22,0.4
+Bangka Belitung Islands,2013-08-01,3.65,0.22
+Bangka Belitung Islands,2014-02-01,2.67,-0.55
+Bangka Belitung Islands,2014-08-01,5.14,1.49
+Bangka Belitung Islands,2015-02-01,3.35,0.68
+Bangka Belitung Islands,2015-08-01,6.29,1.15
+Bangka Belitung Islands,2016-02-01,6.17,2.82
+Bangka Belitung Islands,2016-08-01,2.6,-3.69
+Bangka Belitung Islands,2017-02-01,4.46,-1.71
+Bangka Belitung Islands,2017-08-01,3.78,1.18
+Bangka Belitung Islands,2018-02-01,3.59,-0.87
+Bangka Belitung Islands,2018-08-01,3.61,-0.17
+Bangka Belitung Islands,2019-02-01,3.32,-0.27
+Bangka Belitung Islands,2019-08-01,3.58,-0.03
+Bangka Belitung Islands,2020-02-01,3.35,0.03
+Bangka Belitung Islands,2020-08-01,5.25,1.67
+Riau Islands,2006-02-01,10.69,NA
+Riau Islands,2006-08-01,12.24,NA
+Riau Islands,2007-02-01,8.86,-1.83
+Riau Islands,2007-08-01,9.01,-3.23
+Riau Islands,2008-02-01,8.49,-0.37
+Riau Islands,2008-08-01,8.01,-1
+Riau Islands,2009-02-01,7.81,-0.68
+Riau Islands,2009-08-01,8.11,0.1
+Riau Islands,2010-02-01,7.21,-0.6
+Riau Islands,2010-08-01,6.9,-1.21
+Riau Islands,2011-02-01,7.2,-0.01
+Riau Islands,2011-08-01,5.38,-1.52
+Riau Islands,2012-02-01,5.71,-1.49
+Riau Islands,2012-08-01,5.08,-0.3
+Riau Islands,2013-02-01,6.05,0.34
+Riau Islands,2013-08-01,5.63,0.55
+Riau Islands,2014-02-01,5.26,-0.79
+Riau Islands,2014-08-01,6.69,1.06
+Riau Islands,2015-02-01,9.05,3.79
+Riau Islands,2015-08-01,6.2,-0.49
+Riau Islands,2016-02-01,9.03,-0.02
+Riau Islands,2016-08-01,7.69,1.49
+Riau Islands,2017-02-01,6.44,-2.59
+Riau Islands,2017-08-01,7.16,-0.53
+Riau Islands,2018-02-01,7.3,0.86
+Riau Islands,2018-08-01,8.04,0.88
+Riau Islands,2019-02-01,7.02,-0.28
+Riau Islands,2019-08-01,7.5,-0.54
+Riau Islands,2020-02-01,5.98,-1.04
+Riau Islands,2020-08-01,10.34,2.84
+Jakarta,2005-02-01,14.73,NA
+Jakarta,2005-08-01,15.77,NA
+Jakarta,2006-02-01,14.31,-0.42
+Jakarta,2006-08-01,11.4,-4.37
+Jakarta,2007-02-01,13.27,-1.04
+Jakarta,2007-08-01,12.57,1.17
+Jakarta,2008-02-01,11.06,-2.21
+Jakarta,2008-08-01,12.16,-0.41
+Jakarta,2009-02-01,11.99,0.93
+Jakarta,2009-08-01,12.15,-0.01
+Jakarta,2010-02-01,11.32,-0.67
+Jakarta,2010-08-01,11.05,-1.1
+Jakarta,2011-02-01,10.86,-0.46
+Jakarta,2011-08-01,11.69,0.64
+Jakarta,2012-02-01,10.6,-0.26
+Jakarta,2012-08-01,9.67,-2.02
+Jakarta,2013-02-01,9.64,-0.96
+Jakarta,2013-08-01,8.63,-1.04
+Jakarta,2014-02-01,9.84,0.2
+Jakarta,2014-08-01,8.47,-0.16
+Jakarta,2015-02-01,8.36,-1.48
+Jakarta,2015-08-01,7.23,-1.24
+Jakarta,2016-02-01,5.77,-2.59
+Jakarta,2016-08-01,6.12,-1.11
+Jakarta,2017-02-01,5.36,-0.41
+Jakarta,2017-08-01,7.14,1.02
+Jakarta,2018-02-01,5.73,0.37
+Jakarta,2018-08-01,6.65,-0.49
+Jakarta,2019-02-01,5.5,-0.23
+Jakarta,2019-08-01,6.54,-0.11
+Jakarta,2020-02-01,5.15,-0.35
+Jakarta,2020-08-01,10.95,4.41
+West Java,2005-02-01,14.73,NA
+West Java,2005-08-01,15.53,NA
+West Java,2006-02-01,14.5,-0.23
+West Java,2006-08-01,14.59,-0.94
+West Java,2007-02-01,14.51,0.01
+West Java,2007-08-01,13.08,-1.51
+West Java,2008-02-01,12.28,-2.23
+West Java,2008-08-01,12.08,-1
+West Java,2009-02-01,11.85,-0.43
+West Java,2009-08-01,10.96,-1.12
+West Java,2010-02-01,10.57,-1.28
+West Java,2010-08-01,10.33,-0.63
+West Java,2011-02-01,10.01,-0.56
+West Java,2011-08-01,9.96,-0.37
+West Java,2012-02-01,9.84,-0.17
+West Java,2012-08-01,9.08,-0.88
+West Java,2013-02-01,8.88,-0.96
+West Java,2013-08-01,9.16,0.08
+West Java,2014-02-01,8.66,-0.22
+West Java,2014-08-01,8.45,-0.71
+West Java,2015-02-01,8.4,-0.26
+West Java,2015-08-01,8.72,0.27
+West Java,2016-02-01,8.57,0.17
+West Java,2016-08-01,8.89,0.17
+West Java,2017-02-01,8.49,-0.08
+West Java,2017-08-01,8.22,-0.67
+West Java,2018-02-01,8.22,-0.27
+West Java,2018-08-01,8.23,0.01
+West Java,2019-02-01,7.78,-0.44
+West Java,2019-08-01,8.04,-0.19
+West Java,2020-02-01,7.71,-0.07
+West Java,2020-08-01,10.46,2.42
+Central Java,2005-02-01,8.51,NA
+Central Java,2005-08-01,9.54,NA
+Central Java,2006-02-01,8.2,-0.31
+Central Java,2006-08-01,8.02,-1.52
+Central Java,2007-02-01,8.1,-0.1
+Central Java,2007-08-01,7.7,-0.32
+Central Java,2008-02-01,7.12,-0.98
+Central Java,2008-08-01,7.35,-0.35
+Central Java,2009-02-01,7.28,0.16
+Central Java,2009-08-01,7.33,-0.02
+Central Java,2010-02-01,6.86,-0.42
+Central Java,2010-08-01,6.21,-1.12
+Central Java,2011-02-01,6.18,-0.68
+Central Java,2011-08-01,7.07,0.86
+Central Java,2012-02-01,5.9,-0.28
+Central Java,2012-08-01,5.61,-1.46
+Central Java,2013-02-01,5.53,-0.37
+Central Java,2013-08-01,6.01,0.4
+Central Java,2014-02-01,5.45,-0.08
+Central Java,2014-08-01,5.68,-0.33
+Central Java,2015-02-01,5.31,-0.14
+Central Java,2015-08-01,4.99,-0.69
+Central Java,2016-02-01,4.2,-1.11
+Central Java,2016-08-01,4.63,-0.36
+Central Java,2017-02-01,4.15,-0.05
+Central Java,2017-08-01,4.57,-0.06
+Central Java,2018-02-01,4.19,0.04
+Central Java,2018-08-01,4.47,-0.1
+Central Java,2019-02-01,4.19,0
+Central Java,2019-08-01,4.44,-0.03
+Central Java,2020-02-01,4.2,0.01
+Central Java,2020-08-01,6.48,2.04
+Yogyakarta,2005-02-01,5.05,NA
+Yogyakarta,2005-08-01,7.59,NA
+Yogyakarta,2006-02-01,6.25,1.2
+Yogyakarta,2006-08-01,6.31,-1.28
+Yogyakarta,2007-02-01,6.08,-0.17
+Yogyakarta,2007-08-01,6.1,-0.21
+Yogyakarta,2008-02-01,6.04,-0.04
+Yogyakarta,2008-08-01,5.38,-0.72
+Yogyakarta,2009-02-01,6,-0.04
+Yogyakarta,2009-08-01,6,0.62
+Yogyakarta,2010-02-01,6.02,0.02
+Yogyakarta,2010-08-01,5.69,-0.31
+Yogyakarta,2011-02-01,5.54,-0.48
+Yogyakarta,2011-08-01,4.39,-1.3
+Yogyakarta,2012-02-01,3.98,-1.56
+Yogyakarta,2012-08-01,3.9,-0.49
+Yogyakarta,2013-02-01,3.75,-0.23
+Yogyakarta,2013-08-01,3.24,-0.66
+Yogyakarta,2014-02-01,2.16,-1.59
+Yogyakarta,2014-08-01,3.33,0.09
+Yogyakarta,2015-02-01,4.07,1.91
+Yogyakarta,2015-08-01,4.07,0.74
+Yogyakarta,2016-02-01,2.81,-1.26
+Yogyakarta,2016-08-01,2.72,-1.35
+Yogyakarta,2017-02-01,2.84,0.03
+Yogyakarta,2017-08-01,3.02,0.3
+Yogyakarta,2018-02-01,3,0.16
+Yogyakarta,2018-08-01,3.37,0.35
+Yogyakarta,2019-02-01,2.89,-0.11
+Yogyakarta,2019-08-01,3.18,-0.19
+Yogyakarta,2020-02-01,3.38,0.49
+Yogyakarta,2020-08-01,4.57,1.39
+East Java,2005-02-01,8.45,NA
+East Java,2005-08-01,8.51,NA
+East Java,2006-02-01,7.72,-0.73
+East Java,2006-08-01,8.19,-0.32
+East Java,2007-02-01,7.45,-0.27
+East Java,2007-08-01,6.79,-1.4
+East Java,2008-02-01,6.24,-1.21
+East Java,2008-08-01,6.42,-0.37
+East Java,2009-02-01,5.87,-0.37
+East Java,2009-08-01,5.08,-1.34
+East Java,2010-02-01,4.91,-0.96
+East Java,2010-08-01,4.25,-0.83
+East Java,2011-02-01,4.24,-0.67
+East Java,2011-08-01,5.38,1.13
+East Java,2012-02-01,4.16,-0.08
+East Java,2012-08-01,4.11,-1.27
+East Java,2013-02-01,3.97,-0.19
+East Java,2013-08-01,4.3,0.19
+East Java,2014-02-01,4.02,0.05
+East Java,2014-08-01,4.19,-0.11
+East Java,2015-02-01,4.31,0.29
+East Java,2015-08-01,4.47,0.28
+East Java,2016-02-01,4.14,-0.17
+East Java,2016-08-01,4.21,-0.26
+East Java,2017-02-01,4.1,-0.04
+East Java,2017-08-01,4,-0.21
+East Java,2018-02-01,3.77,-0.33
+East Java,2018-08-01,3.91,-0.09
+East Java,2019-02-01,3.77,0
+East Java,2019-08-01,3.82,-0.09
+East Java,2020-02-01,3.6,-0.17
+East Java,2020-08-01,5.84,2.02
+Banten,2005-02-01,14.23,NA
+Banten,2005-08-01,16.59,NA
+Banten,2006-02-01,16.34,2.11
+Banten,2006-08-01,18.91,2.32
+Banten,2007-02-01,16.11,-0.23
+Banten,2007-08-01,15.75,-3.16
+Banten,2008-02-01,14.15,-1.96
+Banten,2008-08-01,15.18,-0.57
+Banten,2009-02-01,14.9,0.75
+Banten,2009-08-01,14.97,-0.21
+Banten,2010-02-01,14.13,-0.77
+Banten,2010-08-01,13.68,-1.29
+Banten,2011-02-01,13.62,-0.51
+Banten,2011-08-01,13.74,0.06
+Banten,2012-02-01,10.68,-2.94
+Banten,2012-08-01,9.94,-3.8
+Banten,2013-02-01,9.77,-0.91
+Banten,2013-08-01,9.54,-0.4
+Banten,2014-02-01,9.87,0.1
+Banten,2014-08-01,9.07,-0.47
+Banten,2015-02-01,8.58,-1.29
+Banten,2015-08-01,9.55,0.48
+Banten,2016-02-01,7.95,-0.63
+Banten,2016-08-01,8.92,-0.63
+Banten,2017-02-01,7.75,-0.2
+Banten,2017-08-01,9.28,0.36
+Banten,2018-02-01,7.72,-0.03
+Banten,2018-08-01,8.47,-0.81
+Banten,2019-02-01,7.55,-0.17
+Banten,2019-08-01,8.11,-0.36
+Banten,2020-02-01,7.99,0.44
+Banten,2020-08-01,10.64,2.53
+Bali,2005-02-01,4.03,NA
+Bali,2005-08-01,5.32,NA
+Bali,2006-02-01,5.32,1.29
+Bali,2006-08-01,6.04,0.72
+Bali,2007-02-01,4.89,-0.43
+Bali,2007-08-01,3.77,-2.27
+Bali,2008-02-01,4.56,-0.33
+Bali,2008-08-01,3.31,-0.46
+Bali,2009-02-01,2.93,-1.63
+Bali,2009-08-01,3.13,-0.18
+Bali,2010-02-01,3.57,0.64
+Bali,2010-08-01,3.06,-0.07
+Bali,2011-02-01,3,-0.57
+Bali,2011-08-01,2.95,-0.11
+Bali,2012-02-01,2.23,-0.77
+Bali,2012-08-01,2.1,-0.85
+Bali,2013-02-01,1.93,-0.3
+Bali,2013-08-01,1.83,-0.27
+Bali,2014-02-01,1.37,-0.56
+Bali,2014-08-01,1.9,0.07
+Bali,2015-02-01,1.37,0
+Bali,2015-08-01,1.99,0.09
+Bali,2016-02-01,2.12,0.75
+Bali,2016-08-01,1.89,-0.1
+Bali,2017-02-01,1.28,-0.84
+Bali,2017-08-01,1.48,-0.41
+Bali,2018-02-01,0.88,-0.4
+Bali,2018-08-01,1.4,-0.08
+Bali,2019-02-01,1.22,0.34
+Bali,2019-08-01,1.57,0.17
+Bali,2020-02-01,1.25,0.03
+Bali,2020-08-01,5.63,4.06
+West Nusa Tenggara,2005-02-01,8.93,NA
+West Nusa Tenggara,2005-08-01,10.29,NA
+West Nusa Tenggara,2006-02-01,8.96,0.03
+West Nusa Tenggara,2006-08-01,8.9,-1.39
+West Nusa Tenggara,2007-02-01,7.55,-1.41
+West Nusa Tenggara,2007-08-01,6.48,-2.42
+West Nusa Tenggara,2008-02-01,5.2,-2.35
+West Nusa Tenggara,2008-08-01,6.13,-0.35
+West Nusa Tenggara,2009-02-01,6.12,0.92
+West Nusa Tenggara,2009-08-01,6.25,0.12
+West Nusa Tenggara,2010-02-01,5.78,-0.34
+West Nusa Tenggara,2010-08-01,5.29,-0.96
+West Nusa Tenggara,2011-02-01,5.46,-0.32
+West Nusa Tenggara,2011-08-01,5.25,-0.04
+West Nusa Tenggara,2012-02-01,5.23,-0.23
+West Nusa Tenggara,2012-08-01,5.23,-0.02
+West Nusa Tenggara,2013-02-01,5.28,0.05
+West Nusa Tenggara,2013-08-01,5.3,0.07
+West Nusa Tenggara,2014-02-01,5.3,0.02
+West Nusa Tenggara,2014-08-01,5.75,0.45
+West Nusa Tenggara,2015-02-01,4.98,-0.32
+West Nusa Tenggara,2015-08-01,5.69,-0.06
+West Nusa Tenggara,2016-02-01,3.66,-1.32
+West Nusa Tenggara,2016-08-01,3.94,-1.75
+West Nusa Tenggara,2017-02-01,3.86,0.2
+West Nusa Tenggara,2017-08-01,3.32,-0.62
+West Nusa Tenggara,2018-02-01,3.28,-0.58
+West Nusa Tenggara,2018-08-01,3.58,0.26
+West Nusa Tenggara,2019-02-01,3.15,-0.13
+West Nusa Tenggara,2019-08-01,3.28,-0.3
+West Nusa Tenggara,2020-02-01,3.04,-0.11
+West Nusa Tenggara,2020-08-01,4.22,0.94
+East Nusa Tenggara,2005-02-01,5.46,NA
+East Nusa Tenggara,2005-08-01,4.82,NA
+East Nusa Tenggara,2006-02-01,4.98,-0.48
+East Nusa Tenggara,2006-08-01,3.65,-1.17
+East Nusa Tenggara,2007-02-01,3.98,-1
+East Nusa Tenggara,2007-08-01,3.72,0.07
+East Nusa Tenggara,2008-02-01,3.7,-0.28
+East Nusa Tenggara,2008-08-01,3.73,0.01
+East Nusa Tenggara,2009-02-01,2.78,-0.92
+East Nusa Tenggara,2009-08-01,3.97,0.24
+East Nusa Tenggara,2010-02-01,3.49,0.71
+East Nusa Tenggara,2010-08-01,3.34,-0.63
+East Nusa Tenggara,2011-02-01,2.76,-0.73
+East Nusa Tenggara,2011-08-01,3.11,-0.23
+East Nusa Tenggara,2012-02-01,2.53,-0.23
+East Nusa Tenggara,2012-08-01,3.04,-0.07
+East Nusa Tenggara,2013-02-01,2.12,-0.41
+East Nusa Tenggara,2013-08-01,3.25,0.21
+East Nusa Tenggara,2014-02-01,1.97,-0.15
+East Nusa Tenggara,2014-08-01,3.26,0.01
+East Nusa Tenggara,2015-02-01,3.12,1.15
+East Nusa Tenggara,2015-08-01,3.83,0.57
+East Nusa Tenggara,2016-02-01,3.59,0.47
+East Nusa Tenggara,2016-08-01,3.25,-0.58
+East Nusa Tenggara,2017-02-01,3.21,-0.38
+East Nusa Tenggara,2017-08-01,3.27,0.02
+East Nusa Tenggara,2018-02-01,2.82,-0.39
+East Nusa Tenggara,2018-08-01,2.85,-0.42
+East Nusa Tenggara,2019-02-01,2.98,0.16
+East Nusa Tenggara,2019-08-01,3.14,0.29
+East Nusa Tenggara,2020-02-01,2.64,-0.34
+East Nusa Tenggara,2020-08-01,4.28,1.14
+West Kalimantan,2005-02-01,8.61,NA
+West Kalimantan,2005-08-01,8.13,NA
+West Kalimantan,2006-02-01,7.06,-1.55
+West Kalimantan,2006-08-01,8.53,0.4
+West Kalimantan,2007-02-01,7.08,0.02
+West Kalimantan,2007-08-01,6.47,-2.06
+West Kalimantan,2008-02-01,6.49,-0.59
+West Kalimantan,2008-08-01,5.41,-1.06
+West Kalimantan,2009-02-01,5.63,-0.86
+West Kalimantan,2009-08-01,5.44,0.03
+West Kalimantan,2010-02-01,5.5,-0.13
+West Kalimantan,2010-08-01,4.62,-0.82
+West Kalimantan,2011-02-01,5.23,-0.27
+West Kalimantan,2011-08-01,4.6,-0.02
+West Kalimantan,2012-02-01,3.42,-1.81
+West Kalimantan,2012-08-01,3.54,-1.06
+West Kalimantan,2013-02-01,3.13,-0.29
+West Kalimantan,2013-08-01,3.99,0.45
+West Kalimantan,2014-02-01,2.53,-0.6
+West Kalimantan,2014-08-01,4.04,0.05
+West Kalimantan,2015-02-01,4.78,2.25
+West Kalimantan,2015-08-01,5.15,1.11
+West Kalimantan,2016-02-01,4.58,-0.2
+West Kalimantan,2016-08-01,4.23,-0.92
+West Kalimantan,2017-02-01,4.22,-0.36
+West Kalimantan,2017-08-01,4.36,0.13
+West Kalimantan,2018-02-01,4.09,-0.13
+West Kalimantan,2018-08-01,4.18,-0.18
+West Kalimantan,2019-02-01,4.06,-0.03
+West Kalimantan,2019-08-01,4.35,0.17
+West Kalimantan,2020-02-01,4.47,0.41
+West Kalimantan,2020-08-01,5.81,1.46
+Central Kalimantan,2005-02-01,4.85,NA
+Central Kalimantan,2005-08-01,4.91,NA
+Central Kalimantan,2006-02-01,5.13,0.28
+Central Kalimantan,2006-08-01,6.68,1.77
+Central Kalimantan,2007-02-01,5.02,-0.11
+Central Kalimantan,2007-08-01,5.11,-1.57
+Central Kalimantan,2008-02-01,4.79,-0.23
+Central Kalimantan,2008-08-01,4.59,-0.52
+Central Kalimantan,2009-02-01,4.53,-0.26
+Central Kalimantan,2009-08-01,4.62,0.03
+Central Kalimantan,2010-02-01,3.88,-0.65
+Central Kalimantan,2010-08-01,4.14,-0.48
+Central Kalimantan,2011-02-01,3.83,-0.05
+Central Kalimantan,2011-08-01,3.54,-0.6
+Central Kalimantan,2012-02-01,2.73,-1.1
+Central Kalimantan,2012-08-01,3.14,-0.4
+Central Kalimantan,2013-02-01,1.81,-0.92
+Central Kalimantan,2013-08-01,3,-0.14
+Central Kalimantan,2014-02-01,2.71,0.9
+Central Kalimantan,2014-08-01,3.24,0.24
+Central Kalimantan,2015-02-01,3.14,0.43
+Central Kalimantan,2015-08-01,4.54,1.3
+Central Kalimantan,2016-02-01,3.67,0.53
+Central Kalimantan,2016-08-01,4.82,0.28
+Central Kalimantan,2017-02-01,3.13,-0.54
+Central Kalimantan,2017-08-01,4.23,-0.59
+Central Kalimantan,2018-02-01,3.14,0.01
+Central Kalimantan,2018-08-01,3.91,-0.32
+Central Kalimantan,2019-02-01,3.21,0.07
+Central Kalimantan,2019-08-01,4.04,0.13
+Central Kalimantan,2020-02-01,3.33,0.12
+Central Kalimantan,2020-08-01,4.58,0.54
+South Kalimantan,2005-02-01,6.18,NA
+South Kalimantan,2005-08-01,7.34,NA
+South Kalimantan,2006-02-01,8.78,2.6
+South Kalimantan,2006-08-01,8.87,1.53
+South Kalimantan,2007-02-01,7.31,-1.47
+South Kalimantan,2007-08-01,7.62,-1.25
+South Kalimantan,2008-02-01,6.91,-0.4
+South Kalimantan,2008-08-01,6.18,-1.44
+South Kalimantan,2009-02-01,6.75,-0.16
+South Kalimantan,2009-08-01,6.36,0.18
+South Kalimantan,2010-02-01,5.89,-0.86
+South Kalimantan,2010-08-01,5.25,-1.11
+South Kalimantan,2011-02-01,5.74,-0.15
+South Kalimantan,2011-08-01,6.29,1.04
+South Kalimantan,2012-02-01,4.34,-1.4
+South Kalimantan,2012-08-01,5.19,-1.1
+South Kalimantan,2013-02-01,3.88,-0.46
+South Kalimantan,2013-08-01,3.66,-1.53
+South Kalimantan,2014-02-01,4.03,0.15
+South Kalimantan,2014-08-01,3.8,0.14
+South Kalimantan,2015-02-01,4.83,0.8
+South Kalimantan,2015-08-01,4.92,1.12
+South Kalimantan,2016-02-01,3.63,-1.2
+South Kalimantan,2016-08-01,5.45,0.53
+South Kalimantan,2017-02-01,3.53,-0.1
+South Kalimantan,2017-08-01,4.77,-0.68
+South Kalimantan,2018-02-01,3.72,0.19
+South Kalimantan,2018-08-01,4.35,-0.42
+South Kalimantan,2019-02-01,3.41,-0.31
+South Kalimantan,2019-08-01,4.18,-0.17
+South Kalimantan,2020-02-01,3.67,0.26
+South Kalimantan,2020-08-01,4.74,0.56
+East Kalimantan,2005-02-01,9.04,NA
+East Kalimantan,2005-08-01,11.17,NA
+East Kalimantan,2006-02-01,12.11,3.07
+East Kalimantan,2006-08-01,13.43,2.26
+East Kalimantan,2007-02-01,12.83,0.72
+East Kalimantan,2007-08-01,12.07,-1.36
+East Kalimantan,2008-02-01,11.41,-1.42
+East Kalimantan,2008-08-01,11.11,-0.96
+East Kalimantan,2009-02-01,11.09,-0.32
+East Kalimantan,2009-08-01,10.83,-0.28
+East Kalimantan,2010-02-01,10.45,-0.64
+East Kalimantan,2010-08-01,10.1,-0.73
+East Kalimantan,2011-02-01,10.9,0.45
+East Kalimantan,2011-08-01,11.43,1.33
+East Kalimantan,2012-02-01,9.48,-1.42
+East Kalimantan,2012-08-01,9.02,-2.41
+East Kalimantan,2013-02-01,8.94,-0.54
+East Kalimantan,2013-08-01,7.95,-1.07
+East Kalimantan,2014-02-01,8.89,-0.05
+East Kalimantan,2014-08-01,7.38,-0.57
+East Kalimantan,2015-02-01,7.17,-1.72
+East Kalimantan,2015-08-01,7.5,0.12
+East Kalimantan,2016-02-01,8.86,1.69
+East Kalimantan,2016-08-01,7.95,0.45
+East Kalimantan,2017-02-01,8.55,-0.31
+East Kalimantan,2017-08-01,6.91,-1.04
+East Kalimantan,2018-02-01,6.79,-1.76
+East Kalimantan,2018-08-01,6.41,-0.5
+East Kalimantan,2019-02-01,6.65,-0.14
+East Kalimantan,2019-08-01,5.94,-0.47
+East Kalimantan,2020-02-01,6.72,0.07
+East Kalimantan,2020-08-01,6.87,0.93
+North Kalimantan,2015-02-01,5.79,NA
+North Kalimantan,2015-08-01,5.68,NA
+North Kalimantan,2016-02-01,3.92,-1.87
+North Kalimantan,2016-08-01,5.23,-0.45
+North Kalimantan,2017-02-01,5.17,1.25
+North Kalimantan,2017-08-01,5.54,0.31
+North Kalimantan,2018-02-01,4.7,-0.47
+North Kalimantan,2018-08-01,5.11,-0.43
+North Kalimantan,2019-02-01,5.84,1.14
+North Kalimantan,2019-08-01,4.49,-0.62
+North Kalimantan,2020-02-01,5.71,-0.13
+North Kalimantan,2020-08-01,4.97,0.48
+North Sulawesi,2005-02-01,14.4,NA
+North Sulawesi,2005-08-01,14.05,NA
+North Sulawesi,2006-02-01,13.67,-0.73
+North Sulawesi,2006-08-01,14.62,0.57
+North Sulawesi,2007-02-01,13.04,-0.63
+North Sulawesi,2007-08-01,12.35,-2.27
+North Sulawesi,2008-02-01,12.35,-0.69
+North Sulawesi,2008-08-01,10.65,-1.7
+North Sulawesi,2009-02-01,10.63,-1.72
+North Sulawesi,2009-08-01,10.56,-0.09
+North Sulawesi,2010-02-01,10.48,-0.15
+North Sulawesi,2010-08-01,9.61,-0.95
+North Sulawesi,2011-02-01,9.74,-0.74
+North Sulawesi,2011-08-01,10.1,0.49
+North Sulawesi,2012-02-01,8.55,-1.19
+North Sulawesi,2012-08-01,7.98,-2.12
+North Sulawesi,2013-02-01,7.5,-1.05
+North Sulawesi,2013-08-01,6.79,-1.19
+North Sulawesi,2014-02-01,7.27,-0.23
+North Sulawesi,2014-08-01,7.54,0.75
+North Sulawesi,2015-02-01,8.69,1.42
+North Sulawesi,2015-08-01,9.03,1.49
+North Sulawesi,2016-02-01,7.82,-0.87
+North Sulawesi,2016-08-01,6.18,-2.85
+North Sulawesi,2017-02-01,6.12,-1.7
+North Sulawesi,2017-08-01,7.18,1
+North Sulawesi,2018-02-01,5.86,-0.26
+North Sulawesi,2018-08-01,6.61,-0.57
+North Sulawesi,2019-02-01,5.17,-0.69
+North Sulawesi,2019-08-01,6.01,-0.6
+North Sulawesi,2020-02-01,5.34,0.17
+North Sulawesi,2020-08-01,7.37,1.36
+Central Sulawesi,2005-02-01,7.63,NA
+Central Sulawesi,2005-08-01,7.71,NA
+Central Sulawesi,2006-02-01,8.9,1.27
+Central Sulawesi,2006-08-01,10.31,2.6
+Central Sulawesi,2007-02-01,7.01,-1.89
+Central Sulawesi,2007-08-01,8.39,-1.92
+Central Sulawesi,2008-02-01,7.25,0.24
+Central Sulawesi,2008-08-01,5.45,-2.94
+Central Sulawesi,2009-02-01,5.11,-2.14
+Central Sulawesi,2009-08-01,5.43,-0.02
+Central Sulawesi,2010-02-01,4.89,-0.22
+Central Sulawesi,2010-08-01,4.61,-0.82
+Central Sulawesi,2011-02-01,4.31,-0.58
+Central Sulawesi,2011-08-01,6.78,2.17
+Central Sulawesi,2012-02-01,3.75,-0.56
+Central Sulawesi,2012-08-01,3.95,-2.83
+Central Sulawesi,2013-02-01,2.67,-1.08
+Central Sulawesi,2013-08-01,4.19,0.24
+Central Sulawesi,2014-02-01,2.92,0.25
+Central Sulawesi,2014-08-01,3.68,-0.51
+Central Sulawesi,2015-02-01,2.99,0.07
+Central Sulawesi,2015-08-01,4.1,0.42
+Central Sulawesi,2016-02-01,3.46,0.47
+Central Sulawesi,2016-08-01,3.29,-0.81
+Central Sulawesi,2017-02-01,2.97,-0.49
+Central Sulawesi,2017-08-01,3.81,0.52
+Central Sulawesi,2018-02-01,3.12,0.15
+Central Sulawesi,2018-08-01,3.37,-0.44
+Central Sulawesi,2019-02-01,3.46,0.34
+Central Sulawesi,2019-08-01,3.11,-0.26
+Central Sulawesi,2020-02-01,2.93,-0.53
+Central Sulawesi,2020-08-01,3.77,0.66
+South Sulawesi,2005-02-01,13.58,NA
+South Sulawesi,2005-08-01,15.93,NA
+South Sulawesi,2006-02-01,12.32,-1.26
+South Sulawesi,2006-08-01,12.76,-3.17
+South Sulawesi,2007-02-01,12.01,-0.31
+South Sulawesi,2007-08-01,11.25,-1.51
+South Sulawesi,2008-02-01,10.49,-1.52
+South Sulawesi,2008-08-01,9.04,-2.21
+South Sulawesi,2009-02-01,8.74,-1.75
+South Sulawesi,2009-08-01,8.9,-0.14
+South Sulawesi,2010-02-01,7.99,-0.75
+South Sulawesi,2010-08-01,8.37,-0.53
+South Sulawesi,2011-02-01,6.89,-1.1
+South Sulawesi,2011-08-01,8.13,-0.24
+South Sulawesi,2012-02-01,6.56,-0.33
+South Sulawesi,2012-08-01,6.01,-2.12
+South Sulawesi,2013-02-01,5.88,-0.68
+South Sulawesi,2013-08-01,5.1,-0.91
+South Sulawesi,2014-02-01,5.79,-0.09
+South Sulawesi,2014-08-01,5.08,-0.02
+South Sulawesi,2015-02-01,5.81,0.02
+South Sulawesi,2015-08-01,5.95,0.87
+South Sulawesi,2016-02-01,5.11,-0.7
+South Sulawesi,2016-08-01,4.8,-1.15
+South Sulawesi,2017-02-01,4.77,-0.34
+South Sulawesi,2017-08-01,5.61,0.81
+South Sulawesi,2018-02-01,5.04,0.27
+South Sulawesi,2018-08-01,4.94,-0.67
+South Sulawesi,2019-02-01,5.1,0.06
+South Sulawesi,2019-08-01,4.62,-0.32
+South Sulawesi,2020-02-01,5.7,0.6
+South Sulawesi,2020-08-01,6.31,1.69
+Southeast Sulawesi,2005-02-01,8.92,NA
+Southeast Sulawesi,2005-08-01,10.93,NA
+Southeast Sulawesi,2006-02-01,7.42,-1.5
+Southeast Sulawesi,2006-08-01,9.67,-1.26
+Southeast Sulawesi,2007-02-01,6.93,-0.49
+Southeast Sulawesi,2007-08-01,6.4,-3.27
+Southeast Sulawesi,2008-02-01,6.05,-0.88
+Southeast Sulawesi,2008-08-01,5.73,-0.67
+Southeast Sulawesi,2009-02-01,5.38,-0.67
+Southeast Sulawesi,2009-08-01,4.74,-0.99
+Southeast Sulawesi,2010-02-01,4.77,-0.61
+Southeast Sulawesi,2010-08-01,4.61,-0.13
+Southeast Sulawesi,2011-02-01,4.45,-0.32
+Southeast Sulawesi,2011-08-01,4.69,0.08
+Southeast Sulawesi,2012-02-01,3.2,-1.25
+Southeast Sulawesi,2012-08-01,4.14,-0.55
+Southeast Sulawesi,2013-02-01,3.43,0.23
+Southeast Sulawesi,2013-08-01,4.38,0.24
+Southeast Sulawesi,2014-02-01,2.13,-1.3
+Southeast Sulawesi,2014-08-01,4.43,0.05
+Southeast Sulawesi,2015-02-01,3.62,1.49
+Southeast Sulawesi,2015-08-01,5.55,1.12
+Southeast Sulawesi,2016-02-01,3.78,0.16
+Southeast Sulawesi,2016-08-01,2.72,-2.83
+Southeast Sulawesi,2017-02-01,3.14,-0.64
+Southeast Sulawesi,2017-08-01,3.3,0.58
+Southeast Sulawesi,2018-02-01,2.77,-0.37
+Southeast Sulawesi,2018-08-01,3.19,-0.11
+Southeast Sulawesi,2019-02-01,2.88,0.11
+Southeast Sulawesi,2019-08-01,3.52,0.33
+Southeast Sulawesi,2020-02-01,3.1,0.22
+Southeast Sulawesi,2020-08-01,4.58,1.06
+Gorontalo,2005-02-01,9.79,NA
+Gorontalo,2005-08-01,14.04,NA
+Gorontalo,2006-02-01,9.77,-0.02
+Gorontalo,2006-08-01,7.62,-6.42
+Gorontalo,2007-02-01,7.26,-2.51
+Gorontalo,2007-08-01,7.16,-0.46
+Gorontalo,2008-02-01,7.04,-0.22
+Gorontalo,2008-08-01,5.65,-1.51
+Gorontalo,2009-02-01,5.06,-1.98
+Gorontalo,2009-08-01,5.89,0.24
+Gorontalo,2010-02-01,5.05,-0.01
+Gorontalo,2010-08-01,5.16,-0.73
+Gorontalo,2011-02-01,4.95,-0.1
+Gorontalo,2011-08-01,6.74,1.58
+Gorontalo,2012-02-01,4.92,-0.03
+Gorontalo,2012-08-01,4.47,-2.27
+Gorontalo,2013-02-01,4.51,-0.41
+Gorontalo,2013-08-01,4.15,-0.32
+Gorontalo,2014-02-01,2.44,-2.07
+Gorontalo,2014-08-01,4.18,0.03
+Gorontalo,2015-02-01,3.06,0.62
+Gorontalo,2015-08-01,4.65,0.47
+Gorontalo,2016-02-01,3.88,0.82
+Gorontalo,2016-08-01,2.76,-1.89
+Gorontalo,2017-02-01,3.65,-0.23
+Gorontalo,2017-08-01,4.28,1.52
+Gorontalo,2018-02-01,3.38,-0.27
+Gorontalo,2018-08-01,3.7,-0.58
+Gorontalo,2019-02-01,3.25,-0.13
+Gorontalo,2019-08-01,3.76,0.06
+Gorontalo,2020-02-01,3.29,0.04
+Gorontalo,2020-08-01,4.28,0.52
+West Sulawesi,2006-02-01,4.64,NA
+West Sulawesi,2006-08-01,6.45,NA
+West Sulawesi,2007-02-01,4.09,-0.55
+West Sulawesi,2007-08-01,5.45,-1
+West Sulawesi,2008-02-01,5.68,1.59
+West Sulawesi,2008-08-01,4.57,-0.88
+West Sulawesi,2009-02-01,4.92,-0.76
+West Sulawesi,2009-08-01,4.51,-0.06
+West Sulawesi,2010-02-01,4.1,-0.82
+West Sulawesi,2010-08-01,3.25,-1.26
+West Sulawesi,2011-02-01,2.77,-1.33
+West Sulawesi,2011-08-01,3.35,0.1
+West Sulawesi,2012-02-01,2.1,-0.67
+West Sulawesi,2012-08-01,2.16,-1.19
+West Sulawesi,2013-02-01,2.02,-0.08
+West Sulawesi,2013-08-01,2.35,0.19
+West Sulawesi,2014-02-01,1.6,-0.42
+West Sulawesi,2014-08-01,2.08,-0.27
+West Sulawesi,2015-02-01,1.81,0.21
+West Sulawesi,2015-08-01,3.35,1.27
+West Sulawesi,2016-02-01,2.72,0.91
+West Sulawesi,2016-08-01,3.33,-0.02
+West Sulawesi,2017-02-01,2.98,0.26
+West Sulawesi,2017-08-01,3.21,-0.12
+West Sulawesi,2018-02-01,2.33,-0.65
+West Sulawesi,2018-08-01,3.01,-0.2
+West Sulawesi,2019-02-01,1.29,-1.04
+West Sulawesi,2019-08-01,2.98,-0.03
+West Sulawesi,2020-02-01,2.39,1.1
+West Sulawesi,2020-08-01,3.32,0.34
+Maluku,2005-02-01,12.3,NA
+Maluku,2005-08-01,15.01,NA
+Maluku,2006-02-01,15.76,3.46
+Maluku,2006-08-01,13.72,-1.29
+Maluku,2007-02-01,14.37,-1.39
+Maluku,2007-08-01,12.2,-1.52
+Maluku,2008-02-01,11.05,-3.32
+Maluku,2008-08-01,10.67,-1.53
+Maluku,2009-02-01,10.38,-0.67
+Maluku,2009-08-01,10.57,-0.1
+Maluku,2010-02-01,9.13,-1.25
+Maluku,2010-08-01,9.97,-0.6
+Maluku,2011-02-01,8.18,-0.95
+Maluku,2011-08-01,10.81,0.84
+Maluku,2012-02-01,7.59,-0.59
+Maluku,2012-08-01,7.71,-3.1
+Maluku,2013-02-01,6.97,-0.62
+Maluku,2013-08-01,9.91,2.2
+Maluku,2014-02-01,6.59,-0.38
+Maluku,2014-08-01,10.51,0.6
+Maluku,2015-02-01,6.72,0.13
+Maluku,2015-08-01,9.93,-0.58
+Maluku,2016-02-01,6.98,0.26
+Maluku,2016-08-01,7.05,-2.88
+Maluku,2017-02-01,7.77,0.79
+Maluku,2017-08-01,9.29,2.24
+Maluku,2018-02-01,7.07,-0.7
+Maluku,2018-08-01,6.95,-2.34
+Maluku,2019-02-01,6.61,-0.46
+Maluku,2019-08-01,6.69,-0.26
+Maluku,2020-02-01,6.71,0.1
+Maluku,2020-08-01,7.57,0.88
+North Maluku,2005-02-01,8.88,NA
+North Maluku,2005-08-01,13.09,NA
+North Maluku,2006-02-01,8.54,-0.34
+North Maluku,2006-08-01,6.9,-6.19
+North Maluku,2007-02-01,8.34,-0.2
+North Maluku,2007-08-01,6.05,-0.85
+North Maluku,2008-02-01,7.03,-1.31
+North Maluku,2008-08-01,6.48,0.43
+North Maluku,2009-02-01,6.61,-0.42
+North Maluku,2009-08-01,6.76,0.28
+North Maluku,2010-02-01,6.03,-0.58
+North Maluku,2010-08-01,6.03,-0.73
+North Maluku,2011-02-01,5.8,-0.23
+North Maluku,2011-08-01,5.34,-0.69
+North Maluku,2012-02-01,5.5,-0.3
+North Maluku,2012-08-01,4.82,-0.52
+North Maluku,2013-02-01,5.5,0
+North Maluku,2013-08-01,3.8,-1.02
+North Maluku,2014-02-01,5.65,0.15
+North Maluku,2014-08-01,5.29,1.49
+North Maluku,2015-02-01,5.56,-0.09
+North Maluku,2015-08-01,6.05,0.76
+North Maluku,2016-02-01,3.43,-2.13
+North Maluku,2016-08-01,4.01,-2.04
+North Maluku,2017-02-01,4.82,1.39
+North Maluku,2017-08-01,5.33,1.32
+North Maluku,2018-02-01,4.56,-0.26
+North Maluku,2018-08-01,4.63,-0.7
+North Maluku,2019-02-01,4.96,0.4
+North Maluku,2019-08-01,4.81,0.18
+North Maluku,2020-02-01,4.09,-0.87
+North Maluku,2020-08-01,5.15,0.34
+West Papua,2006-02-01,11.17,NA
+West Papua,2006-08-01,10.17,NA
+West Papua,2007-02-01,10.18,-0.99
+West Papua,2007-08-01,9.46,-0.71
+West Papua,2008-02-01,9.3,-0.88
+West Papua,2008-08-01,7.65,-1.81
+West Papua,2009-02-01,7.73,-1.57
+West Papua,2009-08-01,7.56,-0.09
+West Papua,2010-02-01,7.77,0.04
+West Papua,2010-08-01,7.68,0.12
+West Papua,2011-02-01,6.82,-0.95
+West Papua,2011-08-01,6.73,-0.95
+West Papua,2012-02-01,6.57,-0.25
+West Papua,2012-08-01,5.42,-1.31
+West Papua,2013-02-01,4.36,-2.21
+West Papua,2013-08-01,4.4,-1.02
+West Papua,2014-02-01,3.7,-0.66
+West Papua,2014-08-01,5.02,0.62
+West Papua,2015-02-01,4.61,0.91
+West Papua,2015-08-01,8.08,3.06
+West Papua,2016-02-01,5.73,1.12
+West Papua,2016-08-01,7.46,-0.62
+West Papua,2017-02-01,7.52,1.79
+West Papua,2017-08-01,6.49,-0.97
+West Papua,2018-02-01,6.27,-1.25
+West Papua,2018-08-01,6.45,-0.04
+West Papua,2019-02-01,5.81,-0.46
+West Papua,2019-08-01,6.43,-0.02
+West Papua,2020-02-01,6.78,0.97
+West Papua,2020-08-01,6.8,0.37
+Papua,2005-02-01,7.12,NA
+Papua,2005-08-01,7.31,NA
+Papua,2006-02-01,4.5,-2.62
+Papua,2006-08-01,5.83,-1.48
+Papua,2007-02-01,5.52,1.02
+Papua,2007-08-01,5.01,-0.82
+Papua,2008-02-01,4.85,-0.67
+Papua,2008-08-01,4.39,-0.62
+Papua,2009-02-01,4.13,-0.72
+Papua,2009-08-01,4.08,-0.31
+Papua,2010-02-01,4.08,-0.05
+Papua,2010-08-01,3.55,-0.53
+Papua,2011-02-01,3.84,-0.24
+Papua,2011-08-01,5.02,1.47
+Papua,2012-02-01,3.03,-0.81
+Papua,2012-08-01,3.71,-1.31
+Papua,2013-02-01,2.91,-0.12
+Papua,2013-08-01,3.15,-0.56
+Papua,2014-02-01,3.48,0.57
+Papua,2014-08-01,3.44,0.29
+Papua,2015-02-01,3.72,0.24
+Papua,2015-08-01,3.99,0.55
+Papua,2016-02-01,2.97,-0.75
+Papua,2016-08-01,3.35,-0.64
+Papua,2017-02-01,3.96,0.99
+Papua,2017-08-01,3.62,0.27
+Papua,2018-02-01,2.75,-1.21
+Papua,2018-08-01,3,-0.62
+Papua,2019-02-01,3.22,0.47
+Papua,2019-08-01,3.51,0.51
+Papua,2020-02-01,3.42,0.2
+Papua,2020-08-01,4.28,0.77

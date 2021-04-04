@@ -1,0 +1,240 @@
+---
+title: "Retail sales"
+description: |
+  Retail sales have been declining and unusually low during Ramadan, Idul Fitri, Christmas and year end due to the COVID-19 pandemic. While retail sales across categories remain below the usual level before the pandemic, some categories have shown signs of improvements.
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+preview: fig/ier_rsi_void_plot.png
+---
+
+
+```{r setup, include=FALSE}
+# chunk options
+knitr::opts_chunk$set(echo = FALSE)
+
+# packages
+library(tidyverse)
+library(xaringanExtra)
+library(htmltools)
+library(mime)
+
+# panelset
+xaringanExtra::use_panelset()
+
+# source url
+source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SPE_Januari_2021.aspx"
+
+# date of last update
+source_last_update <- "March 9, 2021"
+
+# description functions
+## rise or fall
+ier_compare_rise <- function(x) {
+  if (x > 0) {
+    "rise"
+  } else {
+    "fall"
+  }
+}
+
+## up or down
+ier_compare_up <- function(x) {
+  if (x > 0 ) {
+    "up"
+  } else {
+    "down"
+  }
+}
+
+## less or more severe
+ier_compare_sev <- function(x, y) {
+  if (x > y) {
+    "less severe"
+  } else {
+    "more severe"
+  }
+}
+
+# embed file
+## overal rsi
+embed_rsi_overall <- xfun::embed_file(
+  "data/ier_rsi-overall_cleaned.csv",
+  name = "ier_rsi-overall_cleaned.csv",
+  text = "csv"
+)
+
+## rsi by category
+embed_rsi_cat <- xfun::embed_file(
+  "data/ier_rsi-category_cleaned.csv",
+  name = "ier_rsi-category_cleaned.csv",
+  text = "csv"
+)
+
+# embed chart
+## annual change in overall rsi
+embed_chart_rsi_overall_chg <- xfun::embed_file(
+  "fig/ier_rsi-change_plot.png",
+  name = "ier_rsi-change_plot.png",
+  text = "chart"
+)
+
+## overall rsi
+embed_chart_rsi_overall <- xfun::embed_file(
+  "fig/ier_rsi_plot.png",
+  name = "ier_rsi_plot.png",
+  text = "chart"
+)
+
+## annual change in rsi by category
+embed_chart_rsi_cat_chg <- xfun::embed_file(
+  "fig/ier_rsi-cat-change_plot.png",
+  name = "ier_rsi-cat-change_plot.png",
+  text = "chart"
+)
+
+## rsi by category
+embed_chart_rsi_cat <- xfun::embed_file(
+  "fig/ier_rsi-cat_plot.png",
+  name = "ier_rsi-cat-change_plot.png",
+  text = "chart"
+)
+```
+
+
+### Overall
+
+::: {.panelset}
+
+::: {.panel}
+
+#### Change
+
+(percent change from a year earlier)
+
+```{r plot: rsi change}
+source("script/rsi_script.R", local = knitr::knit_global())
+
+div(plot_rsi_change)
+```
+
+:::
+
+::: {.panel}
+
+#### Index
+
+```{r plot: rsi}
+div(plot_rsi_index)
+```
+
+:::
+
+:::
+
+<p style="color: #999;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.</p>  
+
+The Retail Sales Index was estimated to `r ier_compare_rise(last(rsi_trf$pct_change_yoy))` by **`r last(rsi_trf$pct_change_yoy)`** percent year-on-year (yoy) to **`r last(rsi_trf$rsi)`** in `r format(last(rsi_trf$date), "%B")`, `r ier_compare_sev(last(rsi_trf$pct_change_yoy),  rsi_trf$pct_change_yoy[nrow(rsi_trf) - 1])` than the previous month. 
+
+<aside>
+
+See also [community mobility](mobility.html)
+
+</aside>
+
+The pandemic has led the index to fall to its steepest decline at **20.61** percent yoy to **198.3** in May 2020, when Ramadan and Idul Fitri took place.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the Retail Sales Index indicates the retail sales performance in a given month. The base year for the index is January 2010. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Source**: [Bank Indonesia (BI)](`r source_url`){target="_blank"}  
+**Data and update frequency**: monthly  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_rsi_overall`; index (`r embed_chart_rsi_overall`); change (`r embed_chart_rsi_overall_chg`)  
+</details>
+
+
+### By category
+
+::: {.panelset}
+
+::: {.panel}
+
+#### Change
+
+(percent change from a year earlier)
+
+```{r plot: rsi change by category}
+source("script/rsi_category_script.R", local = knitr::knit_global())
+
+div(sm_rsi_by_cat_chg)
+```
+
+:::
+
+::: {.panel}
+
+#### Index
+
+```{r plot: rsi by category}
+div(sm_rsi_by_cat_idx)
+```
+
+:::
+
+:::
+
+```{r description: rsi by category}
+# categories showing improvements
+rsi_by_cat_improve <- rsi_by_cat_trf %>% 
+  group_by(Indices) %>% 
+  dplyr::filter(last(pct_change_yoy) > tail(pct_change_yoy, 2)[[1]]) %>% 
+  ungroup() %>% 
+  select(Indices) %>% 
+  dplyr::filter(!duplicated(Indices))
+
+# set to lower case
+rsi_by_cat_imp_lower <- str_to_lower(rsi_by_cat_improve[[1]])
+
+# categories showing steeper declines
+rsi_by_cat_worse <- rsi_by_cat_trf %>% 
+  group_by(Indices) %>% 
+  dplyr::filter(
+    last(pct_change_yoy) < tail(pct_change_yoy, 2)[[1]],
+    date == last(date)
+  )
+
+# set to lower case
+rsi_by_cat_worse_lower <- str_to_lower(rsi_by_cat_worse$Indices)
+```
+
+<p style="color: #999;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.</p>  
+
+The Retail Sales Index of `r rsi_by_cat_imp_lower[-length(rsi_by_cat_imp_lower)]` and `r rsi_by_cat_imp_lower[length(rsi_by_cat_imp_lower)]` improved in `r format(last(rsi_trf$date), "%B")` from the previous month in terms of change from a year earlier.
+
+<aside>
+
+See also [inflation by expenditure group](inflation.html#by-expenditure-group)
+
+</aside>
+
+Meanwhile, `r rsi_by_cat_worse_lower[-length(rsi_by_cat_worse_lower)]` and `r rsi_by_cat_worse_lower[length(rsi_by_cat_worse_lower)]` showed steeper declines than the previous month in terms of percent change from a year earlier.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the Retail Sales Index, broken down by category, also indicates the retail sales performance in a given month. The base year for the index is January 2010. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Source**: [BI](`r source_url`){target="_blank"}  
+**Data and update frequency**: monthly  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_rsi_cat`; index (`r embed_chart_rsi_cat`); change (`r embed_chart_rsi_cat_chg`)  
+</details>
+
+
+# Note {.appendix}
+
+The Retail Sales Index is based on a monthly survey from Bank Indonesia. The central bank has conducted the survey since September 1999.
+
+Since January 2015, the survey covers around 700 retailers in 10 cities, comprising Jakarta, Semarang, Bandung, Surabaya, Medan, Purwokerto, Makassar, Manado, Banjarmasin and Denpasar.

@@ -1,0 +1,201 @@
+date,expenditure_component,contribution_to_growth
+2011-01-01,Private consumption,2.37
+2011-01-01,Investment,4.99
+2011-01-01,Net export,-0.28
+2011-01-01,Government consumption,0.52
+2011-01-01,Statistics discrepancy,-1.14
+2011-04-01,Private consumption,2.57
+2011-04-01,Investment,2.89
+2011-04-01,Net export,1.27
+2011-04-01,Government consumption,0.62
+2011-04-01,Statistics discrepancy,-1.07
+2011-07-01,Private consumption,3.24
+2011-07-01,Investment,0.14
+2011-07-01,Net export,1.15
+2011-07-01,Government consumption,0.41
+2011-07-01,Statistics discrepancy,1.07
+2011-10-01,Private consumption,3.16
+2011-10-01,Investment,2.53
+2011-10-01,Net export,-1.29
+2011-10-01,Government consumption,0.45
+2011-10-01,Statistics discrepancy,1.1
+2012-01-01,Private consumption,3.12
+2012-01-01,Investment,3.23
+2012-01-01,Net export,-0.8
+2012-01-01,Government consumption,0.49
+2012-01-01,Statistics discrepancy,0.06
+2012-04-01,Private consumption,3.05
+2012-04-01,Investment,3.88
+2012-04-01,Net export,-3.24
+2012-04-01,Government consumption,1.34
+2012-04-01,Statistics discrepancy,1.17
+2012-07-01,Private consumption,3.02
+2012-07-01,Investment,2.5
+2012-07-01,Net export,-0.8
+2012-07-01,Government consumption,-0.17
+2012-07-01,Statistics discrepancy,1.39
+2012-10-01,Private consumption,3.08
+2012-10-01,Investment,5.06
+2012-10-01,Net export,-1.24
+2012-10-01,Government consumption,-0.02
+2012-10-01,Statistics discrepancy,-1.02
+2013-01-01,Private consumption,3.18
+2013-01-01,Investment,1.22
+2013-01-01,Net export,0.19
+2013-01-01,Government consumption,0.19
+2013-01-01,Statistics discrepancy,0.75
+2013-04-01,Private consumption,2.95
+2013-04-01,Investment,2.29
+2013-04-01,Net export,0.3
+2013-04-01,Government consumption,0.27
+2013-04-01,Statistics discrepancy,-0.23
+2013-07-01,Private consumption,2.93
+2013-07-01,Investment,0.84
+2013-07-01,Net export,-0.81
+2013-07-01,Government consumption,0.96
+2013-07-01,Statistics discrepancy,1.6
+2013-10-01,Private consumption,3.07
+2013-10-01,Investment,-0.34
+2013-10-01,Net export,2.68
+2013-10-01,Government consumption,0.93
+2013-10-01,Statistics discrepancy,-0.76
+2014-01-01,Private consumption,3.12
+2014-01-01,Investment,1.57
+2014-01-01,Net export,-0.4
+2014-01-01,Government consumption,0.38
+2014-01-01,Statistics discrepancy,0.44
+2014-04-01,Private consumption,2.99
+2014-04-01,Investment,1.09
+2014-04-01,Net export,0.25
+2014-04-01,Government consumption,-0.16
+2014-04-01,Statistics discrepancy,0.76
+2014-07-01,Private consumption,2.81
+2014-07-01,Investment,2.72
+2014-07-01,Net export,1.09
+2014-07-01,Government consumption,0.1
+2014-07-01,Statistics discrepancy,-1.79
+2014-10-01,Private consumption,2.78
+2014-10-01,Investment,2.29
+2014-10-01,Net export,-1.93
+2014-10-01,Government consumption,0.11
+2014-10-01,Statistics discrepancy,1.8
+2015-01-01,Private consumption,2.64
+2015-01-01,Investment,1.36
+2015-01-01,Net export,0.45
+2015-01-01,Government consumption,0.18
+2015-01-01,Statistics discrepancy,0.2
+2015-04-01,Private consumption,2.57
+2015-04-01,Investment,0.47
+2015-04-01,Net export,1.62
+2015-04-01,Government consumption,0.21
+2015-04-01,Statistics discrepancy,-0.13
+2015-07-01,Private consumption,2.73
+2015-07-01,Investment,2.24
+2015-07-01,Net export,1.19
+2015-07-01,Government consumption,0.58
+2015-07-01,Statistics discrepancy,-1.96
+2015-10-01,Private consumption,2.79
+2015-10-01,Investment,0.03
+2015-10-01,Net export,0.49
+2015-10-01,Government consumption,0.83
+2015-10-01,Statistics discrepancy,1
+2016-01-01,Private consumption,2.8
+2016-01-01,Investment,1.41
+2016-01-01,Net export,0.37
+2016-01-01,Government consumption,0.21
+2016-01-01,Statistics discrepancy,0.15
+2016-04-01,Private consumption,2.81
+2016-04-01,Investment,1.29
+2016-04-01,Net export,0.38
+2016-04-01,Government consumption,0.49
+2016-04-01,Statistics discrepancy,0.24
+2016-07-01,Private consumption,2.77
+2016-07-01,Investment,1.46
+2016-07-01,Net export,-0.49
+2016-07-01,Government consumption,-0.25
+2016-07-01,Statistics discrepancy,1.54
+2016-10-01,Private consumption,2.8
+2016-10-01,Investment,2.54
+2016-10-01,Net export,0.28
+2016-10-01,Government consumption,-0.48
+2016-10-01,Statistics discrepancy,-0.2
+2017-01-01,Private consumption,2.8
+2017-01-01,Investment,1.85
+2017-01-01,Net export,0.84
+2017-01-01,Government consumption,0.16
+2017-01-01,Statistics discrepancy,-0.65
+2017-04-01,Private consumption,2.74
+2017-04-01,Investment,1.73
+2017-04-01,Net export,0.53
+2017-04-01,Government consumption,-0.15
+2017-04-01,Statistics discrepancy,0.16
+2017-07-01,Private consumption,2.71
+2017-07-01,Investment,1.63
+2017-07-01,Net export,0.46
+2017-07-01,Government consumption,0.27
+2017-07-01,Statistics discrepancy,-0.01
+2017-10-01,Private consumption,2.79
+2017-10-01,Investment,2.45
+2017-10-01,Net export,-0.59
+2017-10-01,Government consumption,0.42
+2017-10-01,Statistics discrepancy,0.12
+2018-01-01,Private consumption,2.82
+2018-01-01,Investment,2.88
+2018-01-01,Net export,-1.18
+2018-01-01,Government consumption,0.16
+2018-01-01,Statistics discrepancy,0.39
+2018-04-01,Private consumption,2.87
+2018-04-01,Investment,2.82
+2018-04-01,Net export,-1.27
+2018-04-01,Government consumption,0.39
+2018-04-01,Statistics discrepancy,0.46
+2018-07-01,Private consumption,2.79
+2018-07-01,Investment,2.21
+2018-07-01,Net export,-0.97
+2018-07-01,Government consumption,0.47
+2018-07-01,Statistics discrepancy,0.67
+2018-10-01,Private consumption,2.9
+2018-10-01,Investment,3.64
+2018-10-01,Net export,-0.57
+2018-10-01,Government consumption,0.5
+2018-10-01,Statistics discrepancy,-1.29
+2019-01-01,Private consumption,2.96
+2019-01-01,Investment,1.36
+2019-01-01,Net export,1.03
+2019-01-01,Government consumption,0.31
+2019-01-01,Statistics discrepancy,-0.6
+2019-04-01,Private consumption,2.95
+2019-04-01,Investment,0.59
+2019-04-01,Net export,0.97
+2019-04-01,Government consumption,0.61
+2019-04-01,Statistics discrepancy,-0.08
+2019-07-01,Private consumption,2.77
+2019-07-01,Investment,1.02
+2019-07-01,Net export,1.79
+2019-07-01,Government consumption,0.08
+2019-07-01,Statistics discrepancy,-0.65
+2019-10-01,Private consumption,2.76
+2019-10-01,Investment,0.35
+2019-10-01,Net export,1.67
+2019-10-01,Government consumption,0.05
+2019-10-01,Statistics discrepancy,0.13
+2020-01-01,Private consumption,1.49
+2020-01-01,Investment,0.14
+2020-01-01,Net export,0.75
+2020-01-01,Government consumption,0.22
+2020-01-01,Statistics discrepancy,0.37
+2020-04-01,Private consumption,-3.06
+2020-04-01,Investment,-2.48
+2020-04-01,Net export,0.92
+2020-04-01,Government consumption,-0.53
+2020-04-01,Statistics discrepancy,-0.17
+2020-07-01,Private consumption,-2.19
+2020-07-01,Investment,-3.64
+2020-07-01,Net export,1.77
+2020-07-01,Government consumption,0.72
+2020-07-01,Statistics discrepancy,-0.14
+2020-10-01,Private consumption,-2
+2020-10-01,Investment,-3.24
+2020-10-01,Net export,1.11
+2020-10-01,Government consumption,0.18
+2020-10-01,Statistics discrepancy,1.76

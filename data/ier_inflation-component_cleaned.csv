@@ -1,0 +1,43 @@
+date,component,inflation_mom
+2020-01-01,Core,0.19
+2020-01-01,Administered prices,-0.28
+2020-01-01,Volatile prices,1.93
+2020-02-01,Core,0.14
+2020-02-01,Administered prices,-0.11
+2020-02-01,Volatile prices,1.27
+2020-03-01,Core,0.29
+2020-03-01,Administered prices,-0.19
+2020-03-01,Volatile prices,-0.38
+2020-04-01,Core,0.17
+2020-04-01,Administered prices,-0.14
+2020-04-01,Volatile prices,-0.09
+2020-05-01,Core,0.06
+2020-05-01,Administered prices,0.67
+2020-05-01,Volatile prices,-0.5
+2020-06-01,Core,0.02
+2020-06-01,Administered prices,0.22
+2020-06-01,Volatile prices,0.77
+2020-07-01,Core,0.16
+2020-07-01,Administered prices,-0.07
+2020-07-01,Volatile prices,-1.19
+2020-08-01,Core,0.29
+2020-08-01,Administered prices,-0.02
+2020-08-01,Volatile prices,-1.44
+2020-09-01,Core,0.13
+2020-09-01,Administered prices,-0.19
+2020-09-01,Volatile prices,-0.6
+2020-10-01,Core,0.04
+2020-10-01,Administered prices,-0.15
+2020-10-01,Volatile prices,0.4
+2020-11-01,Core,0.06
+2020-11-01,Administered prices,0.16
+2020-11-01,Volatile prices,1.31
+2020-12-01,Core,0.05
+2020-12-01,Administered prices,0.35
+2020-12-01,Volatile prices,2.17
+2021-01-01,Core,0.14
+2021-01-01,Administered prices,-0.19
+2021-01-01,Volatile prices,1.15
+2021-02-01,Core,0.11
+2021-02-01,Administered prices,0.21
+2021-02-01,Volatile prices,-0.01

@@ -1,25 +1,36 @@
-name: "Indonesia's recovery tracker"
-output_dir: "docs"
+name: "indonesia-recovery-tracker"
+title: "Indonesia EconRecovery"
+description: |
+  Charts and tables to track Indonesia's economic recovery 
+  from the COVID-19 pandemic.
+favicon: images/ier_hexsticker_favicon.png
+base_url: http://dzulfiqarfr.github.io/indonesia-recovery-tracker
+repository_url: https://github.com/dzulfiqarfr/indonesia-recovery-tracker
+creative_commons: CC BY
+google_analytics: "G-FP7388WD59"
+twitter:
+  creator: "@dzulfiqarfr"
 navbar:
-  title: "Indonesia COVID-19 recovery tracker"
-  right:  
+  right:
+    - text: "Indicators"
+      menu:
+        - text: "Consumer confidence"
+          href: cci.html
+        - text: "Employment"
+          href: employment.html
+        - text: "Economic growth"
+          href: gdp.html
+        - text: "Inflation"
+          href: inflation.html
+        - text: "Mobility"
+          href: mobility.html
+        - text: "Poverty"
+          href: poverty.html
+        - text: "Retail sales"
+          href: rsi.html
     - text: "About"
-      menu:
-      - text: "About this tracker"  
-        href: about_tracker.html
-      - text: "About the author"  
-        href: about_author.html
-    - text: "Resources"
-      menu:
-      - text: "Data"
-        href: dataset.html
-      - text: "Code"
-        href: code.html
-output:
-  html_document: 
-    theme: paper
-    includes: 
-       in_header: GA-script.html
-       after_body: _footer.html
-    css: "style.css"   
-exclude: ["data", "img", "script"]  
+      href: about.html
+theme: ier_style.css
+output: distill::distill_article
+output_dir: "docs"
+exclude: ["data", "script", "LICENSE.md", "renv.lock"]

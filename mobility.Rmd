@@ -1,0 +1,158 @@
+---
+title: "Community mobility"
+description: |
+  Indonesians have been reducing their visit to places like retail and recreation places in response to the COVID-19 pandemic restrictions, such as closures of school, workplace and shopping centers. But people’s mobility to certain places have shown signs of recovering to the pre-pandemic level.
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+preview: fig/ier_mobility-ntl_void_plot.png
+---
+
+
+```{r setup, include=FALSE}
+# chunk options
+knitr::opts_chunk$set(echo = FALSE)
+
+# packages
+library(tidyverse)
+library(htmltools)
+library(govdown)
+library(mime)
+
+# source url
+source_url <- "https://www.google.com/covid19/mobility/"
+
+# embed file
+## national mobility
+embed_mob_ntl <- xfun::embed_file(
+  "data/ier_mobility-ntl_cleaned.csv",
+  name = "ier_mobility-ntl_cleaned.csv",
+  text = "csv"
+)
+
+## regional mobility
+embed_mob_reg <- xfun::embed_file(
+  "data/ier_mobility-reg_cleaned.csv",
+  name = "ier_mobility-reg_cleaned.csv",
+  text = "csv"
+)
+
+# embed chart
+embed_chart_mob_ntl <- xfun::embed_file(
+  "fig/ier_mobility-ntl_plot.png",
+  name = "ier_mobility-ntl_plot.png",
+  text = "chart"
+)
+```
+
+
+### National
+
+Number of visitors, by place category  
+(percent change from baseline in Jan-Feb 2020 period)
+
+```{r plot: national mobility}
+source("script/mobility_ntl_script.R", local = knitr::knit_global())
+
+div(sm_mob_ntl)
+```
+
+*Tips: click the legend item to select or deselect a trace.*
+
+```{r description: national mobility}
+# categories with declining movement trends
+mob_ntl_down <- mob_ntl_trf %>% 
+  pivot_longer(
+    2:ncol(.), 
+    names_to = "category", 
+    values_to = "mobility"
+  ) %>% 
+  dplyr::filter(
+    date == last(date),
+    str_detect(category, "avg"),
+    mobility < 0
+  )
+
+# turn categories into human-readable format with sentence case
+mob_ntl_down$category <- mob_ntl_down$category %>% 
+  str_remove("_avg") %>% 
+  str_replace_all("_", " and ") %>% 
+  str_replace("transit and stations", "transit stations")
+```
+
+On `r format(mob_ntl_down$date[1], "%A (%b %d)")`, the number of visitors to `r mob_ntl_down$category[-ncol(mob_ntl_down)]` and `r mob_ntl_down$category[ncol(mob_ntl_down)]` locations was still below the pre-pandemic level on a seven-day moving average basis.
+
+<aside>
+
+See also [retail sales index](rsi.html)
+
+</aside>
+
+<details>
+<summary>Documentation</summary>
+**Description**: the headline number represents a percent change in the number of visitors from the median value of that day of the week over the period between Jan. 3 and Feb. 6, 2020, which reflects the usual level before the pandemic. The data is smoothed to a seven-day moving average. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Data frequency**: daily  
+**Update frequency**: once in two or three days  
+**Source**: [Google](`r source_url`){target="_blank"}  
+**Last updated**: `r format(Sys.Date(), "%B %d, %Y")`  
+**Download**: `r embed_mob_ntl`; `r embed_chart_mob_ntl`  
+</details>
+
+
+### Regional
+
+Number of visitors, by place category  
+(percent change from baseline in Jan-Feb 2020 period, seven-day moving average)
+
+```{r script: regional mobility}
+source("script/mobility_reg_script.R", local = knitr::knit_global())
+
+# filter by province
+unstrap(filter_by_reg)
+```
+
+```{js filter: default value for regional mobility}
+$(document).ready(function() {
+  document.getElementById("reg").getElementsByClassName("selectized")[0].selectize.setValue("Jakarta", false);
+});
+```
+
+```{r plot: regional mobility}
+div(sm_mob_reg)
+```
+
+*Tips: click the legend item to select or deselect a trace.*
+
+The movement trends are largely similar across provinces with the number of visitors having remained below the pre-pandemic level, with a few exceptions.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the headline number represents a percent change in the number of visitors from the median value of that day of the week over the period between Jan. 3 and Feb. 6, 2020, which reflects the usual level before the pandemic. The data is broken down by province and smoothed to a seven-day moving average. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Data frequency**: daily  
+**Update frequency**: once in two or three days  
+**Source**: [Google](`r source_url`){target="_blank"}  
+**Last updated**: `r format(Sys.Date(), "%B %d, %Y")`  
+**Download**: `r embed_mob_reg`  
+</details>
+
+
+# Note {.appendix}
+
+Google constructs the community mobility report based on anonymized data.
+
+While most place categories show a change in the number of visitors, the residential category shows a change in the hours spent in residential places.
+
+Google will intentionally leave gaps in the dataset when the data does not meet the quality threshold and there is not enough data to ensure anonymity.
+
+Google also recommends to not compare countries or regions because of local differences.
+
+The data also does not account for seasonal factors.
+
+Since the headline number represents a change from the baseline value for a particular day of the week, the same number of visitors on two different days of the week to a place category will result in different percent changes.
+
+Therefore, Google advises to avoid comparing day-to-day changes especially between weekends and weekdays.
+
+Read more to understand the data [here](https://support.google.com/covid19-mobility/answer/9825414?hl=en&ref_topic=9822927){target="_blank"}.

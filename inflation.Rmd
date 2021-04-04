@@ -1,0 +1,248 @@
+---
+title: "Inflation"
+description: |
+  The inflation rate has remained low and below Bank Indonesia’s target since the middle of 2020, around two months after the COVID-19 pandemic started battering the country.
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+preview: fig/ier_inflation-annual_void_plot.png
+---
+
+
+```{r setup, include=FALSE}
+# chunk options
+knitr::opts_chunk$set(echo = FALSE)
+
+# packages
+library(tidyverse)
+library(htmltools)
+library(xaringanExtra)
+library(crosstalk)
+library(govdown)
+library(mime)
+
+# use panelset
+xaringanExtra::use_panelset()
+
+# description functions
+## inflation or deflation
+ier_compare_inf <- function(x) {
+  if (x > 0) {
+    "inflation"
+  } else {
+    "deflation"
+  }
+}
+
+## lower or higher
+ier_compare_high <- function(x, y) {
+  if (x > y) {
+    "higher"
+  } else {
+    "lower"
+  }
+}
+
+# embed file
+## overall inflation
+embed_inf_overall <- xfun::embed_file(
+  "data/ier_inflation-overall_cleaned.csv",
+  name = "ier_inflation-overall_cleaned.csv",
+  text = "csv"
+)
+
+## inflation by component
+embed_inf_comp <- xfun::embed_file(
+  "data/ier_inflation-component_cleaned.csv",
+  name = "ier_inflation-component_cleaned.csv",
+  text = "csv"
+)
+
+## inflation by expenditure
+embed_inf_exp <- xfun::embed_file(
+  "data/ier_inflation-expenditure_cleaned.csv",
+  name = "ier_inflation-expenditure_cleaned.csv",
+  text = "csv"
+)
+
+# embed chart
+## monthly overall inflation
+embed_chart_inf_overall_mom <- xfun::embed_file(
+  "fig/ier_inflation-monthly_plot.png",
+  name = "ier_inflation-monthly_plot.png",
+  text = "chart"
+)
+
+## annual overall inflation
+embed_chart_inf_overall_yoy <- xfun::embed_file(
+  "fig/ier_inflation-annual_plot.png",
+  name = "ier_inflation-annual_plot.png",
+  text = "chart"
+)
+
+## inflation by component
+embed_chart_inf_comp <- xfun::embed_file(
+  "fig/ier_inflation-component_plot.png",
+  name = "ier_inflation-component_plot.png",
+  text = "chart"
+)
+```
+
+
+### Overall
+
+::: {.panelset}
+
+::: {.panel}
+
+#### Monthly
+
+(percent)
+
+```{r plot: monthly overall inflation}
+source("script/inflation_script.R", local = knitr::knit_global())
+
+div(plot_inf_mom)
+```
+
+:::
+
+::: {.panel}
+
+#### Annual
+
+(percent)
+
+```{r plot: annual overall inflation}
+div(plot_inf_yoy)
+```
+
+:::
+
+:::
+
+```{r description: overall inflation}
+# latest values
+inf_mom_yoy_latest <- inf_mom_yoy %>% 
+  tail(2) %>% 
+  select(-c("mo", "yr"))
+
+# date of last update
+source_last_update <- inf_yoy_parsed$data %>% 
+  as_tibble() %>% 
+  select(updt_date) %>% 
+  ymd_hms() %>% 
+  format("%B %d, %Y")
+```
+
+The monthly `r ier_compare_inf(inf_mom_yoy_latest$rate_mom[2])` rate was recorded at **`r inf_mom_yoy_latest$rate_mom[2]`** percent in `r format(inf_mom_yoy_latest$date[2], "%B")`, `r ier_compare_high(inf_mom_yoy_latest$rate_mom[2], inf_mom_yoy_latest$rate_mom[1])` than the rate in the same month in the previous year. The annual `r ier_compare_inf(inf_mom_yoy_latest$rate_yoy[2])` rate was recorded at **`r inf_mom_yoy_latest$rate_yoy[2]`** percent, `r ier_compare_high(inf_mom_yoy_latest$rate_yoy[2], inf_mom_yoy_latest$rate_yoy[1])` than the rate in the same month a year earlier.
+
+<aside>
+
+See also [unemployment](employment.html#unemployment)
+
+</aside>
+
+The pandemic has led to a record-low full-year annual inflation rate at **1.68** percent in 2020.
+
+<details>
+<summary>Documentation</summary>
+**Description**:  the rise in consumer prices as measured in terms of the percent change on the Consumer Price Index either from a month earlier or a year earlier. Since 2020, the base year for the index is 2018. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Source**: Statistics Indonesia (BPS) ([monthly](https://www.bps.go.id/statictable/2014/09/26/913/tingkat-inflasi-bulanan-gabungan-90-kota-sup-1-sup-2018-100-.html){target="_blank"}; [annual](https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html){target="_blank"})  
+**Data and update frequency**: monthly  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_inf_overall`; monthly inflation (`r embed_chart_inf_overall_mom`); annual inflation(`r embed_chart_inf_overall_yoy`)  
+</details>
+
+
+### By component
+
+Monthly inflation (percent)
+
+```{r plot: inflation by component}
+source("script/inflation_comp_script.R", local = knitr::knit_global())
+
+div(sm_inf_comp)
+```
+
+```{r description: inflation by component}
+# latest values
+inf_comp_tidy_latest <- inf_comp_tidy %>% 
+  select(-c("mo", "yr")) %>% 
+  tail(2)
+```
+
+The monthly core `r ier_compare_inf(inf_comp_tidy_latest$core[2])` rate was recorded at **`r inf_comp_tidy_latest$core[2]`** percent in `r format(inf_comp_tidy_latest$date[2], "%B")`, `r ier_compare_high(inf_comp_tidy_latest$core[2], inf_comp_tidy_latest$core[1])` than the level in the same month in the previous year. 
+
+For administered prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$adm_prices[2])` rate stood at **`r inf_comp_tidy_latest$adm_prices[2]`** percent, `r ier_compare_high(inf_comp_tidy_latest$adm_prices[2], inf_comp_tidy_latest$adm_prices[1])` than a year earlier. For volatile prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$volatile_prices[2])` stood at **`r inf_comp_tidy_latest$volatile_prices[2]`** percent, `r ier_compare_high(inf_comp_tidy_latest$volatile_prices[2], inf_comp_tidy_latest$volatile_prices[1])` than a year earlier.
+
+<details>
+<summary>Documentation</summary>
+**Description**:  the rise in consumer prices as measured in terms of the monthly percent change on the Consumer Price Index, broken down by the component. Since 2020, the base year for the index is 2018. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Source**: [BPS](https://www.bps.go.id/statictable/2012/02/02/908/inflasi-umum-inti-harga-yang-diatur-pemerintah-dan-barang-bergejolak-inflasi-indonesia-2009-2021.html){target="_blank"}  
+**Data and update frequency**: monthly  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_inf_comp`; `r embed_chart_inf_comp`  
+</details>
+
+
+### By expenditure group
+
+Monthly inflation (percent)
+
+```{r script: inflation by expenditure}
+source("script/inflation_exp_script.R", local = knitr::knit_global())
+
+# filter
+filter_inf_exp <- filter_select(
+  "exp",
+  "Select expenditure group...",
+  inf_exp_wide_shared,
+  ~exp_group
+)
+
+## button
+unstrap(filter_inf_exp)
+```
+
+```{r table: inflation by expenditure, layout="l-body-outset"}
+reactable_inf_exp
+```
+
+```{r description: inflation by expenditure}
+# expenditure groups with highest inflation rates
+inf_exp_highest <- inf_exp_tidy %>% 
+  dplyr::filter(date == last(date)) %>% 
+  arrange(desc(rate_mom)) %>% 
+  head()
+```
+
+The highest monthly inflation rate was seen in the `r str_to_lower(inf_exp_highest$exp_group[1])` at **`r inf_exp_highest$rate_mom[1]`** percent in `r format(inf_exp_highest$date[1], "%B")`. It was followed by `r str_to_lower(inf_exp_highest$exp_group[2])` and `r str_to_lower(inf_exp_highest$exp_group[3])` expenditure groups.
+
+<aside>
+
+See also [retail sales index by category](rsi.html#by-category)
+
+</aside>
+
+<details>
+<summary>Documentation</summary>
+**Description**:  the rise in consumer prices as measured in terms of the monthly percent change on the Consumer Price Index, broken down by the expenditure group. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Source**: [BPS](https://www.bps.go.id/statictable/2020/02/04/2083/inflasi-indonesia-menurut-kelompok-pengeluaran-2020-2021.html){target="_blank"}  
+**Data and update frequency**: monthly  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_inf_exp`  
+</details>
+
+
+# Note {.appendix}
+
+BPS builds the Consumer Price Index based on the 2018 Cost of Living Survey, which covered 90 cities and 853 commodities. Of the commodities, 711 were core components, 101 were volatile prices and the rest were government-administered prices.
+
+Bank Indonesia has set a target of maintaining the annual inflation rate between 2 and 4 percent.
+
+Read more about the data [here](https://bps.go.id/subject/3/inflasi.html#subjekViewTab2){target="_blank"}.

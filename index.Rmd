@@ -1,232 +1,109 @@
 ---
-pagetitle: "Indonesia COVID-19 Recovery Tracker"
-output: 
-  html_document: 
-    anchor_sections: false
-knit: (function(input_file, encoding) {
-  out_dir <- 'docs';
-  rmarkdown::render(input_file,
- encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+title: "Tracking Indonesia's economic recovery from COVID-19"
+description: |
+  Charts and tables to track Indonesia's economic recovery from the COVID-19 pandemic.
+preview: images/ier_social_media_card.png
 ---
 
-<h2 style="text-align:center;">Tracking Indonesia’s recovery<br>from COVID-19</h2>
+
+```{r setup, include=FALSE}
+# chunk options
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+&nbsp;
+
+<h1 style="text-align:center;">Tracking Indonesia's economic recovery from COVID-19</h1>
 
 <hr style="width:50%;text-align:center;">
 
-```{r setup, echo = F, message = F, warning = F}
-# r markdown global options
-knitr::opts_chunk$set(
-  echo = F,
-  message = F,
-  warning = F
-)
+Charts and tables to explore how the pandemic has affected Indonesia's economy as the virus has battered the nation's public health since early March 2020.
 
-# packages
-library(crosstalk)
-library(htmltools)
+<b>&rarr; Summary</b>
 
-# api
-BPS_KEY <- Sys.getenv("BPS_KEY")
+```{r table: key indicators, layout="l-body-outset"}
+source("script/key_indicator_script.R", local = knitr::knit_global())
+
+reactable_key_ind
 ```
 
-```{r}
-source("script/summary_script.R", local = knitr::knit_global())
-
-gt_summary
-```
-
-<hr>  
-
-## Explore {.tabset .tabset-pills}  
-<hr style="width:6%;text-align:left;margin-left:0;background-color:#263238;height:4px">
-
-<br>  
-
-### GDP {.tabset}
-
-#### Headline
-
-```{r growth plot}
-source(
-  "script/gdp_headline_script.R", 
-  local = knitr::knit_global()
-)
-
-div(
-  h4(strong("Sign of recovery after recession")),
-  h5("GDP (percent change from a year earlier)"),
-  bscols(growth_plot, widths = 12),
-  "Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)"
-)
-```
-
-#### Expenditure
-
-```{r growth by expenditure table}
-growth_table
-```
+<div style="color: #999; font-size: 12px;">
+Source: Statistics Indonesia (BPS); Our World in Data  
+<sup>*</sup>Organization for Economic Cooperation and Development's (OECD) March 2021 outlook  
+<sup>&#8224;</sup>Government target
+</div>
 
 
-#### Sectors
+## Explore
 
-```{r growth by sectors table}
-source(
-  "script/growth-sectors_script.R", 
-  local = knitr::knit_global()
-)
+<div class="row">
 
-sectors_gt
-```
+<div class="column">
+<div class="card">
+<a href="cci.html">
+<img src="fig/ier_cci-income_void_plot.png" style="width:100%">
+<h4>Consumer confidence</h4>
+</a>
+</div>
+</div>
 
+<div class="column">
+<div class="card">
+<a href="employment.html">
+<img src="fig/ier_unemployment-rate_void_plot.png" style="width:100%">
+<h4>Employment</h4>
+</a>
+</div>
+</div>
+  
+<div class="column">
+<div class="card">
+<a href="gdp.html">
+<img src="fig/ier_gdp-growth_void_plot.png" style="width:100%">
+<h4>Economic growth</h4>
+</div>
+</div>
+  
+<div class="column">
+<div class="card">
+<a href="inflation.html">
+<img src="fig/ier_inflation-annual_void_plot.png" style="width:100%">
+<h4>Inflation</h4>
+</a>
+</div>
+</div>
 
-#### Contribution to growth
+<div class="column">
+<div class="card">
+<a href="mobility.html">
+<img src="fig/ier_mobility-ntl_void_plot.png" style="width:100%">
+<h4>Community mobility</h4>
+</a>
+</div>
+</div>
 
-```{r ctg plot}
-source("script/gdp_ctg_script.R", local = knitr::knit_global())
+<div class="column">
+<div class="card">
+<a href="poverty.html">
+<img src="fig/ier_poverty-rate_void_plot.png" style="width:100%">
+<h4>Poverty</h4>
+</a>
+</div>
+</div>
 
-div(
-  h4(strong("Contraction in main drivers")),
-  h5(
-    "GDP, contribution to growth by expenditure",  
-    br("(percent change from a year earlier)")
-  ),
-  bscols(ctg_plot, widths = 12),
-  "Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)"
-)
-```
+<div class="column">
+<div class="card">
+<a href="rsi.html">
+<img src="fig/ier_rsi_void_plot.png" style="width:100%">
+<h4>Retail sales</h4>
+</a>
+</div>
+</div>
 
+</div>
 
-### Consumer confidence
-
-```{r CCI plot}
-source("script/cci_script.R", local = knitr::knit_global())
-
-div(
-  h4(strong("Consumer pessimism returns")),
-  h5("Consumer confidence index"),
-  bscols(CCI_plot, widths = 12),
-  "Chart: @dzulfiqarfr | Source: Bank Indonesia"
-)
-```
-
-
-### Retail sales
-
-```{r SPE plot}
-source("script/spe_script.R", local = knitr::knit_global())
-
-div(
-  h4(strong("Upward blip")),
-  h5("Retail sales index*, January 2010 = 100"),
-  h6("(percent change on a year earlier)"),
-  bscols(SPE_plot, widths = 12),
-  str_c(
-    "*", 
-    format(last(SPE_tidy$Year), "%B %Y"),
-    " figure is an estimate"
-  ),
-  br("Chart: @dzulfiqarfr | Source: Bank Indonesia")
-)
-```
-
-
-### Mobility {.tabset}
-
-#### National
-
-```{r national mobility plot}
-source("script/mobility_script.R", local = knitr::knit_global())
-
-div(
-  h4(strong("Mobility trends in Indonesia")),
-  h5(
-    "Number of visitors, by place categories",
-    br("(percent change from Jan-Feb period, 7-day moving average)")
-  ),
-  bscols(mob_ntl_plot, widths = 12),
-  str_c("Last updated on ", Sys.Date()),
-  br("Chart: @dzulfiqarfr | Source: Google")
-)
-```
-
-#### Regional
-
-```{r regional mobility plot}
-div(
-  h4(strong("Mobility trends across provinces")),
-  h5(
-    "Number of visitors, by place categories",
-    br("(percent change from Jan-Feb period, 7-day moving average)")
-  ),
-  bscols(
-    mob_prov_fil,
-    mob_prov_plot,
-    widths = c(12, 12)
-  ),
-  str_c("Last updated on ", Sys.Date()),
-  br("Chart: @dzulfiqarfr | Source: Google")
-)
-```
-
-```{js set default value for regional mobility plot}
-function filter_default() {
-    document.getElementById("Province_filter").getElementsByClassName("selectized")[0].selectize.setValue("Jakarta");
+```{css}
+d-title, d-byline {
+  display: none
 }
-window.onload = filter_default;
 ```
-
-### COVID-19 {.tabset}
-
-#### Cases
-
-```{r covid-19 cases plot}
-source(
-  "script/cov-case-death_script.R", 
-  local = knitr::knit_global()
-)
-
-div(
-  h4(strong("Daily new cases")),
-  h5("Number of confirmed cases per day"),
-  bscols(case_plot, widths = 12),
-  str_c("Last updated on ", Sys.Date()),
-  br("Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)")
-)
-```
-
-#### Deaths
-
-```{r covid-19 deaths plot}
-div(
-  h4(strong("Daily new deaths")),
-  h5("Number of confirmed deaths per day"),
-  bscols(death_plot, widths = 12),
-  str_c("Last updated on ", Sys.Date()),
-  br("Chart: @dzulfiqarfr | Source: Statsitics Indonesia (BPS)")
-)
-```
-
-#### Testing
-
-```{r test plot}
-source("script/cov_testing_script.R", local = knitr::knit_global())
-
-div(
-  h4(strong("COVID-19 tests")),
-  bscols(
-    widths = c(6, 6),
-    div(
-      h5("Cumulative tests", br("(in million)")),
-      test_plot
-    ),
-    div(
-      h5("Cumulative positive rate", br("(in percent)")),
-      pos_rate_plot
-    )
-  ),
-  str_c("Last updated on ", Sys.Date()),
-  br("Chart: @dzulfiqarfr | Source: Our World in Data; Indonesian government")
-)
-```
-

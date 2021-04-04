@@ -38,11 +38,5 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# Data
-data/Google_mobility_raw.csv
-
-# renv folder
-renv/
-
 # website
 docs/

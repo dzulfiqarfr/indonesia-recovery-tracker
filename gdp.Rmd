@@ -1,0 +1,314 @@
+---
+title: "Economic growth"
+description: |
+  Indonesia’s economy plunged into a recession in the third quarter of 2020, the country’s first recession since the 1998 Asian Financial Crisis. The economy shrank as household consumption and investment contracted due to the COVID-19 pandemic. Most sectors showed declines, with a few exceptions such as the information and communication sector. But there are signs of recovery.
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+preview: fig/ier_gdp-growth_void_plot.png
+---
+
+
+```{r setup, include=FALSE}
+# chunk options
+knitr::opts_chunk$set(echo = FALSE)
+
+# packages
+library(tidyverse)
+library(lubridate)
+library(httr)
+library(jsonlite)
+library(crosstalk)
+library(htmltools)
+library(govdown)
+library(mime)
+
+# bps api
+## key
+if (exists("BPS_KEY") == F) {
+  BPS_KEY <- Sys.getenv("BPS_KEY")
+}
+
+## base url
+if (exists("base_url") == F) {
+  base_url <- "https://webapi.bps.go.id/v1/api/list"
+}
+
+# description functions
+## period
+ier_period <- function(x) {
+  if (str_detect(x, "-01-01")) {
+    "January-March period"
+  } else if (str_detect(x, "-04-01")) {
+    "April-June period"
+  } else if (str_detect(x, "-07-01")) {
+    "July-September period"
+  } else {
+    "October-December period"
+  }
+}
+
+## up or down
+## grow or contract
+ier_compare_grow <- function(x) {
+  if (x > 0 ) {
+    "grew"
+  } else {
+    "contracted"
+  }
+}
+  
+## less or more severe
+ier_compare_sev <- function(x, y) {
+  if (x > y) {
+    "less severe"
+  } else {
+    "more severe"
+  }
+}
+
+# embed file
+## econ growth by expenditure
+embed_growth_exp <- xfun::embed_file(
+  "data/ier_gdp-growth-exp_cleaned.csv",
+  name = "ier_gdp-growth-exp_cleaned.csv",
+  text = "csv"
+)
+
+## contribution to growth
+embed_growth_ctg <- xfun::embed_file(
+  "data/ier_gdp-ctg_cleaned.csv",
+  name = "ier_gdp-ctg_cleaned.csv",
+  text = "csv"
+)
+
+## econ growth by sector
+embed_growth_sec <- xfun::embed_file(
+  "data/ier_gdp-growth-sector_cleaned.csv",
+  name = "ier_gdp-growth-sector_cleaned.csv",
+  text = "csv"
+)
+
+# embed chart
+## growth
+embed_chart_growth <- xfun::embed_file(
+  "fig/ier_gdp-growth_plot.png",
+  name = "ier_gdp-growth_plot.png",
+  text = "chart"
+)
+
+## contribution to growth
+embed_chart_ctg <- xfun::embed_file(
+  "fig/ier_gdp-ctg_plot.png",
+  name = "ier_gdp-ctg_plot.png",
+  text = "chart"
+)
+```
+
+
+### Overall
+
+Gross domestic product (GDP) (percent change from a year earlier)
+
+```{r plot: overall econ growth}
+source("script/gdp_growth_script.R", local = knitr::knit_global())
+
+div(plot_growth)
+```
+
+```{r description: overall econ growth}
+# subset two latest values
+growth_latest <- growth_tidy$pct_change_yoy %>% 
+  tail(2)
+```
+
+The country's GDP `r ier_compare_grow(last(growth_tidy$pct_change_yoy))` by **`r last(growth_tidy$pct_change_yoy)`** percent year-on-year (yoy) in the `r ier_period(last(growth_tidy$date))`, `r ier_compare_sev(growth_latest[2], growth_latest[1])` than the previous quarter.
+
+<aside>
+
+See also [community mobility](mobility.html)
+
+</aside>
+
+The pandemic has led the GDP to contract by **5.32** percent yoy in the second quarter of 2020 and pushed it to the first recession in two decades as it contracted by **3.49** percent yoy in the third quarter of last year.
+
+```{r documentation: gdp}
+# date of last update
+## request data
+pressrelease_req <- GET(
+  base_url,
+  query = list(
+    model = "pressrelease",
+    lang = "ind",
+    domain = "0000",
+    keyword = "ekonomi",
+    key = BPS_KEY
+  )
+)
+
+## parse response
+pressrelease_resp <- content(pressrelease_req, "text") %>% 
+  fromJSON()
+
+## date of last update
+source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>% 
+  dplyr::filter(subj_id == 11) %>% 
+  mutate(rl_date = ymd(rl_date)) %>% 
+  arrange(desc(rl_date)) %>% 
+  dplyr::filter(rl_date == first(rl_date)) %>% 
+  select(rl_date) %>% 
+  deframe() %>% 
+  format("%B %d, %Y")
+```
+
+
+<details>
+<summary>Documentation</summary>
+**Description**: the value of final goods and services produced by all residents in a given quarter in constant 2010 prices, as measured in terms of percent change from the same quarter a year earlier. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Data and update frequency**: quarterly  
+**Source**: [Statistics Indonesia (BPS)](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-menurut-pengeluaran.html){target="_blank"}  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_growth_exp`; `r embed_chart_growth`  
+</details>
+
+
+### By expenditure
+
+GDP (percent change from a year earlier)
+
+```{r script: econ growth by expenditure}
+source("script/gdp_growth_exp_script.R", local = knitr::knit_global())
+
+# filter
+filter_growth_exp <- filter_select(
+  "exp",
+  "Select expenditure...",
+  growth_exp_shared,
+  ~label_eng
+)
+
+## button
+unstrap(filter_growth_exp)
+```
+
+```{r table: econ growth by expenditure, layout="l-body-outset"}
+# tabel
+reactable_growth_exp
+```
+
+```{r description: econ growth by expenditure}
+# latest household consumption values
+growth_exp_hh_latest <- growth_exp_tidy %>% 
+  dplyr::filter(label_eng == "Household consumption") %>% 
+  tail(2)
+```
+
+<div style="color: #999; font-size: 12px;">
+<sup>*</sup>Non-profit institutions serving households (NPISHs)
+</div>
+
+The household consumption, the largest contributor to the GDP by expenditure, `r ier_compare_grow(growth_exp_hh_latest$pct_change_yoy[2])` by **`r growth_exp_hh_latest$pct_change_yoy[2]`** percent yoy in the `r ier_period(last(growth_exp_tidy$date))`, `r ier_compare_sev(growth_exp_hh_latest$pct_change_yoy[2], growth_exp_hh_latest$pct_change_yoy[1])` than the previous quarter.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the value of final expenditure of goods and services at purchasers’ prices minus the value of imports of goods and services in a given quarter in constant 2010 prices, as measured in terms of percent change from the same quarter a year earlier. See [appendix](#note) for more details.  
+**Table**: Dzulfiqar Fathur Rahman  
+**Data and update frequency**: quarterly  
+**Source**: [BPS](https://bps.go.id/indicator/169/108/1/-seri-2010-laju-pertumbuhan-pdb-menurut-pengeluaran.html){target="_blank"}  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_growth_exp`  
+</details>
+
+
+### Contribution to growth
+
+By expenditure (percentage points)
+
+```{r plot: contribution to growth}
+source("script/gdp_ctg_exp_script.R", local = knitr::knit_global())
+
+div(plot_ctg)
+```
+
+*Tips: click the legend item to select or deselect a trace.*
+
+```{r description: contribution to growth}
+# latest values
+latest_ctg_pc <- last(ctg_exp_trf$`Private consumption`)
+latest_ctg_inv <- last(ctg_exp_trf$Investment)
+latest_ctg_nx <- last(ctg_exp_trf$`Net export`)
+latest_ctg_govt <- last(ctg_exp_trf$`Government consumption`)
+```
+
+The private consumption contributed **`r latest_ctg_pc`** percentage points and the investment **`r latest_ctg_inv`** percentage points to the annual GDP growth in the `r ier_period(last(ctg_exp_trf$date))`. 
+
+The net exports and government consumption offset the contractions in other expenditure components by contributing **`r latest_ctg_nx`** and **`r latest_ctg_govt`** percentage points, respectively.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the contribution to growth is a component’s growth weighted by its share in the GDP at constant 2010 prices in the previous quarter. Private consumption consists of household consumption and NPISHs consumption. Investment consists of gross fixed capital formation and changes in inventories.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Data and update frequency**: quarterly  
+**Source**: [BPS](https://bps.go.id/indicator/169/1956/1/-seri-2010-pdb-triwulanan-atas-dasar-harga-konstan-menurut-pengeluaran.html){target="_blank"}  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_growth_ctg`; `r embed_chart_ctg`  
+</details>
+
+
+### By sector
+
+GDP (percent change from a year earlier)
+
+```{r script: econ growth by sector}
+source("script/gdp_growth_sec_script.R", local = knitr::knit_global())
+
+# filter
+filter_growth_sec <- filter_select(
+  "exp",
+  "Select sector...",
+  growth_sec_shared,
+  ~key_sector
+)
+
+## button
+unstrap(filter_growth_sec)
+```
+
+```{r table: econ growth by sector, layout="l-body-outset"}
+# tabel
+reactable_growth_sec
+```
+
+```{r description: econ growth by sector}
+# latest manufacturing value
+manufacturing <- growth_sec_tidy %>% 
+  dplyr::filter(key_sector == "Manufacturing") %>%
+  tail(2) %>% 
+  select(ncol(.)) %>% 
+  deframe()
+```
+
+The manufacturing sector, the largest contributor to the GDP by sector, `r ier_compare_grow(manufacturing[2])` by **`r manufacturing[2]`** percent yoy in the `r ier_period(last(growth_sec_tidy$date))`, `r ier_compare_sev(manufacturing[2], manufacturing[1])` than the previous quarter.
+
+<aside>
+
+See also [employment by sector](employment.html#employment-by-sector)
+
+</aside>
+
+<details>
+<summary>Documentation</summary>
+**Description**: the total value added generated by all resident production units broken down by industrial classification of economic activities in a given quarter in constant 2010 prices, as measured in terms of percent change from the same quarter a year earlier. See [appendix](#note) for more details.  
+**Table**: Dzulfiqar Fathur Rahman  
+**Data and update frequency**: quarterly  
+**Source**: [BPS](https://bps.go.id/indicator/11/104/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010.html){target="_blank"}  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_growth_sec`  
+</details>
+
+
+# Note {.appendix}
+
+BPS publishes the data dictionary and the method it uses to calculate Indonesia’s GDP with the expenditure, production and income approaches on its website. Read more about the data [here](https://bps.go.id/subject/169/produk-domestik-bruto--pengeluaran-.html#subjekViewTab1) and [here](https://bps.go.id/subject/11/produk-domestik-bruto--lapangan-usaha-.html#subjekViewTab2).

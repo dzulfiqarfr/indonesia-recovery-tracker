@@ -1,0 +1,347 @@
+---
+title: "Employment"
+description: |
+  The COVID-19 pandemic has forced millions of workers out of their job, sending the unemployment rate to a level the country last seen in 2011. The formal sector took a harder hit than the informal sector.
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+preview: fig/ier_unemployment-rate_void_plot.png    
+---
+
+
+```{r setup, include=FALSE}
+# chunk options
+knitr::opts_chunk$set(echo = FALSE)
+
+# packages
+library(tidyverse)
+library(lubridate)
+library(httr)
+library(jsonlite)
+library(htmltools)
+library(xaringanExtra)
+library(crosstalk)
+library(govdown)
+library(mime)
+
+# bps api
+## key
+if (exists("BPS_KEY") == F) {
+  BPS_KEY <- Sys.getenv("BPS_KEY")
+}
+
+## base url
+if (exists("base_url") == F) {
+  base_url <- "https://webapi.bps.go.id/v1/api/list"
+}
+
+# use panelset
+xaringanExtra::use_panelset()
+
+# description functions
+## rise or fall
+ier_compare_rise <- function(x) {
+  if (x > 0) {
+    "rose"
+  } else {
+    "fell"
+  }
+}
+
+## up or down
+ier_compare_up <- function(x) {
+  if (x > 0 ) {
+    "up"
+  } else {
+    "down"
+  }
+}
+
+# embed file
+## unemployment rate
+embed_unemp_rate <- xfun::embed_file(
+  "data/ier_unemployment-rate_cleaned.csv",
+  name = "ier_unemployment-rate_cleaned.csv",
+  text = "csv"
+)
+
+## number of unemployed
+embed_unemp_ppl <- xfun::embed_file(
+  "data/ier_unemployed_cleaned.csv",
+  name = "ier_unemployed_cleaned.csv",
+  text = "csv"
+)
+
+## unemployment rate by province
+embed_unemp_prov <- xfun::embed_file(
+  "data/ier_unemployment-province_cleaned.csv",
+  name = "ier_unemployment-province_cleaned.csv",
+  text = "csv"
+)
+
+## employment by status
+embed_emp_status <- xfun::embed_file(
+  "data/ier_employment-status_cleaned.csv",
+  name = "ier_employment-status_cleaned.csv",
+  text = "csv"
+)
+
+## employment by sector
+embed_emp_sec <- xfun::embed_file(
+  "data/ier_employment-sector_cleaned.csv",
+  name = "ier_employment-sector_cleaned.csv",
+  text = "csv"
+)
+
+# embed chart
+## unemployment rate
+embed_chart_unemp_rate <- xfun::embed_file(
+  "fig/ier_unemployment-rate_plot.png",
+  name = "ier_unemployment-rate_plot.png",
+  text = "chart"
+)
+
+## number of unemployed
+embed_chart_unemp_ppl <- xfun::embed_file(
+  "fig/ier_unemployed_plot.png",
+  name = "ier_unemployed_plot.png",
+  text = "chart"
+)
+
+## unemployment rate by province
+embed_chart_unemp_prov <- xfun::embed_file(
+  "fig/ier_unemployment-province_plot.png",
+  name = "ier_unemployment-province_plot.png",
+  text = "chart"
+)
+```
+
+
+### Unemployment
+
+::: {.panelset}
+
+::: {.panel}
+
+#### Rate
+
+(percent)
+
+```{r plot: unemployment rate}
+source("script/emp_unemployment_script.R", local = knitr::knit_global())
+
+div(plot_unemp_rate)
+```
+
+:::
+
+::: {.panel}
+
+#### Workers
+
+(millions)
+
+```{r plot: number of unemployed}
+source("script/emp_unemployed_script.R", local = knitr::knit_global())
+
+div(plot_unemp_ppl)
+```
+
+:::
+
+:::
+
+```{r description: unemployment}
+# latest unemployment rate data
+unemp_rate_latest <- unemp_trf %>% 
+  dplyr::filter(date == last(date))
+
+# latest number of unemployed data
+unemp_ppl_latest <- unemp_ppl_trf %>% 
+  dplyr::filter(date == last(date))
+```
+
+
+The number of unemployed workers `r ier_compare_rise(unemp_ppl_latest$change_yoy)` by **`r unemp_ppl_latest$change_yoy`** million to **`r unemp_ppl_latest$unemployed_ppl`** million in `r format(unemp_ppl_latest$date, "%B %Y")` from a year earlier. As a result, the unemployment rate was `r ier_compare_up(unemp_rate_latest$ppt_change_yoy)` by **`r unemp_rate_latest$ppt_change_yoy`** percentage points to **`r unemp_rate_latest$unemployment_rate`** percent over the same period. The unemployment rate in August 2020 was the highest in a decade.
+
+<aside>
+
+See also [inflation](inflation.html)
+
+</aside>
+
+```{r documentation: unemployemnt}
+# date of last update
+## request data
+pressrelease_req <- GET(
+  base_url,
+  query = list(
+    model = "pressrelease",
+    lang = "ind",
+    domain = "0000",
+    keyword = "pengangguran",
+    key = BPS_KEY
+  )
+)
+
+## parse response
+pressrelease_resp <- content(pressrelease_req, "text") %>% 
+  fromJSON()
+
+## date of last update
+source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>% 
+  dplyr::filter(subj_id == 6) %>% 
+  mutate(rl_date = ymd(rl_date)) %>% 
+  arrange(desc(rl_date)) %>% 
+  dplyr::filter(rl_date == first(rl_date)) %>% 
+  select(rl_date) %>% 
+  deframe() %>% 
+  format("%B %d, %Y")
+```
+
+<details>
+<summary>Documentation</summary>
+**Description**: the number of people aged 15 or above who do not have a job and are looking for a job, preparing a business or not looking for a job because they feel it is impossible to get it, as well as those who already have a job but have not started working. The unemployment rate represents the number of unemployed workers relative to the labor force. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Update frequency**: every May and November  
+**Source**: [Statistics Indonesia (BPS)](https://www.bps.go.id/indicator/6/529/1/penduduk-berumur-15-tahun-ke-atas-menurut-jenis-kegiatan.html){target="_blank"}  
+**Last updated**: `r source_last_update`  
+**Download**: unemployment rate (`r embed_unemp_rate`; `r embed_chart_unemp_rate`); number of unemployed workers (`r embed_unemp_ppl`; `r embed_chart_unemp_ppl`)  
+</details>
+
+
+### Unemployment rate by province
+
+(percent)
+
+```{r script: unemployment rate by province}
+source("script/emp_unemployment_province_script.R", local = knitr::knit_global())
+
+div(plot_unemp_prov)
+```
+
+```{r description: unemployment rate by province}
+# latest unemployment rate by province data
+unemp_prov_latest <- unemp_prov_trf %>% 
+  dplyr::filter(date == unemp_prov_date_latest[2])
+
+# province with highest, lowest increase in unemployment rate
+unemp_prov_latest_minmax <- unemp_prov_latest %>% 
+  dplyr::filter(
+    ppt_change_yoy %in% c(
+      min(unemp_prov_latest$ppt_change_yoy),
+      max(unemp_prov_latest$ppt_change_yoy)
+    )
+  ) %>% 
+  arrange(desc(ppt_change_yoy))
+
+```
+
+The highest increase in the unemployment rate was seen in `r unemp_prov_latest_minmax$province[1]` at **`r unemp_prov_latest_minmax$ppt_change_yoy[1]`** percentage points, which brought the share of unemployed workers in the province to **`r unemp_prov_latest_minmax$unemployment_rate[1]`** percent in `r format(unemp_prov_latest_minmax$date[1], "%B %Y")`.
+
+<aside>
+
+See also [poverty by province](poverty.html#poverty-by-province)
+
+</aside>
+
+`r last(unemp_prov_latest_minmax$province)` recorded the smallest increase in the unemployment rate at **`r last(unemp_prov_latest_minmax$ppt_change_yoy)`** percentage points yoy to **`r last(unemp_prov_latest_minmax$unemployment_rate)`** percent in August 2020.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the number of unemployed workers relative to the labor force, broken down by province. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Update frequency**: every May and November  
+**Source**: [BPS](https://www.bps.go.id/indicator/6/543/1/tingkat-pengangguran-terbuka-menurut-provinsi.html){target="_blank"}  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_unemp_prov`; `r embed_chart_unemp_prov`  
+</details>
+
+
+### Employment by status
+
+```{r table: employment by status, layout="l-body-outset"}
+source("script/emp_employment_status_script.R", local = knitr::knit_global())
+
+reactable_emp_status
+```
+
+```{r description: employment by status}
+# latest employment by status data
+emp_status_latest <- emp_status_trf %>% 
+  dplyr::filter(date == emp_status_date_latest[2])
+
+# status with steepest decline in distribution
+emp_status_min <- emp_status_latest %>% 
+  dplyr::filter(prop_chg_yoy == min(emp_status_latest$prop_chg_yoy))
+```
+
+The share of `r str_to_lower(emp_status_min$status)` in the labor force showed the steepest annual decline at **`r emp_status_min$prop_chg_yoy`** percentage points to **`r emp_status_min$prop`** percent in `r format(emp_status_min$date, "%B %Y")`. The number of `r str_to_lower(emp_status_min$status)` was down by **`r emp_status_min$workers_pct_chg_yoy`** percent yoy to **`r emp_status_min$workers`** million.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the number and distribution of workers, broken down by employment status. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Update frequency**: every May and November  
+**Source**: [BPS](https://www.bps.go.id/statictable/2009/04/16/971/penduduk-15-tahun-ke-atas-menurut-status-pekerjaan-utama-1986---2020.html){target="_blank"}  
+**Last updated**: `r format(emp_status_last_update, "%B %d, %Y")`  
+**Download**: `r embed_emp_status`  
+</details>
+
+
+### Employment by sector
+
+```{r script: employment by sector}
+source("script/emp_employment_sec_script.R", local = knitr::knit_global())
+
+# filter
+unstrap(filter_emp_sec)
+```
+
+```{r table: employment by sector, layout="l-body-outset"}
+reactable_emp_sec
+```
+
+```{r description: employment by sector}
+# latest employment by sector data
+emp_sec_latest <- emp_sec_trf %>% 
+  dplyr::filter(date == emp_sec_date_latest[2])
+
+# sector with steepest decline, highest increase
+emp_sec_latest_minmax <- emp_sec_latest %>% 
+  dplyr::filter(
+    prop_chg_yoy %in% c(
+      min(emp_sec_latest$prop_chg_yoy),
+      max(emp_sec_latest$prop_chg_yoy)
+    )
+  ) %>% 
+  arrange(prop_chg_yoy)
+```
+
+The steepest annual decline in the share of workers was recorded at **`r emp_sec_latest_minmax$prop_chg_yoy[1]`** percentage points in the `r str_to_lower(emp_sec_latest_minmax$sector[1])` sector, which brought the share to **`r emp_sec_latest_minmax$prop[1]`** percent in `r format(emp_sec_latest_minmax$date[1], "%B %Y")`. The number of workers in the sector was down by **`r emp_sec_latest_minmax$workers_pct_chg_yoy[1]`** percent yoy to **`r emp_sec_latest_minmax$workers[1]`** million over the period.
+
+<aside>
+
+See also [economic growth by sector](gdp.html#by-sector)
+
+</aside>
+
+Meanwhile, the `r str_to_lower(last(emp_sec_latest_minmax$sector))` sector recorded a **`r last(emp_sec_latest_minmax$workers_pct_chg_yoy)`** percent yoy increase in the number of workers to **`r last(emp_sec_latest_minmax$workers)`** million, leading to an increase of **`r last(emp_sec_latest_minmax$prop_chg_yoy)`** percentage points yoy in the share of workers to **`r last(emp_sec_latest_minmax$prop)`** percent.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the number and distribution of workers, broken down by sector. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Update frequency**: every May and November  
+**Source**: [BPS](https://www.bps.go.id/statictable/2009/04/16/970/penduduk-15-tahun-ke-atas-yang-bekerja-menurut-lapangan-pekerjaan-utama-1986---2020.html){target="_blank"}  
+**Last updated**: `r format(emp_sec_last_update, "%B %d, %Y")`  
+**Download**: `r embed_emp_sec`  
+</details>
+
+
+# Note {.appendix}
+
+The data is based on the National Labor Force Survey (Sakernas) from BPS, which takes a sample of 75,000 households in the February round and 300,000 households in the August round. Read more about the data [here](https://bps.go.id/subject/6/tenaga-kerja.html#subjekViewTab1){target="_blank"}.
+
+The International Labor Organization (ILO) has [replaced](https://www.ilo.org/wcmsp5/groups/public/---dgreports/---stat/documents/publication/wcms_422401.pdf){target="_blank"} unpaid family workers with contributing family workers, namely “those workers who hold ‘self-employment jobs’ as own-account workers [...] in a market-oriented establishment operated by a related person living in the same household.”

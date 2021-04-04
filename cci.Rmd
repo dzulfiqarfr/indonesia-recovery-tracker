@@ -1,0 +1,160 @@
+---
+title: "Consumer confidence"
+description: |
+  The COVID-19 pandemic has brought down the consumer confidence to its record-low in the pessimistic territory last year. The sign of recovery has so far appeared to be an upward blip, as seen among consumers with an income above Rp 4.1 million since the year end. Most consumers are still largely pessimistic.
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+preview: fig/ier_cci-income_void_plot.png
+---
+
+
+```{r setup, include=FALSE}
+# chunk options
+knitr::opts_chunk$set(echo = FALSE)
+
+# packages
+library(tidyverse)
+library(htmltools)
+library(mime)
+
+# source url
+source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SK-Februari-2021.aspx"
+
+# date of last update
+source_last_update <- "March 8, 2021"
+
+# description functions
+## above or below
+ier_compare_above <- function(x) {
+  if (x > 100) {
+    "above"
+  } else {
+    "below"
+  }
+}
+
+## optimistic or pessimistic
+ier_expect <- function(x) {
+  if (x > 100) {
+    "optimistic"
+  } else {
+    "pessimistic"
+  }
+}
+
+## income group names
+ier_extract_income <- function(x) {
+  if (x == "1_2") {
+    "between Rp 1 million and 2 million"
+  } else if (x == "2.1_3") {
+    "between Rp 2.1 million and 3 million"
+  } else if (x == "3.1_4") {
+    "between Rp 3.1 million and 4 million"
+  } else if (x == "4.1_5") {
+    "between Rp 4.1 millin and 5 million"
+  } else {
+    "above Rp 5 million"
+  }
+}
+
+# embed file
+## cci overall
+embed_cci_overall <- xfun::embed_file(
+  "data/ier_cci-overall_cleaned.csv", 
+  name = "ier_cci-overall_cleaned.csv",
+  text = "csv"
+)
+
+## cci by income group
+embed_cci_income <- xfun::embed_file(
+  "data/ier_cci-income_cleaned.csv", 
+  name = "ier_cci-income_cleaned.csv",
+  text = "csv"
+)
+
+# embed chart
+## cci overall
+embed_chart_cci_overall <- xfun::embed_file(
+  "fig/ier_cci_plot.png",
+  name = "ier_cci_plot.png",
+  text = "chart"
+)
+
+## cci by income group
+embed_chart_cci_income <- xfun::embed_file(
+  "fig/ier_cci-income_plot.png",
+  name = "ier_cci-income_plot.png",
+  text = "chart"
+)
+```
+
+
+### Overall
+
+```{r plot: cci overall}
+source("script/cci_script.R", local = knitr::knit_global())
+
+div(plot_cci)
+```
+
+In `r format(last(cci_tidy$date), "%B")`, the Consumer Confidence Index was recorded at **`r last(cci_tidy$cci)`**, `r ier_compare_above(last(cci_tidy$cci))` the 100-point threshold and thus stood in the **`r ier_expect(last(cci_tidy$cci))`** territory.
+
+The pandemic has brought the index to a record-low for the second time at **79.02** in October. Previously, it fell to **77.8** in May, around two months into the outbreak.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the overall Consumer Confidence Index indicates whether consumers are optimistic about an improvement in the economy based on the current condition and their expectation for the future condition. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Source**: [Bank Indonesia (BI)](`r source_url`){target="_blank"}  
+**Data and update frequency**: monthly  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_cci_overall`; `r embed_chart_cci_overall`  
+</details>
+
+
+### By income group
+
+```{r plot: cci by income group}
+source("script/cci_income_script.R", local = knitr::knit_global())
+
+div(plot_cci_by_income)
+```
+
+*Tips: click the legend item to select or deselect a trace.*
+
+```{r description: cci by income group}
+# subset latest values
+cci_by_income_latest <- cci_by_income_tidy %>% 
+  dplyr::filter(date == last(date))
+
+# highest confidence
+cci_by_income_latest_highest <- cci_by_income_latest %>% 
+  dplyr::filter(cci == max(cci))
+
+# most pessimistic
+cci_by_income_latest_lowest <- cci_by_income_latest %>% 
+  dplyr::filter(cci == min(cci))
+```
+
+The confidence index was highest among consumers with an income `r ier_extract_income(cci_by_income_latest_highest$Indices)` and lowest among consumers with an income `r ier_extract_income(cci_by_income_latest_lowest$Indices)` in `r format(ymd(cci_by_income_latest$date[1]), "%B")`.
+
+<details>
+<summary>Documentation</summary>
+**Description**: the Consumer Confidence Index, broken down by income group, also indicates whether consumers are optimistic about an improvement in the economy based on the current condition and their expectation for the future condition. See [appendix](#note) for more details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Source**: [BI](`r source_url`){target="_blank"}  
+**Data and update frequency**: monthly  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_cci_income`; `r embed_chart_cci_income`  
+</details>
+
+
+# Note {.appendix}
+
+The Consumer Confidence Index is based on a monthly survey from Bank Indonesia. The central bank has conducted the survey since October 1999.
+
+Since January 2007, the survey covers some 4,600 households in 18 cities, comprising Greater Jakarta, Bandung, Semarang, Surabaya, Medan, Makassar, Bandar Lampung, Palembang, Banjarmasin, Padang, Pontianak, Samarinda, Manado, Denpasar, Mataram, Pangkal Pinang, Ambon and Banten.
+
+BI constructs the Consumer Confidence Index by calculating the mean of the Current Economic Condition Index and the Consumer Expectation Index. Index points above the 100-point threshold suggest that consumers are optimistic about an improvement in the economy and index points below the threshold suggest the opposite.
