@@ -218,6 +218,7 @@ plot_inf_comp <- lapply(
           fixedrange = T,
           dtick = 1,
           showline = F,
+          linewidth = 0,
           showgrid = T,
           gridcolor = "#CFD8DC",
           zerolinecolor = "#ff856c",

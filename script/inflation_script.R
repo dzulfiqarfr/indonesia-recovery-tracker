@@ -268,6 +268,7 @@ plot_inf_mom <- plot_ly(
       fixedrange = T,
       dtick = .25,
       showline = F,
+      linewidth = 0,
       showgrid = T,
       gridcolor = "#CFD8DC",
       zerolinecolor = "#ff856c",
