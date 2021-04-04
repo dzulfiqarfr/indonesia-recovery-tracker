@@ -10,7 +10,7 @@ For economic growth and annual inflation rate, the website also adds projections
 
 Although the website gets updated regularly, in some cases there are delays in reporting. For example, although BPS updates the inflation data on the first day of every month, the inflation by component dataset does not get updated on the same day. The same is also true for other datasets that still come in what the agency called a static table.
 
-As of the latest update released on April 5, 2021, the datasets included on the website are as follow:
+As of the latest update released on April 4, 2021, the datasets included on the website are as follow:
 
 Data | Source  
 ------ | ----------  
@@ -23,7 +23,7 @@ Data | Source
 [Retail sales index](https://dzulfiqarfr.github.io/indonesia-recovery-tracker/rsi.html) | BI  
 [COVID-19](https://dzulfiqarfr.github.io/indonesia-recovery-tracker/index.html) | OWID  
 
-The datasets are available in a tidy format in CSVs, which you can find in the [data :folder:](/data).
+The datasets are available in a tidy format in CSVs, which you can find in the [data 📁](/data).
 
 
 ## What's new
@@ -33,6 +33,6 @@ The datasets are available in a tidy format in CSVs, which you can find in the [
 - the layout was updated and now used the [distill](https://rstudio.github.io/distill/);  
 - added charts on the Consumer Confidence Index by income group and the Retail Sales Index by category;  
 - add charts and tables on inflation, employment and poverty;  
-- made the tables filterable and sortable by moving to [reactable](https://glin.github.io/reactable/index.html) from [gt](https://gt.rstudio.com/index.html); and  
-- added links to download datasets and charts  
+- made the tables filterable and sortable by moving to [reactable](https://glin.github.io/reactable/index.html) from [gt](https://gt.rstudio.com/index.html);  
+- added links to download datasets and charts;  
 - improved chart tooltips
