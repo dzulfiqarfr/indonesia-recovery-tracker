@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-04-04
+# last updated: 2021-04-09
 # page: gdp
 
 
@@ -228,135 +228,172 @@ plot_growth <- growth_tidy %>%
 
 # export chart ------------------------------------------------------------
 
-# labels
-labs_growth <- growth_tidy %>% 
+# data
+growth_exp_csv <- read_csv("data/ier_gdp-growth-exp_cleaned.csv")
+
+# latest observation in csv
+growth_exp_csv_latest <- growth_exp %>% 
   select(date) %>% 
-  mutate(
-    q = quarter(date), 
-    yr = year(date),
-    labs = str_c("Q", q, format(date, "\n%Y"))
-  ) %>% 
-  dplyr::filter(q == 1, yr %in% seq(2010, 2020, 2)) %>% 
-  select(labs) %>% 
+  dplyr::filter(!duplicated(date), date == last(date)) %>% 
   deframe()
 
-# plot
-ggplot(growth_tidy, aes(date, pct_change_yoy)) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(color = "#1d81a2", lwd = 1) +
-  scale_x_date(
-    breaks = seq(ymd("2010-01-01"), ymd("2020-01-01"), by = "2 year"),
-    labels = labs_growth
-  ) +
-  scale_y_continuous(
-    breaks = seq(-12, 8, 4),
-    limits = c(-12, 8),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  annotate(
-    "text",
-    x = ymd("2020-02-01"),
-    y = -6,
-    label = "COVID-19\npandemic",
-    size = 2.75,
-    hjust = 1,
-    color = "#90A4AE"
-  ) +
-  labs(
-    title = "Economic growth",
-    subtitle = "GDP (percent change from a year earlier)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 35)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
+# latest observation in data
+growth_tidy_latest <- growth_tidy %>% 
+  select(date) %>% 
+  dplyr::filter(date == last(date)) %>% 
+  deframe()
+
+# chart
+if (growth_tidy_latest != growth_exp_csv_latest) {
+  
+  # labels
+  labs_growth <- growth_tidy %>% 
+    select(date) %>% 
+    mutate(
+      q = quarter(date), 
+      yr = year(date),
+      labs = str_c("Q", q, format(date, "\n%Y"))
+    ) %>% 
+    dplyr::filter(q == 1, yr %in% seq(2010, 2020, 2)) %>% 
+    select(labs) %>% 
+    deframe()
+  
+  # plot
+  ggplot(growth_tidy, aes(date, pct_change_yoy)) +
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(color = "#1d81a2", lwd = 1) +
+    scale_x_date(
+      breaks = seq(ymd("2010-01-01"), ymd("2020-01-01"), by = "2 year"),
+      labels = labs_growth
+    ) +
+    scale_y_continuous(
+      breaks = seq(-12, 8, 4),
+      limits = c(-12, 8),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    annotate(
+      "text",
+      x = ymd("2020-02-01"),
+      y = -6,
+      label = "COVID-19\npandemic",
+      size = 2.75,
+      hjust = 1,
+      color = "#90A4AE"
+    ) +
+    labs(
+      title = "Economic growth",
+      subtitle = "GDP (percent change from a year earlier)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_gdp-growth_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
     )
-  ) +
-  ggsave(
-    "fig/ier_gdp-growth_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
-  )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_gdp-growth_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_gdp-growth_plot.png")
-
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_gdp-growth_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_gdp-growth_plot.png")
+  
+  # message
+  message("The GDP growth chart has been updated")
+  
+} else {
+  
+  message("The GDP growth chart is up to date")
+  
+}
 
 # preview -----------------------------------------------------------------
 
-# plot
-ggplot(growth_tidy, aes(date, pct_change_yoy)) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(color = "#1d81a2", lwd = 2) +
-  scale_x_date(
-    breaks = seq(ymd("2010-01-01"), ymd("2020-01-01"), by = "2 year"),
-    labels = labs_growth
-  ) +
-  scale_y_continuous(
-    breaks = seq(-12, 8, 4),
-    limits = c(-12, 8),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  theme_void() +
-  theme(
-    plot.background = element_rect(fill = "#263238", color = NA),
-    plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-  ) +
-  ggsave(
-    "fig/ier_gdp-growth_void_plot.png",
-    width = 13.3,
-    height = 6.6,
-    dpi = 300
-  )
+if (growth_tidy_latest != growth_exp_csv_latest) {
+  
+  # plot
+  ggplot(growth_tidy, aes(date, pct_change_yoy)) +
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(color = "#1d81a2", lwd = 2) +
+    scale_x_date(
+      breaks = seq(ymd("2010-01-01"), ymd("2020-01-01"), by = "2 year"),
+      labels = labs_growth
+    ) +
+    scale_y_continuous(
+      breaks = seq(-12, 8, 4),
+      limits = c(-12, 8),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    theme_void() +
+    theme(
+      plot.background = element_rect(fill = "#263238", color = NA),
+      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
+    ) +
+    ggsave(
+      "fig/ier_gdp-growth_void_plot.png",
+      width = 13.3,
+      height = 6.6,
+      dpi = 300
+    )
+  
+  # message
+  message("The GDP growth preview chart has been updated")
+  
+} else {
+  
+  message("The GDP growth preview chart is up to date")
+  
+}

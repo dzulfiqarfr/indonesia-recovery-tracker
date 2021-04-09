@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-04
-# last updated: 2021-04-04
+# last updated: 2021-04-08
 # page: poverty
 
 
@@ -111,7 +111,7 @@ pov_trf <- pov_tidy_sub %>%
   ungroup()
 
 
-# export ------------------------------------------------------------------
+# export data -------------------------------------------------------------
 
 # data
 pov_trf_csv <- pov_trf %>% 
@@ -309,128 +309,150 @@ plot_pov_diff <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# plot
-ggplot(pov_trf, aes(date, pov_rate, color = area)) +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(lwd = 1) +
-  scale_x_date(
-    breaks = seq(ymd("2012-03-01"), last(pov_trf$date), "2 year"),
-    date_labels = "%b\n%Y"
-  ) +
-  scale_y_continuous(
-    breaks = seq(0, 16, 4),
-    limits = c(0, 16),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(values = c("#09bb9f", "#1d81a2", "#90CAF9")) +
-  annotate(
-    "text",
-    x = ymd("2020-02-01"),
-    y = 14.5,
-    label = "COVID-19\npandemic",
-    size = 2.75,
-    hjust = 1,
-    color = "#90A4AE"
-  ) +
-  labs(
-    title = "Poverty",
-    subtitle = "Poverty rate, by area (in percent)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    legend.title = element_blank(),
-    legend.key = element_rect(fill = "transparent"),
-    legend.position = c(0.15, 1.175),
-    legend.direction = "horizontal",
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    panel.spacing.x = unit(2, "lines"),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 55)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
+if (nrow(pov_trf_csv) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
+  
+  # plot
+  ggplot(pov_trf, aes(date, pov_rate, color = area)) +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(lwd = 1) +
+    scale_x_date(
+      breaks = seq(ymd("2012-03-01"), last(pov_trf$date), "2 year"),
+      date_labels = "%b\n%Y"
+    ) +
+    scale_y_continuous(
+      breaks = seq(0, 16, 4),
+      limits = c(0, 16),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(values = c("#09bb9f", "#1d81a2", "#90CAF9")) +
+    annotate(
+      "text",
+      x = ymd("2020-02-01"),
+      y = 14.5,
+      label = "COVID-19\npandemic",
+      size = 2.75,
+      hjust = 1,
+      color = "#90A4AE"
+    ) +
+    labs(
+      title = "Poverty",
+      subtitle = "Poverty rate, by area (in percent)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      legend.title = element_blank(),
+      legend.key = element_rect(fill = "transparent"),
+      legend.position = c(0.15, 1.175),
+      legend.direction = "horizontal",
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.spacing.x = unit(2, "lines"),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 55)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_poverty-rate_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
     )
-  ) +
-  ggsave(
-    "fig/ier_poverty-rate_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
-  )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_poverty-rate_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_poverty-rate_plot.png")
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_poverty-rate_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_poverty-rate_plot.png")
+  
+  # message
+  message("The poverty rate by area chart has been updated")
+  
+} else{
+  
+  message("the poverty rate by area chart is up to date")
+  
+}
 
 
 # preview -----------------------------------------------------------------
 
-# plot
-ggplot(pov_trf, aes(date, pov_rate, color = area)) +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(lwd = 2, show.legend = F) +
-  scale_x_date(
-    breaks = seq(ymd("2012-03-01"), last(pov_trf$date), "2 year"),
-    date_labels = "%b\n%Y"
-  ) +
-  scale_y_continuous(
-    breaks = seq(0, 16, 4),
-    limits = c(0, 16),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(values = c("#09bb9f", "#1d81a2", "#90CAF9")) +
-  theme_void() +
-  theme(
-    plot.background = element_rect(fill = "#263238", color = NA),
-    plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-  ) +
-  ggsave(
-    "fig/ier_poverty-rate_void_plot.png",
-    width = 13.3,
-    height = 6.6,
-    dpi = 300
-  )
+if (nrow(pov_trf_csv) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
+  
+  # plot
+  ggplot(pov_trf, aes(date, pov_rate, color = area)) +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(lwd = 2, show.legend = F) +
+    scale_x_date(
+      breaks = seq(ymd("2012-03-01"), last(pov_trf$date), "2 year"),
+      date_labels = "%b\n%Y"
+    ) +
+    scale_y_continuous(
+      breaks = seq(0, 16, 4),
+      limits = c(0, 16),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(values = c("#09bb9f", "#1d81a2", "#90CAF9")) +
+    theme_void() +
+    theme(
+      plot.background = element_rect(fill = "#263238", color = NA),
+      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
+    ) +
+    ggsave(
+      "fig/ier_poverty-rate_void_plot.png",
+      width = 13.3,
+      height = 6.6,
+      dpi = 300
+    )
+  
+  # message
+  message("The poverty preview chart has been updated")
+  
+} else {
+  
+  message("The poverty preview chart is up to dtae")
+  
+}

@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-09
-# last updated: 2021-04-02
+# last updated: 2021-04-09
 # page: inflation
 
 
@@ -213,14 +213,14 @@ style_sticky <- list(
 reactable_col_pal <- function(x) {
   
   negative_values <- scales::col_numeric(
-    palette = paletteer::paletteer_c("ggthemes::Green", n = 5) %>% as.character(),
+    palette = paletteer::paletteer_c("ggthemes::Orange", n = 5) %>% as.character(),
     domain = c(min(inf_exp_tidy$rate_mom), 0),
     na.color = "white",
     reverse = T
   )
   
   positive_values <- scales::col_numeric(
-    palette = paletteer::paletteer_c("ggthemes::Orange", n = 5) %>% as.character(),
+    palette = paletteer::paletteer_c("ggthemes::Green", n = 5) %>% as.character(),
     domain = c(0, max(inf_exp_tidy$rate_mom)),
     na.color = "white"
   )

@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-24
-# last updated: 2021-04-04
+# last updated: 2021-04-08
 # page: employment
 
 
@@ -305,113 +305,124 @@ plot_unemp_prov <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# annotations
-## legend
-anno_legend <- tibble(
-  x = c(0.75, 0.75),
-  y = c("West Java", "Central Java"),
-  label = c(
-    str_c("\u25CF ", format(unemp_prov_date_latest[1], "%b '%y")),
-    str_c("\u25CF ", format(unemp_prov_date_latest[2], "%b '%y"))
-  ),
-  color = c("#FFAB91", "#F4511E")
-)
-
-# plot
-ggplot(data = unemp_prov_wide, aes(y = province)) +
-  geom_segment(
-    aes(yend = province, x = unemp_rate_1, xend = unemp_rate_2),
-    color = "#FBE9E7",
-    lwd = 1.25
-  ) +
-  geom_point(
-    aes(x = unemp_rate_1), 
-    pch = 21,
-    fill = "#FFCCBC",
-    color = "white",
-    size = 3
-  ) +
-  geom_point(
-    aes(x = unemp_rate_2), 
-    pch = 21,
-    fill = "#F4511E",
-    color = "white",
-    size = 3
-  ) +
-  geom_richtext(
-    data = anno_legend,
-    aes(x, y, label = label, color = factor(color)),
-    fill = "white",
-    label.color = NA,
-    hjust = 0,
-    size = 3,
-    fontface = "bold",
-    show.legend = F
-  ) +
-  scale_color_identity() +
-  scale_x_continuous(
-    breaks = seq(0, 12, 3),
-    limits = c(0, 12),
-    expand = c(0, 0),
-    position = "top"
-  ) +
-  labs(
-    title = "Unemployment",
-    subtitle = "Unemployment rate, by province (in percent)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  theme(
-    text = element_text(size = 10),
-    axis.title = element_blank(),
-    axis.text.y = element_text(hjust = 0),
-    axis.ticks = element_blank(),
-    axis.line.x = element_blank(),
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_line(color = "#CFD8DC"),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    plot.title = element_text(face = "bold", hjust = -0.5),
-    plot.subtitle = element_text(margin = margin(b = 35), hjust = -1.405),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = -3.325,
-      margin = margin(t = 35)
-    )
-  ) +
-  ggsave(
-    "fig/ier_unemployment-province_plot.png",
-    width = 5,
-    height = 7,
-    dpi = 300,
-    scale = 1
+if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleaned.csv"))) {
+  
+  # annotations
+  ## legend
+  anno_legend <- tibble(
+    x = c(0.75, 0.75),
+    y = c("West Java", "Central Java"),
+    label = c(
+      str_c("\u25CF ", format(unemp_prov_date_latest[1], "%b '%y")),
+      str_c("\u25CF ", format(unemp_prov_date_latest[2], "%b '%y"))
+    ),
+    color = c("#FFAB91", "#F4511E")
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_unemployment-province_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_unemployment-province_plot.png")
+  
+  # plot
+  ggplot(data = unemp_prov_wide, aes(y = province)) +
+    geom_segment(
+      aes(yend = province, x = unemp_rate_1, xend = unemp_rate_2),
+      color = "#FBE9E7",
+      lwd = 1.25
+    ) +
+    geom_point(
+      aes(x = unemp_rate_1), 
+      pch = 21,
+      fill = "#FFCCBC",
+      color = "white",
+      size = 3
+    ) +
+    geom_point(
+      aes(x = unemp_rate_2), 
+      pch = 21,
+      fill = "#F4511E",
+      color = "white",
+      size = 3
+    ) +
+    geom_richtext(
+      data = anno_legend,
+      aes(x, y, label = label, color = factor(color)),
+      fill = "white",
+      label.color = NA,
+      hjust = 0,
+      size = 3,
+      fontface = "bold",
+      show.legend = F
+    ) +
+    scale_color_identity() +
+    scale_x_continuous(
+      breaks = seq(0, 12, 3),
+      limits = c(0, 12),
+      expand = c(0, 0),
+      position = "top"
+    ) +
+    labs(
+      title = "Unemployment",
+      subtitle = "Unemployment rate, by province (in percent)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    theme(
+      text = element_text(size = 10),
+      axis.title = element_blank(),
+      axis.text.y = element_text(hjust = 0),
+      axis.ticks = element_blank(),
+      axis.line.x = element_blank(),
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_line(color = "#CFD8DC"),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      plot.title = element_text(face = "bold", hjust = -0.5),
+      plot.subtitle = element_text(margin = margin(b = 35), hjust = -1.405),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = -3.325,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_unemployment-province_plot.png",
+      width = 5,
+      height = 7,
+      dpi = 300,
+      scale = 1
+    )
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_unemployment-province_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_unemployment-province_plot.png")
+  
+  # message
+  message("The unemployment rate by province chart has been updated")
+  
+} else {
+  
+  message("The unemployment rate by province chart is up to date")
+  
+}

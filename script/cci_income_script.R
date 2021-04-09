@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-24
-# last updated: 2021-04-04
+# last updated: 2021-04-09
 # page: consumer confidence
 
 
@@ -21,7 +21,7 @@ library(magick)
 
 # date of most recent observation
 if (exists("last_date") == F) {
-  last_date <- "2021-02-01"
+  last_date <- "2021-03-01"
 }  
 
 
@@ -284,142 +284,164 @@ plot_cci_by_income <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# annotations
-## confidence threshold
-anno_conf_ths <- tribble(
-  ~x, ~y, ~label,
-  ymd("2014-01-01"), 90, "More pessimistic \u2193",
-  ymd("2016-01-01"), 130, "More optimistic \u2191"
-)
-
-# plot
-ggplot(data = cci_by_income_tidy, aes(date, cci)) +
-  geom_hline(yintercept = 100, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(aes(color = Indices), lwd = 0.75) +
-  scale_y_continuous(
-    breaks = seq(40, 140, 20),
-    limits = c(40, 140),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(
-    labels = c("Rp 1-2 million", "Rp 2.1-3 million", "Rp 3.1-4 million", "Rp 4.1-5 million", "Above Rp 5 million"),
-    values = c("#ff5e4b", "#ffca76", "#09bb9f", "#5cccfa", "#607d8b")    
-  ) +
-  ggtext::geom_richtext(
-    data = anno_conf_ths,
-    aes(x = x, y = y, label = label),
-    fill = "white",
-    label.color = NA,
-    size = 2.75
-  ) +
-  annotate(
-    "text",
-    x = ymd("2020-04-01"),
-    y = 130,
-    label = "COVID-19\npandemic \u2192",
-    size = 2.5,
-    hjust = 0,
-    color = "#90A4AE"
-  ) +
-  labs(
-    title = "Consumer confidence index",
-    subtitle = "By income group",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    legend.title = element_blank(),
-    legend.key = element_rect(fill = "transparent"),
-    legend.position = c(0.495, 1.175),
-    legend.direction = "horizontal",
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 55)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
-    )
-  ) +
-  ggsave(
-    "fig/ier_cci-income_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
+if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
+  
+  # annotations
+  ## confidence threshold
+  anno_conf_ths <- tribble(
+    ~x, ~y, ~label,
+    ymd("2014-01-01"), 90, "More pessimistic \u2193",
+    ymd("2016-01-01"), 130, "More optimistic \u2191"
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_cci-income_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_cci-income_plot.png")
+  
+  # plot
+  ggplot(data = cci_by_income_tidy, aes(date, cci)) +
+    geom_hline(yintercept = 100, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(aes(color = Indices), lwd = 0.75) +
+    scale_y_continuous(
+      breaks = seq(40, 140, 20),
+      limits = c(40, 140),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(
+      labels = c("Rp 1-2 million", "Rp 2.1-3 million", "Rp 3.1-4 million", "Rp 4.1-5 million", "Above Rp 5 million"),
+      values = c("#ff5e4b", "#ffca76", "#09bb9f", "#5cccfa", "#607d8b")    
+    ) +
+    ggtext::geom_richtext(
+      data = anno_conf_ths,
+      aes(x = x, y = y, label = label),
+      fill = "white",
+      label.color = NA,
+      size = 2.75
+    ) +
+    annotate(
+      "text",
+      x = ymd("2020-04-01"),
+      y = 130,
+      label = "COVID-19\npandemic \u2192",
+      size = 2.5,
+      hjust = 0,
+      color = "#90A4AE"
+    ) +
+    labs(
+      title = "Consumer confidence index",
+      subtitle = "By income group",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
+    ) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      legend.title = element_blank(),
+      legend.key = element_rect(fill = "transparent"),
+      legend.position = c(0.495, 1.175),
+      legend.direction = "horizontal",
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 55)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_cci-income_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
+    )
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_cci-income_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_cci-income_plot.png")
+  
+  # message
+  message("The Consumer Confidence Index by income group chart has been updated")
+  
+} else {
+  
+  message("The Consumer Confidence Index by income group chart is up to date")
+  
+}
 
 
 # preview -----------------------------------------------------------------
 
-# plot
-ggplot(data = cci_by_income_tidy, aes(date, cci)) +
-  geom_hline(yintercept = 100, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(aes(color = Indices), lwd = 1.5, show.legend = F) +
-  scale_y_continuous(
-    breaks = seq(40, 140, 20),
-    limits = c(40, 140),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(
-    labels = c("Rp 1-2 million", "Rp 2.1-3 million", "Rp 3.1-4 million", "Rp 4.1-5 million", "Above Rp 5 million"),
-    values = c("#ff5e4b", "#ffca76", "#09bb9f", "#5cccfa", "#607d8b")    
-  ) +
-  theme_void() +
-  theme(
-    plot.background = element_rect(fill = "#263238", color = NA),
-    plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-  ) +
-  ggsave(
-    "fig/ier_cci-income_void_plot.png",
-    width = 13.3,
-    height = 6.6,
-    dpi = 300
-  )
+if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
+  
+  # plot
+  ggplot(data = cci_by_income_tidy, aes(date, cci)) +
+    geom_hline(yintercept = 100, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(aes(color = Indices), lwd = 1.5, show.legend = F) +
+    scale_y_continuous(
+      breaks = seq(40, 140, 20),
+      limits = c(40, 140),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(
+      labels = c("Rp 1-2 million", "Rp 2.1-3 million", "Rp 3.1-4 million", "Rp 4.1-5 million", "Above Rp 5 million"),
+      values = c("#ff5e4b", "#ffca76", "#09bb9f", "#5cccfa", "#607d8b")    
+    ) +
+    theme_void() +
+    theme(
+      plot.background = element_rect(fill = "#263238", color = NA),
+      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
+    ) +
+    ggsave(
+      "fig/ier_cci-income_void_plot.png",
+      width = 13.3,
+      height = 6.6,
+      dpi = 300
+    )
+  
+  # message
+  message("The Consumer Confidence Index by income group preview chart has been updated")
+  
+} else {
+  
+  message("The Consumer Confidence Index by income group preview chart is up to date")
+  
+}

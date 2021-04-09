@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-26
-# last updated: 2021-04-04
+# last updated: 2021-04-08
 # page: retail sales
 
 
@@ -517,221 +517,232 @@ sm_rsi_by_cat_idx <- subplot(
 
 # export chart ------------------------------------------------------------
 
-# rsi by cat change ----
-
-# annotations
-anno_text_covid_ggplot <- tibble(
-  x = ymd("2020-01-01"),
-  y = 75,
-  label = "COVID-19\npandemic",
-  Indices = "Clothes"
-)
-
-# plot
-rsi_by_cat_trf %>% 
-  dplyr::filter(!is.na(pct_change_yoy)) %>% 
-  ggplot(aes(date, pct_change_yoy)) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(color = "#1d81a2", lwd = 0.75) +
-  scale_x_date(
-    breaks = seq(ymd("2013-01-01"), ymd("2021-01-01"), "2 year"),
-    labels = str_c("'", seq(13, 21, 2))
-  ) +
-  scale_y_continuous(
-    breaks = seq(-100, 100, 50),
-    limits = c(-100, 100),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  geom_text(
-    data = anno_text_covid_ggplot,
-    aes(x = x, y = y, label = label),
-    color = "#90A4AE",
-    hjust = 1,
-    size = 1.75
-  ) +
-  labs(
-    title = "Retail sales index",
-    subtitle = "By category (percent change from a year earlier)",
-    caption = str_c(
-      str_c(format(last(rsi_by_cat_trf$date), "%B %Y"), " figure is an estimate\n\n"),
-      "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
-    )
-  ) +
-  facet_wrap(
-    ~ Indices, 
-    nrow = 2,
-    scales = "free_x", 
-    labeller = labeller(Indices = label_wrap_gen(27.5))
-  ) +
-  theme(
-    text = element_text(size = 10),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    legend.direction = "horizontal",
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    panel.spacing = unit(1.25, "lines"),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 35)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
-    ),
-    strip.background = element_rect(fill = "white", color = NULL),
-    strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-  ) +
-  ggsave(
-    "fig/ier_rsi-cat-change_plot.png",
-    width = 7,
-    height = 5,
-    dpi = 300
+if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
+  
+  # rsi by cat change ----
+  
+  # annotations
+  anno_text_covid_ggplot <- tibble(
+    x = ymd("2020-01-01"),
+    y = 75,
+    label = "COVID-19\npandemic",
+    Indices = "Clothes"
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-plot_rsi_cat_change_png <- image_read("fig/ier_rsi-cat-change_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(plot_rsi_cat_change_png)$height
-
-# get plot width
-plot_width <- magick::image_info(plot_rsi_cat_change_png)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-plot_rsi_cat_change_png %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_rsi-cat-change_plot.png")
-
-
-# rsi by cat index ----
-
-# annotations
-anno_year <- tibble(
-  x = c(1, 9, 7),
-  y = c(25, 25, 250),
-  label = c("2021", "2020", "2016-2019"),
-  Indices = rep("Clothes", 3)
-)
-
-# plot
-rsi_by_cat_trf %>% 
-  mutate(mo = month(date), yr = year(date)) %>% 
-  dplyr::filter(yr >= 2016) %>% 
-  ggplot(aes(mo, rsi)) +
-  geom_line(aes(color = as_factor(yr)), lwd = 0.75, show.legend = F) +
-  geom_point(aes(color = as_factor(yr)), size = 1, show.legend = F) +
-  scale_x_continuous(
-    breaks = seq(2, 12, 2),
-    labels = c("Feb", "Apr", "Jun", "Aug", "Oct", "Dec")
-  ) +
-  scale_y_continuous(
-    breaks = seq(0, 500, 100),
-    limits = c(0, 500),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(values = c("#CFD8DC", "#CFD8DC", "#CFD8DC", "#CFD8DC", "#1d81a2", "#ff725b")) +
-  geom_text(
-    data = anno_year,
-    aes(x = x, y = y, label = label),
-    hjust = 0,
-    size = 1.75,
-    color = c("#ff725b", "#1d81a2", "#90A4AE"),
-    fontface = "bold"
-  ) +
-  labs(
-    title = "Retail sales index",
-    subtitle = "By category",
-    caption = str_c(
-      str_c(format(last(rsi_by_cat_trf$date), "%B %Y"), " figure is an estimate\n\n"),
-      "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
+  
+  # plot
+  rsi_by_cat_trf %>% 
+    dplyr::filter(!is.na(pct_change_yoy)) %>% 
+    ggplot(aes(date, pct_change_yoy)) +
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(color = "#1d81a2", lwd = 0.75) +
+    scale_x_date(
+      breaks = seq(ymd("2013-01-01"), ymd("2021-01-01"), "2 year"),
+      labels = str_c("'", seq(13, 21, 2))
+    ) +
+    scale_y_continuous(
+      breaks = seq(-100, 100, 50),
+      limits = c(-100, 100),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    geom_text(
+      data = anno_text_covid_ggplot,
+      aes(x = x, y = y, label = label),
+      color = "#90A4AE",
+      hjust = 1,
+      size = 1.75
+    ) +
+    labs(
+      title = "Retail sales index",
+      subtitle = "By category (percent change from a year earlier)",
+      caption = str_c(
+        str_c(format(last(rsi_by_cat_trf$date), "%B %Y"), " figure is an estimate\n\n"),
+        "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
+      )
+    ) +
+    facet_wrap(
+      ~ Indices, 
+      nrow = 2,
+      scales = "free_x", 
+      labeller = labeller(Indices = label_wrap_gen(27.5))
+    ) +
+    theme(
+      text = element_text(size = 10),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      legend.direction = "horizontal",
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.spacing = unit(1.25, "lines"),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      ),
+      strip.background = element_rect(fill = "white", color = NULL),
+      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
+    ) +
+    ggsave(
+      "fig/ier_rsi-cat-change_plot.png",
+      width = 7,
+      height = 5,
+      dpi = 300
     )
-  ) +
-  facet_wrap(
-    ~ Indices, 
-    nrow = 2,
-    scales = "free_x", 
-    labeller = labeller(Indices = label_wrap_gen(27.5))
-  ) +
-  theme(
-    text = element_text(size = 10),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    legend.direction = "horizontal",
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    panel.spacing = unit(1.25, "lines"),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 35)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
-    ),
-    strip.background = element_rect(fill = "white", color = NULL),
-    strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-  ) +
-  ggsave(
-    "fig/ier_rsi-cat_plot.png",
-    width = 7,
-    height = 5,
-    dpi = 300
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  plot_rsi_cat_change_png <- image_read("fig/ier_rsi-cat-change_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(plot_rsi_cat_change_png)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(plot_rsi_cat_change_png)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  plot_rsi_cat_change_png %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_rsi-cat-change_plot.png")
+  
+  
+  # rsi by cat index ----
+  
+  # annotations
+  anno_year <- tibble(
+    x = c(1, 9, 7),
+    y = c(25, 25, 250),
+    label = c("2021", "2020", "2016-2019"),
+    Indices = rep("Clothes", 3)
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-plot_rsi_cat_png <- image_read("fig/ier_rsi-cat_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(plot_rsi_cat_png)$height
-
-# get plot width
-plot_width <- magick::image_info(plot_rsi_cat_png)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-plot_rsi_cat_png %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_rsi-cat_plot.png")
+  
+  # plot
+  rsi_by_cat_trf %>% 
+    mutate(mo = month(date), yr = year(date)) %>% 
+    dplyr::filter(yr >= 2016) %>% 
+    ggplot(aes(mo, rsi)) +
+    geom_line(aes(color = as_factor(yr)), lwd = 0.75, show.legend = F) +
+    geom_point(aes(color = as_factor(yr)), size = 1, show.legend = F) +
+    scale_x_continuous(
+      breaks = seq(2, 12, 2),
+      labels = c("Feb", "Apr", "Jun", "Aug", "Oct", "Dec")
+    ) +
+    scale_y_continuous(
+      breaks = seq(0, 500, 100),
+      limits = c(0, 500),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(values = c("#CFD8DC", "#CFD8DC", "#CFD8DC", "#CFD8DC", "#1d81a2", "#ff725b")) +
+    geom_text(
+      data = anno_year,
+      aes(x = x, y = y, label = label),
+      hjust = 0,
+      size = 1.75,
+      color = c("#ff725b", "#1d81a2", "#90A4AE"),
+      fontface = "bold"
+    ) +
+    labs(
+      title = "Retail sales index",
+      subtitle = "By category",
+      caption = str_c(
+        str_c(format(last(rsi_by_cat_trf$date), "%B %Y"), " figure is an estimate\n\n"),
+        "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
+      )
+    ) +
+    facet_wrap(
+      ~ Indices, 
+      nrow = 2,
+      scales = "free_x", 
+      labeller = labeller(Indices = label_wrap_gen(27.5))
+    ) +
+    theme(
+      text = element_text(size = 10),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      legend.direction = "horizontal",
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.spacing = unit(1.25, "lines"),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      ),
+      strip.background = element_rect(fill = "white", color = NULL),
+      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
+    ) +
+    ggsave(
+      "fig/ier_rsi-cat_plot.png",
+      width = 7,
+      height = 5,
+      dpi = 300
+    )
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  plot_rsi_cat_png <- image_read("fig/ier_rsi-cat_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(plot_rsi_cat_png)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(plot_rsi_cat_png)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  plot_rsi_cat_png %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_rsi-cat_plot.png")
+  
+  # message
+  message("The Retail Sales Index by category charts have been updated")
+  
+} else {
+  
+  message("The Retail Sales Index by category charts are up to date")
+  
+}

@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-04-04
+# last updated: 2021-04-08
 # page: inflation
 
 
@@ -204,7 +204,7 @@ plot_inf_comp <- lapply(
           fixedrange = T,
           tickmode = "array",
           tickvals = c(3, 6, 9, 12),
-          ticktext = c("March", "June", "Sep", "Dec"),
+          ticktext = c("Mar", "Jun", "Sep", "Dec"),
           ticks = "outside",
           automargin = T,
           showline = T,
@@ -325,110 +325,121 @@ sm_inf_comp <- subplot(
 
 # export chart ------------------------------------------------------------
 
-# annotations
-anno_year <- tibble(
-  x = c(1, 4),
-  y = c(-0.5, 0.5),
-  label = c("2021", "2020"),
-  component = as_factor(rep("core", 2))
-)
-
-# plot
-inf_comp_tidy %>% 
-  pivot_longer(
-    4:ncol(.),
-    names_to = "component",
-    values_to = "inflation_rate"
-  ) %>% 
-  mutate(component = factor(component, levels = c("core", "adm_prices", "volatile_prices"))) %>% 
-  ggplot(aes(mo, inflation_rate)) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
-  geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
-  scale_x_continuous(
-    breaks = seq(2, 12, 2),
-    labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
-  ) +
-  scale_y_continuous(
-    breaks = seq(-3, 3, 1),
-    limits = c(-3, 3),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
-  geom_richtext(
-    data = anno_year,
-    aes(x, y, label = label),
-    fill = "white",
-    label.color = NA,
-    text.color = c("#1d81a2", "#90A4AE"),
-    hjust = 0,
-    size = 3,
-    fontface = "bold"
-  ) +
-  labs(
-    title = "Inflation",
-    subtitle = "Monthly inflation rate, by component (in percent)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  facet_wrap(
-    ~ component, 
-    nrow = 1,
-    labeller = labeller(component = c(core = "Core", adm_prices = "Administered prices", volatile_prices = "Volatile prices"))
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    panel.spacing.x = unit(2, "lines"),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 35)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
-    ),
-    strip.background = element_rect(fill = "white", color = NULL),
-    strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-  ) +
-  ggsave(
-    "fig/ier_inflation-component_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
+if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_cleaned.csv"))) {
+  
+  # annotations
+  anno_year <- tibble(
+    x = c(1, 4),
+    y = c(-0.5, 0.5),
+    label = c("2021", "2020"),
+    component = as_factor(rep("core", 2))
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_inflation-component_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_inflation-component_plot.png")
+  
+  # plot
+  inf_comp_tidy %>% 
+    pivot_longer(
+      4:ncol(.),
+      names_to = "component",
+      values_to = "inflation_rate"
+    ) %>% 
+    mutate(component = factor(component, levels = c("core", "adm_prices", "volatile_prices"))) %>% 
+    ggplot(aes(mo, inflation_rate)) +
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
+    geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
+    scale_x_continuous(
+      breaks = seq(2, 12, 2),
+      labels = c("Feb", "Apr", "Jun", "Aug", "Oct", "Dec")
+    ) +
+    scale_y_continuous(
+      breaks = seq(-3, 3, 1),
+      limits = c(-3, 3),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    geom_richtext(
+      data = anno_year,
+      aes(x, y, label = label),
+      fill = "white",
+      label.color = NA,
+      text.color = c("#1d81a2", "#90A4AE"),
+      hjust = 0,
+      size = 3,
+      fontface = "bold"
+    ) +
+    labs(
+      title = "Inflation",
+      subtitle = "Monthly inflation rate, by component (in percent)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    facet_wrap(
+      ~ component, 
+      nrow = 1,
+      labeller = labeller(component = c(core = "Core", adm_prices = "Administered prices", volatile_prices = "Volatile prices"))
+    ) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.spacing.x = unit(2, "lines"),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      ),
+      strip.background = element_rect(fill = "white", color = NULL),
+      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
+    ) +
+    ggsave(
+      "fig/ier_inflation-component_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
+    )
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_inflation-component_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_inflation-component_plot.png")
+  
+  # message
+  message("The inflation by component chart has been updated")
+  
+} else {
+  
+  message("The inflation by component chart is up to date")
+  
+}

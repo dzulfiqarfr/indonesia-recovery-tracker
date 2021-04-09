@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-04-04
+# last updated: 2021-04-09
 # page: index
 
 
@@ -438,14 +438,14 @@ key_indicators <- growth_latest %>%
 # projection
 key_ind_proj <- tribble(
   ~indicator, ~proj_fig,
-  "Economic growth", "4.9<sup>*</sup>",
-  "Inflation rate", "2.1<sup>*</sup>",
+  "Economic growth", "4.3*",
+  "Inflation rate", "2.8*",
   "Poverty rate", "9.2-9.7<sup>&#8224;</sup>",
-  "Unemployment rate", "7.7-9.1<sup>&#8224;</sup>"
+  "Unemployment rate", "6.5*"
 )
 
 # merge latest data with projection, government target
-key_ind_proj_govt <- key_indicators %>% 
+key_econ_ind <- key_indicators %>% 
   left_join(key_ind_proj, by = "indicator")
 
 
@@ -515,11 +515,12 @@ case_death <- covid_ntl %>%
     indicator = str_replace_all(
       indicator,
       c(
-        new_cases = "Daily new COVID-19 cases",
-        new_deaths = "Daily new COVID-19 deaths"
+        new_cases = "Daily new cases",
+        new_deaths = "Daily new deaths"
       )
     ),
-    unit = c(rep("(people)", 2))
+    unit = c(rep("(people)", 2)),
+    latest_fig = format(latest_fig, big.mark = ",")
   ) %>% 
   rename(latest_date = date)
 
@@ -552,30 +553,23 @@ vaccination <- covid_ntl %>%
 
 
 # merge, create empty column for projection
-covid_ntl_trf <- case_death %>% 
+key_covid_ind <- case_death %>% 
   rbind(pos_rate, vaccination) %>% 
   select(indicator, unit, latest_date, latest_fig) %>%
-  mutate(proj_fig = NA) %>% 
   arrange(indicator)
-
-
-# merge all ---------------------------------------------------------------
-
-key_ind_econ_covid <- key_ind_proj_govt %>% 
-  rbind(covid_ntl_trf)
 
 
 # table -------------------------------------------------------------------
 
-# table
-reactable_key_ind <- key_ind_econ_covid %>% 
+# economic indicators
+reactable_key_econ <- key_econ_ind %>% 
   reactable(
     columns = list(
       indicator = colDef(
         name = "Indicators",
         cell = function(value, index) {
           
-          unit <- key_ind_econ_covid$unit[index]
+          unit <- key_econ_ind$unit[index]
           
           tagList(
             div(value),
@@ -592,11 +586,65 @@ reactable_key_ind <- key_ind_econ_covid %>%
       ),
       latest_fig = colDef(
         name = "Figure",
-        align = "right"
+        align = "right",
+        html = T
       ),
       proj_fig = colDef(
-        name = "2021<br>projection",
+        name = str_c(
+          "2021<br>",
+          '<div style="color: #999; font-size: 12px">(projection)</div>'
+        ),
         html = T,
+        align = "right"
+      )
+    ),
+    columnGroups = list(
+      colGroup(
+        name = "Latest",
+        columns = c("latest_date", "latest_fig"),
+        html = T
+      )
+    ),
+    sortable = F,
+    compact = T,
+    striped = T,
+    style = list(fontSize = "15px"),
+    theme = reactableTheme(
+      headerStyle = list(borderColor = "black"),
+      cellStyle = list(
+        display = "flex",
+        flexDirection = "column",
+        justifyContent = "center"
+      ),
+      stripedColor = "#ECEFF1"
+    )
+  )
+
+# covid-19
+reactable_key_covid <- key_covid_ind %>% 
+  reactable(
+    columns = list(
+      indicator = colDef(
+        name = "Indicators",
+        cell = function(value, index) {
+          
+          unit <- key_covid_ind$unit[index]
+          
+          tagList(
+            div(value),
+            div(style = list(fontSize = 12, color = "#999"), unit)
+          )
+          
+        },
+        minWidth = 200
+      ),
+      unit = colDef(show = F),
+      latest_date = colDef(
+        name = "Date",
+        align = "right"
+      ),
+      latest_fig = colDef(
+        name = "Figure",
         align = "right"
       )
     ),

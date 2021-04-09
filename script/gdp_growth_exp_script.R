@@ -6,7 +6,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-03-28
+# last updated: 2021-04-08
 # page: gdp
 
 
@@ -187,7 +187,7 @@ if (file.exists("data/ier_gdp-growth-exp_cleaned.csv") == F) {
 # table -------------------------------------------------------------------
 
 # add asterisk to NPISHs consumption
-growth_exp_wide[growth_exp_wide$label_eng == "NPISHs consumption", 1] <- "NPISHs<sup>*</sup> consumption"
+growth_exp_wide[growth_exp_wide$label_eng == "NPISHs consumption", 1] <- "NPISHs* consumption"
 
 # rename column
 ## column names

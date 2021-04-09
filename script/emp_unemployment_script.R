@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-23
-# last updated: 2021-04-04
+# last updated: 2021-04-08
 # page: employment
 
 
@@ -139,7 +139,7 @@ unemp_trf <- unemp_rate %>%
 if (file.exists("data/ier_unemployment-rate_cleaned.csv") == F) {
   
   write_csv(unemp_trf, "data/ier_unemployment-rate_cleaned.csv")
-
+  
   message("The national unemployment rate dataset has been exported")
   
 } else if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
@@ -231,114 +231,135 @@ plot_unemp_rate <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# plot
-ggplot(data = unemp_trf, aes(date, unemployment_rate)) +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(color = "#1d81a2", lwd = 1) +
-  scale_y_continuous(
-    breaks = seq(0, 12, 3),
-    limits = c(0, 12),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  annotate(
-    "text",
-    x = ymd("2020-02-01"),
-    y = 11,
-    label = "COVID-19\npandemic",
-    size = 2.75,
-    hjust = 1,
-    color = "#90A4AE"
-  ) +
-  labs(
-    title = "Unemployment",
-    subtitle = "Unemployment rate (in percent)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 35)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
+if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
+  
+  # plot
+  ggplot(data = unemp_trf, aes(date, unemployment_rate)) +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(color = "#1d81a2", lwd = 1) +
+    scale_y_continuous(
+      breaks = seq(0, 12, 3),
+      limits = c(0, 12),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    annotate(
+      "text",
+      x = ymd("2020-02-01"),
+      y = 11,
+      label = "COVID-19\npandemic",
+      size = 2.75,
+      hjust = 1,
+      color = "#90A4AE"
+    ) +
+    labs(
+      title = "Unemployment",
+      subtitle = "Unemployment rate (in percent)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_unemployment-rate_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
     )
-  ) +
-  ggsave(
-    "fig/ier_unemployment-rate_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
-  )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_unemployment-rate_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_unemployment-rate_plot.png")
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_unemployment-rate_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_unemployment-rate_plot.png")
+  
+  # message
+  message("The unemployment rate chart has been updated")
+  
+} else {
+  
+  message("The unemployment rate chart is up to date")
+  
+}
 
 
 # preview -----------------------------------------------------------------
 
-# plot
-# plot
-ggplot(data = unemp_trf, aes(date, unemployment_rate)) +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_line(color = "#1d81a2", lwd = 2) +
-  scale_y_continuous(
-    breaks = seq(0, 12, 3),
-    limits = c(0, 12),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  theme_void() +
-  theme(
-    plot.background = element_rect(fill = "#263238", color = NA),
-    plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-  ) +
-  ggsave(
-    "fig/ier_unemployment-rate_void_plot.png",
-    width = 13.3,
-    height = 6.6,
-    dpi = 300
-  )
+if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
+  
+  # plot
+  ggplot(data = unemp_trf, aes(date, unemployment_rate)) +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_line(color = "#1d81a2", lwd = 2) +
+    scale_y_continuous(
+      breaks = seq(0, 12, 3),
+      limits = c(0, 12),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    theme_void() +
+    theme(
+      plot.background = element_rect(fill = "#263238", color = NA),
+      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
+    ) +
+    ggsave(
+      "fig/ier_unemployment-rate_void_plot.png",
+      width = 13.3,
+      height = 6.6,
+      dpi = 300
+    )
+  
+  # message
+  message("The unemployment rate preview chart has been updated")
+  
+} else {
+  
+  message("The unemployment rate preview chart is up to date")
+  
+}

@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-04-04
+# last updated: 2021-04-09
 # page: inflation
 
 
@@ -256,7 +256,7 @@ plot_inf_mom <- plot_ly(
       fixedrange = T,
       tickmode = "array",
       tickvals = c(3, 6, 9, 12),
-      ticktext = c("March", "June", "Sep", "Dec"),
+      ticktext = c("Mar", "Jun", "Sep", "Dec"),
       ticks = "outside",
       automargin = T,
       showline = T,
@@ -337,7 +337,7 @@ plot_inf_yoy <- plot_ly(
       fixedrange = T,
       tickmode = "array",
       tickvals = c(3, 6, 9, 12),
-      ticktext = c("March", "June", "Sep", "Dec"),
+      ticktext = c("Mar", "Jun", "Sep", "Dec"),
       ticks = "outside",
       automargin = T,
       showline = T,
@@ -366,225 +366,247 @@ plot_inf_yoy <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# monthly inflation rate ----
-
-# annotations
-anno_year_mom <- tibble(
-  x = c(0.75, 2),
-  y = c(0.1, 0.35),
-  label = c("2021", "2020")
-)
-
-# plot
-ggplot(inf_mom_yoy, aes(mo, rate_mom)) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
-  geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
-  scale_x_continuous(
-    breaks = seq(2, 12, 2),
-    labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
-  ) +
-  scale_y_continuous(
-    breaks = seq(-0.5, 0.5, 0.25),
-    labels = c(-0.5, -0.25, 0, 0.25, 0.5),
-    limits = c(-0.5, 0.5),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
-  geom_richtext(
-    data = anno_year_mom,
-    aes(x, y, label = label),
-    fill = "white",
-    label.color = NA,
-    text.color = c("#1d81a2", "#90A4AE"),
-    hjust = 0,
-    size = 3,
-    fontface = "bold"
-  ) +
-  labs(
-    title = "Inflation",
-    subtitle = "Monthly inflation rate (in percent)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    panel.spacing.x = unit(2, "lines"),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 35)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 35)
-    )
-  ) +
-  ggsave(
-    "fig/ier_inflation-monthly_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
+if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+  
+  # monthly inflation rate ----
+  
+  # annotations
+  anno_year_mom <- tibble(
+    x = c(0.75, 2),
+    y = c(0.1, 0.35),
+    label = c("2021", "2020")
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-plot_inf_mom_png <- image_read("fig/ier_inflation-monthly_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(plot_inf_mom_png)$height
-
-# get plot width
-plot_width <- magick::image_info(plot_inf_mom_png)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-plot_inf_mom_png %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_inflation-monthly_plot.png")
-
-
-# annual inflation rate ----
-
-# annotations
-anno_year_yoy <- tibble(
-  x = c(1.5, 5.5),
-  y = c(1.8, 2.4),
-  label = c("2021", "2020")
-)
-
-# plot
-ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +
-  geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
-  geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
-  scale_x_continuous(
-    breaks = seq(2, 12, 2),
-    labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
-  ) +
-  scale_y_continuous(
-    breaks = seq(0, 3, 0.6),
-    labels = c(0, seq(0.6, 2.4, 0.6), 3),
-    limits = c(0, 3),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
-  geom_richtext(
-    data = anno_year_yoy,
-    aes(x, y, label = label),
-    fill = "white",
-    label.color = NA,
-    text.color = c("#1d81a2", "#90A4AE"),
-    hjust = 0,
-    size = 3,
-    fontface = "bold"
-  ) +
-  labs(
-    title = "Inflation",
-    subtitle = "Annual inflation rate (in percent)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    panel.spacing.x = unit(2, "lines"),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 35)),
-    plot.caption = element_text(
-      color = "#757575",
+  
+  # plot
+  ggplot(inf_mom_yoy, aes(mo, rate_mom)) +
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
+    geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
+    scale_x_continuous(
+      breaks = seq(2, 12, 2),
+      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
+    ) +
+    scale_y_continuous(
+      breaks = seq(-0.5, 0.5, 0.25),
+      labels = c(-0.5, -0.25, 0, 0.25, 0.5),
+      limits = c(-0.5, 0.5),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    geom_richtext(
+      data = anno_year_mom,
+      aes(x, y, label = label),
+      fill = "white",
+      label.color = NA,
+      text.color = c("#1d81a2", "#90A4AE"),
       hjust = 0,
-      margin = margin(t = 35)
+      size = 3,
+      fontface = "bold"
+    ) +
+    labs(
+      title = "Inflation",
+      subtitle = "Monthly inflation rate (in percent)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.spacing.x = unit(2, "lines"),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_inflation-monthly_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
     )
-  ) +
-  ggsave(
-    "fig/ier_inflation-annual_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  plot_inf_mom_png <- image_read("fig/ier_inflation-monthly_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(plot_inf_mom_png)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(plot_inf_mom_png)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  plot_inf_mom_png %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_inflation-monthly_plot.png")
+  
+  
+  # annual inflation rate ----
+  
+  # annotations
+  anno_year_yoy <- tibble(
+    x = c(1.5, 5.5),
+    y = c(1.8, 2.4),
+    label = c("2021", "2020")
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-plot_inf_yoy_png <- image_read("fig/ier_inflation-annual_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(plot_inf_yoy_png)$height
-
-# get plot width
-plot_width <- magick::image_info(plot_inf_yoy_png)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-plot_inf_yoy_png %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_inflation-annual_plot.png")
+  
+  # plot
+  ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +
+    geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
+    geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
+    scale_x_continuous(
+      breaks = seq(2, 12, 2),
+      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
+    ) +
+    scale_y_continuous(
+      breaks = seq(0, 3, 0.6),
+      labels = c(0, seq(0.6, 2.4, 0.6), 3),
+      limits = c(0, 3),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    geom_richtext(
+      data = anno_year_yoy,
+      aes(x, y, label = label),
+      fill = "white",
+      label.color = NA,
+      text.color = c("#1d81a2", "#90A4AE"),
+      hjust = 0,
+      size = 3,
+      fontface = "bold"
+    ) +
+    labs(
+      title = "Inflation",
+      subtitle = "Annual inflation rate (in percent)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.spacing.x = unit(2, "lines"),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_inflation-annual_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
+    )
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  plot_inf_yoy_png <- image_read("fig/ier_inflation-annual_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(plot_inf_yoy_png)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(plot_inf_yoy_png)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  plot_inf_yoy_png %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_inflation-annual_plot.png")
+  
+  # message
+  message("The annual and monthly inflation rate charts have been updated")
+  
+} else {
+  
+  message("The annual and monthly inflation rate charts are up to date")
+  
+}
 
 
 # preview -----------------------------------------------------------------
 
-# plot
-ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +
-  geom_line(aes(color = as_factor(yr)), lwd = 2, show.legend = F) +
-  geom_point(aes(color = as_factor(yr)), size = 3.5, show.legend = F) +
-  scale_x_continuous(
-    breaks = seq(2, 12, 2),
-    labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
-  ) +
-  scale_y_continuous(
-    breaks = seq(0, 3, 0.6),
-    labels = c(0, seq(0.6, 2.4, 0.6), 3),
-    limits = c(0, 3),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
-  theme_void() +
-  theme(
-    plot.background = element_rect(fill = "#263238", color = NA),
-    plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-  ) +
-  ggsave(
-    "fig/ier_inflation-annual_void_plot.png",
-    width = 13.3,
-    height = 6.6,
-    dpi = 300
-  )
+if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+  
+  # plot
+  ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +
+    geom_line(aes(color = as_factor(yr)), lwd = 2, show.legend = F) +
+    geom_point(aes(color = as_factor(yr)), size = 3.5, show.legend = F) +
+    scale_x_continuous(
+      breaks = seq(2, 12, 2),
+      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
+    ) +
+    scale_y_continuous(
+      breaks = seq(0, 3, 0.6),
+      labels = c(0, seq(0.6, 2.4, 0.6), 3),
+      limits = c(0, 3),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    theme_void() +
+    theme(
+      plot.background = element_rect(fill = "#263238", color = NA),
+      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
+    ) +
+    ggsave(
+      "fig/ier_inflation-annual_void_plot.png",
+      width = 13.3,
+      height = 6.6,
+      dpi = 300
+    )
+  
+  # message
+  message("The annual inflation rate preview chart has been updated")
+  
+} else {
+  
+  message("The annual inflation rate preview chart is up to date")
+  
+}

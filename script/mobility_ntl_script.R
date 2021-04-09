@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-01
-# last updated: 2021-04-04
+# last updated: 2021-04-09
 # page: mobility
 
 
@@ -95,7 +95,7 @@ mob_ntl_trf[, 2:ncol(mob_ntl_trf)] <- lapply(
 )
 
 
-# export ------------------------------------------------------------------
+# export data -------------------------------------------------------------
 
 # latest observation in most recent data
 mob_idn_raw_last <- mob_idn_raw %>% 
@@ -387,234 +387,256 @@ sm_mob_ntl <- subplot(
 
 # export chart ------------------------------------------------------------
 
-# data
-mob_ntl_headline <- mob_ntl_trf %>% 
-  select(date, !ends_with("_avg")) %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "place_categories",
-    values_to = "change_from_baseline"
-  ) %>% 
-  mutate(place_categories = as_factor(place_categories))
-
-mob_ntl_avg <- mob_ntl_trf %>% 
-  select(date, ends_with("_avg")) %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "place_categories",
-    values_to = "avg_change_from_baseline"
-  ) %>% 
-  mutate(
-    place_categories = as_factor(place_categories),
-    place_categories = str_remove(place_categories, "_avg")
-  )
-
-mob_ntl_trf_tidy_02 <- mob_ntl_headline %>% 
-  left_join(mob_ntl_avg, by = c("date", "place_categories"))
-
-# annotations
-## covid-19
-anno_text_covid_ggplot <- tibble(
-  x = ymd("2020-03-15"),
-  y = -75,
-  label = "COVID-19\npandemic \u2192",
-  place_categories = "grocery_pharmacy"
-)
-
-# panel labels
-labs_mob_ntl <- c(
-  grocery_pharmacy = "Grocery & pharmacy",
-  parks = "Parks",
-  residential = "Residential*",
-  retail_recreation = "Retail & recreation",
-  transit_stations = "Transit stations",
-  workplaces = "Workplaces"
-)
-
-# legends
-anno_text_avg <- tibble(
-  x = ymd("2020-08-01"),
-  y = -0.43,
-  label = "7-day moving\naverage",
-  place_categories = "grocery_pharmacy"
-)
-
-# plot
-ggplot(mob_ntl_trf_tidy_02, aes(date)) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_point(
-    aes(y = change_from_baseline), 
-    pch = 21,
-    color = "white",
-    fill = "#CFD8DC",
-    size = 1, 
-    alpha = 0.5
-  ) +
-  geom_line(
-    aes(y = avg_change_from_baseline), 
-    color = "#1d81a2",
-    lwd = 0.75
-  ) + 
-  scale_x_date(
-    breaks = seq(first(mob_ntl_trf_tidy_02$date), last(mob_ntl_trf_tidy_02$date), "3 month"),
-    date_labels = "%b\n'%y"
-  ) +
-  scale_y_continuous(
-    breaks = seq(-100, 50, 25),
-    limits = c(-100, 50),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  geom_label(
-    data = anno_text_covid_ggplot,
-    aes(x = x, y = y, label = label),
-    color = "#90A4AE",
-    hjust = 0,
-    size = 2,
-    fill = "white",
-    label.padding = unit(0.1, "lines"),
-    label.r = unit(0, "lines"),
-    label.size = 0
-  ) +
-  geom_text_repel(
-    data = anno_text_avg,
-    aes(x = x, y = y, label = label),
-    hjust = 0,
-    size = 2,
-    color = "#1d81a2",
-    nudge_x = 50,
-    nudge_y = -35,
-    fontface = "bold",
-    segment.curvature = -0.25,
-    segment.ncp = 3
-  ) +
-  labs(
-    title = "Community mobility in Indonesia",
-    subtitle = "Number of visitors, by place category\n(percent change from baseline in Jan-Feb 2020 period)",
-    caption = str_c(
-      "*Length of stay\n",
-      "Last updated on ",
-      format(Sys.Date(), "%B %d, %Y"),
-      "\n\nChart: Dzulfiqar Fathur Rahman | Source: Google"
+if (mob_idn_raw_last != mob_idn_raw_csv_last) {
+  
+  # data
+  mob_ntl_headline <- mob_ntl_trf %>% 
+    select(date, !ends_with("_avg")) %>% 
+    pivot_longer(
+      2:ncol(.),
+      names_to = "place_categories",
+      values_to = "change_from_baseline"
+    ) %>% 
+    mutate(place_categories = as_factor(place_categories))
+  
+  mob_ntl_avg <- mob_ntl_trf %>% 
+    select(date, ends_with("_avg")) %>% 
+    pivot_longer(
+      2:ncol(.),
+      names_to = "place_categories",
+      values_to = "avg_change_from_baseline"
+    ) %>% 
+    mutate(
+      place_categories = as_factor(place_categories),
+      place_categories = str_remove(place_categories, "_avg")
     )
-  ) +
-  facet_wrap(
-    ~ place_categories, 
-    nrow = 2,
-    scales = "free_x",
-    labeller = labeller(place_categories = labs_mob_ntl)
-  ) +
-  theme(
-    text = element_text(size = 10),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    legend.direction = "horizontal",
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    panel.spacing = unit(1.5, "lines"),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 20)),
-    plot.caption = element_text(
-      color = "#757575",
-      hjust = 0,
-      margin = margin(t = 20)
-    ),
-    strip.background = element_rect(fill = "white", color = NULL),
-    strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-  ) +
-  ggsave(
-    "fig/ier_mobility-ntl_plot.png",
-    width = 7,
-    height = 5,
-    dpi = 300
+  
+  mob_ntl_trf_tidy_02 <- mob_ntl_headline %>% 
+    left_join(mob_ntl_avg, by = c("date", "place_categories"))
+  
+  # annotations
+  ## covid-19
+  anno_text_covid_ggplot <- tibble(
+    x = ymd("2020-03-15"),
+    y = -75,
+    label = "COVID-19\npandemic \u2192",
+    place_categories = "grocery_pharmacy"
   )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_mobility-ntl_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_mobility-ntl_plot.png")
+  
+  # panel labels
+  labs_mob_ntl <- c(
+    grocery_pharmacy = "Grocery & pharmacy",
+    parks = "Parks",
+    residential = "Residential*",
+    retail_recreation = "Retail & recreation",
+    transit_stations = "Transit stations",
+    workplaces = "Workplaces"
+  )
+  
+  # legends
+  anno_text_avg <- tibble(
+    x = ymd("2020-08-01"),
+    y = -0.43,
+    label = "7-day moving\naverage",
+    place_categories = "grocery_pharmacy"
+  )
+  
+  # plot
+  ggplot(mob_ntl_trf_tidy_02, aes(date)) +
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_point(
+      aes(y = change_from_baseline), 
+      pch = 21,
+      color = "white",
+      fill = "#CFD8DC",
+      size = 1, 
+      alpha = 0.5
+    ) +
+    geom_line(
+      aes(y = avg_change_from_baseline), 
+      color = "#1d81a2",
+      lwd = 0.75
+    ) + 
+    scale_x_date(
+      breaks = seq(first(mob_ntl_trf_tidy_02$date), last(mob_ntl_trf_tidy_02$date), "3 month"),
+      date_labels = "%b\n'%y"
+    ) +
+    scale_y_continuous(
+      breaks = seq(-100, 50, 25),
+      limits = c(-100, 50),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    geom_label(
+      data = anno_text_covid_ggplot,
+      aes(x = x, y = y, label = label),
+      color = "#90A4AE",
+      hjust = 0,
+      size = 2,
+      fill = "white",
+      label.padding = unit(0.1, "lines"),
+      label.r = unit(0, "lines"),
+      label.size = 0
+    ) +
+    geom_text_repel(
+      data = anno_text_avg,
+      aes(x = x, y = y, label = label),
+      hjust = 0,
+      size = 2,
+      color = "#1d81a2",
+      nudge_x = 50,
+      nudge_y = -35,
+      fontface = "bold",
+      segment.curvature = -0.25,
+      segment.ncp = 3
+    ) +
+    labs(
+      title = "Community mobility in Indonesia",
+      subtitle = "Number of visitors, by place category\n(percent change from baseline in Jan-Feb 2020 period)",
+      caption = str_c(
+        "*Length of stay\n",
+        "Last updated on ",
+        format(Sys.Date(), "%B %d, %Y"),
+        "\n\nChart: Dzulfiqar Fathur Rahman | Source: Google"
+      )
+    ) +
+    facet_wrap(
+      ~ place_categories, 
+      nrow = 2,
+      scales = "free_x",
+      labeller = labeller(place_categories = labs_mob_ntl)
+    ) +
+    theme(
+      text = element_text(size = 10),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      legend.direction = "horizontal",
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      panel.spacing = unit(1.5, "lines"),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 20)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 20)
+      ),
+      strip.background = element_rect(fill = "white", color = NULL),
+      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
+    ) +
+    ggsave(
+      "fig/ier_mobility-ntl_plot.png",
+      width = 7,
+      height = 5,
+      dpi = 300
+    )
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_mobility-ntl_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_mobility-ntl_plot.png")
+  
+  # message
+  message("The national mobility chart has been updated")
+  
+} else {
+  
+  message("The national mobility chart is up to date")
+  
+}
 
 
 # preview -----------------------------------------------------------------
 
-# plot
-ggplot(mob_ntl_trf_tidy_02, aes(date)) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
-  ) +
-  geom_point(
-    aes(y = change_from_baseline), 
-    pch = 16,
-    color = "#CFD8DC",
-    size = 1, 
-    alpha = 0.25
-  ) +
-  geom_line(
-    aes(y = avg_change_from_baseline), 
-    color = "#1d81a2",
-    lwd = 0.75
-  ) + 
-  scale_x_date(
-    breaks = seq(first(mob_ntl_trf_tidy_02$date), last(mob_ntl_trf_tidy_02$date), "3 month"),
-    date_labels = "%b\n'%y"
-  ) +
-  scale_y_continuous(
-    breaks = seq(-100, 50, 25),
-    limits = c(-100, 50),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  facet_wrap(
-    ~ place_categories, 
-    nrow = 2,
-    scales = "free_x",
-    labeller = labeller(place_categories = labs_mob_ntl)
-  ) +
-  theme_void() +
-  theme(
-    plot.background = element_rect(fill = "#263238", color = NA),
-    plot.margin = margin(t = 50, r = 50, b = 50, l = 50),
-    strip.text = element_blank()
-  ) +
-  ggsave(
-    "fig/ier_mobility-ntl_void_plot.png",
-    width = 13.3,
-    height = 6.6,
-    dpi = 300
-  )
+if (mob_idn_raw_last != mob_idn_raw_csv_last) {
+  
+  # plot
+  ggplot(mob_ntl_trf_tidy_02, aes(date)) +
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_point(
+      aes(y = change_from_baseline), 
+      pch = 16,
+      color = "#CFD8DC",
+      size = 1, 
+      alpha = 0.25
+    ) +
+    geom_line(
+      aes(y = avg_change_from_baseline), 
+      color = "#1d81a2",
+      lwd = 0.75
+    ) + 
+    scale_x_date(
+      breaks = seq(first(mob_ntl_trf_tidy_02$date), last(mob_ntl_trf_tidy_02$date), "3 month"),
+      date_labels = "%b\n'%y"
+    ) +
+    scale_y_continuous(
+      breaks = seq(-100, 50, 25),
+      limits = c(-100, 50),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    facet_wrap(
+      ~ place_categories, 
+      nrow = 2,
+      scales = "free_x",
+      labeller = labeller(place_categories = labs_mob_ntl)
+    ) +
+    theme_void() +
+    theme(
+      plot.background = element_rect(fill = "#263238", color = NA),
+      plot.margin = margin(t = 50, r = 50, b = 50, l = 50),
+      strip.text = element_blank()
+    ) +
+    ggsave(
+      "fig/ier_mobility-ntl_void_plot.png",
+      width = 13.3,
+      height = 6.6,
+      dpi = 300
+    )
+  
+  # message
+  message("The national mobility preview chart has been updated")
+  
+} else {
+  
+  message("The national mobility preview chart is up to date")
+  
+}

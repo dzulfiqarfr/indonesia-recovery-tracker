@@ -6,7 +6,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-23
-# last updated: 2021-04-01
+# last updated: 2021-04-09
 # page: gdp
 
 
@@ -141,7 +141,7 @@ ctg_main_exp_wide <- ctg_main_exp %>%
     `Government consumption`,
     `Statistics discrepancy`
   )
-  
+
 # subset total gdp
 ctg_gdp <- ctg_exp_tidy %>% 
   dplyr::filter(key_exp == "800")
@@ -350,116 +350,127 @@ plot_ctg <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# reorder factor
-ctg_exp_trf_tidy <- ctg_exp_csv %>% 
-  mutate(expenditure_component = fct_reorder(expenditure_component, contribution_to_growth))
-
-# labels
-labs_ctg <- ctg_exp_trf_tidy %>% 
-  select(date) %>% 
-  mutate(
-    q = quarter(date), 
-    yr = year(date),
-    labs = str_c("Q", q, format(date, "\n%Y"))
-  ) %>% 
-  dplyr::filter(q == 1, yr %in% seq(2012, 2020, 2)) %>%
-  dplyr::filter(!duplicated(date)) %>% 
-  select(labs) %>% 
-  deframe()
-
-# plot
-ggplot(
-  ctg_exp_trf_tidy, 
-  aes(date, contribution_to_growth, fill = expenditure_component)
-) +
-  geom_hline(yintercept = 0, color = "#ff856c") +
-  geom_vline(
-    xintercept = ymd("2020-03-01"),
-    color = "#90A4AE",
-    linetype = 2
+if (nrow(ctg_exp_csv) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
+  
+  # reorder factor
+  ctg_exp_trf_tidy <- ctg_exp_csv %>% 
+    mutate(expenditure_component = fct_reorder(expenditure_component, contribution_to_growth))
+  
+  # labels
+  labs_ctg <- ctg_exp_trf_tidy %>% 
+    select(date) %>% 
+    mutate(
+      q = quarter(date), 
+      yr = year(date),
+      labs = str_c("Q", q, format(date, "\n%Y"))
+    ) %>% 
+    dplyr::filter(q == 1, yr %in% seq(2012, 2020, 2)) %>%
+    dplyr::filter(!duplicated(date)) %>% 
+    select(labs) %>% 
+    deframe()
+  
+  # plot
+  ggplot(
+    ctg_exp_trf_tidy, 
+    aes(date, contribution_to_growth, fill = expenditure_component)
   ) +
-  geom_col(width = 60) +
-  scale_x_date(
-    breaks = seq(ymd("2012-01-01"), ymd("2020-01-01"), by = "2 year"),
-    labels = labs_ctg
-  ) +
-  scale_y_continuous(
-    breaks = seq(-12, 12, 4),
-    limits = c(-12, 12),
-    expand = c(0, 0),
-    position = "right"
-  ) +
-  scale_fill_manual(values = c("#B0BEC5", "#ffd882", "#ff725b", "#60b4d7", "#1d81a2")) +
-  annotate(
-    "text",
-    x = ymd("2020-04-01"),
-    y = 10,
-    label = "COVID-19\npandemic \u2192",
-    size = 2,
-    hjust = 0,
-    color = "#90A4AE"
-  ) +
-  labs(
-    title = "Economic growth",
-    subtitle = "GDP, contribution to annual growth by expenditure component\n(percentage points)",
-    caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
-  ) +
-  guides(fill = guide_legend(reverse = T)) +
-  theme(
-    text = element_text(size = 12),
-    axis.title = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.line.x = element_line(color = "black"),
-    legend.title = element_blank(),
-    legend.key = element_rect(fill = "transparent"),
-    legend.key.size = unit(0.3, "cm"),
-    legend.position = c(0.485, 1.175),
-    legend.direction = "horizontal",
-    panel.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(color = "#CFD8DC"),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    plot.title = element_text(face = "bold"),
-    plot.subtitle = element_text(margin = margin(b = 55)),
-    plot.caption = element_text(
-      color = "#757575",
+    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_vline(
+      xintercept = ymd("2020-03-01"),
+      color = "#90A4AE",
+      linetype = 2
+    ) +
+    geom_col(width = 60) +
+    scale_x_date(
+      breaks = seq(ymd("2012-01-01"), ymd("2020-01-01"), by = "2 year"),
+      labels = labs_ctg
+    ) +
+    scale_y_continuous(
+      breaks = seq(-12, 12, 4),
+      limits = c(-12, 12),
+      expand = c(0, 0),
+      position = "right"
+    ) +
+    scale_fill_manual(values = c("#B0BEC5", "#ffd882", "#ff725b", "#60b4d7", "#1d81a2")) +
+    annotate(
+      "text",
+      x = ymd("2020-04-01"),
+      y = 10,
+      label = "COVID-19\npandemic \u2192",
+      size = 2,
       hjust = 0,
-      margin = margin(t = 35)
+      color = "#90A4AE"
+    ) +
+    labs(
+      title = "Economic growth",
+      subtitle = "GDP, contribution to annual growth by expenditure component\n(percentage points)",
+      caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
+    ) +
+    guides(fill = guide_legend(reverse = T)) +
+    theme(
+      text = element_text(size = 12),
+      axis.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.x = element_line(color = "black"),
+      legend.title = element_blank(),
+      legend.key = element_rect(fill = "transparent"),
+      legend.key.size = unit(0.3, "cm"),
+      legend.position = c(0.485, 1.175),
+      legend.direction = "horizontal",
+      panel.background = element_rect(fill = "white"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_line(color = "#CFD8DC"),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      plot.title = element_text(face = "bold"),
+      plot.subtitle = element_text(margin = margin(b = 55)),
+      plot.caption = element_text(
+        color = "#757575",
+        hjust = 0,
+        margin = margin(t = 35)
+      )
+    ) +
+    ggsave(
+      "fig/ier_gdp-ctg_plot.png",
+      width = 7,
+      height = 4,
+      dpi = 300
     )
-  ) +
-  ggsave(
-    "fig/ier_gdp-ctg_plot.png",
-    width = 7,
-    height = 4,
-    dpi = 300
-  )
-
-# add logo
-ier_logo <- image_read("images/ier_hexsticker_small.png")
-
-# add base plot
-base_plot <- image_read("fig/ier_gdp-ctg_plot.png")
-
-# get plot height
-plot_height <- magick::image_info(base_plot)$height
-
-# get plot width
-plot_width <- magick::image_info(base_plot)$width
-
-# get logo height
-logo_width <- magick::image_info(ier_logo)$width
-
-# get logo width
-logo_height <- magick::image_info(ier_logo)$height
-
-# position for the bottom 1.5 percent
-pos_bottom <- plot_height - logo_height - plot_height * 0.015
-
-# position for the right 1.5 percent
-pos_right <- plot_width - logo_width - 0.015 * plot_width
-
-# overwrite plot
-base_plot %>% 
-  image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-  image_write("fig/ier_gdp-ctg_plot.png")
+  
+  # add logo
+  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  
+  # add base plot
+  base_plot <- image_read("fig/ier_gdp-ctg_plot.png")
+  
+  # get plot height
+  plot_height <- magick::image_info(base_plot)$height
+  
+  # get plot width
+  plot_width <- magick::image_info(base_plot)$width
+  
+  # get logo height
+  logo_width <- magick::image_info(ier_logo)$width
+  
+  # get logo width
+  logo_height <- magick::image_info(ier_logo)$height
+  
+  # position for the bottom 1.5 percent
+  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  
+  # position for the right 1.5 percent
+  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  
+  # overwrite plot
+  base_plot %>% 
+    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
+    image_write("fig/ier_gdp-ctg_plot.png")
+  
+  # message
+  message("The contribution to GDP growth chart has been updated")
+  
+} else {
+  
+  message("The contribution to GDP growth chart is up to date")
+  
+}

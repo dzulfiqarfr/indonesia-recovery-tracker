@@ -20,19 +20,39 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Charts and tables to explore how the pandemic has affected Indonesia's economy as the virus has battered the nation's public health since early March 2020.
 
-<b>&rarr; Summary</b>
+<b>&rarr; Economy</b>
 
-```{r table: key indicators, layout="l-body-outset"}
+```{r table: key econ indicators}
 source("script/key_indicator_script.R", local = knitr::knit_global())
 
-reactable_key_ind
+reactable_key_econ
 ```
 
 <div style="color: #999; font-size: 12px;">
-Source: Statistics Indonesia (BPS); Our World in Data  
-<sup>*</sup>Organization for Economic Cooperation and Development's (OECD) March 2021 outlook  
+Last updated on `r format(Sys.Date(), "%B %d, %Y")`  
+Source: Statistics Indonesia (BPS)  
+*International Monetary Fund's (IMF) April 2021 outlook  
 <sup>&#8224;</sup>Government target
 </div>
+
+To fight the pandemic, the government has started a vaccination campaign and is planning to inoculate around 181.5 million people, nearly 70 percent of the total population.
+
+<b>&rarr; COVID-19</b>
+
+```{r table: key covid-19 indicators}
+reactable_key_covid
+```
+
+<div style="color: #999; font-size: 12px;">
+Last updated on `r format(Sys.Date(), "%B %d, %Y")`  
+Source: Our World in Data  
+</div>
+
+<b>Latest</b>  
+
+* Bank Indonesia reported an improvement in the Consumer Confidence Index to 93.4 in March from 85.8 in February, although it remained in the pessimistic territory ([read more](cci.html))  
+
+* The IMF revised down its projection for Indonesia’s economic growth this year by 0.5 percentage points to 4.3 percent in its April 2021 outlook  
 
 
 ## Explore
