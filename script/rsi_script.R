@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-25
-# last updated: 2021-04-08
+# last updated: 2021-04-09
 # page: retail sales
 
 
@@ -19,8 +19,8 @@ library(ggtext)
 library(magick)
 
 # date of most recent observation
-if(exists("last_date") == F) {
-  last_date <- "2021-02-01"
+if(exists("rsi_last_date") == F) {
+  rsi_last_date <- "2021-02-01"
 }
 
 
@@ -44,7 +44,7 @@ rsi_raw <- rsi_raw %>%
 
 # rename date columns
 ## dates
-rsi_date_seq <- seq(ymd("2012-01-01"), ymd(last_date), by = "month")
+rsi_date_seq <- seq(ymd("2012-01-01"), ymd(rsi_last_date), by = "month")
 
 ## correct sorting
 rsi_date_seq <- rsi_date_seq %>%
@@ -281,7 +281,7 @@ plot_rsi_index <- plot_ly(
       fixedrange = T,
       tickmode = "array",
       tickvals = c(3, 6, 9, 12),
-      ticktext = c("March", "June", "Sep", "Dec"),
+      ticktext = c("Mar", "Jun", "Sep", "Dec"),
       ticks = "outside",
       automargin = T,
       showline = T,
@@ -518,7 +518,7 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
     geom_point(aes(color = as_factor(yr)), size = 3.5, show.legend = F) +
     scale_x_continuous(
       breaks = seq(2, 12, 2),
-      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
+      labels = c("Feb", "Apr", "Jun", "Aug", "Oct", "Dec")
     ) +
     scale_y_continuous(
       breaks = seq(150, 250, 25),

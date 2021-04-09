@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-26
-# last updated: 2021-04-08
+# last updated: 2021-04-09
 # page: retail sales
 
 
@@ -20,8 +20,8 @@ library(magick)
 library(ggtext)
 
 # date of most recent observation
-if(exists("last_date") == F) {
-  last_date <- "2021-02-01"
+if(exists("rsi_last_date") == F) {
+  rsi_last_date <- "2021-02-01"
 }
 
 
@@ -57,7 +57,7 @@ rsi_by_cat_raw <- rsi_by_cat_raw %>%
 
 # rename date columns
 ## dates
-rsi_by_cat_date_seq <- seq(ymd("2012-01-01"), ymd(last_date), by = "month")
+rsi_by_cat_date_seq <- seq(ymd("2012-01-01"), ymd(rsi_last_date), by = "month")
 
 ## correct sorting
 rsi_by_cat_date_seq <- rsi_by_cat_date_seq %>%

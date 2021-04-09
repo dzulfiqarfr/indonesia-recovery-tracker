@@ -232,7 +232,7 @@ plot_growth <- growth_tidy %>%
 growth_exp_csv <- read_csv("data/ier_gdp-growth-exp_cleaned.csv")
 
 # latest observation in csv
-growth_exp_csv_latest <- growth_exp %>% 
+growth_exp_csv_latest <- growth_exp_csv %>% 
   select(date) %>% 
   dplyr::filter(!duplicated(date), date == last(date)) %>% 
   deframe()

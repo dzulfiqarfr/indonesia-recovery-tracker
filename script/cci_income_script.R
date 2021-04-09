@@ -20,8 +20,8 @@ library(ggtext)
 library(magick)
 
 # date of most recent observation
-if (exists("last_date") == F) {
-  last_date <- "2021-03-01"
+if (exists("cci_last_date") == F) {
+  cci_last_date <- "2021-03-01"
 }  
 
 
@@ -50,7 +50,7 @@ cci_by_income_raw <- cci_by_income_raw %>%
 
 # rename date columns
 ## dates
-cci_date_seq <- seq(ymd("2012-01-01"), ymd(last_date), by = "month")
+cci_date_seq <- seq(ymd("2012-01-01"), ymd(cci_last_date), by = "month")
 
 ## correct sorting
 cci_date_seq <- cci_date_seq %>%
