@@ -31,14 +31,14 @@ If you find a bug or want to give a suggestion on datasets or features or anythi
 
 ## Author
 
-Hi, I am Dzulfiqar Fathur Rahman. Currently, I work as a Jakarta-based journalist covering economic issues. Prior to working as a journalist, I did an internship at two research organizations. 
-
-Outside work (and this website), I play Mario Kart, draw or spend an unhealthy amount of time watching cat and dog videos, anime or other shows.
+Hi, I am Dzulfiqar Fathur Rahman. Currently, I work as a Jakarta-based journalist covering economic issues. Prior to working as a journalist, I did an internship at two research organizations.
 
 <aside>
 ```{r profile photo, fig.width = 6, out.width = "70%", fig.asp = 0.618, fig.align="center"}
 knitr::include_graphics("images/profile_photo.png")
 ```
 </aside>
+
+Outside work (and this website), I play Mario Kart, draw or spend an unhealthy amount of time watching cat and dog videos, anime or other shows.
 
 You can reach me through [e-mail](mailto:frdzulfiqar@gmail.com) or connect with me on [Twitter](https://twitter.com/dzulfiqarfr), [Medium](https://medium.com/@DzulfiqarFR), [LinkedIn](https://www.linkedin.com/in/dzulfiqarfr/) or [GitHub](https://github.com/dzulfiqarfr).

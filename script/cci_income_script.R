@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-24
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: consumer confidence
 
 
@@ -102,32 +102,6 @@ cci_by_income_wide[, 2:ncol(cci_by_income_wide)] <- lapply(
   cci_by_income_wide[, 2:ncol(cci_by_income_wide)],
   function(x) {round(x, 2)}
 )
-
-
-# export data -------------------------------------------------------------
-
-# data
-cci_by_income_csv <- cci_by_income_tidy %>% 
-  rename(income_group = 1, consumer_confidence_index = 3)
-
-# write csv
-if (file.exists("data/ier_cci-income_cleaned.csv") == F) {
-  
-  write_csv(cci_by_income_csv, "data/ier_cci-income_cleaned.csv")
-  
-  message("The Consumer Confidence Index dataset, broken down by income group, has been exported")
-  
-} else if(nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
-  
-  write_csv(cci_by_income_csv, "data/ier_cci-income_cleaned.csv")
-  
-  message("The Consumer Confidence Index dataset, broken down by income group, has been updated")
-  
-} else {
-  
-  message("The Consumer Confidence Index dataset, broken down by income group is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -284,6 +258,11 @@ plot_cci_by_income <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
+# latest observation in most recent csv
+cci_by_income_csv <- cci_by_income_tidy %>% 
+  rename(income_group = 1, consumer_confidence_index = 3)
+
+# export chart
 if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
   
   # annotations
@@ -443,5 +422,27 @@ if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))
 } else {
   
   message("The Consumer Confidence Index by income group preview chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_cci-income_cleaned.csv") == F) {
+  
+  write_csv(cci_by_income_csv, "data/ier_cci-income_cleaned.csv")
+  
+  message("The Consumer Confidence Index dataset, broken down by income group, has been exported")
+  
+} else if(nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
+  
+  write_csv(cci_by_income_csv, "data/ier_cci-income_cleaned.csv")
+  
+  message("The Consumer Confidence Index dataset, broken down by income group, has been updated")
+  
+} else {
+  
+  message("The Consumer Confidence Index dataset, broken down by income group is up to date")
   
 }

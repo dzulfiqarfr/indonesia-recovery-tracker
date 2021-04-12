@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-25
-# last updated: 2021-04-08
+# last updated: 2021-04-12
 # page: employment
 
 
@@ -128,27 +128,6 @@ unemp_ppl_trf[, 2:ncol(unemp_ppl_trf)] <- lapply(
   unemp_ppl_trf[, 2:ncol(unemp_ppl_trf)],
   function(x) round(x / 1000000, 2)
 )
-
-
-# export data -------------------------------------------------------------
-
-if (file.exists("data/ier_unemployed_cleaned.csv") == F) {
-  
-  write_csv(unemp_ppl_trf, "data/ier_unemployed_cleaned.csv")
-  
-  message("The number of unemployed workers dataset has been exported")
-  
-} else if (nrow(unemp_ppl_trf) != nrow(read_csv("data/ier_unemployed_cleaned.csv"))) {
-  
-  write_csv(unemp_ppl_trf, "data/ier_unemployed_cleaned.csv")
-  
-  message("The number of unemployed workers dataset has been updated")
-  
-} else {
-  
-  message("The number of unemployed workers dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -316,5 +295,26 @@ if (nrow(unemp_ppl_trf) != nrow(read_csv("data/ier_unemployed_cleaned.csv"))) {
 } else {
   
   message("The number of unemployed workers chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+if (file.exists("data/ier_unemployed_cleaned.csv") == F) {
+  
+  write_csv(unemp_ppl_trf, "data/ier_unemployed_cleaned.csv")
+  
+  message("The number of unemployed workers dataset has been exported")
+  
+} else if (nrow(unemp_ppl_trf) != nrow(read_csv("data/ier_unemployed_cleaned.csv"))) {
+  
+  write_csv(unemp_ppl_trf, "data/ier_unemployed_cleaned.csv")
+  
+  message("The number of unemployed workers dataset has been updated")
+  
+} else {
+  
+  message("The number of unemployed workers dataset is up to date")
   
 }

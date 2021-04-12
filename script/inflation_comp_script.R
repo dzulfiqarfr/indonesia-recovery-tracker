@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-04-08
+# last updated: 2021-04-12
 # page: inflation
 
 
@@ -137,39 +137,6 @@ inf_comp_tidy[, ncol(inf_comp_tidy)] <- lapply(
 # remove overall
 inf_comp_tidy <- inf_comp_tidy %>% 
   select(-overall)
-
-
-# export data -------------------------------------------------------------
-
-# remove month, year variables, reshape, correct component names
-inf_comp_tidy_csv <- inf_comp_tidy %>% 
-  select(-c("mo", "yr")) %>% 
-  rename(Core = 2, `Administered prices` = 3, `Volatile prices` = 4) %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "component",
-    values_to = "inflation_mom"
-  )
-
-
-# write csv
-if (file.exists("data/ier_inflation-component_cleaned.csv") == F) {
-  
-  write_csv(inf_comp_tidy_csv, "data/ier_inflation-component_cleaned.csv")
-  
-  message("The inflation by component dataset has been exported")
-  
-} else if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_cleaned.csv"))) {
-  
-  write_csv(inf_comp_tidy_csv, "data/ier_inflation-component_cleaned.csv")
-  
-  message("The inflation by component dataset has been updated")
-  
-} else {
-  
-  message("The inflation by component dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -325,6 +292,17 @@ sm_inf_comp <- subplot(
 
 # export chart ------------------------------------------------------------
 
+# remove month, year variables, reshape, correct component names
+inf_comp_tidy_csv <- inf_comp_tidy %>% 
+  select(-c("mo", "yr")) %>% 
+  rename(Core = 2, `Administered prices` = 3, `Volatile prices` = 4) %>% 
+  pivot_longer(
+    2:ncol(.),
+    names_to = "component",
+    values_to = "inflation_mom"
+  )
+
+# export chart
 if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_cleaned.csv"))) {
   
   # annotations
@@ -441,5 +419,27 @@ if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_clean
 } else {
   
   message("The inflation by component chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_inflation-component_cleaned.csv") == F) {
+  
+  write_csv(inf_comp_tidy_csv, "data/ier_inflation-component_cleaned.csv")
+  
+  message("The inflation by component dataset has been exported")
+  
+} else if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_cleaned.csv"))) {
+  
+  write_csv(inf_comp_tidy_csv, "data/ier_inflation-component_cleaned.csv")
+  
+  message("The inflation by component dataset has been updated")
+  
+} else {
+  
+  message("The inflation by component dataset is up to date")
   
 }

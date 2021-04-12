@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: inflation
 
 
@@ -26,9 +26,11 @@ if (exists("BPS_KEY") == F) {
 }
 
 # bps api url
-if (exists("base_url_static") == F) {
-  base_url_static <- "https://webapi.bps.go.id/v1/api/view"
-}
+## dyanmic table
+base_url_dynamic <- "https://webapi.bps.go.id/v1/api/list"
+
+## statictable
+base_url_static <- "https://webapi.bps.go.id/v1/api/view"
 
 
 # data --------------------------------------------------------------------
@@ -109,12 +111,11 @@ inf_yoy_tidy$date <- ymd(inf_yoy_tidy$date)
 
 # request data
 inf_mom_req <- GET(
-  base_url_static,
+  base_url_dynamic,
   query = list(
-    model = "statictable",
+    model = "data",
     domain = "0000",
-    lang = "ind",
-    id = "913",
+    var = "1708",
     key = BPS_KEY
   )
 )
@@ -123,81 +124,58 @@ inf_mom_req <- GET(
 inf_mom_parsed <- content(inf_mom_req, "text") %>% 
   fromJSON()
 
-# download table as temporary file
-GET(
-  inf_mom_parsed$data$excel, 
-  write_disk(inf_mom_temp <- tempfile(fileext = ".xls"))
-)
+# extract keys
+## city
+inf_mom_key_ntl <- as_tibble(inf_mom_parsed$vervar) %>% 
+  dplyr::filter(label == "INDONESIA")
 
-# import
-inf_mom_raw <- read_excel(inf_mom_temp, skip = 2, na = "")
+## year
+inf_mom_key_yr <- as_tibble(inf_mom_parsed$tahun)
 
-# replace month names
-inf_mom_raw$Bulan[1:12] <- as.character(inf_date_seq)
+## data
+inf_mom_raw <- as_tibble(inf_mom_parsed$datacontent)
 
-# correct date type
-inf_mom_raw$Bulan <- ymd(inf_mom_raw$Bulan)
-
-# remove table notes
-inf_mom_raw <- inf_mom_raw %>% 
-  dplyr::filter(!is.na(Bulan))
-
-# tidy data
+# subset national inflation
 inf_mom_tidy <- inf_mom_raw %>% 
   pivot_longer(
-    2:ncol(.), 
-    names_to = "yr", 
+    1:ncol(.),
+    names_to = "key",
     values_to = "rate_mom"
   ) %>% 
-  mutate(mo = format(Bulan, "-%m-01")) %>%
-  arrange(yr, mo) %>% 
-  group_by(yr, Bulan) %>% 
-  mutate(
-    date = str_c(yr, mo),
-    mo = month(date)
+  separate(
+    key,
+    into = c("key_exp", "key_period"),
+    sep = "17080"
   ) %>% 
-  ungroup() %>% 
-  select(date, mo, yr, rate_mom) %>% 
-  dplyr::filter(
-    !is.na(rate_mom),
-    yr >= 2020
-  )
+  mutate(
+    key_yr = str_sub(key_period, 1, 3),
+    key_mo = str_sub(key_period, 4, 5)
+  ) %>% 
+  dplyr::filter(key_exp == "9999")
 
-# correct data type
-inf_mom_tidy$date <- ymd(inf_mom_tidy$date)
+# replace year key
+inf_mom_tidy$key_yr <- inf_mom_tidy$key_yr %>% 
+  str_replace_all(deframe(inf_mom_key_yr))
+
+# replace month key, create date variable
+inf_mom_trf <- inf_mom_tidy %>% 
+  mutate(
+    key_mo = case_when(
+      key_mo != c(as.character(seq(10, 12, 1))) ~ str_c("0", key_mo),
+      TRUE ~ as.character(key_mo)
+    ),
+    key_mo = str_c("-", key_mo, "-01"),
+    date = ymd(str_c(key_yr, key_mo)),
+    mo = month(date),
+    yr = key_yr
+  ) %>%  
+  select(date, mo, yr, rate_mom)
 
 
 # merge data --------------------------------------------------------------
 
-inf_mom_yoy <- inf_mom_tidy %>% 
+inf_mom_yoy <- inf_mom_trf %>% 
   left_join(inf_yoy_tidy, by = c("date", "mo", "yr"))
-
-
-# export data -------------------------------------------------------------
-
-# remove month, year variables
-inf_mom_yoy_csv <- inf_mom_yoy %>% 
-  select(-c("mo", "yr")) %>% 
-  rename(inflation_mom = 2, inflation_yoy = 3)
-
-# write csv
-if (file.exists("data/ier_inflation-overall_cleaned.csv") == F) {
-  
-  write_csv(inf_mom_yoy_csv, "data/ier_inflation-overall_cleaned.csv")
-  
-  message("The overall inflation dataset has been exported")
-  
-} else if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
-  
-  write_csv(inf_mom_yoy_csv, "data/ier_inflation-overall_cleaned.csv")
-  
-  message("The overall inflation dataset has been updated")
-  
-} else {
-  
-  message("The overall inflation dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -315,16 +293,17 @@ anno_yoy_2021 <- list(
 ) 
 
 # plot
-plot_inf_yoy <- plot_ly(
-  inf_mom_yoy,
-  type = "scatter",
-  mode = "markers+lines",
-  line = list(width = 3),
-  colors = c("#CFD8DC", "#1d81a2"),
-  text = ~format(date, "%b %Y"),
-  hovertemplate = "Inflation rate: %{y} percent<br>Date: %{text}<extra></extra>",
-  height = 300
-) %>% 
+plot_inf_yoy <- inf_mom_yoy %>% 
+  dplyr::filter(!is.na(rate_yoy)) %>% 
+  plot_ly(
+    type = "scatter",
+    mode = "markers+lines",
+    line = list(width = 3),
+    colors = c("#CFD8DC", "#1d81a2"),
+    text = ~format(date, "%b %Y"),
+    hovertemplate = "Inflation rate: %{y} percent<br>Date: %{text}<extra></extra>",
+    height = 300
+  ) %>% 
   add_trace(
     x = ~mo,
     y = ~rate_yoy,
@@ -366,7 +345,13 @@ plot_inf_yoy <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+# latest data
+inf_mom_yoy_tidy <- inf_mom_yoy %>% 
+  select(-c("mo", "yr")) %>% 
+  rename(inflation_mom = 2, inflation_yoy = 3)
+
+# export chart
+if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
   
   # monthly inflation rate ----
   
@@ -475,7 +460,9 @@ if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.c
   )
   
   # plot
-  ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +
+  inf_mom_yoy %>% 
+    dplyr::filter(!is.na(rate_yoy)) %>% 
+    ggplot(aes(mo, rate_yoy)) +
     geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
     geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
     scale_x_continuous(
@@ -572,7 +559,7 @@ if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.c
 
 # preview -----------------------------------------------------------------
 
-if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
   
   # plot
   ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +
@@ -608,5 +595,27 @@ if (nrow(inf_mom_yoy_csv) != nrow(read_csv("data/ier_inflation-overall_cleaned.c
 } else {
   
   message("The annual inflation rate preview chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_inflation-overall_cleaned.csv") == F) {
+  
+  write_csv(inf_mom_yoy_tidy, "data/ier_inflation-overall_cleaned.csv")
+  
+  message("The overall inflation dataset has been exported")
+  
+} else if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+  
+  write_csv(inf_mom_yoy_tidy, "data/ier_inflation-overall_cleaned.csv")
+  
+  message("The overall inflation dataset has been updated")
+  
+} else {
+  
+  message("The overall inflation dataset is up to date")
   
 }

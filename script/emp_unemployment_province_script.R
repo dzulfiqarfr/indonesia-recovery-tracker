@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-24
-# last updated: 2021-04-08
+# last updated: 2021-04-12
 # page: employment
 
 
@@ -170,28 +170,6 @@ unemp_prov_wide <- unemp_prov_trf %>%
   ) %>% 
   select(-4) %>% 
   rename(unemp_rate_1 = 2, unemp_rate_2 = 3, ppt_change_yoy = 4)
-
-
-# export data -------------------------------------------------------------
-
-# write csv
-if (file.exists("data/ier_unemployment-province_cleaned.csv") == F) {
-  
-  write_csv(unemp_prov_trf, "data/ier_unemployment-province_cleaned.csv")
-  
-  message("The unemployment rate by province dataset has been exported")
-  
-} else if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleaned.csv"))) {
-  
-  write_csv(unemp_prov_trf, "data/ier_unemployment-province_cleaned.csv")
-  
-  message("The unemployment rate by province dataset has been updated")
-  
-} else {
-  
-  message("The unemployment rate by province dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -377,7 +355,7 @@ if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleane
       plot.subtitle = element_text(margin = margin(b = 35), hjust = -1.405),
       plot.caption = element_text(
         color = "#757575",
-        hjust = -3.325,
+        hjust = -3.4,
         margin = margin(t = 35)
       )
     ) +
@@ -424,5 +402,27 @@ if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleane
 } else {
   
   message("The unemployment rate by province chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_unemployment-province_cleaned.csv") == F) {
+  
+  write_csv(unemp_prov_trf, "data/ier_unemployment-province_cleaned.csv")
+  
+  message("The unemployment rate by province dataset has been exported")
+  
+} else if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleaned.csv"))) {
+  
+  write_csv(unemp_prov_trf, "data/ier_unemployment-province_cleaned.csv")
+  
+  message("The unemployment rate by province dataset has been updated")
+  
+} else {
+  
+  message("The unemployment rate by province dataset is up to date")
   
 }

@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: gdp
 
 
@@ -231,19 +231,19 @@ plot_growth <- growth_tidy %>%
 # data
 growth_exp_csv <- read_csv("data/ier_gdp-growth-exp_cleaned.csv")
 
-# latest observation in csv
+# latest observation in most recent csv
 growth_exp_csv_latest <- growth_exp_csv %>% 
   select(date) %>% 
   dplyr::filter(!duplicated(date), date == last(date)) %>% 
   deframe()
 
-# latest observation in data
+# latest observation in most recent data
 growth_tidy_latest <- growth_tidy %>% 
   select(date) %>% 
   dplyr::filter(date == last(date)) %>% 
   deframe()
 
-# chart
+# export chart
 if (growth_tidy_latest != growth_exp_csv_latest) {
   
   # labels

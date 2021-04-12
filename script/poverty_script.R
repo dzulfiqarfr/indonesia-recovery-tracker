@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-04
-# last updated: 2021-04-08
+# last updated: 2021-04-12
 # page: poverty
 
 
@@ -109,32 +109,6 @@ pov_trf <- pov_tidy_sub %>%
   group_by(area) %>% 
   mutate(diff = pov_rate - dplyr::lag(pov_rate, 2)) %>% 
   ungroup()
-
-
-# export data -------------------------------------------------------------
-
-# data
-pov_trf_csv <- pov_trf %>% 
-  rename(ppt_change_yoy = diff)
-
-# write csv
-if (file.exists("data/ier_poverty-rate_cleaned.csv") == F) {
-  
-  write_csv(pov_trf_csv, "data/ier_poverty-rate_cleaned.csv")
-  
-  message("The poverty rate by area dataset has been exported")
-  
-} else if (nrow(pov_trf_csv) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
-  
-  write_csv(pov_trf_csv, "data/ier_poverty-rate_cleaned.csv")
-  
-  message("The poverty rate by area dataset has been updated")
-  
-} else {
-  
-  message("The poverty rate by area dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -309,7 +283,12 @@ plot_pov_diff <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-if (nrow(pov_trf_csv) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
+# latest data
+pov_trf_tidy <- pov_trf %>% 
+  rename(ppt_change_yoy = diff)
+
+# export chart
+if (nrow(pov_trf_tidy) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
   
   # plot
   ggplot(pov_trf, aes(date, pov_rate, color = area)) +
@@ -415,7 +394,7 @@ if (nrow(pov_trf_csv) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
 
 # preview -----------------------------------------------------------------
 
-if (nrow(pov_trf_csv) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
+if (nrow(pov_trf_tidy) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
   
   # plot
   ggplot(pov_trf, aes(date, pov_rate, color = area)) +
@@ -454,5 +433,27 @@ if (nrow(pov_trf_csv) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
 } else {
   
   message("The poverty preview chart is up to dtae")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_poverty-rate_cleaned.csv") == F) {
+  
+  write_csv(pov_trf_tidy, "data/ier_poverty-rate_cleaned.csv")
+  
+  message("The poverty rate by area dataset has been exported")
+  
+} else if (nrow(pov_trf_tidy) != nrow(read_csv("data/ier_poverty-rate_cleaned.csv"))) {
+  
+  write_csv(pov_trf_tidy, "data/ier_poverty-rate_cleaned.csv")
+  
+  message("The poverty rate by area dataset has been updated")
+  
+} else {
+  
+  message("The poverty rate by area dataset is up to date")
   
 }

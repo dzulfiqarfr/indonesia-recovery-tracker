@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-01
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: mobility
 
 
@@ -93,77 +93,6 @@ mob_ntl_trf[, 2:ncol(mob_ntl_trf)] <- lapply(
   mob_ntl_trf[, 2:ncol(mob_ntl_trf)],
   function(x) {round(x, 2)}
 )
-
-
-# export data -------------------------------------------------------------
-
-# latest observation in most recent data
-mob_idn_raw_last <- mob_idn_raw %>% 
-  select(date) %>% 
-  dplyr::filter(date == last(date), !duplicated(date)) %>% 
-  deframe()
-
-# latest observation in csv
-mob_idn_raw_csv_last <- read_csv("data/ier_mobility-idn_tidy.csv") %>% 
-  select(date) %>% 
-  dplyr::filter(date == last(date), !duplicated(date)) %>% 
-  deframe()
-
-# data
-## raw indonesian observations
-mob_idn_csv <- mob_idn_raw %>% 
-  pivot_longer(
-    4:ncol(.),
-    names_to = "place_category",
-    values_to = "change_from_baseline"
-  )
-
-## national mobility
-mob_ntl_trf_tidy <- mob_ntl_trf %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "place_category",
-    values_to = "change_from_baseline"
-  )
-
-# write csv
-## raw indonesian observations
-if (file.exists("data/ier_mobility-idn_tidy.csv") == F) {
-  
-  write_csv(mob_idn_csv, "data/ier_mobility-idn_tidy.csv")
-  
-  message("The raw mobility dataset has been exported")
-  
-} else if (mob_idn_raw_last != mob_idn_raw_csv_last) {
-  
-  write_csv(mob_idn_csv, "data/ier_mobility-idn_tidy.csv")
-  
-  message("The raw mobility dataset has been updated")
-  
-} else {
-  
-  message("The raw mobility dataset is up to date")
-  
-}
-
-## national mobility
-if (file.exists("data/ier_mobility-ntl_cleaned.csv") == F) {
-  
-  write_csv(mob_ntl_trf_tidy, "data/ier_mobility-ntl_cleaned.csv")
-  
-  message("The national mobility dataset has been exported")
-  
-} else if (mob_idn_raw_last != mob_idn_raw_csv_last) {
-  
-  write_csv(mob_ntl_trf_tidy, "data/ier_mobility-ntl_cleaned.csv")
-  
-  message("The national mobility dataset has been updated")
-  
-} else {
-  
-  message("The national mobility dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -387,6 +316,19 @@ sm_mob_ntl <- subplot(
 
 # export chart ------------------------------------------------------------
 
+# latest observation in most recent data
+mob_idn_raw_last <- mob_idn_raw %>% 
+  select(date) %>% 
+  dplyr::filter(date == last(date), !duplicated(date)) %>% 
+  deframe()
+
+# latest observation in most recent csv
+mob_idn_raw_csv_last <- read_csv("data/ier_mobility-idn_tidy.csv") %>% 
+  select(date) %>% 
+  dplyr::filter(date == last(date), !duplicated(date)) %>% 
+  deframe()
+
+# export chart
 if (mob_idn_raw_last != mob_idn_raw_csv_last) {
   
   # data
@@ -638,5 +580,64 @@ if (mob_idn_raw_last != mob_idn_raw_csv_last) {
 } else {
   
   message("The national mobility preview chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# data
+## raw indonesian observations
+mob_idn_csv <- mob_idn_raw %>% 
+  pivot_longer(
+    4:ncol(.),
+    names_to = "place_category",
+    values_to = "change_from_baseline"
+  )
+
+## national mobility
+mob_ntl_trf_tidy <- mob_ntl_trf %>% 
+  pivot_longer(
+    2:ncol(.),
+    names_to = "place_category",
+    values_to = "change_from_baseline"
+  )
+
+# write csv
+## raw indonesian observations
+if (file.exists("data/ier_mobility-idn_tidy.csv") == F) {
+  
+  write_csv(mob_idn_csv, "data/ier_mobility-idn_tidy.csv")
+  
+  message("The raw mobility dataset has been exported")
+  
+} else if (mob_idn_raw_last != mob_idn_raw_csv_last) {
+  
+  write_csv(mob_idn_csv, "data/ier_mobility-idn_tidy.csv")
+  
+  message("The raw mobility dataset has been updated")
+  
+} else {
+  
+  message("The raw mobility dataset is up to date")
+  
+}
+
+## national mobility
+if (file.exists("data/ier_mobility-ntl_cleaned.csv") == F) {
+  
+  write_csv(mob_ntl_trf_tidy, "data/ier_mobility-ntl_cleaned.csv")
+  
+  message("The national mobility dataset has been exported")
+  
+} else if (mob_idn_raw_last != mob_idn_raw_csv_last) {
+  
+  write_csv(mob_ntl_trf_tidy, "data/ier_mobility-ntl_cleaned.csv")
+  
+  message("The national mobility dataset has been updated")
+  
+} else {
+  
+  message("The national mobility dataset is up to date")
   
 }

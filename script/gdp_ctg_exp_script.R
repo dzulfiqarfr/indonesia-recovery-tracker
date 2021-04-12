@@ -6,7 +6,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-23
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: gdp
 
 
@@ -178,36 +178,6 @@ ctg_exp_trf[, 2:ncol(ctg_exp_trf)] <- lapply(
 )
 
 
-# export data -------------------------------------------------------------
-
-# data
-ctg_exp_csv <- ctg_exp_trf %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "expenditure_component",
-    values_to = "contribution_to_growth"
-  )
-
-# write csv
-if (file.exists("data/ier_gdp-ctg_cleaned.csv") == F) {
-  
-  write_csv(ctg_exp_csv, "data/ier_gdp-ctg_cleaned.csv")
-  
-  message("The contribution to GDP growth dataset has been exported")
-  
-} else if (nrow(ctg_exp_csv) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
-  
-  write_csv(ctg_exp_csv, "data/ier_gdp-ctg_cleaned.csv") 
-  
-  message("The contribution to GDP growth dataset has been updated")
-  
-} else {
-  
-  message("The contribution to GDP growth dataset is up to date")
-  
-}
-
-
 # plot --------------------------------------------------------------------
 
 # quarter labels
@@ -350,10 +320,19 @@ plot_ctg <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-if (nrow(ctg_exp_csv) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
+# latest observation
+ctg_exp_trf_tidy <- ctg_exp_trf %>% 
+  pivot_longer(
+    2:ncol(.),
+    names_to = "expenditure_component",
+    values_to = "contribution_to_growth"
+  )
+
+# export chart
+if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
   
   # reorder factor
-  ctg_exp_trf_tidy <- ctg_exp_csv %>% 
+  ctg_exp_trf_tidy <- ctg_exp_trf_tidy %>% 
     mutate(expenditure_component = fct_reorder(expenditure_component, contribution_to_growth))
   
   # labels
@@ -472,5 +451,27 @@ if (nrow(ctg_exp_csv) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
 } else {
   
   message("The contribution to GDP growth chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_gdp-ctg_cleaned.csv") == F) {
+  
+  write_csv(ctg_exp_trf_tidy, "data/ier_gdp-ctg_cleaned.csv")
+  
+  message("The contribution to GDP growth dataset has been exported")
+  
+} else if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
+  
+  write_csv(ctg_exp_trf_tidy, "data/ier_gdp-ctg_cleaned.csv") 
+  
+  message("The contribution to GDP growth dataset has been updated")
+  
+} else {
+  
+  message("The contribution to GDP growth dataset is up to date")
   
 }

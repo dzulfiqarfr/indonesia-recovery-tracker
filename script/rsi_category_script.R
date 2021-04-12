@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-26
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: retail sales
 
 
@@ -21,7 +21,7 @@ library(ggtext)
 
 # date of most recent observation
 if(exists("rsi_last_date") == F) {
-  rsi_last_date <- "2021-02-01"
+  rsi_last_date <- "2021-03-01"
 }
 
 
@@ -126,33 +126,6 @@ rsi_by_cat_idx_wide <- rsi_by_cat_trf %>%
   dplyr::filter(yr >= 2016) %>% 
   select(-c("diff_yoy", "pct_change_yoy")) %>% 
   pivot_wider(names_from = Indices, values_from = rsi)
-
-
-# export data -------------------------------------------------------------
-
-# data
-rsi_cat_csv <- rsi_by_cat_trf %>% 
-  rename(category = 1, retail_sales_index = 3) %>% 
-  select(-diff_yoy)
-
-# write csv
-if (file.exists("data/ier_rsi-category_cleaned.csv") == F) {
-  
-  write_csv(rsi_cat_csv, "data/ier_rsi-category_cleaned.csv")
-  
-  message("The Retail Sales Index dataset, broken down by category, has been exported")
-  
-} else if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
-  
-  write_csv(rsi_cat_csv, "data/ier_rsi-category_cleaned.csv")
-  
-  message("The Retail Sales Index dataset, broken down by category, has been updated")
-  
-} else {
-  
-  message("The Retail Sales Index dataset, broken down by category, is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -517,6 +490,12 @@ sm_rsi_by_cat_idx <- subplot(
 
 # export chart ------------------------------------------------------------
 
+# latest observation in most recent csv
+rsi_cat_csv <- rsi_by_cat_trf %>% 
+  rename(category = 1, retail_sales_index = 3) %>% 
+  select(-diff_yoy)
+
+# export chart
 if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
   
   # rsi by cat change ----
@@ -744,5 +723,26 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
 } else {
   
   message("The Retail Sales Index by category charts are up to date")
+  
+}
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_rsi-category_cleaned.csv") == F) {
+  
+  write_csv(rsi_cat_csv, "data/ier_rsi-category_cleaned.csv")
+  
+  message("The Retail Sales Index dataset, broken down by category, has been exported")
+  
+} else if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
+  
+  write_csv(rsi_cat_csv, "data/ier_rsi-category_cleaned.csv")
+  
+  message("The Retail Sales Index dataset, broken down by category, has been updated")
+  
+} else {
+  
+  message("The Retail Sales Index dataset, broken down by category, is up to date")
   
 }

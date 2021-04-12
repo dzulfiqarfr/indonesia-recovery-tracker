@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-05
-# last updated: 2021-04-08
+# last updated: 2021-04-12
 # page: poverty
 
 
@@ -108,32 +108,6 @@ poor_trf <- poor_tidy_sub %>%
   rename(area = 1) %>% 
   group_by(area) %>% 
   mutate(diff = poor - dplyr::lag(poor, 2))
-
-
-# export data -------------------------------------------------------------
-
-# data
-poor_csv <- poor_trf %>% 
-  rename(number_of_poor_ppl = 3, change_yoy = 4)
-
-# write csv
-if (file.exists("data/ier_poor_cleaned.csv") == F) {
-  
-  write_csv(poor_csv, "data/ier_poor_cleaned.csv")
-  
-  message("The number of poor poor, broken down by area, dataset has been exported")
-  
-} else if (nrow(poor_csv) != nrow(read_csv("data/ier_poor_cleaned.csv"))) {
-  
-  write_csv(poor_csv, "data/ier_poor_cleaned.csv")
-  
-  message("The number of poor poor, broken down by area, dataset has been updated")
-  
-} else {
-  
-  message("The number of poor poor, broken down by area, dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -308,7 +282,12 @@ plot_poor_diff <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-if (nrow(poor_csv) != nrow(read_csv("data/ier_poor_cleaned.csv"))) {
+# latest data
+poor_trf_tidy <- poor_trf %>% 
+  rename(number_of_poor_ppl = 3, change_yoy = 4)
+
+# export chart
+if (nrow(poor_trf_tidy) != nrow(read_csv("data/ier_poor_cleaned.csv"))) {
   
   # plot
   ggplot(poor_trf, aes(date, poor, color = area)) +
@@ -408,5 +387,27 @@ if (nrow(poor_csv) != nrow(read_csv("data/ier_poor_cleaned.csv"))) {
 } else {
   
   message("The number of poor by area is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_poor_cleaned.csv") == F) {
+  
+  write_csv(poor_trf_tidy, "data/ier_poor_cleaned.csv")
+  
+  message("The number of poor poor, broken down by area, dataset has been exported")
+  
+} else if (nrow(poor_trf_tidy) != nrow(read_csv("data/ier_poor_cleaned.csv"))) {
+  
+  write_csv(poor_trf_tidy, "data/ier_poor_cleaned.csv")
+  
+  message("The number of poor poor, broken down by area, dataset has been updated")
+  
+} else {
+  
+  message("The number of poor poor, broken down by area, dataset is up to date")
   
 }

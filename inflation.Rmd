@@ -124,25 +124,64 @@ div(plot_inf_yoy)
 
 ```{r description: overall inflation}
 # latest values
-inf_mom_yoy_latest <- inf_mom_yoy %>% 
+## monthly inflation
+inf_mom_latest <- inf_mom_yoy %>%
+  select(-rate_yoy) %>% 
+  tail(2) %>% 
+  select(-c("mo", "yr"))
+
+## annual inflation
+inf_yoy_latest <- inf_mom_yoy %>%
+  select(-rate_mom) %>% 
+  dplyr::filter(!is.na(rate_yoy)) %>% 
   tail(2) %>% 
   select(-c("mo", "yr"))
 
 # date of last update
-source_last_update <- inf_yoy_parsed$data %>% 
+## dynamic
+### request data
+pressrelease_req <- GET(
+  base_url_dynamic,
+  query = list(
+    model = "pressrelease",
+    lang = "ind",
+    domain = "0000",
+    keyword = "inflasi",
+    key = BPS_KEY
+  )
+)
+
+### parse response
+pressrelease_resp <- content(pressrelease_req, "text") %>% 
+  fromJSON()
+
+### date of last update
+source_last_update_dynamic <- as_tibble(pressrelease_resp$data[[2]]) %>% 
+  dplyr::filter(subj_id == 3) %>% 
+  mutate(rl_date = ymd(rl_date)) %>% 
+  arrange(desc(rl_date)) %>% 
+  dplyr::filter(rl_date == first(rl_date)) %>% 
+  select(rl_date) %>% 
+  deframe() %>% 
+  format("%B %d, %Y")
+
+## static
+source_last_update_static <- inf_yoy_parsed$data %>% 
   as_tibble() %>% 
   select(updt_date) %>% 
   ymd_hms() %>% 
   format("%B %d, %Y")
 ```
 
-The monthly `r ier_compare_inf(inf_mom_yoy_latest$rate_mom[2])` rate was recorded at **`r inf_mom_yoy_latest$rate_mom[2]`** percent in `r format(inf_mom_yoy_latest$date[2], "%B")`, `r ier_compare_high(inf_mom_yoy_latest$rate_mom[2], inf_mom_yoy_latest$rate_mom[1])` than the rate in the same month in the previous year. The annual `r ier_compare_inf(inf_mom_yoy_latest$rate_yoy[2])` rate was recorded at **`r inf_mom_yoy_latest$rate_yoy[2]`** percent, `r ier_compare_high(inf_mom_yoy_latest$rate_yoy[2], inf_mom_yoy_latest$rate_yoy[1])` than the rate in the same month a year earlier.
+The monthly `r ier_compare_inf(inf_mom_latest$rate_mom[2])` rate was recorded at **`r inf_mom_latest$rate_mom[2]`** percent in `r format(inf_mom_latest$date[2], "%B")`, `r ier_compare_high(inf_mom_latest$rate_mom[2], inf_mom_latest$rate_mom[1])` than the rate in the same month in the previous year.
 
 <aside>
 
 See also [unemployment](employment.html#unemployment)
 
 </aside>
+
+On an annual basis, the `r ier_compare_inf(inf_yoy_latest$rate_yoy[2])` rate stood at **`r inf_yoy_latest$rate_yoy[2]`** percent in `r format(inf_yoy_latest$date[2], "%B")`, `r ier_compare_high(inf_yoy_latest$rate_yoy[2], inf_yoy_latest$rate_yoy[1])` than the rate in the same month a year earlier.
 
 The pandemic has led to a record-low full-year annual inflation rate at **1.68** percent in 2020.
 
@@ -152,7 +191,7 @@ The pandemic has led to a record-low full-year annual inflation rate at **1.68**
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: Statistics Indonesia (BPS) ([monthly](https://www.bps.go.id/statictable/2014/09/26/913/tingkat-inflasi-bulanan-gabungan-90-kota-sup-1-sup-2018-100-.html){target="_blank"}; [annual](https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html){target="_blank"})  
 **Data and update frequency**: monthly  
-**Last updated**: `r source_last_update`  
+**Last updated**: monthly inflation (`r source_last_update_dynamic`); annual inflation (`r source_last_update_static`)  
 **Download**: `r embed_inf_overall`; monthly inflation (`r embed_chart_inf_overall_mom`); annual inflation(`r embed_chart_inf_overall_yoy`)  
 </details>
 
@@ -184,7 +223,7 @@ For administered prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$adm
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [BPS](https://www.bps.go.id/statictable/2012/02/02/908/inflasi-umum-inti-harga-yang-diatur-pemerintah-dan-barang-bergejolak-inflasi-indonesia-2009-2021.html){target="_blank"}  
 **Data and update frequency**: monthly  
-**Last updated**: `r source_last_update`  
+**Last updated**: `r source_last_update_static`  
 **Download**: `r embed_inf_comp`; `r embed_chart_inf_comp`  
 </details>
 
@@ -234,7 +273,7 @@ See also [retail sales index by category](rsi.html#by-category)
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [BPS](https://www.bps.go.id/statictable/2020/02/04/2083/inflasi-indonesia-menurut-kelompok-pengeluaran-2020-2021.html){target="_blank"}  
 **Data and update frequency**: monthly  
-**Last updated**: `r source_last_update`  
+**Last updated**: `r source_last_update_static`  
 **Download**: `r embed_inf_exp`  
 </details>
 

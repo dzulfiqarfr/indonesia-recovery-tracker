@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-25
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: retail sales
 
 
@@ -20,7 +20,7 @@ library(magick)
 
 # date of most recent observation
 if(exists("rsi_last_date") == F) {
-  rsi_last_date <- "2021-02-01"
+  rsi_last_date <- "2021-03-01"
 }
 
 
@@ -99,33 +99,6 @@ rsi_trf_sub <- rsi_trf %>%
   ) %>% 
   dplyr::filter(yr >= 2016) %>% 
   select(date, mo, yr, rsi)
-
-
-# export data -------------------------------------------------------------
-
-# data
-rsi_csv <- rsi_trf %>% 
-  rename(retail_sales_index = 2) %>% 
-  select(-diff_yoy)
-
-# write csv
-if (file.exists("data/ier_rsi-overall_cleaned.csv") == F) {
-  
-  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
-  
-  message("The Retail Sales Index dataset has been exported")
-  
-} else if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
-  
-  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
-  
-  message("The Retail Sales Index dataset has been updated")
-  
-} else {
-  
-  message("The Retail Sales Index dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -254,7 +227,7 @@ anno_2021 <- list(
   x = 1.5,
   xanchor = "left",
   yref = "y",
-  y = 177.5,
+  y = 175,
   yanchor = "top"
 ) 
 
@@ -309,6 +282,12 @@ plot_rsi_index <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
+# latest observation in most recent csv
+rsi_csv <- rsi_trf %>% 
+  rename(retail_sales_index = 2) %>% 
+  select(-diff_yoy)
+
+# export chart
 if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
   
   # rsi change ----
@@ -404,7 +383,7 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
   
   # annotations
   anno_year <- tibble(
-    x = c(1, 11, 9),
+    x = c(0.5, 11, 9),
     y = c(175, 175, 225),
     label = c("2021", "2020", "2016-2019")
   )
@@ -504,6 +483,28 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
 } else {
   
   message("The Retail Sales Index charts are up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_rsi-overall_cleaned.csv") == F) {
+  
+  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
+  
+  message("The Retail Sales Index dataset has been exported")
+  
+} else if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
+  
+  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
+  
+  message("The Retail Sales Index dataset has been updated")
+  
+} else {
+  
+  message("The Retail Sales Index dataset is up to date")
   
 }
 

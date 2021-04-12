@@ -143,7 +143,7 @@ See also [community mobility](mobility.html)
 
 </aside>
 
-The pandemic has led the index to fall to its steepest decline at **20.61** percent yoy to **198.3** in May 2020, when Ramadan and Idul Fitri took place.
+The pandemic has led the index to fall by its steepest decline at **20.61** percent yoy to **198.3** in May 2020, when Ramadan and Idul Fitri took place.
 
 <details>
 <summary>Documentation</summary>

@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-24
-# last updated: 2021-04-09
+# last updated: 2021-04-12
 # page: consumer confidence
 
 
@@ -78,32 +78,6 @@ cci_tidy$cci <- as.numeric(cci_tidy$cci)
 
 # round cci to two decimal places
 cci_tidy$cci <- round(cci_tidy$cci, 2)
-
-
-# export data -------------------------------------------------------------
-
-# data
-cci_csv <- cci_tidy %>% 
-  rename(consumer_confidence_index = 2)
-
-# write csv
-if (file.exists("data/ier_cci-overall_cleaned.csv") == F) {
-  
-  write_csv(cci_csv, "data/ier_cci-overall_cleaned.csv")
-  
-  message("The Consumer Confidence Index dataset has been exported")
-  
-} else if (nrow(cci_csv) != nrow(read_csv("data/ier_cci-overall_cleaned.csv"))) {
-  
-  write_csv(cci_csv, "data/ier_cci-overall_cleaned.csv")
-  
-  message("The Consumer Confidence Index dataset has been updated")
-  
-} else {
-  
-  message("The Consumer Confidence Index dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -215,6 +189,11 @@ plot_cci <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
+# latest observation in most recent csv
+cci_csv <- cci_tidy %>% 
+  rename(consumer_confidence_index = 2)
+
+# export chart
 if (nrow(cci_csv) != nrow(read_csv("data/ier_cci-overall_cleaned.csv"))) {
   
   # annotations
@@ -320,5 +299,27 @@ if (nrow(cci_csv) != nrow(read_csv("data/ier_cci-overall_cleaned.csv"))) {
 } else {
   
   message("The Consumer Confidence Index chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_cci-overall_cleaned.csv") == F) {
+  
+  write_csv(cci_csv, "data/ier_cci-overall_cleaned.csv")
+  
+  message("The Consumer Confidence Index dataset has been exported")
+  
+} else if (nrow(cci_csv) != nrow(read_csv("data/ier_cci-overall_cleaned.csv"))) {
+  
+  write_csv(cci_csv, "data/ier_cci-overall_cleaned.csv")
+  
+  message("The Consumer Confidence Index dataset has been updated")
+  
+} else {
+  
+  message("The Consumer Confidence Index dataset is up to date")
   
 }

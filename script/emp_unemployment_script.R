@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-23
-# last updated: 2021-04-08
+# last updated: 2021-04-12
 # page: employment
 
 
@@ -131,28 +131,6 @@ unemp_trf <- unemp_rate %>%
   ungroup() %>% 
   select(-mo) %>% 
   rename(unemployment_rate = val)
-
-
-# export data -------------------------------------------------------------
-
-# write csv
-if (file.exists("data/ier_unemployment-rate_cleaned.csv") == F) {
-  
-  write_csv(unemp_trf, "data/ier_unemployment-rate_cleaned.csv")
-  
-  message("The national unemployment rate dataset has been exported")
-  
-} else if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
-  
-  write_csv(unemp_trf, "data/ier_unemployment-rate_cleaned.csv")
-  
-  message("The national unemployment rate dataset has been updated")
-  
-} else {
-  
-  message("The national unemployment rate dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -361,5 +339,27 @@ if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv")))
 } else {
   
   message("The unemployment rate preview chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_unemployment-rate_cleaned.csv") == F) {
+  
+  write_csv(unemp_trf, "data/ier_unemployment-rate_cleaned.csv")
+  
+  message("The national unemployment rate dataset has been exported")
+  
+} else if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
+  
+  write_csv(unemp_trf, "data/ier_unemployment-rate_cleaned.csv")
+  
+  message("The national unemployment rate dataset has been updated")
+  
+} else {
+  
+  message("The national unemployment rate dataset is up to date")
   
 }

@@ -50,7 +50,9 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
-* Bank Indonesia reported an improvement in the Consumer Confidence Index to 93.4 in March from 85.8 in February, although it remained in the pessimistic territory ([read more](cci.html))  
+* Bank Indonesia (BI) reported on April 12 the Retail Sales Index was estimated to fall by 17.09 percent year-on-year (yoy) to 182.33 in March, showing an improvement from February ([read more](rsi.html))
+
+* The central bank reported on April 9 an improvement in the Consumer Confidence Index to 93.4 in March from 85.8 in February, although it remained in the pessimistic territory ([read more](cci.html))  
 
 * The IMF revised down its projection for Indonesia’s economic growth this year by 0.5 percentage points to 4.3 percent in its April 2021 outlook  
 
