@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-23
-# last updated: 2021-04-12
+# last updated: 2021-04-14
 # page: employment
 
 
@@ -46,26 +46,18 @@ if (exists("unemployment_req") == F) {
   )
   
   # parse response
-  unemployment_resp <- content(unemployment_req, "text")
-  
-  unemployment_parsed <- fromJSON(
-    unemployment_resp,
-    simplifyDataFrame = T,
-    flatten = T
-  )
+  unemployment_parsed <- content(unemployment_req, "text") %>% 
+    fromJSON()
   
   # extract keys
   ## activities
-  unemployment_key_act <- unemployment_parsed$vervar %>% 
-    as_tibble()
+  unemployment_key_act <- as_tibble(unemployment_parsed$vervar)
   
   ## year
-  unemployment_key_yr <- unemployment_parsed$tahun %>% 
-    as_tibble()
+  unemployment_key_yr <- as_tibble(unemployment_parsed$tahun) 
   
   # extract data
-  unemployment_raw <- unemployment_parsed$datacontent %>% 
-    as_tibble()
+  unemployment_raw <- as_tibble(unemployment_parsed$datacontent)
   
   # tidy data
   unemployment_tidy <- unemployment_raw %>% 

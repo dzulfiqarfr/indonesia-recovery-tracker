@@ -6,7 +6,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-23
-# last updated: 2021-04-12
+# last updated: 2021-04-14
 # page: gdp
 
 
@@ -274,7 +274,8 @@ plot_ctg <- plot_ly(
       showline = F,
       showgrid = T,
       gridcolor = "#CFD8DC",
-      zerolinecolor = "#ff856c"
+      zerolinecolor = "#ff856c",
+      side = "right"
     ),
     shapes = list(
       list(
