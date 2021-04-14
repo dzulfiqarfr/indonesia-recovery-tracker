@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-04-09
+# last updated: 2021-04-14
 # page: index
 
 
@@ -46,14 +46,12 @@ growth_req <- GET(
 )
 
 # parse response
-growth_resp <- content(growth_req, "text")
-
-growth_parsed <- fromJSON(growth_resp)
+growth_parsed <- content(growth_req, "text") %>% 
+  fromJSON()
 
 # extract keys
 ## expenditure
-growth_key_exp <- growth_parsed$vervar %>% 
-  as_tibble()
+growth_key_exp <- as_tibble(growth_parsed$vervar)
 
 ### expenditure labels in english
 growth_key_exp <- growth_key_exp %>% 
@@ -178,8 +176,8 @@ inf_yoy_yr_latest <- names(inf_yoy_raw)[ncol(inf_yoy_raw)]
 # date variable
 inf_date_seq <- seq(
   ymd(str_c(inf_yoy_yr_latest, "01-01")), 
-  ymd(str_c(inf_yoy_yr_latest, "12-01"))
-  , by = "month"
+  ymd(str_c(inf_yoy_yr_latest, "12-01")), 
+  by = "month"
 )
 
 # replace month names
@@ -231,9 +229,8 @@ pov_req <- GET(
 )
 
 # parse response
-pov_resp <- content(pov_req, "text")
-
-pov_parsed <- fromJSON(pov_resp)
+pov_parsed <- content(pov_req, "text") %>% 
+  fromJSON()
 
 # extract year key
 pov_key_yr <- as_tibble(pov_parsed$tahun)
@@ -306,13 +303,8 @@ unemployment_req <- GET(
 )
 
 # parse response
-unemployment_resp <- content(unemployment_req, "text")
-
-unemployment_parsed <- fromJSON(
-  unemployment_resp,
-  simplifyDataFrame = T,
-  flatten = T
-)
+unemployment_parsed <- content(unemployment_req, "text") %>% 
+  fromJSON()
 
 # extract keys
 ## activities
@@ -453,7 +445,18 @@ key_econ_ind <- key_indicators %>%
 
 # import
 covid_raw <- read_csv(
-  "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+  "https://covid.ourworldindata.org/data/owid-covid-data.csv",
+  na = "",
+  col_types = cols(
+    hosp_patients = col_number(),
+    hosp_patients_per_million = col_number(),
+    icu_patients = col_number(),
+    icu_patients_per_million = col_number(),
+    weekly_hosp_admissions = col_number(),
+    weekly_hosp_admissions_per_million = col_number(),
+    weekly_icu_admissions = col_number(),
+    weekly_icu_admissions_per_million = col_number()
+  )
 )
 
 # tidy
@@ -466,10 +469,6 @@ covid_ntl <- covid_raw %>%
     new_cases,
     total_deaths,
     new_deaths,
-    icu_patients,
-    hosp_patients,
-    weekly_icu_admissions,
-    weekly_hosp_admissions,
     new_tests,
     total_tests,
     tests_per_case,

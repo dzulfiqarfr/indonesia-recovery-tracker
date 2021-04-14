@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-26
-# last updated: 2021-04-12
+# last updated: 2021-04-14
 # page: retail sales
 
 
@@ -569,7 +569,7 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
         hjust = 0,
         margin = margin(t = 35)
       ),
-      strip.background = element_rect(fill = "white", color = NULL),
+      strip.background = element_rect(fill = "white", color = "white"),
       strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
     ) +
     ggsave(
@@ -678,7 +678,7 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
         hjust = 0,
         margin = margin(t = 35)
       ),
-      strip.background = element_rect(fill = "white", color = NULL),
+      strip.background = element_rect(fill = "white", color = "white"),
       strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
     ) +
     ggsave(

@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-03
-# last updated: 2021-04-04
+# last updated: 2021-04-14
 # page: mobility
 
 
@@ -28,14 +28,26 @@ if (exists("mob_url") == F) {
 
 # import global dataset
 if (exists("mob_gbl_raw") == F) {
-  mob_gbl_raw <- read_csv(mob_url, na = "")
+  
+  mob_gbl_raw <- read_csv(
+    mob_url,
+    na = "",
+    col_types = cols(
+      census_fips_code = col_character(),
+      metro_area = col_character(),
+      sub_region_2 = col_character()
+    )
+  )
+  
 } else {
+  
   rm(mob_gbl_raw)
+  
 }
 
 # subset indonesia observations
 if (exists("mob_idn_raw") == F) {
-
+  
   # subset, rename variable
   mob_idn_raw <- mob_gbl_raw %>% 
     dplyr::filter(country_region == "Indonesia") %>% 
@@ -103,7 +115,10 @@ mob_reg_raw_last <- mob_reg_raw %>%
   deframe()
 
 # latest observation in csv
-mob_reg_raw_csv_last <- read_csv("data/ier_mobility-reg_cleaned.csv") %>% 
+mob_reg_raw_csv_last <- read_csv(
+  "data/ier_mobility-idn_tidy.csv",
+  col_types = cols(province = col_character())
+) %>%  
   select(date) %>% 
   dplyr::filter(date == last(date), !duplicated(date)) %>% 
   deframe()
