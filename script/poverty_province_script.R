@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-05
-# last updated: 2021-03-28
+# last updated: 2021-04-29
 # page: poverty
 
 
@@ -347,24 +347,27 @@ reactable_pov_poor <- reactable(
         name = str_c(
           format(pov_date_latest[[1]], "%b '%y"),
           "<br>",
-          '<div style="color: #999; font-size: 12px">(millions)</div>'
+          '<div style="color: #999; font-size: 12px">(thousand)</div>'
         ),
+        format = colFormat(separators = T),
         html = T
       ),
       poor_2 = colDef(
         name = str_c(
           format(pov_date_latest[[2]], "%b '%y"),
           "<br>",
-          '<div style="color: #999; font-size: 12px">(millions)</div>'
+          '<div style="color: #999; font-size: 12px">(thousand)</div>'
         ),
+        format = colFormat(separators = T),
         html = T
       ),
       poor_diff = colDef(
         name = str_c(
           "Change",
           "<br>",
-          '<div style="color: #999; font-size: 12px">(millions)</div>'
+          '<div style="color: #999; font-size: 12px">(thousand)</div>'
         ),
+        format = colFormat(separators = T),
         html = T
       ),
       pov_rate_1 = colDef(
@@ -407,7 +410,7 @@ reactable_pov_poor <- reactable(
     ),
     columnGroups = list(
       colGroup(
-        name = "<b>Number of poor poor</b>", 
+        name = "<b>Number of poor</b>", 
         columns = c("poor_1", "poor_2", "poor_diff"),
         html = T
       ),
