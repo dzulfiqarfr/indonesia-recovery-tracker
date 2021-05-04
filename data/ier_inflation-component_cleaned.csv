@@ -41,3 +41,9 @@ date,component,inflation_mom
 2021-02-01,Core,0.11
 2021-02-01,Administered prices,0.21
 2021-02-01,Volatile prices,-0.01
+2021-03-01,Core,-0.03
+2021-03-01,Administered prices,0.02
+2021-03-01,Volatile prices,0.56
+2021-04-01,Core,0.14
+2021-04-01,Administered prices,0.11
+2021-04-01,Volatile prices,0.15
