@@ -43,6 +43,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 100,Household consumption,2020-04-01,-5.52
 100,Household consumption,2020-07-01,-4.05
 100,Household consumption,2020-10-01,-3.61
+100,Household consumption,2021-01-01,-2.23
 110,"Food and beverages, other than restaurants",2010-01-01,4.06
 110,"Food and beverages, other than restaurants",2010-04-01,4.25
 110,"Food and beverages, other than restaurants",2010-07-01,3.39
@@ -87,6 +88,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 110,"Food and beverages, other than restaurants",2020-04-01,-0.73
 110,"Food and beverages, other than restaurants",2020-07-01,-0.69
 110,"Food and beverages, other than restaurants",2020-10-01,-1.39
+110,"Food and beverages, other than restaurants",2021-01-01,-2.31
 120,"Clothes, footwear and their care services",2010-01-01,5.14
 120,"Clothes, footwear and their care services",2010-04-01,5.73
 120,"Clothes, footwear and their care services",2010-07-01,4.87
@@ -131,6 +133,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 120,"Clothes, footwear and their care services",2020-04-01,-5.14
 120,"Clothes, footwear and their care services",2020-07-01,-4.29
 120,"Clothes, footwear and their care services",2020-10-01,-4.09
+120,"Clothes, footwear and their care services",2021-01-01,-2.71
 130,Housing and household supplies,2010-01-01,5.64
 130,Housing and household supplies,2010-04-01,5.97
 130,Housing and household supplies,2010-07-01,3.43
@@ -175,6 +178,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 130,Housing and household supplies,2020-04-01,2.36
 130,Housing and household supplies,2020-07-01,1.82
 130,Housing and household supplies,2020-10-01,0.71
+130,Housing and household supplies,2021-01-01,1.27
 140,Healthcare and education,2010-01-01,4.93
 140,Healthcare and education,2010-04-01,5.38
 140,Healthcare and education,2010-07-01,4.03
@@ -219,6 +223,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 140,Healthcare and education,2020-04-01,2.02
 140,Healthcare and education,2020-07-01,2.05
 140,Healthcare and education,2020-10-01,0.64
+140,Healthcare and education,2021-01-01,0.31
 150,Transportation and communication,2010-01-01,2.55
 150,Transportation and communication,2010-04-01,3.43
 150,Transportation and communication,2010-07-01,5.23
@@ -263,6 +268,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 150,Transportation and communication,2020-04-01,-15.33
 150,Transportation and communication,2020-07-01,-11.56
 150,Transportation and communication,2020-10-01,-9.45
+150,Transportation and communication,2021-01-01,-4.24
 160,Restaurants and hotels,2010-01-01,3.34
 160,Restaurants and hotels,2010-04-01,4.73
 160,Restaurants and hotels,2010-07-01,4.85
@@ -307,6 +313,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 160,Restaurants and hotels,2020-04-01,-16.53
 160,Restaurants and hotels,2020-07-01,-10.94
 160,Restaurants and hotels,2020-10-01,-7.28
+160,Restaurants and hotels,2021-01-01,-4.16
 170,Other,2010-01-01,5.18
 170,Other,2010-04-01,5.9
 170,Other,2010-07-01,6.69
@@ -351,6 +358,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 170,Other,2020-04-01,-3.23
 170,Other,2020-07-01,-2.06
 170,Other,2020-10-01,-0.88
+170,Other,2021-01-01,-1.33
 200,NPISHs consumption,2010-01-01,-10.33
 200,NPISHs consumption,2010-04-01,-11.65
 200,NPISHs consumption,2010-07-01,4.36
@@ -395,6 +403,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 200,NPISHs consumption,2020-04-01,-7.82
 200,NPISHs consumption,2020-07-01,-1.97
 200,NPISHs consumption,2020-10-01,-2.14
+200,NPISHs consumption,2021-01-01,-4.53
 300,Government consumption,2010-01-01,-5.24
 300,Government consumption,2010-04-01,-1
 300,Government consumption,2010-07-01,14.12
@@ -439,6 +448,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 300,Government consumption,2020-04-01,-6.9
 300,Government consumption,2020-07-01,9.76
 300,Government consumption,2020-10-01,1.76
+300,Government consumption,2021-01-01,2.96
 310,Collective consumption,2010-01-01,-9.91
 310,Collective consumption,2010-04-01,-2.73
 310,Collective consumption,2010-07-01,14.08
@@ -483,6 +493,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 310,Collective consumption,2020-04-01,-11.74
 310,Collective consumption,2020-07-01,5.61
 310,Collective consumption,2020-10-01,0.89
+310,Collective consumption,2021-01-01,-3.21
 320,Individual consumption,2010-01-01,4.06
 320,Individual consumption,2010-04-01,1.87
 320,Individual consumption,2010-07-01,14.2
@@ -527,6 +538,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 320,Individual consumption,2020-04-01,1.28
 320,Individual consumption,2020-07-01,16.24
 320,Individual consumption,2020-10-01,3.21
+320,Individual consumption,2021-01-01,12.49
 400,Gross fixed capital formation,2010-01-01,3.33
 400,Gross fixed capital formation,2010-04-01,9.31
 400,Gross fixed capital formation,2010-07-01,3.84
@@ -571,6 +583,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 400,Gross fixed capital formation,2020-04-01,-8.61
 400,Gross fixed capital formation,2020-07-01,-6.48
 400,Gross fixed capital formation,2020-10-01,-6.15
+400,Gross fixed capital formation,2021-01-01,-0.23
 410,Buildings,2010-01-01,9.87
 410,Buildings,2010-04-01,9.58
 410,Buildings,2010-07-01,7.01
@@ -615,6 +628,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 410,Buildings,2020-04-01,-5.26
 410,Buildings,2020-07-01,-5.6
 410,Buildings,2020-10-01,-6.63
+410,Buildings,2021-01-01,-0.74
 420,Machinery and equipment,2010-01-01,-4.15
 420,Machinery and equipment,2010-04-01,10.86
 420,Machinery and equipment,2010-07-01,16.56
@@ -659,6 +673,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 420,Machinery and equipment,2020-04-01,-12.86
 420,Machinery and equipment,2020-07-01,-21.01
 420,Machinery and equipment,2020-10-01,-7.57
+420,Machinery and equipment,2021-01-01,3.48
 430,Vehicles,2010-01-01,1.48
 430,Vehicles,2010-04-01,1.38
 430,Vehicles,2010-07-01,-18.38
@@ -703,6 +718,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 430,Vehicles,2020-04-01,-34.12
 430,Vehicles,2020-07-01,-14.63
 430,Vehicles,2020-10-01,-6.51
+430,Vehicles,2021-01-01,2.08
 440,Other equipments,2010-01-01,3.18
 440,Other equipments,2010-04-01,12.63
 440,Other equipments,2010-07-01,17.31
@@ -747,6 +763,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 440,Other equipments,2020-04-01,-26.09
 440,Other equipments,2020-07-01,-15.23
 440,Other equipments,2020-10-01,-3.77
+440,Other equipments,2021-01-01,-4.88
 450,Cultivated biological resources,2010-01-01,-37.51
 450,Cultivated biological resources,2010-04-01,0.46
 450,Cultivated biological resources,2010-07-01,-17.22
@@ -791,6 +808,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 450,Cultivated biological resources,2020-04-01,-14.89
 450,Cultivated biological resources,2020-07-01,23.08
 450,Cultivated biological resources,2020-10-01,4.4
+450,Cultivated biological resources,2021-01-01,-1.18
 460,Intellectual property products,2010-01-01,-4.5
 460,Intellectual property products,2010-04-01,41.75
 460,Intellectual property products,2010-07-01,-17.73
@@ -835,6 +853,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 460,Intellectual property products,2020-04-01,-11.45
 460,Intellectual property products,2020-07-01,-3.61
 460,Intellectual property products,2020-10-01,-10.36
+460,Intellectual property products,2021-01-01,0.52
 500,Changes in inventories,2014-01-01,-5.66
 500,Changes in inventories,2014-04-01,-5.41
 500,Changes in inventories,2014-07-01,177.02
@@ -851,6 +870,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 500,Changes in inventories,2020-04-01,0
 500,Changes in inventories,2020-07-01,0
 500,Changes in inventories,2020-10-01,0
+500,Changes in inventories,2021-01-01,0
 600,Exports of goods and services,2010-01-01,24.93
 600,Exports of goods and services,2010-04-01,15.38
 600,Exports of goods and services,2010-07-01,9.12
@@ -895,6 +915,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 600,Exports of goods and services,2020-04-01,-12.02
 600,Exports of goods and services,2020-07-01,-11.66
 600,Exports of goods and services,2020-10-01,-7.21
+600,Exports of goods and services,2021-01-01,6.74
 610,Goods,2010-01-01,26.51
 610,Goods,2010-04-01,15.21
 610,Goods,2010-07-01,8.87
@@ -939,6 +960,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 610,Goods,2020-04-01,-6.04
 610,Goods,2020-07-01,-5.4
 610,Goods,2020-10-01,-1.65
+610,Goods,2021-01-01,11.86
 611,Non-oil and gas,2010-01-01,20.42
 611,Non-oil and gas,2010-04-01,10.95
 611,Non-oil and gas,2010-07-01,10.33
@@ -983,6 +1005,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 611,Non-oil and gas,2020-04-01,-7.07
 611,Non-oil and gas,2020-07-01,-4.56
 611,Non-oil and gas,2020-10-01,-2.07
+611,Non-oil and gas,2021-01-01,11.63
 612,Oil and gas,2010-01-01,72.26
 612,Oil and gas,2010-04-01,43.01
 612,Oil and gas,2010-07-01,1.34
@@ -1027,6 +1050,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 612,Oil and gas,2020-04-01,4.83
 612,Oil and gas,2020-07-01,-13.38
 612,Oil and gas,2020-10-01,2.74
+612,Oil and gas,2021-01-01,14.18
 620,Services,2010-01-01,10.29
 620,Services,2010-04-01,17.21
 620,Services,2010-07-01,11.65
@@ -1071,6 +1095,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 620,Services,2020-04-01,-60.03
 620,Services,2020-07-01,-60.46
 620,Services,2020-10-01,-53.64
+620,Services,2021-01-01,-46.8
 700,Imports of goods and services,2010-01-01,18.67
 700,Imports of goods and services,2010-04-01,19.5
 700,Imports of goods and services,2010-07-01,13.19
@@ -1115,6 +1140,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 700,Imports of goods and services,2020-04-01,-18.29
 700,Imports of goods and services,2020-07-01,-23
 700,Imports of goods and services,2020-10-01,-13.52
+700,Imports of goods and services,2021-01-01,5.27
 710,Goods,2010-01-01,16.6
 710,Goods,2010-04-01,19.88
 710,Goods,2010-07-01,12.38
@@ -1159,6 +1185,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 710,Goods,2020-04-01,-13.46
 710,Goods,2020-07-01,-19.23
 710,Goods,2020-10-01,-10.25
+710,Goods,2021-01-01,8.97
 711,Non-oil and gas,2010-01-01,15.22
 711,Non-oil and gas,2010-04-01,18.35
 711,Non-oil and gas,2010-07-01,16.25
@@ -1203,6 +1230,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 711,Non-oil and gas,2020-04-01,-10.79
 711,Non-oil and gas,2020-07-01,-19.34
 711,Non-oil and gas,2020-10-01,-7.38
+711,Non-oil and gas,2021-01-01,11.66
 712,Oil and gas,2010-01-01,22.22
 712,Oil and gas,2010-04-01,25.98
 712,Oil and gas,2010-07-01,-1.45
@@ -1247,6 +1275,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 712,Oil and gas,2020-04-01,-26.46
 712,Oil and gas,2020-07-01,-18.57
 712,Oil and gas,2020-10-01,-24.77
+712,Oil and gas,2021-01-01,-4.51
 720,Services,2010-01-01,29.97
 720,Services,2010-04-01,17.57
 720,Services,2010-07-01,17.53
@@ -1291,6 +1320,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 720,Services,2020-04-01,-47.64
 720,Services,2020-07-01,-46.25
 720,Services,2020-10-01,-32.87
+720,Services,2021-01-01,-19.73
 790,Statistics discrepancy,2018-01-01,0
 790,Statistics discrepancy,2018-04-01,0
 790,Statistics discrepancy,2018-07-01,0
@@ -1303,6 +1333,7 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 790,Statistics discrepancy,2020-04-01,0
 790,Statistics discrepancy,2020-07-01,0
 790,Statistics discrepancy,2020-10-01,0
+790,Statistics discrepancy,2021-01-01,0
 800,GDP,2010-01-01,6.08
 800,GDP,2010-04-01,6.76
 800,GDP,2010-07-01,6.18
@@ -1347,3 +1378,4 @@ expenditure_key,expenditure_component,date,pct_change_yoy
 800,GDP,2020-04-01,-5.32
 800,GDP,2020-07-01,-3.49
 800,GDP,2020-10-01,-2.19
+800,GDP,2021-01-01,-0.74
