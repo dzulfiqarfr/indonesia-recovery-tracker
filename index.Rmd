@@ -50,11 +50,11 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
+* The inflation rate stood at 1.42 percent on annual basis and 0.13 percent on a monthly basis in April, BPS reported on May 3.  
+
 * The Asian Development Bank (ADB) held the forecast for Indonesia's economic growth this year at 4.5 percent in its April 2021 outlook. For next year, the country’s growth was forecast to grow by 5 percent.  
 
 * Bank Indonesia (BI) reported on April 12 the Retail Sales Index was estimated to fall by 17.09 percent year-on-year (yoy) to 182.33 in March, showing an improvement from February ([read more](rsi.html))
-
-* The central bank reported on April 9 an improvement in the Consumer Confidence Index to 93.4 in March from 85.8 in February, although it remained in the pessimistic territory ([read more](cci.html))  
 
 
 ## Explore
