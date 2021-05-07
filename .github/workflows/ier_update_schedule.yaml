@@ -2,7 +2,7 @@ name: Regular update
 
 on:
   schedule:
-    - cron:  '30 5 * * *'
+    - cron:  '45 5 * * *'
   push:
     branches:
       - main

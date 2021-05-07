@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-04-12
+# last updated: 2021-05-09
 # page: inflation
 
 
@@ -351,7 +351,8 @@ inf_mom_yoy_tidy <- inf_mom_yoy %>%
   rename(inflation_mom = 2, inflation_yoy = 3)
 
 # export chart
-if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv")) || 
+    !is.na(inf_mom_yoy_tidy$inflation_yoy)) {
   
   # monthly inflation rate ----
   

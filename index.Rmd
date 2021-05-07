@@ -50,7 +50,7 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
-* Indonesia’s gross domestic product (GDP) contracted by 0.74 percent in the January–March period. ([Read more](gdp.html))  
+* Indonesia’s gross domestic product (GDP) contracted by 0.74 percent in the January–March period from a year earlier. ([Read more](gdp.html))  
 
 * The unemployment rate stood at 6.26 percent in February, higher by 1.32 percentage points than a year earlier. ([Read more](employment.html))  
 

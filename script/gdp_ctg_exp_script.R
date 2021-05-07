@@ -6,7 +6,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-23
-# last updated: 2021-04-14
+# last updated: 2021-05-09
 # page: gdp
 
 
@@ -395,7 +395,7 @@ if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
       legend.title = element_blank(),
       legend.key = element_rect(fill = "transparent"),
       legend.key.size = unit(0.3, "cm"),
-      legend.position = c(0.485, 1.175),
+      legend.position = c(0.495, 1.175),
       legend.direction = "horizontal",
       panel.background = element_rect(fill = "white"),
       panel.grid.major.x = element_blank(),
