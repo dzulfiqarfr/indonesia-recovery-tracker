@@ -1,0 +1,51 @@
+status,category,date,workers,pct_chg
+Unemployed,men,2020-08-01,1.66,NA
+Unemployed,men,2021-02-01,1.19,-28.31
+Unemployed,women,2020-08-01,0.9,NA
+Unemployed,women,2021-02-01,0.43,-52.22
+Unemployed,urban,2020-08-01,1.94,NA
+Unemployed,urban,2021-02-01,1.27,-34.54
+Unemployed,rural,2020-08-01,0.62,NA
+Unemployed,rural,2021-02-01,0.35,-43.55
+Unemployed,total,2020-08-01,2.56,NA
+Unemployed,total,2021-02-01,1.62,-36.72
+Not in workforce,men,2020-08-01,0.24,NA
+Not in workforce,men,2021-02-01,0.25,4.17
+Not in workforce,women,2020-08-01,0.52,NA
+Not in workforce,women,2021-02-01,0.4,-23.08
+Not in workforce,urban,2020-08-01,0.53,NA
+Not in workforce,urban,2021-02-01,0.49,-7.55
+Not in workforce,rural,2020-08-01,0.23,NA
+Not in workforce,rural,2021-02-01,0.16,-30.43
+Not in workforce,total,2020-08-01,0.76,NA
+Not in workforce,total,2021-02-01,0.65,-14.47
+Furloughed,men,2020-08-01,1.09,NA
+Furloughed,men,2021-02-01,0.67,-38.53
+Furloughed,women,2020-08-01,0.68,NA
+Furloughed,women,2021-02-01,0.44,-35.29
+Furloughed,urban,2020-08-01,1.27,NA
+Furloughed,urban,2021-02-01,0.86,-32.28
+Furloughed,rural,2020-08-01,0.5,NA
+Furloughed,rural,2021-02-01,0.25,-50
+Furloughed,total,2020-08-01,1.77,NA
+Furloughed,total,2021-02-01,1.11,-37.29
+Reduced working hours,men,2020-08-01,14.76,NA
+Reduced working hours,men,2021-02-01,9.18,-37.8
+Reduced working hours,women,2020-08-01,9.27,NA
+Reduced working hours,women,2021-02-01,6.54,-29.45
+Reduced working hours,urban,2020-08-01,16.82,NA
+Reduced working hours,urban,2021-02-01,11.67,-30.62
+Reduced working hours,rural,2020-08-01,7.21,NA
+Reduced working hours,rural,2021-02-01,4.05,-43.83
+Reduced working hours,total,2020-08-01,24.03,NA
+Reduced working hours,total,2021-02-01,15.72,-34.58
+Overall,men,2020-08-01,17.75,NA
+Overall,men,2021-02-01,11.29,-36.39
+Overall,women,2020-08-01,11.37,NA
+Overall,women,2021-02-01,7.81,-31.31
+Overall,urban,2020-08-01,20.56,NA
+Overall,urban,2021-02-01,14.29,-30.5
+Overall,rural,2020-08-01,8.56,NA
+Overall,rural,2021-02-01,4.81,-43.81
+Overall,total,2020-08-01,29.12,NA
+Overall,total,2021-02-01,19.1,-34.41

@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-05-09
+# last updated: 2021-05-08
 # page: inflation
 
 
@@ -25,17 +25,17 @@ if (exists("BPS_KEY") == F) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
-# bps api url
+# api url
 ## dyanmic table
 base_url_dynamic <- "https://webapi.bps.go.id/v1/api/list"
 
-## statictable
+## static table
 base_url_static <- "https://webapi.bps.go.id/v1/api/view"
 
 
 # data --------------------------------------------------------------------
 
-# annual inflation rate ---------------------------------------------------
+## annual inflation rate ----
 
 # request data
 inf_yoy_req <- GET(
@@ -93,7 +93,7 @@ inf_yoy_tidy <- inf_yoy_raw %>%
   arrange(yr, mo) %>% 
   group_by(yr, Bulan) %>% 
   mutate(
-    date = str_c(yr, mo), 
+    date = ymd(str_c(yr, mo)), 
     mo = month(date)
   ) %>% 
   ungroup() %>% 
@@ -103,11 +103,8 @@ inf_yoy_tidy <- inf_yoy_raw %>%
     yr >= 2020 
   )
 
-# correct data type
-inf_yoy_tidy$date <- ymd(inf_yoy_tidy$date)
 
-
-# monthly inflation rate --------------------------------------------------
+## monthly inflation rate ----
 
 # request data
 inf_mom_req <- GET(
@@ -161,7 +158,7 @@ inf_mom_tidy$key_yr <- inf_mom_tidy$key_yr %>%
 inf_mom_trf <- inf_mom_tidy %>% 
   mutate(
     key_mo = case_when(
-      key_mo != c(as.character(seq(10, 12, 1))) ~ str_c("0", key_mo),
+      key_mo != c(as.character(c("10", "11", "12"))) ~ str_c("0", key_mo),
       TRUE ~ as.character(key_mo)
     ),
     key_mo = str_c("-", key_mo, "-01"),
@@ -172,7 +169,7 @@ inf_mom_trf <- inf_mom_tidy %>%
   select(date, mo, yr, rate_mom)
 
 
-# merge data --------------------------------------------------------------
+## merge annual, monthly inflation data ----
 
 inf_mom_yoy <- inf_mom_trf %>% 
   left_join(inf_yoy_tidy, by = c("date", "mo", "yr"))
@@ -180,7 +177,7 @@ inf_mom_yoy <- inf_mom_trf %>%
 
 # plot --------------------------------------------------------------------
 
-# monthly inflation rate --------------------------------------------------
+## monthly inflation rate ----
 
 # annotations
 # 2020
@@ -261,7 +258,7 @@ plot_inf_mom <- plot_ly(
   plotly::config(displayModeBar = F)
 
 
-# annual inflation rate ---------------------------------------------------
+## annual inflation rate ----
 
 # annotations
 # 2020
@@ -350,11 +347,10 @@ inf_mom_yoy_tidy <- inf_mom_yoy %>%
   select(-c("mo", "yr")) %>% 
   rename(inflation_mom = 2, inflation_yoy = 3)
 
-# export chart
-if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv")) || 
-    !is.na(inf_mom_yoy_tidy$inflation_yoy)) {
-  
-  # monthly inflation rate ----
+
+## monthly inflation rate ----
+
+if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
   
   # annotations
   anno_year_mom <- tibble(
@@ -450,8 +446,21 @@ if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.
     image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
     image_write("fig/ier_inflation-monthly_plot.png")
   
+  # message
+  message("The monthly inflation rate chart has been updated")
   
-  # annual inflation rate ----
+} else {
+  
+  message("The monthly inflation rate chart is up to date")
+  
+}
+
+
+## annual inflation rate ----
+
+if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv")) &&
+    !is.na(last(inf_mom_yoy_tidy$inflation_yoy))
+) {
   
   # annotations
   anno_year_yoy <- tibble(
@@ -549,11 +558,11 @@ if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.
     image_write("fig/ier_inflation-annual_plot.png")
   
   # message
-  message("The annual and monthly inflation rate charts have been updated")
+  message("The annual inflation rate chart has been updated")
   
 } else {
   
-  message("The annual and monthly inflation rate charts are up to date")
+  message("The annual inflation rate chart is up to date")
   
 }
 

@@ -94,6 +94,13 @@ embed_emp_sec <- xfun::embed_file(
   text = "csv"
 )
 
+## pandemic-hit workers
+embed_emp_phw <- xfun::embed_file(
+  "data/ier_pandemic-hit-workers_cleaned.csv",
+  name = "ier_pandemic-hit-workers_cleaned.csv",
+  text = "csv"
+) 
+
 # embed chart
 ## unemployment rate
 embed_chart_unemp_rate <- xfun::embed_file(
@@ -340,8 +347,85 @@ Meanwhile, the `r str_to_lower(last(emp_sec_latest_minmax$sector))` sector recor
 </details>
 
 
+### Number of workers affected by COVID-19
+
+(millions)
+
+```{r script: overall pandemic-hit workers}
+source("script/emp_pandemic-hit_script.R", local = knitr::knit_global())
+
+div(plot_phw_total)
+```
+
+*Tips: click the legend item to select or deselect a trace.*
+
+The number of workers affected by the pandemic was `r ier_compare_up(phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "total"])` by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "total"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "total"]`** million in February from August. They accounted for **`r phw_share_tidy$share_of_working_age_pop[phw_share_tidy$date == ymd("2021-02-01") & phw_share_tidy$category == "total"]`** percent of the working age population. The majority of them faced reduced working hours.
+
+<details>
+<summary>Documentation</summary>
+**Description**: people who have been laid off or furloughed because of the pandemic in the period starting from February 2020, broken down by status. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Update frequency**: every May and November  
+**Source**: [BPS](https://www.bps.go.id/pressrelease/2021/05/05/1815/februari-2021--tingkat-pengangguran-terbuka--tpt--sebesar-6-26-persen.html)  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_emp_phw`
+</details>
+
+
+### Number of pandemic-hit workers by gender
+
+```{r script: pandemic-hit workers by gender, layout="l-body-outset"}
+reactable_phw_sex
+```
+
+<div style="color: #999; font-size: 12px;">
+<sup>*</sup>Compared with August 2020
+</div>
+
+Between August and February, the total number of pandemic-hit male workers `r ier_compare_rise(phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "men"])` by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "men"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "men"]`** million and female workers by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "women"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "women"]`** million.
+
+<details>
+<summary>Documentation</summary>
+**Description**: people who have been laid off or furloughed because of the pandemic in the period starting from February 2020, broken down by gender. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Update frequency**: every May and November  
+**Source**: [BPS](https://www.bps.go.id/pressrelease/2021/05/05/1815/februari-2021--tingkat-pengangguran-terbuka--tpt--sebesar-6-26-persen.html)  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_emp_phw`
+</details>
+
+
+### Number of pandemic-hit workers by area
+
+```{r script: pandemic-hit workers by area, layout="l-body-outset"}
+reactable_phw_area
+```
+
+<div style="color: #999; font-size: 12px;">
+<sup>*</sup>Compared with August 2020
+</div>
+
+The total number of pandemic-hit workers in urban areas `r ier_compare_rise(phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "urban"])` by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "urban"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "urban"]`** million  and in rural areas by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "rural"]`** percent **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "rural"]`** million in February from August.
+
+<details>
+<summary>Documentation</summary>
+**Description**: people who have been laid off or furloughed because of the pandemic in the period starting from February 2020, broken down by area. See [appendix](#note) for further details.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Update frequency**: every May and November  
+**Source**: [BPS](https://www.bps.go.id/pressrelease/2021/05/05/1815/februari-2021--tingkat-pengangguran-terbuka--tpt--sebesar-6-26-persen.html)  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_emp_phw`
+</details>
+
+
 # Note {.appendix}
 
 The data is based on the National Labor Force Survey (Sakernas) from BPS, which takes a sample of 75,000 households in the February round and 300,000 households in the August round. Read more about the data [here](https://bps.go.id/subject/6/tenaga-kerja.html#subjekViewTab1){target="_blank"}.
 
 The International Labor Organization (ILO) has [replaced](https://www.ilo.org/wcmsp5/groups/public/---dgreports/---stat/documents/publication/wcms_422401.pdf){target="_blank"} unpaid family workers with contributing family workers, namely “those workers who hold ‘self-employment jobs’ as own-account workers [...] in a market-oriented establishment operated by a related person living in the same household.”
+
+BPS started in August 2020 adding the data on workers affected by COVID-19, namely those who have been laid off or furloughed in the period starting from February 2020. Aside from workers getting unemployed and facing reduced working hours, the agency also recorded other pandemic impacts on the labor force:
+
+- Not in the workforce: people aged 15 or above who still go to school, take care of their household or have other non-personal activities. Working age population who have stopped working and are out of the workforce in the period starting from February 2020 belong to this group.
+
+- Furloughed: workers who have not been working in the past week for various reasons. People who have jobs but have not been working temporarily in the period starting from February 2020 belong to this group.

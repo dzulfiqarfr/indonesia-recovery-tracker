@@ -6,7 +6,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-23
-# last updated: 2021-05-09
+# last updated: 2021-05-08
 # page: gdp
 
 
@@ -238,7 +238,7 @@ plot_ctg <- plot_ly(
     )
   ) %>% 
   add_trace(
-    name = "statistics discrepancy",
+    name = "Statistics discrepancy",
     y = ~`Statistics discrepancy`,
     marker = list(color = "#B0BEC5"),
     hovertemplate = str_c(

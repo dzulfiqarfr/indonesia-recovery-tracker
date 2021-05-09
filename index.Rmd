@@ -50,11 +50,11 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
+* The number of pandemic-hit workers declined by 34.4 percent to 19.1 million in February from August. ([Read more](employment.html#number-of-workers-affected-by-covid-19))
+
 * Indonesia’s gross domestic product (GDP) contracted by 0.74 percent in the January–March period from a year earlier. ([Read more](gdp.html))  
 
 * The unemployment rate stood at 6.26 percent in February, higher by 1.32 percentage points than a year earlier. ([Read more](employment.html))  
-
-* The inflation rate stood at 1.42 percent on annual basis and 0.13 percent on a monthly basis in April. ([Read more](inflation.html))  
 
 
 ## Explore

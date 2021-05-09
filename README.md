@@ -28,6 +28,9 @@ The datasets are available in a tidy format in CSVs, which you can find in the [
 
 ## What's new
 
+**May 9, 2021**:
+- Added sections on the number of workers affected by COVID-19, broken down by status, gender and area to the employment page.  
+
 **April 9, 2021**:  
 - Added the IMF’s April 2021 projections on economic growth, inflation and unemployment rates to the key econ indicator table;  
 - Added a thousand separator to the COVID-19 case figure in the key COVID-19 indicator table;  
