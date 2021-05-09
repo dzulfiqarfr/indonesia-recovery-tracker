@@ -351,7 +351,7 @@ Meanwhile, the `r str_to_lower(last(emp_sec_latest_minmax$sector))` sector recor
 
 (millions)
 
-```{r script: overall pandemic-hit workers}
+```{r script: overall affected workers}
 source("script/emp_pandemic-hit_script.R", local = knitr::knit_global())
 
 div(plot_phw_total)
@@ -374,7 +374,7 @@ The number of workers affected by the pandemic was `r ier_compare_up(phw_trf_tot
 
 ### Number of pandemic-hit workers by gender
 
-```{r script: pandemic-hit workers by gender, layout="l-body-outset"}
+```{r script: affected workers by gender, layout="l-body-outset"}
 reactable_phw_sex
 ```
 
@@ -397,7 +397,7 @@ Between August and February, the total number of pandemic-hit male workers `r ie
 
 ### Number of pandemic-hit workers by area
 
-```{r script: pandemic-hit workers by area, layout="l-body-outset"}
+```{r script: affected workers by area, layout="l-body-outset"}
 reactable_phw_area
 ```
 

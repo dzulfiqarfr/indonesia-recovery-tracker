@@ -15,8 +15,6 @@ library(tidyverse)
 library(lubridate)
 library(plotly)
 library(reactable)
-library(reactablefmtr)
-library(magick)
 
 
 # data --------------------------------------------------------------------
