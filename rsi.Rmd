@@ -24,10 +24,10 @@ library(mime)
 xaringanExtra::use_panelset()
 
 # source url
-source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SPE_Februari_2021.aspx"
+source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SPE_Maret_2021.aspx"
 
 # date of last update
-source_last_update <- "April 12, 2021"
+source_last_update <- "May 11, 2021"
 
 # description functions
 ## rise or fall

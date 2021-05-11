@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-25
-# last updated: 2021-04-12
+# last updated: 2021-05-11
 # page: retail sales
 
 
@@ -20,7 +20,7 @@ library(magick)
 
 # date of most recent observation
 if(exists("rsi_last_date") == F) {
-  rsi_last_date <- "2021-03-01"
+  rsi_last_date <- "2021-04-01"
 }
 
 
@@ -487,28 +487,6 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
 }
 
 
-# export data -------------------------------------------------------------
-
-# write csv
-if (file.exists("data/ier_rsi-overall_cleaned.csv") == F) {
-  
-  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
-  
-  message("The Retail Sales Index dataset has been exported")
-  
-} else if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
-  
-  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
-  
-  message("The Retail Sales Index dataset has been updated")
-  
-} else {
-  
-  message("The Retail Sales Index dataset is up to date")
-  
-}
-
-
 # preview -----------------------------------------------------------------
 
 if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
@@ -546,5 +524,27 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
 } else {
   
   message("The Retail Sales Index preview chart is up to date")
+  
+}
+
+
+# export data -------------------------------------------------------------
+
+# write csv
+if (file.exists("data/ier_rsi-overall_cleaned.csv") == F) {
+  
+  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
+  
+  message("The Retail Sales Index dataset has been exported")
+  
+} else if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
+  
+  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
+  
+  message("The Retail Sales Index dataset has been updated")
+  
+} else {
+  
+  message("The Retail Sales Index dataset is up to date")
   
 }

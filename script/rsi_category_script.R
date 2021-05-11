@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-26
-# last updated: 2021-04-14
+# last updated: 2021-05-11
 # page: retail sales
 
 
@@ -21,7 +21,7 @@ library(ggtext)
 
 # date of most recent observation
 if(exists("rsi_last_date") == F) {
-  rsi_last_date <- "2021-03-01"
+  rsi_last_date <- "2021-04-01"
 }
 
 

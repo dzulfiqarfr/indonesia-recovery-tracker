@@ -20,10 +20,10 @@ library(htmltools)
 library(mime)
 
 # source url
-source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SK-Maret-2021.aspx"
+source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SK-April-2021.aspx"
 
 # date of last update
-source_last_update <- "April 9, 2021"
+source_last_update <- "May 10, 2021"
 
 # description functions
 ## above or below
