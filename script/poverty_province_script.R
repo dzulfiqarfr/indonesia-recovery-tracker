@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-05
-# last updated: 2021-04-29
+# last updated: 2021-05-24
 # page: poverty
 
 
@@ -252,8 +252,9 @@ pov_poor_sub_wide$prov <- pov_poor_sub_wide$prov %>%
       "SULAWESI TENGAH" = "Central Sulawesi",
       "SULAWESI TENGGARA" = "Southeast Sulawesi",
       "SULAWESI UTARA" = "North Sulawesi",
-      "SUMATERA SELATAN" = "South Sumatera",
-      "SUMATERA UTARA" = "North Sumatera"
+      "SUMATERA SELATAN" = "South Sumatra",
+      "SUMATERA UTARA" = "North Sumatra",
+      "SUMATERA BARAT" = "West Sumatra"
     )
   ) %>% 
   str_to_title()

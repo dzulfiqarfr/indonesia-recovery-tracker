@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-24
-# last updated: 2021-04-12
+# last updated: 2021-05-24
 # page: employment
 
 
@@ -79,8 +79,9 @@ unemp_key_prov <- unemp_key_prov %>%
           "SULAWESI TENGAH" = "Central Sulawesi",
           "SULAWESI TENGGARA" = "Southeast Sulawesi",
           "SULAWESI UTARA" = "North Sulawesi",
-          "SUMATERA SELATAN" = "South Sumatera",
-          "SUMATERA UTARA" = "North Sumatera"
+          "SUMATERA SELATAN" = "South Sumatra",
+          "SUMATERA UTARA" = "North Sumatra",
+          "SUMATERA BARAT" = "West Sumatra"
         )
       ) %>% 
       str_to_title()

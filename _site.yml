@@ -34,4 +34,4 @@ navbar:
 theme: ier_style.css
 output: distill::distill_article
 output_dir: "docs"
-exclude: ["data", "script", "README.md", "LICENSE.md", "renv.lock"]
+exclude: ["data", "script", "README.md", "NEWS.md" "LICENSE.md", "renv.lock"]
