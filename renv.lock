@@ -842,6 +842,18 @@
       "Repository": "CRAN",
       "Hash": "ad03909b44677f930fa156d47d7a3aeb"
     },
+    "xaringanExtra": {
+      "Package": "xaringanExtra",
+      "Version": "0.4.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "xaringanExtra",
+      "RemoteUsername": "gadenbuie",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "f3ab769ccca2a0aa6ce6abc44e5377e02c8492e8",
+      "Hash": "a6131eb97d074fd19f6611378214c073"
+    },
     "xfun": {
       "Package": "xfun",
       "Version": "0.23",
