@@ -31,6 +31,7 @@ Own-account workers,Informal,2019-02-01,25.32,4.97,19.23,0.6
 Own-account workers,Informal,2019-08-01,26.13,8.3,20.29,1.19
 Own-account workers,Informal,2020-02-01,25.1,-0.87,18.83,-0.4
 Own-account workers,Informal,2020-08-01,26.17,0.19,20.38,0.09
+Own-account workers,Informal,2021-02-01,25.65,2.17,19.57,0.74
 Employers assisted by temporary/unpaid workers,Informal,2005-02-01,21.24,NA,22.37,NA
 Employers assisted by temporary/unpaid workers,Informal,2005-08-01,20.99,NA,22.34,NA
 Employers assisted by temporary/unpaid workers,Informal,2006-02-01,20.63,-2.85,21.68,-0.69
@@ -63,6 +64,7 @@ Employers assisted by temporary/unpaid workers,Informal,2019-02-01,21.57,-0.13,1
 Employers assisted by temporary/unpaid workers,Informal,2019-08-01,18.94,-5.79,14.71,-1.21
 Employers assisted by temporary/unpaid workers,Informal,2020-02-01,22.12,2.54,16.59,0.21
 Employers assisted by temporary/unpaid workers,Informal,2020-08-01,20.07,5.98,15.63,0.92
+Employers assisted by temporary/unpaid workers,Informal,2021-02-01,21.61,-2.28,16.49,-0.1
 Employers assisted by full time/paid workers,Formal,2005-02-01,2.91,NA,3.06,NA
 Employers assisted by full time/paid workers,Formal,2005-08-01,2.85,NA,3.03,NA
 Employers assisted by full time/paid workers,Formal,2006-02-01,2.81,-3.26,2.96,-0.11
@@ -95,6 +97,7 @@ Employers assisted by full time/paid workers,Formal,2019-02-01,4.75,-0.32,3.61,-
 Employers assisted by full time/paid workers,Formal,2019-08-01,4.46,1.85,3.47,-0
 Employers assisted by full time/paid workers,Formal,2020-02-01,4.91,3.29,3.68,0.07
 Employers assisted by full time/paid workers,Formal,2020-08-01,4.05,-9.24,3.15,-0.31
+Employers assisted by full time/paid workers,Formal,2021-02-01,4.4,-10.36,3.36,-0.33
 Employees,Formal,2005-02-01,25.74,NA,27.11,NA
 Employees,Formal,2005-08-01,26.03,NA,27.7,NA
 Employees,Formal,2006-02-01,25.97,0.9,27.29,0.18
@@ -127,6 +130,7 @@ Employees,Formal,2019-02-01,51.29,4.45,38.95,1.02
 Employees,Formal,2019-08-01,52.34,4.8,40.65,1.1
 Employees,Formal,2020-02-01,52.89,3.1,39.68,0.73
 Employees,Formal,2020-08-01,46.72,-10.74,36.37,-4.28
+Employees,Formal,2021-02-01,48.52,-8.25,37.02,-2.66
 Casual employees in agriculture,Informal,2005-02-01,4.95,NA,5.21,NA
 Casual employees in agriculture,Informal,2005-08-01,5.53,NA,5.89,NA
 Casual employees in agriculture,Informal,2006-02-01,5.89,18.9,6.18,0.97
@@ -159,6 +163,7 @@ Casual employees in agriculture,Informal,2019-02-01,4.78,2.54,3.63,0.03
 Casual employees in agriculture,Informal,2019-08-01,5.28,-0.21,4.1,-0.09
 Casual employees in agriculture,Informal,2020-02-01,4.98,4.17,3.74,0.11
 Casual employees in agriculture,Informal,2020-08-01,5.92,12.12,4.61,0.51
+Casual employees in agriculture,Informal,2021-02-01,5.01,0.5,3.82,0.08
 Casual employees in non-agriculture,Informal,2005-02-01,4.09,NA,4.31,NA
 Casual employees in non-agriculture,Informal,2005-08-01,4.33,NA,4.6,NA
 Casual employees in non-agriculture,Informal,2006-02-01,4.24,3.77,4.46,0.15
@@ -191,6 +196,7 @@ Casual employees in non-agriculture,Informal,2019-02-01,5.98,-7.43,4.54,-0.45
 Casual employees in non-agriculture,Informal,2019-08-01,6.84,-3.57,5.32,-0.3
 Casual employees in non-agriculture,Informal,2020-02-01,5.89,-1.49,4.42,-0.12
 Casual employees in non-agriculture,Informal,2020-08-01,7.2,5.16,5.6,0.29
+Casual employees in non-agriculture,Informal,2021-02-01,6.7,13.75,5.11,0.69
 Unpaid family workers,Informal,2005-02-01,18.54,NA,19.52,NA
 Unpaid family workers,Informal,2005-08-01,16.94,NA,18.03,NA
 Unpaid family workers,Informal,2006-02-01,17.33,-6.54,18.2,-1.32
@@ -223,3 +229,4 @@ Unpaid family workers,Informal,2019-02-01,17.99,-4.1,13.66,-0.83
 Unpaid family workers,Informal,2019-08-01,14.76,-3.76,11.46,-0.68
 Unpaid family workers,Informal,2020-02-01,17.41,-3.24,13.06,-0.6
 Unpaid family workers,Informal,2020-08-01,18.32,24.1,14.26,2.8
+Unpaid family workers,Informal,2021-02-01,19.18,10.16,14.63,1.57

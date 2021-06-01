@@ -19,6 +19,7 @@ sector,date,workers,workers_pct_chg_yoy,prop,prop_chg_yoy
 "Agriculture, forestry and fishery",2019-08-01,35.45,-3.08,27.53,-1.43
 "Agriculture, forestry and fishery",2020-02-01,38.96,-0.46,29.23,-0.49
 "Agriculture, forestry and fishery",2020-08-01,38.22,7.83,29.76,2.22
+"Agriculture, forestry and fishery",2021-02-01,38.78,-0.46,29.59,0.36
 Mining and excavation,2011-02-01,1.36,NA,1.21,NA
 Mining and excavation,2011-08-01,1.43,NA,1.33,NA
 Mining and excavation,2012-02-01,1.62,18.86,1.42,0.2
@@ -39,6 +40,7 @@ Mining and excavation,2019-02-01,1.38,-1.09,1.05,-0.03
 Mining and excavation,2019-08-01,1.43,-2.57,1.11,-0.05
 Mining and excavation,2020-02-01,1.34,-2.65,1.01,-0.04
 Mining and excavation,2020-08-01,1.35,-5.34,1.05,-0.06
+Mining and excavation,2021-02-01,1.35,0.42,1.03,0.02
 Manufacturing,2011-02-01,14.2,NA,12.68,NA
 Manufacturing,2011-08-01,14.83,NA,13.81,NA
 Manufacturing,2012-02-01,14.69,3.45,12.88,0.21
@@ -59,6 +61,7 @@ Manufacturing,2019-02-01,18.47,1.57,14.02,-0.02
 Manufacturing,2019-08-01,19.2,3.57,14.91,0.23
 Manufacturing,2020-02-01,18.71,1.31,14.04,0.01
 Manufacturing,2020-08-01,17.48,-8.93,13.61,-1.3
+Manufacturing,2021-02-01,17.82,-4.73,13.6,-0.44
 "Electricity, gas, steam/hot water and cold air procurement",2011-02-01,0.19,NA,0.17,NA
 "Electricity, gas, steam/hot water and cold air procurement",2011-08-01,0.16,NA,0.15,NA
 "Electricity, gas, steam/hot water and cold air procurement",2012-02-01,0.25,31.26,0.22,0.05
@@ -79,6 +82,7 @@ Manufacturing,2020-08-01,17.48,-8.93,13.61,-1.3
 "Electricity, gas, steam/hot water and cold air procurement",2019-08-01,0.36,5.67,0.28,0.01
 "Electricity, gas, steam/hot water and cold air procurement",2020-02-01,0.34,8.14,0.26,0.02
 "Electricity, gas, steam/hot water and cold air procurement",2020-08-01,0.3,-16.52,0.24,-0.05
+"Electricity, gas, steam/hot water and cold air procurement",2021-02-01,0.27,-20.13,0.21,-0.05
 "Water, waste and recycling management procurement",2011-02-01,0.17,NA,0.16,NA
 "Water, waste and recycling management procurement",2011-08-01,0.19,NA,0.17,NA
 "Water, waste and recycling management procurement",2012-02-01,0.16,-10.22,0.14,-0.02
@@ -99,6 +103,7 @@ Manufacturing,2020-08-01,17.48,-8.93,13.61,-1.3
 "Water, waste and recycling management procurement",2019-08-01,0.5,4.77,0.39,0.01
 "Water, waste and recycling management procurement",2020-02-01,0.46,10.72,0.35,0.03
 "Water, waste and recycling management procurement",2020-08-01,0.49,-2.25,0.38,-0.01
+"Water, waste and recycling management procurement",2021-02-01,0.5,7.59,0.38,0.03
 Construction,2011-02-01,5.65,NA,5.04,NA
 Construction,2011-08-01,6.26,NA,5.83,NA
 Construction,2012-02-01,6.15,8.91,5.39,0.35
@@ -119,6 +124,7 @@ Construction,2019-02-01,7.76,7.88,5.9,0.34
 Construction,2019-08-01,8.68,2.58,6.74,0.04
 Construction,2020-02-01,8.12,4.55,6.09,0.19
 Construction,2020-08-01,8.07,-7.02,6.28,-0.46
+Construction,2021-02-01,7.93,-2.3,6.05,-0.04
 Wholesale and retail trade; car and motorcycle repair and maintenance,2011-02-01,19.69,NA,17.57,NA
 Wholesale and retail trade; car and motorcycle repair and maintenance,2011-08-01,19.45,NA,18.11,NA
 Wholesale and retail trade; car and motorcycle repair and maintenance,2012-02-01,21.01,6.75,18.42,0.85
@@ -139,6 +145,7 @@ Wholesale and retail trade; car and motorcycle repair and maintenance,2019-02-01
 Wholesale and retail trade; car and motorcycle repair and maintenance,2019-08-01,24.16,3,18.77,0.19
 Wholesale and retail trade; car and motorcycle repair and maintenance,2020-02-01,24.77,-0.21,18.59,-0.27
 Wholesale and retail trade; car and motorcycle repair and maintenance,2020-08-01,24.7,2.23,19.23,0.46
+Wholesale and retail trade; car and motorcycle repair and maintenance,2021-02-01,25.16,1.57,19.2,0.61
 Transportation and warehouse,2011-02-01,4.76,NA,4.25,NA
 Transportation and warehouse,2011-08-01,4.54,NA,4.22,NA
 Transportation and warehouse,2012-02-01,4.7,-1.27,4.12,-0.13
@@ -159,6 +166,7 @@ Transportation and warehouse,2019-02-01,5.29,2.11,4.02,0.02
 Transportation and warehouse,2019-08-01,5.66,3,4.39,0.04
 Transportation and warehouse,2020-02-01,5.51,4.13,4.13,0.12
 Transportation and warehouse,2020-08-01,5.59,-1.14,4.35,-0.04
+Transportation and warehouse,2021-02-01,5.31,-3.66,4.05,-0.08
 Accommodation and food and beverage services,2011-02-01,4.43,NA,3.95,NA
 Accommodation and food and beverage services,2011-08-01,3.61,NA,3.36,NA
 Accommodation and food and beverage services,2012-02-01,4.08,-7.72,3.58,-0.37
@@ -179,6 +187,7 @@ Accommodation and food and beverage services,2019-02-01,8.89,8.52,6.75,0.42
 Accommodation and food and beverage services,2019-08-01,8.56,10.25,6.65,0.5
 Accommodation and food and beverage services,2020-02-01,9.06,1.86,6.8,0.04
 Accommodation and food and beverage services,2020-08-01,8.54,-0.22,6.65,0
+Accommodation and food and beverage services,2021-02-01,9.17,1.2,6.99,0.2
 Information and communication,2011-02-01,0.9,NA,0.81,NA
 Information and communication,2011-08-01,0.56,NA,0.52,NA
 Information and communication,2012-02-01,0.55,-39.38,0.48,-0.33
@@ -199,6 +208,7 @@ Information and communication,2019-02-01,0.95,-5.67,0.72,-0.06
 Information and communication,2019-08-01,0.92,1.84,0.72,-0
 Information and communication,2020-02-01,0.96,1.17,0.72,-0
 Information and communication,2020-08-01,0.93,1.31,0.73,0.01
+Information and communication,2021-02-01,1.08,12.52,0.83,0.1
 Financial and insurance services,2011-02-01,1.07,NA,0.96,NA
 Financial and insurance services,2011-08-01,1.24,NA,1.15,NA
 Financial and insurance services,2012-02-01,1.48,38.03,1.3,0.34
@@ -219,6 +229,7 @@ Financial and insurance services,2019-02-01,1.81,5.62,1.37,0.05
 Financial and insurance services,2019-08-01,1.78,-2.45,1.38,-0.06
 Financial and insurance services,2020-02-01,1.82,0.52,1.37,-0.01
 Financial and insurance services,2020-08-01,1.56,-12.24,1.21,-0.17
+Financial and insurance services,2021-02-01,1.51,-16.82,1.15,-0.21
 Real estate,2011-02-01,0.16,NA,0.15,NA
 Real estate,2011-08-01,0.18,NA,0.16,NA
 Real estate,2012-02-01,0.16,-1.44,0.14,-0
@@ -239,6 +250,7 @@ Real estate,2019-02-01,0.34,26.14,0.26,0.05
 Real estate,2019-08-01,0.4,2.58,0.31,0
 Real estate,2020-02-01,0.43,25.22,0.32,0.06
 Real estate,2020-08-01,0.39,-2.54,0.31,-0.01
+Real estate,2021-02-01,0.47,10.53,0.36,0.04
 Corporate service,2011-02-01,0.99,NA,0.88,NA
 Corporate service,2011-08-01,1.16,NA,1.08,NA
 Corporate service,2012-02-01,1.23,24.2,1.07,0.19
@@ -259,6 +271,7 @@ Corporate service,2019-02-01,1.71,6.4,1.3,0.06
 Corporate service,2019-08-01,1.94,15.33,1.51,0.17
 Corporate service,2020-02-01,1.82,6.94,1.37,0.07
 Corporate service,2020-08-01,1.8,-7.53,1.4,-0.11
+Corporate service,2021-02-01,1.89,3.67,1.44,0.07
 "Government, defense and social security administration",2011-02-01,3.99,NA,3.56,NA
 "Government, defense and social security administration",2011-08-01,3.83,NA,3.57,NA
 "Government, defense and social security administration",2012-02-01,4,0.23,3.51,-0.05
@@ -279,6 +292,7 @@ Corporate service,2020-08-01,1.8,-7.53,1.4,-0.11
 "Government, defense and social security administration",2019-08-01,4.95,3.81,3.84,0.07
 "Government, defense and social security administration",2020-02-01,5.44,3.74,4.08,0.1
 "Government, defense and social security administration",2020-08-01,4.57,-7.64,3.56,-0.29
+"Government, defense and social security administration",2021-02-01,4.66,-14.31,3.55,-0.52
 Education service,2011-02-01,5.35,NA,4.78,NA
 Education service,2011-08-01,4.75,NA,4.42,NA
 Education service,2012-02-01,5.51,2.9,4.83,0.05
@@ -299,6 +313,7 @@ Education service,2019-02-01,6.72,4.68,5.1,0.14
 Education service,2019-08-01,6.42,4.03,4.98,0.1
 Education service,2020-02-01,7.11,5.89,5.33,0.24
 Education service,2020-08-01,6.03,-6.04,4.69,-0.29
+Education service,2021-02-01,6.49,-8.68,4.95,-0.38
 Healthcare and social activity services,2011-02-01,1.27,NA,1.13,NA
 Healthcare and social activity services,2011-08-01,1.16,NA,1.08,NA
 Healthcare and social activity services,2012-02-01,1.29,1.85,1.13,0
@@ -319,6 +334,7 @@ Healthcare and social activity services,2019-02-01,2.02,-1.51,1.53,-0.05
 Healthcare and social activity services,2019-08-01,1.98,5.48,1.54,0.05
 Healthcare and social activity services,2020-02-01,2.22,10.05,1.66,0.13
 Healthcare and social activity services,2020-08-01,2.01,1.15,1.56,0.02
+Healthcare and social activity services,2021-02-01,2.31,3.99,1.76,0.1
 Other,2011-02-01,5.4,NA,4.82,NA
 Other,2011-08-01,4.97,NA,4.63,NA
 Other,2012-02-01,5.52,2.1,4.84,0.01
@@ -339,3 +355,4 @@ Other,2019-02-01,6.42,1.18,4.87,-0.03
 Other,2019-08-01,6.36,4.56,4.94,0.12
 Other,2020-02-01,6.22,-3.12,4.67,-0.21
 Other,2020-08-01,6.41,0.71,4.99,0.05
+Other,2021-02-01,6.36,2.21,4.85,0.18
