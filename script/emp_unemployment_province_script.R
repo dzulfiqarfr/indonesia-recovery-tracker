@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-24
-# last updated: 2021-05-24
+# last updated: 2021-06-05
 # page: employment
 
 
@@ -179,6 +179,12 @@ unemp_prov_wide <- unemp_prov_trf %>%
 unemp_prov_wide <- unemp_prov_wide %>% 
   mutate(province = fct_reorder(province, ppt_change_yoy, .desc = F))
 
+# province name for center position on x-axis
+prov_plotly <- unemp_prov_wide %>% 
+  arrange(desc(ppt_change_yoy)) %>% 
+  slice(17) %>% 
+  select(province)
+
 # plot
 plot_unemp_prov <- plot_ly(
   unemp_prov_wide,
@@ -258,7 +264,7 @@ plot_unemp_prov <- plot_ly(
         bgcolor = "white",
         showarrow = F,
         xref = "x",
-        x = "Southeast Sulawesi",
+        x = prov_plotly$province,
         xanchor = "center",
         yref = "y",
         y = 1.25,
@@ -287,10 +293,16 @@ plot_unemp_prov <- plot_ly(
 if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleaned.csv"))) {
   
   # annotations
+  ## province name for y-positions
+  prov_ggplot <- unemp_prov_wide %>% 
+    arrange(desc(ppt_change_yoy)) %>% 
+    slice(5:6) %>% 
+    select(province)
+  
   ## legend
   anno_legend <- tibble(
     x = c(0.75, 0.75),
-    y = c("West Java", "Central Java"),
+    y = prov_ggplot$province,
     label = c(
       str_c("\u25CF ", format(unemp_prov_date_latest[1], "%b '%y")),
       str_c("\u25CF ", format(unemp_prov_date_latest[2], "%b '%y"))
@@ -347,18 +359,17 @@ if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleane
       axis.text.y = element_text(hjust = 0),
       axis.ticks = element_blank(),
       axis.line.x = element_blank(),
+      axis.line.y = element_line(color = "black"),
       panel.background = element_rect(fill = "white"),
       panel.grid.major.x = element_line(color = "#CFD8DC"),
       panel.grid.major.y = element_line(color = "#CFD8DC"),
       panel.grid.minor.x = element_blank(),
       panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold", hjust = -0.5),
-      plot.subtitle = element_text(margin = margin(b = 35), hjust = -1.405),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = -3.4,
-        margin = margin(t = 35)
-      )
+      plot.title = element_text(face = "bold"),
+      plot.title.position = "plot",
+      plot.subtitle = element_text(margin = margin(b = 35)),
+      plot.caption = element_text(color = "#757575", hjust = 0, margin = margin(t = 35)),
+      plot.caption.position = "plot"
     ) +
     ggsave(
       "fig/ier_unemployment-province_plot.png",

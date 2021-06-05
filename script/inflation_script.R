@@ -4,7 +4,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-05-08
+# last updated: 2021-06-05
 # page: inflation
 
 
@@ -458,9 +458,7 @@ if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.
 
 ## annual inflation rate ----
 
-if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv")) &&
-    !is.na(last(inf_mom_yoy_tidy$inflation_yoy))
-) {
+if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$inflation_yoy))) {
   
   # annotations
   anno_year_yoy <- tibble(
@@ -569,7 +567,7 @@ if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.
 
 # preview -----------------------------------------------------------------
 
-if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$inflation_yoy))) {
   
   # plot
   ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +

@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-25
-# last updated: 2021-03-28
+# last updated: 2021-06-05
 # page: employment
 
 
@@ -18,6 +18,7 @@ library(lubridate)
 library(httr)
 library(jsonlite)
 library(reactable)
+library(htmltools)
 library(paletteer)
 
 # api key
@@ -315,7 +316,7 @@ reactable_emp_status <- reactable(
         
         bg_color <- reactable_col_pal(value)
         
-        font_color <- if (value > .75 || value < -4) {
+        font_color <- if (value > .75 || value < -2.5) {
           "white"
         } else {
           "black"

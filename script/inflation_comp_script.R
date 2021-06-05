@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-04-14
+# last updated: 2021-06-05
 # page: inflation
 
 
@@ -308,7 +308,7 @@ if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_clean
   # annotations
   anno_year <- tibble(
     x = c(1, 4),
-    y = c(-0.5, 0.5),
+    y = c(-0.5, 0.75),
     label = c("2021", "2020"),
     component = as_factor(rep("core", 2))
   )
@@ -339,7 +339,7 @@ if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_clean
     geom_richtext(
       data = anno_year,
       aes(x, y, label = label),
-      fill = "white",
+      fill = NA,
       label.color = NA,
       text.color = c("#1d81a2", "#90A4AE"),
       hjust = 0,
