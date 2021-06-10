@@ -5723,3 +5723,15 @@ date,place_category,change_from_baseline
 2021-06-05,transit_stations_avg,-15.71
 2021-06-05,workplaces_avg,-21.57
 2021-06-05,residential_avg,6
+2021-06-06,retail_recreation,-1
+2021-06-06,grocery_pharmacy,23
+2021-06-06,parks,6
+2021-06-06,transit_stations,-14
+2021-06-06,workplaces,-5
+2021-06-06,residential,4
+2021-06-06,retail_recreation_avg,2.71
+2021-06-06,grocery_pharmacy_avg,26.57
+2021-06-06,parks_avg,10.43
+2021-06-06,transit_stations_avg,-15.71
+2021-06-06,workplaces_avg,-21.71
+2021-06-06,residential_avg,6
