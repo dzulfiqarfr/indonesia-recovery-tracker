@@ -50,11 +50,11 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
-* In April, the [consumer confidence index](cci.html) has returned to the optimistic territory and the [retail sales index](rsi.html) is estimated to grow by 9.79 percent year-on-year (yoy), the first growth since January 2020, although it is still below pre-pandemic levels.  
+* The retail sales index grew by 15.6 percent year-on-year (yoy) in April and was estimated to grow by 12.9 percent yoy in May. ([Read more](rsi.html))
 
-* The number of pandemic-hit workers declined by 34.4 percent to 19.1 million in February from August. ([Read more](employment.html#number-of-workers-affected-by-covid-19))
+* The consumer confidence index was recorded in May at 104.4, showing further improvements. ([Read more](cci.html))
 
-* Indonesia’s gross domestic product (GDP) contracted by 0.74 percent in the January–March period from a year earlier. ([Read more](gdp.html))  
+* The annual inflation rate stood at 1.68 percent in May, picking up as the country observed its peak spending period during Ramadan and Idul Fitri. ([Read more](inflation.html))
 
 
 ## Explore
