@@ -6047,3 +6047,15 @@ date,place_category,change_from_baseline
 2021-07-02,transit_stations_avg,-33.29
 2021-07-02,workplaces_avg,-23.43
 2021-07-02,residential_avg,9.86
+2021-07-03,retail_recreation,-18
+2021-07-03,grocery_pharmacy,17
+2021-07-03,parks,-24
+2021-07-03,transit_stations,-40
+2021-07-03,workplaces,-20
+2021-07-03,residential,11
+2021-07-03,retail_recreation_avg,-10.71
+2021-07-03,grocery_pharmacy_avg,19
+2021-07-03,parks_avg,-10.71
+2021-07-03,transit_stations_avg,-34.57
+2021-07-03,workplaces_avg,-24.14
+2021-07-03,residential_avg,10.29
