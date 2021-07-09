@@ -5,7 +5,7 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-24
-# last updated: 2021-06-12
+# last updated: 2021-07-09
 # page: consumer confidence
 
 
@@ -21,7 +21,7 @@ library(magick)
 
 # date of most recent observation
 if (exists("cci_last_date") == F) {
-  cci_last_date <- "2021-05-01"
+  cci_last_date <- "2021-06-01"
 }  
 
 

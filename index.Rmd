@@ -50,11 +50,11 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
+* The consumer confidence index rose further to 107.36 in June. The improvement was seen across all income groups. ([Read more](cci.html))
+
+* Consumer prices posted a monthly deflation of 0.16 percent and annual inflation of 1.33 percent in June, slowing from the peak spending period in April and May. ([Read more](inflation.html))
+
 * The retail sales index grew by 15.6 percent year-on-year (yoy) in April and was estimated to grow by 12.9 percent yoy in May. ([Read more](rsi.html))
-
-* The consumer confidence index was recorded in May at 104.4, showing further improvements. ([Read more](cci.html))
-
-* The annual inflation rate stood at 1.68 percent in May, picking up as the country observed its peak spending period during Ramadan and Idul Fitri. ([Read more](inflation.html))
 
 
 ## Explore
