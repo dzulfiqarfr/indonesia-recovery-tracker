@@ -50,11 +50,11 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
+* The retail sales index grew by 14.7 percent year-on-year (yoy) in May and was projected to grow slower by 4.53 percent yoy in June. ([Read more](rsi.html))  
+
 * The consumer confidence index rose further to 107.36 in June. The improvement was seen across all income groups. ([Read more](cci.html))
 
 * Consumer prices posted a monthly deflation of 0.16 percent and annual inflation of 1.33 percent in June, slowing from the peak spending period in April and May. ([Read more](inflation.html))
-
-* The retail sales index grew by 15.6 percent year-on-year (yoy) in April and was estimated to grow by 12.9 percent yoy in May. ([Read more](rsi.html))
 
 
 ## Explore
