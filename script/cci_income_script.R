@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# consumer confidence
-# by income group
+# consumer confidence by income group
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-24
-# last updated: 2021-07-09
+# last updated: 2021-07-13
 # page: consumer confidence
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -19,15 +17,15 @@ library(plotly)
 library(ggtext)
 library(magick)
 
-# date of most recent observation
-if (exists("cci_last_date") == F) {
-  cci_last_date <- "2021-06-01"
-}  
-
 
 # data --------------------------------------------------------------------
 
-# import
+# date of most recent observation
+if (!exists("cci_last_date")) {
+  cci_last_date <- "2021-06-01"
+}  
+
+# import cci by income group data
 cci_by_income_raw <- read_excel(
   "data/bi_cci_raw.xlsx",
   sheet = "Tabel 2",
@@ -55,10 +53,7 @@ cci_date_seq <- seq(ymd("2012-01-01"), ymd(cci_last_date), by = "month")
 ## correct sorting
 cci_date_seq <- cci_date_seq %>%
   tibble() %>% 
-  dplyr::mutate(
-    yr = date(cci_date_seq), 
-    mo = month(cci_date_seq)
-  ) %>% 
+  dplyr::mutate(yr = date(cci_date_seq), mo = month(cci_date_seq)) %>% 
   dplyr::arrange(yr, mo) %>% 
   dplyr::rename(date = 1)
 
@@ -70,25 +65,16 @@ cci_by_income_raw[, 1] <- c("1_2", "2.1_3", "3.1_4", "4.1_5", "above_5")
 
 # tidy data
 cci_by_income_tidy <- cci_by_income_raw %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "date", 
-    values_to = "cci"
-  )
+  pivot_longer(2:ncol(.), names_to = "date", values_to = "cci")
 
 # correct data types
 cci_by_income_tidy$Indices <- as.factor(cci_by_income_tidy$Indices)
-
 cci_by_income_tidy$date <- ymd(cci_by_income_tidy$date)
-
 cci_by_income_tidy$cci <- as.numeric(cci_by_income_tidy$cci)
 
-# wide data for plot
+# reshape to wide format for plot
 cci_by_income_wide <- cci_by_income_tidy %>% 
-  pivot_wider(
-    names_from = Indices, 
-    values_from = cci
-  ) %>% 
+  pivot_wider(names_from = Indices, values_from = cci) %>% 
   arrange(date)
 
 # correct data types
@@ -103,8 +89,15 @@ cci_by_income_wide[, 2:ncol(cci_by_income_wide)] <- lapply(
   function(x) {round(x, 2)}
 )
 
+# rename columns for csv
+cci_by_income_csv <- cci_by_income_tidy %>% 
+  rename(income_group = 1, consumer_confidence_index = 3)
+
 
 # plot --------------------------------------------------------------------
+
+# y-axis range
+cci_inc_y_axis_range <- c(40, 141)
 
 # plot
 plot_cci_by_income <- plot_ly(
@@ -118,45 +111,45 @@ plot_cci_by_income <- plot_ly(
     y = ~`1_2`,
     hovertemplate = str_c(
       "<b>Income group: Rp 1-2 million</b><br><br>",
-      "Index: %{y}<br>Date: %{x}<extra></extra>"
+      "Consumer confidence: %{y}<br>Date: %{x}<extra></extra>"
     ),
-    line = list(color = "#ff5e4b")
+    line = list(color = "#2477B3")
   ) %>%
   add_lines(
     name = "Rp 2.1-3 million",
     y = ~`2.1_3`,
     hovertemplate = str_c(
       "<b>Income group: Rp 2.1-3 million</b><br><br>",
-      "Index: %{y}<br>Date: %{x}<extra></extra>"
+      "Consumer confidence: %{y}<br>Date: %{x}<extra></extra>"
     ),
-    line = list(color = "#ffca76")
+    line = list(color = "#36A3D9")
   ) %>% 
   add_lines(
     name = "Rp 3.1-4 million",
     y = ~`3.1_4`,
     hovertemplate = str_c(
       "<b>Income group: Rp 3.1-4 million</b><br><br>",
-      "Index: %{y}<br>Date: %{x}<extra></extra>"
+      "Consumer confidence: %{y}<br>Date: %{x}<extra></extra>"
     ),
-    line = list(color = "#09bb9f")
+    line = list(color = "#55CBF2")
   ) %>% 
   add_lines(
     name = "Rp 4.1-5 million",
     y = ~`4.1_5`,
     hovertemplate = str_c(
       "<b>Income group: Rp 4.1-5 million</b><br><br>",
-      "Index: %{y}<br>Date: %{x}<extra></extra>"
+      "Consumer confidence: %{y}<br>Date: %{x}<extra></extra>"
     ),
-    line = list(color = "#5cccfa")
+    line = list(color = "#E66439")
   ) %>% 
   add_lines(
     name = "Above Rp 5 million",
     y = ~above_5,
     hovertemplate = str_c(
       "<b>Income group: above Rp 5 million</b><br><br>",
-      "Index: %{y}<br>Date: %{x}<extra></extra>"
+      "Consumer confidence: %{y}<br>Date: %{x}<extra></extra>"
     ),
-    line = list(color = "#607d8b")
+    line = list(color = "#F2AA61")
   ) %>% 
   plotly::layout(
     xaxis = list (
@@ -172,12 +165,12 @@ plot_cci_by_income <- plot_ly(
       automargin = T,
       showline = T,
       showgrid = F,
-      hoverformat = "%b '%y"
+      hoverformat = "%B %Y"
     ),
     yaxis = list(
       title = NA,
       autorange = F,
-      range = c(40, 141),
+      range = cci_inc_y_axis_range,
       fixedrange = T,
       showline = F,
       showgrid = T,
@@ -194,7 +187,7 @@ plot_cci_by_income <- plot_ly(
         yref = "y",
         y0 = 100,
         y1 = 100,
-        line = list(color = "#ff856c", size = 1)
+        line = list(color = "#E68F7E", size = 1)
       ),
       list(
         type = "line",
@@ -203,8 +196,8 @@ plot_cci_by_income <- plot_ly(
         x0 = "2020-03-02",
         x1 = "2020-03-02",
         yref = "y",
-        y0 = 40,
-        y1 = 140,
+        y0 = cci_inc_y_axis_range[1],
+        y1 = cci_inc_y_axis_range[2] - 1,
         line = list(color = "#90A4AE", dash = "dash")
       )
     ),
@@ -232,21 +225,21 @@ plot_cci_by_income <- plot_ly(
       list(
         text = "COVID-19<br>pandemic",
         font = list(size = 12, color = "#90A4AE"),
-        align = "right",
+        align = "left",
         bgcolor = "white",
         showarrow = F,
         xref = "x",
-        x = "2020-02-01",
-        xanchor = "right",
+        x = "2020-03-10",
+        xanchor = "left",
         yref = "y",
-        y = 70,
+        y = cci_inc_y_axis_range[2] - 1.5,
         yanchor = "top"
       )
     ),
     legend = list(
       orientation = "h",
       xanchor = "left",
-      y = 1.35,
+      y = 1.25,
       yanchor = "top",
       valign = "top"
     ),
@@ -258,15 +251,16 @@ plot_cci_by_income <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# latest observation in most recent csv
-cci_by_income_csv <- cci_by_income_tidy %>% 
-  rename(income_group = 1, consumer_confidence_index = 3)
+# path to cci by income group data
+path_data_cci_inc <- "data/ier_cci-income_cleaned.csv"
 
 # export chart
-if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
+if (nrow(cci_by_income_csv) != nrow(read_csv(path_data_cci_inc))) {
   
-  # annotations
-  ## confidence threshold
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
+  
+  # annotations: confidence territories
   anno_conf_ths <- tribble(
     ~x, ~y, ~label,
     ymd("2014-01-01"), 90, "More pessimistic \u2193",
@@ -274,14 +268,18 @@ if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))
   )
   
   # plot
-  ggplot(data = cci_by_income_tidy, aes(date, cci)) +
-    geom_hline(yintercept = 100, color = "#ff856c") +
+  ggplot(cci_by_income_tidy, aes(date, cci)) +
+    geom_hline(yintercept = 100, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
     geom_line(aes(color = Indices), lwd = 0.75) +
+    scale_x_date(
+      breaks = seq(ymd("2012-01-01"), last(cci_by_income_tidy$date), by = "1 year"),
+      labels = c("2012", str_c("'", seq(13, 21)))
+    ) +
     scale_y_continuous(
       breaks = seq(40, 140, 20),
       limits = c(40, 140),
@@ -289,22 +287,34 @@ if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))
       position = "right"
     ) +
     scale_color_manual(
-      labels = c("Rp 1-2 million", "Rp 2.1-3 million", "Rp 3.1-4 million", "Rp 4.1-5 million", "Above Rp 5 million"),
-      values = c("#ff5e4b", "#ffca76", "#09bb9f", "#5cccfa", "#607d8b")    
+      labels = c(
+        "1_2" = "Rp 1-2 million", 
+        "2.1_3" = "Rp 2.1-3 million", 
+        "3.1_4" = "Rp 3.1-4 million", 
+        "4.1_5" = "Rp 4.1-5 million", 
+        "above_5" = "Above Rp 5 million"
+      ),
+      values = c(
+        "1_2" = "#2477B3",
+        "2.1_3" = "#36A3D9",
+        "3.1_4" = "#55CBF2",
+        "4.1_5" = "#E66439",
+        "above_5" = "#F2AA61"
+      )    
     ) +
     ggtext::geom_richtext(
       data = anno_conf_ths,
       aes(x = x, y = y, label = label),
       fill = "white",
       label.color = NA,
-      size = 2.75
+      size = 3
     ) +
     annotate(
       "text",
       x = ymd("2020-04-01"),
       y = 130,
       label = "COVID-19\npandemic \u2192",
-      size = 2.5,
+      size = 3,
       hjust = 0,
       color = "#90A4AE"
     ) +
@@ -313,63 +323,26 @@ if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))
       subtitle = "By income group",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
     ) +
+    theme_ier() +
     theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
+      legend.text = element_text(size = rel(0.7)),
       legend.title = element_blank(),
-      legend.key = element_rect(fill = "transparent"),
-      legend.position = c(0.495, 1.175),
+      legend.key = element_blank(),
+      legend.key.size = unit(0.4, "cm"),
       legend.direction = "horizontal",
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 55)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_cci-income_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
+      legend.position = c(0.49, 1.075),
+      legend.background = element_blank(),
+      plot.subtitle = element_text(margin = margin(b = 37.5))
     )
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # path to the plot
+  path_plot_cci_inc <- "fig/ier_cci-income_plot.png"
   
-  # add base plot
-  base_plot <- image_read("fig/ier_cci-income_plot.png")
+  # save the plot
+  ggsave(path_plot_cci_inc, width = 6, height = 3.708, dpi = 300)
   
-  # get plot height
-  plot_height <- magick::image_info(base_plot)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(base_plot)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  base_plot %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_cci-income_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_cci_inc)
   
   # message
   message("The Consumer Confidence Index by income group chart has been updated")
@@ -381,17 +354,17 @@ if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))
 }
 
 
-# preview -----------------------------------------------------------------
+# export preview chart ----------------------------------------------------
 
-if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
+if (nrow(cci_by_income_csv) != nrow(read_csv(path_data_cci_inc))) {
   
   # plot
-  ggplot(data = cci_by_income_tidy, aes(date, cci)) +
-    geom_hline(yintercept = 100, color = "#ff856c") +
+  ggplot(cci_by_income_tidy, aes(date, cci)) +
+    geom_hline(yintercept = 100, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
     geom_line(aes(color = Indices), lwd = 1.5, show.legend = F) +
     scale_y_continuous(
@@ -401,20 +374,29 @@ if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))
       position = "right"
     ) +
     scale_color_manual(
-      labels = c("Rp 1-2 million", "Rp 2.1-3 million", "Rp 3.1-4 million", "Rp 4.1-5 million", "Above Rp 5 million"),
-      values = c("#ff5e4b", "#ffca76", "#09bb9f", "#5cccfa", "#607d8b")    
+      labels = c(
+        "1_2" = "Rp 1-2 million", 
+        "2.1_3" = "Rp 2.1-3 million", 
+        "3.1_4" = "Rp 3.1-4 million", 
+        "4.1_5" = "Rp 4.1-5 million", 
+        "above_5" = "Above Rp 5 million"
+      ),
+      values = c(
+        "1_2" = "#2477B3",
+        "2.1_3" = "#36A3D9",
+        "3.1_4" = "#55CBF2",
+        "4.1_5" = "#E66439",
+        "above_5" = "#F2AA61"
+      )    
     ) +
     theme_void() +
-    theme(
-      plot.background = element_rect(fill = "#263238", color = NA),
-      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-    ) +
-    ggsave(
-      "fig/ier_cci-income_void_plot.png",
-      width = 13.3,
-      height = 6.6,
-      dpi = 300
-    )
+    theme_ier_pre()
+  
+  # path to preview plot
+  path_plot_cci_pre <- "fig/ier_cci-income_void_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_cci_pre, width = 13.3, height = 6.6, dpi = 300)
   
   # message
   message("The Consumer Confidence Index by income group preview chart has been updated")
@@ -428,16 +410,15 @@ if (nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))
 
 # export data -------------------------------------------------------------
 
-# write csv
-if (file.exists("data/ier_cci-income_cleaned.csv") == F) {
+if (!file.exists(path_data_cci_inc)) {
   
-  write_csv(cci_by_income_csv, "data/ier_cci-income_cleaned.csv")
+  write_csv(cci_by_income_csv, path_data_cci_inc)
   
   message("The Consumer Confidence Index dataset, broken down by income group, has been exported")
   
-} else if(nrow(cci_by_income_csv) != nrow(read_csv("data/ier_cci-income_cleaned.csv"))) {
+} else if(nrow(cci_by_income_csv) != nrow(read_csv(path_data_cci_inc))) {
   
-  write_csv(cci_by_income_csv, "data/ier_cci-income_cleaned.csv")
+  write_csv(cci_by_income_csv, path_data_cci_inc)
   
   message("The Consumer Confidence Index dataset, broken down by income group, has been updated")
   

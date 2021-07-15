@@ -1,21 +1,20 @@
 ---
 title: "Community mobility"
 description: |
-  Indonesians have been reducing their visit to places like retail and recreation places in response to the COVID-19 pandemic restrictions, such as closures of school, workplace and shopping centers. But people’s mobility to certain places have shown signs of recovering to the pre-pandemic level.
+  Indonesians have been reducing their visit to places like retail and recreation places in response to pandemic restrictions. It remains to be seen whether mobility will return to its normal level since there is a shift in people’s behavior.
 output: 
   distill::distill_article:
     toc: true
     toc_float: true
+    toc_depth: 4
 preview: fig/ier_mobility-ntl_void_plot.png
 ---
-
 
 ```{r setup, include=FALSE}
 # chunk options
 knitr::opts_chunk$set(echo = FALSE)
 
 # packages
-library(tidyverse)
 library(htmltools)
 library(govdown)
 library(mime)
@@ -50,24 +49,19 @@ embed_chart_mob_ntl <- xfun::embed_file(
 ### National
 
 Number of visitors, by place category  
-(percent change from baseline in Jan-Feb 2020 period)
+(percent change from pre-pandemic usual level)
 
 ```{r plot: national mobility}
 source("script/mobility_ntl_script.R", local = knitr::knit_global())
-
 div(sm_mob_ntl)
 ```
 
-*Tips: click the legend item to select or deselect a trace.*
+*Tip: click the legend item(s) to select or remove data*
 
 ```{r description: national mobility}
 # categories with declining movement trends
 mob_ntl_down <- mob_ntl_trf %>% 
-  pivot_longer(
-    2:ncol(.), 
-    names_to = "category", 
-    values_to = "mobility"
-  ) %>% 
+  pivot_longer(2:ncol(.), names_to = "category", values_to = "mobility") %>% 
   dplyr::filter(
     date == last(date),
     str_detect(category, "avg"),
@@ -85,12 +79,12 @@ On `r format(mob_ntl_down$date[1], "%A (%b %d)")`, the number of visitors to `r 
 
 <aside>
 
-See also [retail sales index](rsi.html)
+See also [retail sales](rsi.html)
 
 </aside>
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the headline number represents a percent change in the number of visitors from the median value of that day of the week over the period between Jan. 3 and Feb. 6, 2020, which reflects the usual level before the pandemic. The data is smoothed to a seven-day moving average. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Data frequency**: daily  
@@ -101,10 +95,10 @@ See also [retail sales index](rsi.html)
 </details>
 
 
-### Regional
+#### By province
 
 Number of visitors, by place category  
-(percent change from baseline in Jan-Feb 2020 period, seven-day moving average)
+(percent change from pre-pandemic usual level)
 
 ```{r script: regional mobility}
 source("script/mobility_reg_script.R", local = knitr::knit_global())
@@ -123,12 +117,10 @@ $(document).ready(function() {
 div(sm_mob_reg)
 ```
 
-*Tips: click the legend item to select or deselect a trace.*
-
-The movement trends are largely similar across provinces with the number of visitors having remained below the pre-pandemic level, with a few exceptions.
+Movement trends are largely similar across provinces, with a few exceptions. 
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the headline number represents a percent change in the number of visitors from the median value of that day of the week over the period between Jan. 3 and Feb. 6, 2020, which reflects the usual level before the pandemic. The data is broken down by province and smoothed to a seven-day moving average. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Data frequency**: daily  

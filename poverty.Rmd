@@ -1,45 +1,26 @@
 ---
 title: "Poverty"
 description: |
-  The COVID-19 pandemic has pushed millions into poverty, undoing around three years worth of progress in lifting people out of it. The rise in the poverty rate was higher in urban areas than rural areas.
+  The COVID-19 pandemic has pushed millions into poverty, undoing around three years worth of progress in lifting people out of it. The rise in the poverty rate was higher in urban areas.
 output: 
   distill::distill_article:
     toc: true
     toc_float: true
+    toc_depth: 4
 preview: fig/ier_poverty-rate_void_plot.png
 ---
-
 
 ```{r setup, include=FALSE}
 # chunk options
 knitr::opts_chunk$set(echo = FALSE)
 
 # packages
-library(tidyverse)
-library(lubridate)
-library(jsonlite)
-library(httr)
 library(htmltools)
-library(xaringanExtra)
 library(crosstalk)
 library(govdown)
 library(mime)
 
-# bps api
-## key
-if (exists("BPS_KEY") == F) {
-  BPS_KEY <- Sys.getenv("BPS_KEY")
-}
-
-## base url
-if (exists("base_url") == F) {
-  base_url <- "https://webapi.bps.go.id/v1/api/list"
-}
-
-# use panelset
-xaringanExtra::use_panelset()
-
-# description functions
+# functions to describe data
 ## rise or fall
 ier_compare_rise <- function(x) {
   if (x > 0) {
@@ -66,13 +47,6 @@ embed_pov_rate <- xfun::embed_file(
   text = "csv"
 )
 
-## number of poor people
-embed_poor <- xfun::embed_file(
-  "data/ier_poor_cleaned.csv",
-  name = "ier_poor_cleaned.csv",
-  text = "csv"
-)
-
 ## poverty by province
 embed_pov_prov <- xfun::embed_file(
   "data/ier_poverty-province_cleaned.csv",
@@ -87,57 +61,34 @@ embed_chart_pov_rate <- xfun::embed_file(
   name = "ier_poverty-rate_plot.png",
   text = "chart"
 )
-
-## number of poor people
-embed_chart_poor <- xfun::embed_file(
-  "fig/ier_poverty-poor_plot.png",
-  name = "ier_poverty-poor_plot.png",
-  text = "chart"
-)
 ```
 
 
 ### Poverty rate
 
-::::: {.panelset}
-
-::: {.panel}
-
-#### Rate {.panel-name}
-
-By area (percent)
+(percent)
 
 ```{r plot: poverty rate}
 source("script/poverty_script.R", local = knitr::knit_global())
-
 div(plot_pov_rate)
 ```
 
-:::
-
-::: {.panel}
-
-#### Change  {.panel-name}
-
-By area (percentage point change from a year earlier)
-
-```{r plot: change in poverty rate}
-div(plot_pov_diff)
-```
-
-:::
-
-:::::
-
-*Tips: click the legend item to select or deselect a trace.*
+*Tip: click the legend item(s) to select or remove data*
 
 ```{r description: poverty rate}
+# read number of poor people data
+source("script/poverty_poor_script.R", local = knitr::knit_global())
+
+# latest number of poor people data
+poor_latest <- poor_trf %>% 
+  dplyr::filter(date == last(date))
+
 # latest poverty rate data
 pov_latest <- pov_trf %>% 
   dplyr::filter(date == last(date))
 ```
 
-The overall poverty rate `r ier_compare_rise(pov_latest$diff[3])` by **`r pov_latest$diff[3]`** percentage points year-on-year (yoy) to **`r pov_latest$pov_rate[3]`** percent in `r format(pov_latest$date[1], "%B %Y")`.
+The overall poverty rate `r ier_compare_rise(pov_latest$diff[3])` by **`r pov_latest$diff[3]`** percentage points year-on-year (yoy) to **`r pov_latest$pov_rate[3]`** percent in `r format(pov_latest$date[1], "%B %Y")`. This means the total number of poor people was `r ier_compare_up(poor_latest$diff[3])` by **`r poor_latest$diff[3]`** million yoy to **`r poor_latest$poor[3]`** million.
 
 <aside>
 
@@ -147,7 +98,7 @@ See also [unemployment](employment.html)
 
 In urban areas, the poverty rate `r ier_compare_rise(pov_latest$diff[1])` by **`r pov_latest$diff[1]`** percentage points yoy to **`r pov_latest$pov_rate[1]`** percent. In rural areas, the poverty rate was `r ier_compare_up(pov_latest$diff[2])` by **`r pov_latest$diff[2]`** percentage points yoy to **`r pov_latest$pov_rate[2]`** percent.
 
-In September 2020, the pandemic has pushed the poverty rate back to around the level last seen in the same month in 2017.
+In September 2020, the pandemic pushed the overall poverty rate back to a level last seen in 2017.
 
 ```{r documentation: poverty}
 # date of last update
@@ -178,9 +129,8 @@ source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>%
   format("%B %d, %Y")
 ```
 
-
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the share of people who cannot afford both food and non-food basic needs as measured by monthly spending. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every February and July  
@@ -190,59 +140,7 @@ source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>%
 </details>
 
 
-### Number of poor people
-
-::::: {.panelset}
-
-::: {.panel}
-
-#### Total {.panel-name}
-
-By area (millions)
-
-```{r plot: number of poor people}
-source("script/poverty_poor_script.R", local = knitr::knit_global())
-
-div(plot_poor_total)
-```
-
-:::
-
-::: {.panel}
-
-#### Change {.panel-name}
-
-By area (millions)
-
-```{r plot: change in the number of poor people}
-div(plot_poor_diff)
-```
-
-:::
-
-:::::
-
-*Tips: click the legend item to select or deselect a trace.*
-
-```{r description: number of poor people}
-poor_latest <- poor_trf %>% 
-  dplyr::filter(date == last(date))
-```
-
-The total number of poor people was `r ier_compare_up(poor_latest$diff[3])` by **`r poor_latest$diff[3]`** million yoy to **`r poor_latest$poor[3]`** million in `r format(poor_latest$date[1], "%B %Y")`. In urban areas, the number `r ier_compare_rise(poor_latest$diff[1])` by **`r poor_latest$diff[1]`** million yoy to **`r poor_latest$poor[1]`** million. In rural areas, it `r ier_compare_rise(poor_latest$diff[2])` by **`r poor_latest$diff[2]`** million yoy to **`r poor_latest$poor[2]`** million.
-
-<details>
-<summary>Documentation</summary>
-**Description**: the absolute number of people who cannot afford both food and non-food basic needs as measured by monthly spending. See [appendix](#note) for further details.  
-**Chart**: Dzulfiqar Fathur Rahman  
-**Update frequency**: every February and July  
-**Source**: [BPS](https://www.bps.go.id/indicator/23/185/1/jumlah-penduduk-miskin-menurut-provinsi.html){target="_blank"}  
-**Last updated**: `r source_last_update`  
-**Download**: `r embed_poor`; `r embed_chart_poor`  
-</details>
-
-
-### Poverty by province
+#### By province
 
 ```{r script: poverty by province}
 source("script/poverty_province_script.R", local = knitr::knit_global())
@@ -269,16 +167,16 @@ pov_poor_head <- pov_poor_sub_wide %>%
   head(5)
 ```
 
-The highest increase in the overall poverty rate was seen in `r pov_poor_head$prov[1]`, where it `r ier_compare_rise(pov_poor_head$pov_rate_diff[1])` by **`r pov_poor_head$pov_rate_diff[1]`** percentage points yoy, which brought the share of the poor population in the province to **`r pov_poor_head$pov_rate_2[1]`** percent in `r format(pov_latest$date[1], "%B %Y")`. It was followed by `r pov_poor_head$prov[-c(1, 5)]` and `r pov_poor_head$prov[5]`.
+The highest increase in poverty rate was seen in `r pov_poor_head$prov[1]`, where it `r ier_compare_rise(pov_poor_head$pov_rate_diff[1])` by **`r pov_poor_head$pov_rate_diff[1]`** percentage points yoy, which brought the share of poor people in the province to **`r pov_poor_head$pov_rate[1]`** percent in `r format(pov_latest$date[1], "%B %Y")`. It was followed by `r pov_poor_head$prov[-c(1, 5)]` and `r pov_poor_head$prov[5]`.
 
 <aside>
 
-See also [unemployment by province](employment.html#unemployment-rate-by-province)
+See also [unemployment by province](employment.html#by-province)
 
 </aside>
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the absolute number of people who cannot afford both food and non-food basic needs as measured by monthly spending and the poverty rate, broken down by province. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every February and July  
@@ -297,11 +195,12 @@ BPS uses the basic needs approach, which defines poverty as the inability to aff
 ```{r description: poverty line}
 source("script/poverty_line.R", local = knitr::knit_global())
 
+# latest poverty line data
 pov_line_latest <- pov_line_trf %>% 
   dplyr::filter(date == last(date))
 ```
 
-Poor people were those who spent below Rp`r format(pov_line_latest$pov_line[3], big.mark = ",")` per month, the national poverty line for `r format(pov_line_latest$date[1], "%B %Y")`.
+Poor people were those who spent below Rp `r format(pov_line_latest$pov_line[3], big.mark = ",")` per month, the national poverty line for `r format(pov_line_latest$date[1], "%B %Y")`.
 
 BPS constructs the poverty line based on the food and non-food spending. The food spending is the amount of spending equals 2,100 kilocalories (kcal) for a person a day. The non-food spending comprises the amount of spending on housing, education, healthcare, clothes and other basic needs other than food.
 

@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# inflation
-# by component
+# inflation by component
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-06-05
+# last updated: 2021-07-15
 # page: inflation
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -21,18 +19,18 @@ library(plotly)
 library(magick)
 library(ggtext)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url_static") == F) {
+if (!exists("base_url_static")) {
   base_url_static <- "https://webapi.bps.go.id/v1/api/view"
 }
-
-
-# data --------------------------------------------------------------------
 
 # request data
 inf_comp_req <- GET(
@@ -114,10 +112,7 @@ inf_comp_raw <- inf_comp_raw %>%
 # tidy data
 inf_comp_tidy <- inf_comp_raw %>% 
   arrange(date) %>% 
-  mutate(
-    mo = month(date),
-    yr = year(date)
-  ) %>% 
+  mutate(mo = month(date), yr = year(date)) %>% 
   select(!starts_with("...")) %>% 
   rename(
     overall = Umum,
@@ -153,8 +148,8 @@ plot_inf_comp <- lapply(
       type = "scatter",
       mode = "markers+lines",
       line = list(width = 3),
-      colors = c("#CFD8DC", "#1d81a2"),
-      text = ~format(date, "%b %Y"),
+      colors = c("lightgrey", "#2477B3"),
+      text = ~format(date, "%B %Y"),
       hovertemplate = "Inflation rate: %{y} percent<br>Date: %{text}<extra></extra>",
       height = 300
     ) %>% 
@@ -170,8 +165,8 @@ plot_inf_comp <- lapply(
           autorange = T,
           fixedrange = T,
           tickmode = "array",
-          tickvals = c(3, 6, 9, 12),
-          ticktext = c("Mar", "Jun", "Sep", "Dec"),
+          tickvals = c(1, 4, 7, 10),
+          ticktext = c("Jan", "Apr", "Jul", "Oct"),
           ticks = "outside",
           automargin = T,
           showline = T,
@@ -187,7 +182,7 @@ plot_inf_comp <- lapply(
           showline = F,
           showgrid = T,
           gridcolor = "#CFD8DC",
-          zerolinecolor = "#ff856c",
+          zerolinecolor = "#E68F7E",
           side = "left"
         ),
         showlegend = F,
@@ -243,7 +238,7 @@ anno_sub_vol <- list(
 ## 2020
 anno_text_2020 <- list(
   text = "<b>2020</b>",
-  font = list(size = 10, color = "#90A4AE"),
+  font = list(size = 10, color = "lightgrey"),
   align = "left",
   bgcolor = "white",
   showarrow = F,
@@ -258,7 +253,7 @@ anno_text_2020 <- list(
 ## 2021
 anno_text_2021 <- list(
   text = "<b>2021</b>",
-  font = list(size = 10, color = "#1d81a2"),
+  font = list(size = 10, color = "#2477B3"),
   align = "left",
   bgcolor = "white",
   showarrow = F,
@@ -296,14 +291,13 @@ sm_inf_comp <- subplot(
 inf_comp_tidy_csv <- inf_comp_tidy %>% 
   select(-c("mo", "yr")) %>% 
   rename(Core = 2, `Administered prices` = 3, `Volatile prices` = 4) %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "component",
-    values_to = "inflation_mom"
-  )
+  pivot_longer(2:ncol(.), names_to = "component", values_to = "inflation_mom")
 
 # export chart
 if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_cleaned.csv"))) {
+  
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
   
   # annotations
   anno_year <- tibble(
@@ -315,19 +309,15 @@ if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_clean
   
   # plot
   inf_comp_tidy %>% 
-    pivot_longer(
-      4:ncol(.),
-      names_to = "component",
-      values_to = "inflation_rate"
-    ) %>% 
+    pivot_longer(4:ncol(.), names_to = "component", values_to = "inflation_rate") %>% 
     mutate(component = factor(component, levels = c("core", "adm_prices", "volatile_prices"))) %>% 
     ggplot(aes(mo, inflation_rate)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
     geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
     scale_x_continuous(
-      breaks = seq(2, 12, 2),
-      labels = c("Feb", "Apr", "Jun", "Aug", "Oct", "Dec")
+      breaks = c(1, 4, 7, 10),
+      labels = c("Jan", "April", "Jul", "Oct")
     ) +
     scale_y_continuous(
       breaks = seq(-3, 3, 1),
@@ -335,83 +325,53 @@ if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_clean
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    scale_color_manual(values = c("lightgrey", "#2477B3")) +
     geom_richtext(
       data = anno_year,
       aes(x, y, label = label),
       fill = NA,
       label.color = NA,
-      text.color = c("#1d81a2", "#90A4AE"),
+      text.color = c("#2477B3", "lightgrey"),
       hjust = 0,
       size = 3,
       fontface = "bold"
     ) +
     labs(
-      title = "Inflation",
-      subtitle = "Monthly inflation rate, by component (in percent)",
+      title = "Monthly inflation",
+      subtitle = "By component (percent)",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
     ) +
     facet_wrap(
       ~ component, 
       nrow = 1,
-      labeller = labeller(component = c(core = "Core", adm_prices = "Administered prices", volatile_prices = "Volatile prices"))
+      labeller = labeller(
+        component = c(
+          core = "Core", 
+          adm_prices = "Administered prices",
+          volatile_prices = "Volatile prices"
+        )
+      )
     ) +
+    theme_ier() +
     theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.spacing.x = unit(2, "lines"),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
+      panel.spacing = unit(1, "lines"),
+      strip.background = element_blank(),
+      strip.text = element_text(
+        size = rel(0.8),
         hjust = 0,
-        margin = margin(t = 35)
-      ),
-      strip.background = element_rect(fill = "white", color = "white"),
-      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-    ) +
-    ggsave(
-      "fig/ier_inflation-component_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
+        vjust = 1, 
+        margin = margin(b = 10)
+      )
     )
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # path to the plot
+  path_plot_inf_comp <- "fig/ier_inflation-component_plot.png"
   
-  # add base plot
-  base_plot <- image_read("fig/ier_inflation-component_plot.png")
+  # save the plot
+  ggsave(path_plot_inf_comp, width = 6, height = 3.708, dpi = 300)
   
-  # get plot height
-  plot_height <- magick::image_info(base_plot)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(base_plot)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  base_plot %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_inflation-component_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_inf_comp)
   
   # message
   message("The inflation by component chart has been updated")
@@ -425,8 +385,7 @@ if (nrow(inf_comp_tidy_csv) != nrow(read_csv("data/ier_inflation-component_clean
 
 # export data -------------------------------------------------------------
 
-# write csv
-if (file.exists("data/ier_inflation-component_cleaned.csv") == F) {
+if (!file.exists("data/ier_inflation-component_cleaned.csv")) {
   
   write_csv(inf_comp_tidy_csv, "data/ier_inflation-component_cleaned.csv")
   

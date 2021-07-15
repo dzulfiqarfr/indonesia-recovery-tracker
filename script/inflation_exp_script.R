@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# inflation
-# by expenditure group
+# inflation by expenditure group
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-09
-# last updated: 2021-04-09
+# last updated: 2021-07-15
 # page: inflation
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -22,18 +20,18 @@ library(reactable)
 library(htmltools)
 library(crosstalk)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url_static") == F) {
+if (!exists("base_url_static")) {
   base_url_static <- "https://webapi.bps.go.id/v1/api/view"
 }
-
-
-# data --------------------------------------------------------------------
 
 # request data
 inf_exp_req <- GET(
@@ -87,7 +85,8 @@ inf_exp_mo_var <- format(seq(ymd("2021-01-01"), ymd("2021-12-01"), "1 month"), "
       value == "Aug" ~ "Agu",
       value == "Oct" ~ "Okt",
       value == "Dec" ~ "Des",
-      TRUE ~ value)
+      TRUE ~ value
+    )
   )
 
 # latest month in %m format
@@ -105,20 +104,14 @@ inf_exp_date <- seq(
 
 # sort date
 inf_exp_date_sorted <- enframe(inf_exp_date) %>% 
-  mutate(
-    yr = year(value), 
-    mo = month(value)
-  ) %>% 
+  mutate(yr = year(value), mo = month(value)) %>% 
   arrange(desc(yr), mo) %>% 
   select(value) %>% 
   deframe()
 
 # replace date variable
 inf_exp_raw <- inf_exp_raw %>% 
-  dplyr::filter(
-    is.na(`Tahun/Bulan`),
-    !is.na(...2)
-  ) %>% 
+  dplyr::filter(is.na(`Tahun/Bulan`), !is.na(...2)) %>% 
   mutate(`Tahun/Bulan` = inf_exp_date_sorted) %>% 
   rename(date = 1)
 
@@ -145,45 +138,12 @@ inf_exp_raw <- inf_exp_raw %>%
 # tidy data
 inf_exp_tidy <- inf_exp_raw %>% 
   arrange(date) %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "exp_group",
-    values_to = "rate_mom"
-  ) %>% 
+  pivot_longer(2:ncol(.), names_to = "exp_group", values_to = "rate_mom") %>% 
   select(exp_group, date, rate_mom)
 
 # reshape to wide format for reactable
 inf_exp_wide <- inf_exp_tidy %>% 
-  pivot_wider(
-    names_from = date,
-    values_from = rate_mom
-  )
-
-
-# export ------------------------------------------------------------------
-
-# data
-inf_exp_csv <- inf_exp_tidy %>% 
-  rename(inflation_mom = rate_mom)
-
-# write csv
-if (file.exists("data/ier_inflation-expenditure_cleaned.csv") == F) {
-  
-  write_csv(inf_exp_csv, "data/ier_inflation-expenditure_cleaned.csv")
-  
-  message("The inflation by expenditure group dataset has been exported")
-  
-} else if (nrow(inf_exp_csv) != nrow(read_csv("data/ier_inflation-expenditure_cleaned.csv"))) {
-  
-  write_csv(inf_exp_csv, "data/ier_inflation-expenditure_cleaned.csv")
-  
-  message("The inflation by expenditure group dataset has been updated")
-  
-} else {
-  
-  message("The inflation by expenditure group dataset is up to date")
-  
-}
+  pivot_wider(names_from = date, values_from = rate_mom)
 
 
 # table -------------------------------------------------------------------
@@ -241,6 +201,7 @@ reactable_inf_exp <- reactable(
   columns = list(
     exp_group = colDef(
       name = "",
+      sortable = F,
       style = style_sticky,
       headerStyle = style_sticky,
       minWidth = 200
@@ -268,9 +229,36 @@ reactable_inf_exp <- reactable(
   showPageSizeOptions = T,
   pageSizeOptions = c(5, 11),
   showPageInfo = F,
-  style = list(fontSize = "15px"),
+  style = list(fontSize = "14px"),
   highlight = T,
-  theme = reactableTheme(
-    headerStyle = list(borderColor = "black")
-  )
+  theme = reactableTheme(headerStyle = list(borderColor = "black"))
 )
+
+
+# export chart ------------------------------------------------------------
+
+# data
+inf_exp_csv <- inf_exp_tidy %>% 
+  rename(inflation_mom = rate_mom)
+
+# path to inflation by expenditure group data
+path_data_inf_exp <- "data/ier_inflation-expenditure_cleaned.csv"
+
+# write csv
+if (!file.exists(path_data_inf_exp)) {
+  
+  write_csv(inf_exp_csv, path_data_inf_exp)
+  
+  message("The inflation by expenditure group dataset has been exported")
+  
+} else if (nrow(inf_exp_csv) != nrow(read_csv(path_data_inf_exp))) {
+  
+  write_csv(inf_exp_csv, path_data_inf_exp)
+  
+  message("The inflation by expenditure group dataset has been updated")
+  
+} else {
+  
+  message("The inflation by expenditure group dataset is up to date")
+  
+}

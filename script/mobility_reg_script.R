@@ -1,7 +1,6 @@
 # indonesia economic recovery
 
-# google covid-19 community mobility reports
-# regional
+# regional community mobility
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-03
@@ -9,25 +8,24 @@
 # page: mobility
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(zoo)
 library(plotly)
 library(crosstalk)
 
-# download url
-if (exists("mob_url") == F) {
-  mob_url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
-}
-
 
 # data --------------------------------------------------------------------
 
+# download url
+if (!exists("mob_url")) {
+  mob_url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
+}
+
 # import global dataset
-if (exists("mob_gbl_raw") == F) {
+if (!exists("mob_gbl_raw")) {
   
   mob_gbl_raw <- read_csv(
     mob_url,
@@ -46,7 +44,7 @@ if (exists("mob_gbl_raw") == F) {
 }
 
 # subset indonesia observations
-if (exists("mob_idn_raw") == F) {
+if (!exists("mob_idn_raw")) {
   
   # subset, rename variable
   mob_idn_raw <- mob_gbl_raw %>% 
@@ -104,51 +102,6 @@ mob_reg_trf[, 3:ncol(mob_reg_trf)] <- lapply(
   mob_reg_trf[, 3:ncol(mob_reg_trf)],
   function(x) {round(x, 2)}
 )
-
-
-# export ------------------------------------------------------------------
-
-# latest observation in most recent data
-mob_reg_raw_last <- mob_reg_raw %>% 
-  select(date) %>% 
-  dplyr::filter(date == last(date), !duplicated(date)) %>% 
-  deframe()
-
-# latest observation in csv
-mob_reg_raw_csv_last <- read_csv(
-  "data/ier_mobility-idn_tidy.csv",
-  col_types = cols(province = col_character())
-) %>%  
-  select(date) %>% 
-  dplyr::filter(date == last(date), !duplicated(date)) %>% 
-  deframe()
-
-# data
-mob_reg_trf_tidy <- mob_reg_trf %>% 
-  pivot_longer(
-    3:ncol(.),
-    names_to = "place_category",
-    values_to = "change_from_baseline"
-  )
-
-# write csv
-if (file.exists("data/ier_mobility-reg_tidy.csv") == F) {
-  
-  write_csv(mob_reg_trf_tidy, "data/ier_mobility-reg_cleaned.csv")
-  
-  message("The regional mobility dataset has been exported")
-  
-} else if (mob_reg_raw_last != mob_reg_raw_csv_last) {
-  
-  write_csv(mob_reg_trf_tidy, "data/ier_mobility-reg_cleaned.csv")
-  
-  message("The regional mobility dataset has been updated")
-  
-} else {
-  
-  message("The regional mobility dataset is up to date")
-  
-}
 
 
 # plot --------------------------------------------------------------------
@@ -256,6 +209,9 @@ anno_sub_res <- list(
 # variable names
 mob_reg_trf_var <- names(mob_reg_trf)[9:14]
 
+# y-axis range
+mob_reg_y_axis_range <- c(-100, 105)
+
 # shared data
 mob_reg_trf_shared <- mob_reg_trf %>% 
   select(province, date, ends_with("_avg")) %>% 
@@ -279,7 +235,7 @@ plot_mob_reg <- lapply(
         x = ~date,
         y = as.formula(str_c("~", x)),
         hovertemplate = "<b>Category: %{text}</b><br><br>7-day moving average: %{y} percent<br>Date: %{x}<extra></extra>",
-        line = list(width = 2, color = "#1d81a2")
+        line = list(width = 1.5, color = "#2477B3")
       ) %>%
       plotly::layout(
         xaxis = list (
@@ -302,14 +258,14 @@ plot_mob_reg <- lapply(
           title = NA,
           type = "linear",
           autorange = F,
-          range = c(-100, 105),
+          range = mob_reg_y_axis_range,
           fixedrange = T,
           dtick = 50,
           tickfont = list(size = 8),
           showline = F,
           showgrid = T,
           gridcolor = "#CFD8DC",
-          zerolinecolor = "#ff856c",
+          zerolinecolor = "#E68F7E",
           side = "left"
         ),
         shapes = list(
@@ -320,8 +276,8 @@ plot_mob_reg <- lapply(
             x0 = "2020-03-02",
             x1 = "2020-03-02",
             yref = "y",
-            y0 = -100,
-            y1 = 100,
+            y0 = mob_reg_y_axis_range[1],
+            y1 = mob_reg_y_axis_range - 5,
             line = list(color = "#90A4AE", width = 1, dash = "dot")
           )
         ),
@@ -362,3 +318,51 @@ filter_by_reg <- filter_select(
   ~province,
   multiple = F
 )
+
+
+# export data -------------------------------------------------------------
+
+# latest observation in most recent data
+mob_reg_raw_last <- mob_reg_raw %>% 
+  select(date) %>% 
+  dplyr::filter(date == last(date), !duplicated(date)) %>% 
+  deframe()
+
+# latest observation in csv
+mob_reg_raw_csv_last <- read_csv(
+  "data/ier_mobility-idn_tidy.csv",
+  col_types = cols(province = col_character())
+) %>%  
+  select(date) %>% 
+  dplyr::filter(date == last(date), !duplicated(date)) %>% 
+  deframe()
+
+# data
+mob_reg_trf_tidy <- mob_reg_trf %>% 
+  pivot_longer(
+    3:ncol(.),
+    names_to = "place_category",
+    values_to = "change_from_baseline"
+  )
+
+# path to regional mobility data
+path_data_mob_reg <- "data/ier_mobility-reg_cleaned.csv"
+
+# write csv
+if (!file.exists(path_data_mob_reg)) {
+  
+  write_csv(mob_reg_trf_tidy, path_data_mob_reg)
+  
+  message("The regional mobility dataset has been exported")
+  
+} else if (mob_reg_raw_last != mob_reg_raw_csv_last) {
+  
+  write_csv(mob_reg_trf_tidy, path_data_mob_reg)
+  
+  message("The regional mobility dataset has been updated")
+  
+} else {
+  
+  message("The regional mobility dataset is up to date")
+  
+}

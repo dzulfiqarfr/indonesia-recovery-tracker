@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# unemployment rate
-# total and by area
+# overall unemployment rate
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-23
-# last updated: 2021-04-14
+# last updated: 2021-04-13
 # page: employment
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(httr)
@@ -19,20 +17,20 @@ library(jsonlite)
 library(plotly)
 library(magick)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url") == F) {
+if (!exists("base_url")) {
   base_url <- "https://webapi.bps.go.id/v1/api/list"
 }
 
-
-# data --------------------------------------------------------------------
-
-if (exists("unemployment_req") == F) {
+if (!exists("unemployment_req")) {
   
   # request data
   unemployment_req <- GET(
@@ -61,16 +59,8 @@ if (exists("unemployment_req") == F) {
   
   # tidy data
   unemployment_tidy <- unemployment_raw %>% 
-    pivot_longer(
-      1:ncol(.),
-      names_to = "key",
-      values_to = "val"
-    ) %>% 
-    separate(
-      key,
-      into = c("key_act", "key_date"),
-      sep = "5290"
-    ) %>% 
+    pivot_longer(1:ncol(.), names_to = "key", values_to = "val") %>% 
+    separate(key, into = c("key_act", "key_date"), sep = "5290") %>% 
     mutate(
       key_yr = case_when(
         str_detect(key_date, "^[8|9]") ~ as.numeric(str_sub(key_date, 1, 2)),
@@ -97,10 +87,7 @@ if (exists("unemployment_req") == F) {
   
   # create date variable
   unemployment_tidy <- unemployment_tidy %>% 
-    mutate(
-      date = ymd(str_c(key_yr, key_mo)),
-      mo = month(date)
-    ) %>% 
+    mutate(date = ymd(str_c(key_yr, key_mo)), mo = month(date)) %>% 
     rename(yr = key_yr) %>% 
     select(key_act, date, yr, mo, val)
   
@@ -127,13 +114,16 @@ unemp_trf <- unemp_rate %>%
 
 # plot --------------------------------------------------------------------
 
+# y-axis range
+unemp_y_axis_range <- c(0, 12.5)
+
 # plot
 plot_unemp_rate <- plot_ly(
   unemp_trf,
   x = ~date,
   y = ~unemployment_rate,
   hovertemplate = "Unemployment rate: %{y} percent<br>Date: %{x}<extra></extra>",
-  line = list(color = "#1d81a2", width = 3),
+  line = list(color = "#2477B3", width = 3),
   height = 300
 ) %>% 
   add_lines() %>% 
@@ -149,7 +139,7 @@ plot_unemp_rate <- plot_ly(
       tickmode = "auto",
       ticks = "outside",
       automargin = T,
-      hoverformat = "%b '%y",
+      hoverformat = "%B %Y",
       showline = T,
       showgrid = F
     ),
@@ -157,7 +147,7 @@ plot_unemp_rate <- plot_ly(
       title = NA,
       type = "linear",
       autorange = F,
-      range = c(0, 12.5),
+      range = unemp_y_axis_range,
       dtick = 3,
       fixedrange = T,
       showline = F,
@@ -173,8 +163,8 @@ plot_unemp_rate <- plot_ly(
         x0 = "2020-03-02",
         x1 = "2020-03-02",
         yref = "y",
-        y0 = 0,
-        y1 = 12,
+        y0 = unemp_y_axis_range[1],
+        y1 = unemp_y_axis_range[2] - 0.5,
         line = list(color = "#90A4AE", dash = "dash")
       )
     ),
@@ -189,7 +179,7 @@ plot_unemp_rate <- plot_ly(
         x = "2020-02-01",
         xanchor = "right",
         yref = "y",
-        y = 11.75,
+        y = unemp_y_axis_range[2] - 0.75,
         yanchor = "top"
       ) 
     ),
@@ -201,16 +191,31 @@ plot_unemp_rate <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
+# path to unemployment rate data
+path_data_unemp_rate <- "data/ier_unemployment-rate_cleaned.csv"
+
+# export chart
+if (nrow(unemp_trf) != nrow(read_csv(path_data_unemp_rate))) {
+  
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
   
   # plot
   ggplot(data = unemp_trf, aes(date, unemployment_rate)) +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
     geom_line(color = "#1d81a2", lwd = 1) +
+    scale_x_date(
+      breaks = seq(ymd("2005-01-01"), last(unemp_trf$date), by = "2 year"),
+      labels = c(
+        "2005", 
+        c("'07", "'09"),
+        str_c("'", seq(11, 21, 2))
+      )
+    ) +
     scale_y_continuous(
       breaks = seq(0, 12, 3),
       limits = c(0, 12),
@@ -222,68 +227,26 @@ if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv")))
       x = ymd("2020-02-01"),
       y = 11,
       label = "COVID-19\npandemic",
-      size = 2.75,
+      size = 3,
       hjust = 1,
       color = "#90A4AE"
     ) +
     labs(
-      title = "Unemployment",
-      subtitle = "Unemployment rate (in percent)",
+      title = "Unemployment rate",
+      subtitle = "(percent)",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
     ) +
-    theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_unemployment-rate_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
-    )
+    theme_ier() +
+    theme(plot.caption = element_text(margin= margin(t = 35)))
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # path to the plot
+  path_plot_unemp_rate <- "fig/ier_unemployment-rate_plot.png"
   
-  # add base plot
-  base_plot <- image_read("fig/ier_unemployment-rate_plot.png")
+  # save the plot
+  ggsave(path_plot_unemp_rate, width = 6, height = 3.708, dpi = 300)
   
-  # get plot height
-  plot_height <- magick::image_info(base_plot)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(base_plot)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  base_plot %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_unemployment-rate_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_unemp_rate)
   
   # message
   message("The unemployment rate chart has been updated")
@@ -295,18 +258,21 @@ if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv")))
 }
 
 
-# preview -----------------------------------------------------------------
+# export preview chart ----------------------------------------------------
 
-if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
+if (nrow(unemp_trf) != nrow(read_csv(path_data_unemp_rate))) {
+  
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
   
   # plot
   ggplot(data = unemp_trf, aes(date, unemployment_rate)) +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
-    geom_line(color = "#1d81a2", lwd = 2) +
+    geom_line(color = "#1d81a2", lwd = 1.5) +
     scale_y_continuous(
       breaks = seq(0, 12, 3),
       limits = c(0, 12),
@@ -314,16 +280,13 @@ if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv")))
       position = "right"
     ) +
     theme_void() +
-    theme(
-      plot.background = element_rect(fill = "#263238", color = NA),
-      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-    ) +
-    ggsave(
-      "fig/ier_unemployment-rate_void_plot.png",
-      width = 13.3,
-      height = 6.6,
-      dpi = 300
-    )
+    theme_ier_pre()
+  
+  # path to the plot
+  path_plot_unemp_pre <- "fig/ier_unemployment-rate_void_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_unemp_pre, width = 13.3, height = 6.6, dpi = 300)
   
   # message
   message("The unemployment rate preview chart has been updated")
@@ -337,16 +300,15 @@ if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv")))
 
 # export data -------------------------------------------------------------
 
-# write csv
-if (file.exists("data/ier_unemployment-rate_cleaned.csv") == F) {
+if (!file.exists(path_data_unemp_rate)) {
   
-  write_csv(unemp_trf, "data/ier_unemployment-rate_cleaned.csv")
+  write_csv(unemp_trf, path_data_unemp_rate)
   
   message("The national unemployment rate dataset has been exported")
   
-} else if (nrow(unemp_trf) != nrow(read_csv("data/ier_unemployment-rate_cleaned.csv"))) {
+} else if (nrow(unemp_trf) != nrow(read_csv(path_data_unemp_rate))) {
   
-  write_csv(unemp_trf, "data/ier_unemployment-rate_cleaned.csv")
+  write_csv(unemp_trf, path_data_unemp_rate)
   
   message("The national unemployment rate dataset has been updated")
   

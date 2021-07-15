@@ -1,7 +1,6 @@
 # indonesia economic recovery
 
-# gdp
-# percent change on a year earlier
+# overall economic growth
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
@@ -9,9 +8,8 @@
 # page: gdp
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(httr)
@@ -19,19 +17,19 @@ library(jsonlite)
 library(plotly)
 library(magick)
 
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url") == F) {
+if (!exists("base_url")) {
   base_url <- "https://webapi.bps.go.id/v1/api/list"
 }
 
-# data --------------------------------------------------------------------
-
-if (exists("growth_raw") == F) {
+if (!exists("growth_raw")) {
   
   # request data
   growth_req <- GET(
@@ -101,26 +99,14 @@ if (exists("growth_raw") == F) {
 
 # separate keys, subset quarterly observations
 growth_tidy <- growth_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "pct_change_yoy"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_exp", "key_period"),
-    sep = "108"
-  ) %>%
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "pct_change_yoy") %>% 
+  separate(key, into = c("key_exp", "key_period"), sep = "108") %>%
   mutate(
     key_period_obs = str_sub(key_period, end = 1),
     key_yr = str_sub(key_period, 2, 4),
     key_q = str_sub(key_period, 5, 6)
   ) %>% 
-  dplyr::filter(
-    key_exp == "800",
-    key_period_obs == "5",
-    key_q != "35"
-  )
+  dplyr::filter(key_exp == "800", key_period_obs == "5", key_q != "35")
 
 # replace year key
 growth_tidy$key_yr <- growth_tidy$key_yr %>% 
@@ -148,6 +134,9 @@ growth_tidy <- growth_tidy %>%
 # quarter labels
 labs_q <- str_c("Q", quarter(growth_tidy$date))
 
+# y-axis range
+growth_y_axis_range <- c(-12, 9)
+
 # plot
 plot_growth <- growth_tidy %>% 
   plot_ly(
@@ -160,7 +149,7 @@ plot_growth <- growth_tidy %>%
       "%{x}",
       "<extra></extra>"
     ),
-    line = list(color = "#1d81a2", width = 3),
+    line = list(color = "#2477B3", width = 3),
     height = 300
   ) %>% 
   add_lines() %>% 
@@ -184,7 +173,7 @@ plot_growth <- growth_tidy %>%
       title = NA,
       type = "linear",
       autorange = F,
-      range = c(-12, 9),
+      range = growth_y_axis_range,
       fixedrange = T,
       dtick = 4,
       showline = F,
@@ -201,8 +190,8 @@ plot_growth <- growth_tidy %>%
         x0 = "2020-03-02",
         x1 = "2020-03-02",
         yref = "y",
-        y0 = -12,
-        y1 = 8,
+        y0 = growth_y_axis_range[1],
+        y1 = growth_y_axis_range[2] - 1,
         line = list(color = "#90A4AE", dash = "dash")
       )
     ),
@@ -217,7 +206,7 @@ plot_growth <- growth_tidy %>%
         x = "2020-02-01",
         xanchor = "right",
         yref = "y",
-        y = -8,
+        y = growth_y_axis_range[1] + 4,
         yanchor = "top"
       )
     ),
@@ -246,6 +235,9 @@ growth_tidy_latest <- growth_tidy %>%
 # export chart
 if (growth_tidy_latest != growth_exp_csv_latest) {
   
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
+  
   # labels
   labs_growth <- growth_tidy %>% 
     select(date) %>% 
@@ -260,13 +252,13 @@ if (growth_tidy_latest != growth_exp_csv_latest) {
   
   # plot
   ggplot(growth_tidy, aes(date, pct_change_yoy)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
       linetype = 2
     ) +
-    geom_line(color = "#1d81a2", lwd = 1) +
+    geom_line(color = "#2477B3", lwd = 1) +
     scale_x_date(
       breaks = seq(ymd("2010-01-01"), ymd("2020-01-01"), by = "2 year"),
       labels = labs_growth
@@ -282,68 +274,25 @@ if (growth_tidy_latest != growth_exp_csv_latest) {
       x = ymd("2020-02-01"),
       y = -6,
       label = "COVID-19\npandemic",
-      size = 2.75,
+      size = 3,
       hjust = 1,
       color = "#90A4AE"
     ) +
     labs(
-      title = "Economic growth",
-      subtitle = "GDP (percent change from a year earlier)",
+      title = "Gross domestic product",
+      subtitle = "(percent change from a year earlier)",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
     ) +
-    theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_gdp-growth_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
-    )
+    theme_ier()
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # path to the plot
+  path_plot_growth <- "fig/ier_gdp-growth_plot.png"
   
-  # add base plot
-  base_plot <- image_read("fig/ier_gdp-growth_plot.png")
+  # save the plot
+  ggsave(path_plot_growth, width = 6, height = 3.708, dpi = 300)
   
-  # get plot height
-  plot_height <- magick::image_info(base_plot)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(base_plot)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  base_plot %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_gdp-growth_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_growth)
   
   # message
   message("The GDP growth chart has been updated")
@@ -360,17 +309,13 @@ if (growth_tidy_latest != growth_exp_csv_latest) {
   
   # plot
   ggplot(growth_tidy, aes(date, pct_change_yoy)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
       linetype = 2
     ) +
-    geom_line(color = "#1d81a2", lwd = 2) +
-    scale_x_date(
-      breaks = seq(ymd("2010-01-01"), ymd("2020-01-01"), by = "2 year"),
-      labels = labs_growth
-    ) +
+    geom_line(color = "#2477B3", lwd = 1.5) +
     scale_y_continuous(
       breaks = seq(-12, 8, 4),
       limits = c(-12, 8),
@@ -378,16 +323,13 @@ if (growth_tidy_latest != growth_exp_csv_latest) {
       position = "right"
     ) +
     theme_void() +
-    theme(
-      plot.background = element_rect(fill = "#263238", color = NA),
-      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-    ) +
-    ggsave(
-      "fig/ier_gdp-growth_void_plot.png",
-      width = 13.3,
-      height = 6.6,
-      dpi = 300
-    )
+    theme_ier_pre()
+  
+  # path to preview plot
+  path_plot_growth_pre <- "fig/ier_gdp-growth_void_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_growth_pre, width = 13.3, height = 6.6, dpi = 300)
   
   # message
   message("The GDP growth preview chart has been updated")

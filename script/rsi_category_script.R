@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# retail sales
-# by category
+# retail sales by category
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-26
-# last updated: 2021-07-09
+# last updated: 2021-07-15
 # page: retail sales
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -19,13 +17,13 @@ library(plotly)
 library(magick)
 library(ggtext)
 
-# date of most recent observation
-if(exists("rsi_last_date") == F) {
-  rsi_last_date <- "2021-06-01"
-}
-
 
 # data --------------------------------------------------------------------
+
+# date of most recent observation
+if (!exists("rsi_last_date")) {
+  rsi_last_date <- "2021-06-01"
+}
 
 # import
 rsi_by_cat_raw <- read_excel(
@@ -62,10 +60,7 @@ rsi_by_cat_date_seq <- seq(ymd("2012-01-01"), ymd(rsi_last_date), by = "month")
 ## correct sorting
 rsi_by_cat_date_seq <- rsi_by_cat_date_seq %>%
   tibble() %>% 
-  mutate(
-    yr = date(rsi_by_cat_date_seq),
-    mo = month(rsi_by_cat_date_seq)
-  ) %>% 
+  mutate(yr = date(rsi_by_cat_date_seq), mo = month(rsi_by_cat_date_seq)) %>% 
   arrange(yr, mo) %>% 
   rename(date = 1)
 
@@ -85,21 +80,16 @@ cat_en <- c(
 )
 
 # rename categories
-rsi_by_cat_raw$Indices <- rsi_by_cat_raw$Indices %>% str_replace_all(cat, cat_en)
+rsi_by_cat_raw$Indices <- rsi_by_cat_raw$Indices %>% 
+  str_replace_all(cat, cat_en)
 
 # tidy data
 rsi_by_cat_tidy <- rsi_by_cat_raw %>% 
-  pivot_longer(
-    2:ncol(.), 
-    names_to = "date",
-    values_to = "rsi"
-  )
+  pivot_longer(2:ncol(.), names_to = "date", values_to = "rsi")
 
 # correct data types
 rsi_by_cat_tidy$Indices <- as.factor(rsi_by_cat_tidy$Indices)
-
 rsi_by_cat_tidy$date <- ymd(rsi_by_cat_tidy$date)
-
 rsi_by_cat_tidy$rsi <- as.numeric(rsi_by_cat_tidy$rsi)
 
 # round to two decimal places
@@ -130,8 +120,7 @@ rsi_by_cat_idx_wide <- rsi_by_cat_trf %>%
 
 # plot --------------------------------------------------------------------
 
-
-# rsi by cat change -------------------------------------------------------
+## rsi change ----
 
 # covid text annotation
 anno_text_covid <- list(
@@ -221,7 +210,7 @@ anno_sub_hh <- list(
 
 ## cultural, recreational goods
 anno_sub_culture <- list(
-  text = "<b>CRG<sup>&#10013;</sup><b>",
+  text = "<b>CRG<sup>&#8224;</sup><b>",
   font = list(size = 8),
   align = "left",
   showarrow = F,
@@ -275,10 +264,10 @@ plot_rsi_by_cat_chg <- lapply(
       text = x,
       hovertemplate = str_c(
         "<b>Category: %{text}</b><br><br>",
-        "Growth: %{y} percent<br>",
+        "Change: %{y} percent<br>",
         "Date: %{x}<extra></extra>"
       ),
-      line = list(color = "#1d81a2", width = 2)
+      line = list(color = "#2477B3", width = 2)
     ) %>% 
       add_lines() %>%
       plotly::layout(
@@ -291,11 +280,12 @@ plot_rsi_by_cat_chg <- lapply(
           ),
           fixedrange = T,
           tickmode = "auto",
-          dtick = "M12",
-          ticks = "outside",tickformat = "'%y",
+          dtick = "M24",
+          ticks = "outside",
+          tickformat = "'%y",
           automargin = T,
           tickfont = list(size = 8),
-          hoverformat = "%b '%y",
+          hoverformat = "%B %Y",
           showline = T,
           showgrid = F
         ),
@@ -311,7 +301,7 @@ plot_rsi_by_cat_chg <- lapply(
           linewidth = 0,
           showgrid = T,
           gridcolor = "#CFD8DC",
-          zerolinecolor = "#ff856c",
+          zerolinecolor = "#E68F7E",
           side = "left"
         ),
         shapes = list(
@@ -368,8 +358,8 @@ plot_rsi_by_cat_idx <- lapply(
       rsi_by_cat_idx_wide,
       type = "scatter",
       mode = "markers+lines",
-      colors = c("#CFD8DC", "#CFD8DC", "#CFD8DC", "#CFD8DC", "#1d81a2", "#ff725b"),
-      text = ~format(date, "%b %Y"),
+      colors = c(rep("lightgrey", 4), "#36A3D9", "#2477B3"),
+      text = ~format(date, "%B %Y"),
       hovertemplate = str_c(
         "<b>Category: ", x, "</b><br><br>",
         "Index: %{y}<br>Date: %{text}<extra></extra>"
@@ -388,8 +378,8 @@ plot_rsi_by_cat_idx <- lapply(
           autorange = T,
           fixedrange = T,
           tickmode = "array",
-          tickvals = c(3, 6, 9, 12),
-          ticktext = c("Mar", "Jun", "Sep", "Dec"),
+          tickvals = c(1, 4, 7, 10),
+          ticktext = c("Jan", "Apr", "Jul", "Oct"),
           ticks = "outside",
           automargin = T,
           tickfont = list(size = 8),
@@ -420,7 +410,7 @@ plot_rsi_by_cat_idx <- lapply(
 # 2016-2019
 anno_1619 <- list(
   text = "<b>2016-2019</b>",
-  font = list(size = 7, color = "#90A4AE"),
+  font = list(size = 7, color = "lightgrey"),
   align = "left",
   bgcolor = "white",
   showarrow = F,
@@ -435,7 +425,7 @@ anno_1619 <- list(
 # 2020
 anno_2020 <- list(
   text = "<b>2020</b>",
-  font = list(size = 7, color = "#1d81a2"),
+  font = list(size = 7, color = "#36A3D9"),
   align = "left",
   bgcolor = "white",
   showarrow = F,
@@ -450,7 +440,7 @@ anno_2020 <- list(
 # 2021
 anno_2021 <- list(
   text = "<b>2021</b>",
-  font = list(size = 7, color = "#ff725b"),
+  font = list(size = 7, color = "#2477B3"),
   align = "left",
   bgcolor = "white",
   showarrow = F,
@@ -490,15 +480,21 @@ sm_rsi_by_cat_idx <- subplot(
 
 # export chart ------------------------------------------------------------
 
-# latest observation in most recent csv
+# rename column for csv
 rsi_cat_csv <- rsi_by_cat_trf %>% 
   rename(category = 1, retail_sales_index = 3) %>% 
   select(-diff_yoy)
 
+# path to rsi by category data
+path_data_rsi_cat <- "data/ier_rsi-category_cleaned.csv"
+
 # export chart
-if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
+if (nrow(rsi_cat_csv) != nrow(read_csv(path_data_rsi_cat))) {
   
-  # rsi by cat change ----
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
+  
+  ## rsi change ----
   
   # annotations
   anno_text_covid_ggplot <- tibble(
@@ -512,16 +508,16 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
   rsi_by_cat_trf %>% 
     dplyr::filter(!is.na(pct_change_yoy)) %>% 
     ggplot(aes(date, pct_change_yoy)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
       linetype = 2
     ) +
-    geom_line(color = "#1d81a2", lwd = 0.75) +
+    geom_line(color = "#2477B3", lwd = 0.75) +
     scale_x_date(
       breaks = seq(ymd("2013-01-01"), ymd("2021-01-01"), "2 year"),
-      labels = str_c("'", seq(13, 21, 2))
+      labels = c(2013, str_c("'", seq(15, 21, 2)))
     ) +
     scale_y_continuous(
       breaks = seq(-100, 100, 50),
@@ -550,40 +546,29 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
       scales = "free_x", 
       labeller = labeller(Indices = label_wrap_gen(27.5))
     ) +
+    theme_ier(rel_size = 0.7) +
     theme(
-      text = element_text(size = 10),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      legend.direction = "horizontal",
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.spacing = unit(1.25, "lines"),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
+      panel.spacing = unit(1, "lines"),
+      strip.background = element_blank(),
+      strip.text = element_text(
+        size = rel(0.7),
         hjust = 0,
-        margin = margin(t = 35)
-      ),
-      strip.background = element_rect(fill = "white", color = "white"),
-      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-    ) +
-    ggsave(
-      "fig/ier_rsi-cat-change_plot.png",
-      width = 7,
-      height = 5,
-      dpi = 300
+        vjust = 1, 
+        margin = margin(b = 10)
+      )
     )
+  
+  # path to the plot
+  path_plot_rsi_cat_chg <- "fig/ier_rsi-cat-change_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_rsi_cat_chg, width = 7, height = 5, dpi = 300)
   
   # add logo
   ier_logo <- image_read("images/ier_hexsticker_small.png")
   
   # add base plot
-  plot_rsi_cat_change_png <- image_read("fig/ier_rsi-cat-change_plot.png")
+  plot_rsi_cat_change_png <- image_read(path_plot_rsi_cat_chg)
   
   # get plot height
   plot_height <- magick::image_info(plot_rsi_cat_change_png)$height
@@ -600,13 +585,13 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
   # position for the bottom 1.5 percent
   pos_bottom <- plot_height - logo_height - plot_height * 0.015
   
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  # position for the right 0.05 percent
+  pos_right <- plot_width - logo_width - 0.005 * plot_width
   
   # overwrite plot
   plot_rsi_cat_change_png %>% 
     image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_rsi-cat-change_plot.png")
+    image_write(path_plot_rsi_cat_chg)
   
   
   # rsi by cat index ----
@@ -627,8 +612,8 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
     geom_line(aes(color = as_factor(yr)), lwd = 0.75, show.legend = F) +
     geom_point(aes(color = as_factor(yr)), size = 1, show.legend = F) +
     scale_x_continuous(
-      breaks = seq(2, 12, 2),
-      labels = c("Feb", "Apr", "Jun", "Aug", "Oct", "Dec")
+      breaks = c(1, 4, 7, 10),
+      labels = c("Jan", "April", "July", "Oct")
     ) +
     scale_y_continuous(
       breaks = seq(0, 500, 100),
@@ -636,13 +621,13 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_color_manual(values = c("#CFD8DC", "#CFD8DC", "#CFD8DC", "#CFD8DC", "#1d81a2", "#ff725b")) +
+    scale_color_manual(values = c(rep("lightgrey", 4), "#36A3D9", "#2477B3")) +
     geom_text(
       data = anno_year,
       aes(x = x, y = y, label = label),
       hjust = 0,
-      size = 1.75,
-      color = c("#ff725b", "#1d81a2", "#90A4AE"),
+      size = 2,
+      color = c("#2477B3", "#36A3D9", "lightgrey"),
       fontface = "bold"
     ) +
     labs(
@@ -659,46 +644,35 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
       scales = "free_x", 
       labeller = labeller(Indices = label_wrap_gen(27.5))
     ) +
+    theme_ier(rel_size = 0.7) +
     theme(
-      text = element_text(size = 10),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      legend.direction = "horizontal",
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.spacing = unit(1.25, "lines"),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
+      panel.spacing = unit(1, "lines"),
+      strip.background = element_blank(),
+      strip.text = element_text(
+        size = rel(0.7),
         hjust = 0,
-        margin = margin(t = 35)
-      ),
-      strip.background = element_rect(fill = "white", color = "white"),
-      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-    ) +
-    ggsave(
-      "fig/ier_rsi-cat_plot.png",
-      width = 7,
-      height = 5,
-      dpi = 300
+        vjust = 1, 
+        margin = margin(b = 10)
+      )
     )
+  
+  # path to the plot
+  path_plot_rsi_cat_idx <- "fig/ier_rsi-cat_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_rsi_cat_idx, width = 7, height = 5, dpi = 300)
   
   # add logo
   ier_logo <- image_read("images/ier_hexsticker_small.png")
   
   # add base plot
-  plot_rsi_cat_png <- image_read("fig/ier_rsi-cat_plot.png")
+  plot_rsi_cat_index_png <- image_read(path_plot_rsi_cat_idx)
   
   # get plot height
-  plot_height <- magick::image_info(plot_rsi_cat_png)$height
+  plot_height <- magick::image_info(plot_rsi_cat_change_png)$height
   
   # get plot width
-  plot_width <- magick::image_info(plot_rsi_cat_png)$width
+  plot_width <- magick::image_info(plot_rsi_cat_change_png)$width
   
   # get logo height
   logo_width <- magick::image_info(ier_logo)$width
@@ -709,13 +683,13 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
   # position for the bottom 1.5 percent
   pos_bottom <- plot_height - logo_height - plot_height * 0.015
   
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  # position for the right 0.05 percent
+  pos_right <- plot_width - logo_width - 0.005 * plot_width
   
   # overwrite plot
-  plot_rsi_cat_png %>% 
+  plot_rsi_cat_index_png %>% 
     image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_rsi-cat_plot.png")
+    image_write(path_plot_rsi_cat_idx)
   
   # message
   message("The Retail Sales Index by category charts have been updated")
@@ -726,18 +700,19 @@ if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
   
 }
 
+
 # export data -------------------------------------------------------------
 
 # write csv
-if (file.exists("data/ier_rsi-category_cleaned.csv") == F) {
+if (!file.exists(path_data_rsi_cat)) {
   
-  write_csv(rsi_cat_csv, "data/ier_rsi-category_cleaned.csv")
+  write_csv(rsi_cat_csv, path_data_rsi_cat)
   
   message("The Retail Sales Index dataset, broken down by category, has been exported")
   
-} else if (nrow(rsi_cat_csv) != nrow(read_csv("data/ier_rsi-category_cleaned.csv"))) {
+} else if (nrow(rsi_cat_csv) != nrow(read_csv(path_data_rsi_cat))) {
   
-  write_csv(rsi_cat_csv, "data/ier_rsi-category_cleaned.csv")
+  write_csv(rsi_cat_csv, path_data_rsi_cat)
   
   message("The Retail Sales Index dataset, broken down by category, has been updated")
   

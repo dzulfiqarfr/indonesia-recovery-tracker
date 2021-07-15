@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# employment
-# by status
+# employment by status
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-25
-# last updated: 2021-06-05
+# last updated: 2021-07-13
 # page: employment
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -21,18 +19,19 @@ library(reactable)
 library(htmltools)
 library(paletteer)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url_static") == F) {
+if (!exists("base_url_static")) {
   base_url_static <- "https://webapi.bps.go.id/v1/api/view"
 }
 
-
-# data --------------------------------------------------------------------
 
 # request data
 emp_status_req <- GET(
@@ -159,64 +158,30 @@ emp_status_trf <- emp_status_trf %>%
       TRUE ~ "Informal"
     )
   ) %>% 
-  select(status, formal_category, date, workers, workers_pct_chg_yoy, prop, prop_chg_yoy)
-
-# dates of latest observation
-emp_status_date_latest <- emp_status_trf %>% 
-  select(date) %>% 
-  dplyr::filter(!duplicated(date)) %>% 
-  mutate(month = month(date)) %>% 
-  tail(4) %>% 
-  dplyr::filter(month == last(month)) %>% 
-  select(date) %>% 
-  deframe()
+  select(
+    status, 
+    formal_category, 
+    date, 
+    workers, 
+    workers_pct_chg_yoy, 
+    prop, 
+    prop_chg_yoy
+  )
 
 # subset latest data
 emp_status_wide <- emp_status_trf %>% 
-  dplyr::filter(date %in% emp_status_date_latest) %>% 
+  dplyr::filter(date == last(date)) %>% 
   pivot_wider(
     names_from = date, 
     values_from = c(workers, workers_pct_chg_yoy, prop, prop_chg_yoy)
   ) %>% 
-  select(!matches(str_c("[workers_pct|prop]_chg_yoy_", emp_status_date_latest[[1]]))) %>%
   rename(
-    workers_1 = 3,
-    workers_2 = 4,
-    workers_pct_chg_yoy = 5,
-    prop_1 = 6,
-    prop_2 = 7,
-    prop_chg_yoy = 8
+    workers = 3,
+    workers_pct_chg_yoy = 4,
+    prop = 5,
+    prop_chg_yoy = 6
   )
-
-
-# export ------------------------------------------------------------------
-
-# latest observation in recent csv
-emp_status_csv_latest <- read_csv("data/ier_employment-status_cleaned.csv") %>% 
-  select(date) %>% 
-  dplyr::filter(!duplicated(date), date == last(date)) %>% 
-  deframe()
-
-
-# write csv
-if (file.exists("data/ier_employment-status_cleaned.csv") == F) {
   
-  write_csv(emp_status_trf, "data/ier_employment-status_cleaned.csv")
-  
-  message("The number of workers by sector dataset has been exported")
-  
-} else if (emp_date_seq_latest != emp_status_csv_latest) {
-  
-  write_csv(emp_status_trf, "data/ier_employment-status_cleaned.csv")
-  
-  message("The number of workers by sector dataset has been updated")
-  
-} else {
-  
-  message("The number of workers by sector dataset is up to date")
-  
-}
-
 
 # table -------------------------------------------------------------------
 
@@ -252,7 +217,8 @@ reactable_emp_status <- reactable(
   columns = list(
     status = colDef(
       name = "",
-      minWidth = 200,
+      sortable = F,
+      minWidth = 250,
       cell = function(value, index) {
         
         formal_category <- emp_status_wide$formal_category[index]
@@ -265,17 +231,9 @@ reactable_emp_status <- reactable(
       }
     ),
     formal_category = colDef(show = F),
-    workers_1 = colDef(
+    workers = colDef(
       name = str_c(
-        format(emp_status_date_latest[[1]], "%b '%y"),
-        "<br>",
-        '<div style="color: #999; font-size: 12px">(millions)</div>'
-      ),
-      html = T
-    ),
-    workers_2 = colDef(
-      name = str_c(
-        format(emp_status_date_latest[[2]], "%b '%y"),
+        format(last(emp_status_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(millions)</div>'
       ),
@@ -289,17 +247,9 @@ reactable_emp_status <- reactable(
       ),
       html = T
     ),
-    prop_1 = colDef(
+    prop = colDef(
       name = str_c(
-        format(emp_status_date_latest[[1]], "%b '%y"),
-        "<br>",
-        '<div style="color: #999; font-size: 12px">(percent)</div>'
-      ),
-      html = T
-    ),
-    prop_2 = colDef(
-      name = str_c(
-        format(emp_status_date_latest[[2]], "%b '%y"),
+        format(last(emp_status_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(percent)</div>'
       ),
@@ -330,12 +280,12 @@ reactable_emp_status <- reactable(
   columnGroups = list(
     colGroup(
       name = "<b>Number of workers</b>", 
-      columns = c("workers_1", "workers_2", "workers_pct_chg_yoy"),
+      columns = c("workers", "workers_pct_chg_yoy"),
       html = T
     ),
     colGroup(
       name = "<b>Distribution</b>",
-      columns = c("prop_1", "prop_2", "prop_chg_yoy"),
+      columns = c("prop", "prop_chg_yoy"),
       html = T
     )
   ),
@@ -343,8 +293,37 @@ reactable_emp_status <- reactable(
   defaultSorted = "prop_chg_yoy",
   highlight = T,
   compact = T,
-  style = list(fontSize = "15px"),
-  theme = reactableTheme(
-    headerStyle = list(borderColor = "black")
-  )
+  style = list(fontSize = "14px"),
+  theme = reactableTheme(headerStyle = list(borderColor = "black"))
 )
+
+
+# export ------------------------------------------------------------------
+
+# path to employment by status data
+path_data_emp_status <- "data/ier_employment-status_cleaned.csv"
+
+# latest observation in recent csv
+emp_status_csv_latest <- read_csv(path_data_emp_status) %>% 
+  select(date) %>% 
+  dplyr::filter(!duplicated(date), date == last(date)) %>% 
+  deframe()
+
+# write csv
+if (!file.exists(path_data_emp_status)) {
+  
+  write_csv(emp_status_trf, path_data_emp_status)
+  
+  message("The number of workers by sector dataset has been exported")
+  
+} else if (emp_date_seq_latest != emp_status_csv_latest) {
+  
+  write_csv(emp_status_trf, path_data_emp_status)
+  
+  message("The number of workers by sector dataset has been updated")
+  
+} else {
+  
+  message("The number of workers by sector dataset is up to date")
+  
+}

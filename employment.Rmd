@@ -1,45 +1,25 @@
 ---
 title: "Employment"
 description: |
-  The COVID-19 pandemic has forced millions of workers out of their job, sending the unemployment rate to a level the country last seen in 2011. The formal sector took a harder hit than the informal sector.
+  The COVID-19 pandemic has forced millions of workers out of their job, sending the unemployment rate to a level last seen in 2011. The formal sector took a harder hit. But the number of pandemic-hit workers has fallen.
 output: 
   distill::distill_article:
     toc: true
     toc_float: true
+    toc_depth: 4
 preview: fig/ier_unemployment-rate_void_plot.png    
 ---
-
 
 ```{r setup, include=FALSE}
 # chunk options
 knitr::opts_chunk$set(echo = FALSE)
 
 # packages
-library(tidyverse)
-library(lubridate)
-library(httr)
-library(jsonlite)
 library(htmltools)
-library(xaringanExtra)
-library(crosstalk)
 library(govdown)
 library(mime)
 
-# bps api
-## key
-if (exists("BPS_KEY") == F) {
-  BPS_KEY <- Sys.getenv("BPS_KEY")
-}
-
-## base url
-if (exists("base_url") == F) {
-  base_url <- "https://webapi.bps.go.id/v1/api/list"
-}
-
-# use panelset
-xaringanExtra::use_panelset()
-
-# description functions
+# functions to describe data
 ## rise or fall
 ier_compare_rise <- function(x) {
   if (x > 0) {
@@ -63,13 +43,6 @@ ier_compare_up <- function(x) {
 embed_unemp_rate <- xfun::embed_file(
   "data/ier_unemployment-rate_cleaned.csv",
   name = "ier_unemployment-rate_cleaned.csv",
-  text = "csv"
-)
-
-## number of unemployed
-embed_unemp_ppl <- xfun::embed_file(
-  "data/ier_unemployed_cleaned.csv",
-  name = "ier_unemployed_cleaned.csv",
   text = "csv"
 )
 
@@ -109,13 +82,6 @@ embed_chart_unemp_rate <- xfun::embed_file(
   text = "chart"
 )
 
-## number of unemployed
-embed_chart_unemp_ppl <- xfun::embed_file(
-  "fig/ier_unemployed_plot.png",
-  name = "ier_unemployed_plot.png",
-  text = "chart"
-)
-
 ## unemployment rate by province
 embed_chart_unemp_prov <- xfun::embed_file(
   "fig/ier_unemployment-province_plot.png",
@@ -125,41 +91,19 @@ embed_chart_unemp_prov <- xfun::embed_file(
 ```
 
 
-### Unemployment
-
-::::: {.panelset}
-
-::: {.panel}
-
-#### Rate {.panel-name}
+### Unemployment rate
 
 (percent)
 
 ```{r plot: unemployment rate}
 source("script/emp_unemployment_script.R", local = knitr::knit_global())
-
 div(plot_unemp_rate)
 ```
 
-:::
-
-::: {.panel}
-
-#### Workers {.panel-name}
-
-(millions)
-
-```{r plot: number of unemployed}
+```{r description: unemployment}
+# read number of unemployed worker data
 source("script/emp_unemployed_script.R", local = knitr::knit_global())
 
-div(plot_unemp_ppl)
-```
-
-:::
-
-:::::
-
-```{r description: unemployment}
 # latest unemployment rate data
 unemp_rate_latest <- unemp_trf %>% 
   dplyr::filter(date == last(date))
@@ -169,14 +113,15 @@ unemp_ppl_latest <- unemp_ppl_trf %>%
   dplyr::filter(date == last(date))
 ```
 
-
-The number of unemployed workers `r ier_compare_rise(unemp_ppl_latest$change_yoy)` by **`r unemp_ppl_latest$change_yoy`** million to **`r unemp_ppl_latest$unemployed_ppl`** million in `r format(unemp_ppl_latest$date, "%B %Y")` from a year earlier. As a result, the unemployment rate was `r ier_compare_up(unemp_rate_latest$ppt_change_yoy)` by **`r unemp_rate_latest$ppt_change_yoy`** percentage points to **`r unemp_rate_latest$unemployment_rate`** percent over the same period. The unemployment rate in August 2020 was the highest in a decade.
+The number of unemployed workers `r ier_compare_rise(unemp_ppl_latest$change_yoy)` by **`r unemp_ppl_latest$change_yoy`** million to **`r unemp_ppl_latest$unemployed_ppl`** million in `r format(unemp_ppl_latest$date, "%B %Y")` from a year earlier. As a result, the unemployment rate was `r ier_compare_up(unemp_rate_latest$ppt_change_yoy)` by **`r unemp_rate_latest$ppt_change_yoy`** percentage points to **`r unemp_rate_latest$unemployment_rate`** percent over the same period.
 
 <aside>
 
 See also [inflation](inflation.html)
 
 </aside>
+
+In August 2020, the unemployment rate reached a decade-high at **7.07** percent.
 
 ```{r documentation: unemployemnt}
 # date of last update
@@ -208,23 +153,22 @@ source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>%
 ```
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the number of people aged 15 or above who do not have a job and are looking for a job, preparing a business or not looking for a job because they feel it is impossible to get it, as well as those who already have a job but have not started working. The unemployment rate represents the number of unemployed workers relative to the labor force. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every May and November  
 **Source**: [Statistics Indonesia (BPS)](https://www.bps.go.id/indicator/6/529/1/penduduk-berumur-15-tahun-ke-atas-menurut-jenis-kegiatan.html){target="_blank"}  
 **Last updated**: `r source_last_update`  
-**Download**: unemployment rate (`r embed_unemp_rate`; `r embed_chart_unemp_rate`); number of unemployed workers (`r embed_unemp_ppl`; `r embed_chart_unemp_ppl`)  
+**Download**: `r embed_unemp_rate`; `r embed_chart_unemp_rate`  
 </details>
 
 
-### Unemployment rate by province
+#### By province
 
 (percent)
 
 ```{r script: unemployment rate by province}
 source("script/emp_unemployment_province_script.R", local = knitr::knit_global())
-
 div(plot_unemp_prov)
 ```
 
@@ -233,30 +177,22 @@ div(plot_unemp_prov)
 unemp_prov_latest <- unemp_prov_trf %>% 
   dplyr::filter(date == unemp_prov_date_latest[2])
 
-# province with highest, lowest increase in unemployment rate
+# province with highest increase in unemployment rate
 unemp_prov_latest_minmax <- unemp_prov_latest %>% 
-  dplyr::filter(
-    ppt_change_yoy %in% c(
-      min(unemp_prov_latest$ppt_change_yoy),
-      max(unemp_prov_latest$ppt_change_yoy)
-    )
-  ) %>% 
+  dplyr::filter(ppt_change_yoy == max(unemp_prov_latest$ppt_change_yoy)) %>% 
   arrange(desc(ppt_change_yoy))
-
 ```
 
-The highest increase in the unemployment rate was seen in `r unemp_prov_latest_minmax$province[1]` at **`r unemp_prov_latest_minmax$ppt_change_yoy[1]`** percentage points, which brought the share of unemployed workers in the province to **`r unemp_prov_latest_minmax$unemployment_rate[1]`** percent in `r format(unemp_prov_latest_minmax$date[1], "%B %Y")`.
+The highest annual increase in unemployment rate was seen in `r unemp_prov_latest_minmax$province[1]` at **`r unemp_prov_latest_minmax$ppt_change_yoy[1]`** percentage points, which brought the share of unemployed workers in the province to **`r unemp_prov_latest_minmax$unemployment_rate[1]`** percent in `r format(unemp_prov_latest_minmax$date[1], "%B %Y")`.
 
 <aside>
 
-See also [poverty by province](poverty.html#poverty-by-province)
+See also [poverty by province](poverty.html#by-province)
 
 </aside>
 
-`r last(unemp_prov_latest_minmax$province)` recorded the smallest increase in the unemployment rate at **`r last(unemp_prov_latest_minmax$ppt_change_yoy)`** percentage points yoy to **`r last(unemp_prov_latest_minmax$unemployment_rate)`** percent in August 2020.
-
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the number of unemployed workers relative to the labor force, broken down by province. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every May and November  
@@ -266,7 +202,9 @@ See also [poverty by province](poverty.html#poverty-by-province)
 </details>
 
 
-### Employment by status
+### Employment
+
+#### By status
 
 ```{r table: employment by status, layout="l-body-outset"}
 source("script/emp_employment_status_script.R", local = knitr::knit_global())
@@ -277,17 +215,17 @@ reactable_emp_status
 ```{r description: employment by status}
 # latest employment by status data
 emp_status_latest <- emp_status_trf %>% 
-  dplyr::filter(date == emp_status_date_latest[2])
+  dplyr::filter(date == last(date))
 
 # status with steepest decline in distribution
 emp_status_min <- emp_status_latest %>% 
   dplyr::filter(prop_chg_yoy == min(emp_status_latest$prop_chg_yoy))
 ```
 
-The share of `r str_to_lower(emp_status_min$status)` in the labor force showed the steepest annual decline at **`r emp_status_min$prop_chg_yoy`** percentage points to **`r emp_status_min$prop`** percent in `r format(emp_status_min$date, "%B %Y")`. The number of `r str_to_lower(emp_status_min$status)` was down by **`r emp_status_min$workers_pct_chg_yoy`** percent yoy to **`r emp_status_min$workers`** million.
+The share of `r str_to_lower(emp_status_min$status)` in the labor force showed the steepest annual decline at **`r emp_status_min$prop_chg_yoy`** percentage points to **`r emp_status_min$prop`** percent in `r format(emp_status_min$date, "%B %Y")`.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the number and distribution of workers, broken down by employment status. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every May and November  
@@ -297,7 +235,7 @@ The share of `r str_to_lower(emp_status_min$status)` in the labor force showed t
 </details>
 
 
-### Employment by sector
+#### By sector
 
 ```{r script: employment by sector}
 source("script/emp_employment_sec_script.R", local = knitr::knit_global())
@@ -306,14 +244,14 @@ source("script/emp_employment_sec_script.R", local = knitr::knit_global())
 unstrap(filter_emp_sec)
 ```
 
-```{r table: employment by sector, layout="l-body-outset"}
+```{r table: employment by sector, layout="l-page"}
 reactable_emp_sec
 ```
 
 ```{r description: employment by sector}
 # latest employment by sector data
 emp_sec_latest <- emp_sec_trf %>% 
-  dplyr::filter(date == emp_sec_date_latest[2])
+  dplyr::filter(date == last(date))
 
 # sector with steepest decline, highest increase
 emp_sec_latest_minmax <- emp_sec_latest %>% 
@@ -326,7 +264,7 @@ emp_sec_latest_minmax <- emp_sec_latest %>%
   arrange(prop_chg_yoy)
 ```
 
-The steepest annual decline in the share of workers was recorded at **`r emp_sec_latest_minmax$prop_chg_yoy[1]`** percentage points in the `r str_to_lower(emp_sec_latest_minmax$sector[1])` sector, which brought the share to **`r emp_sec_latest_minmax$prop[1]`** percent in `r format(emp_sec_latest_minmax$date[1], "%B %Y")`. The number of workers in the sector was down by **`r emp_sec_latest_minmax$workers_pct_chg_yoy[1]`** percent yoy to **`r emp_sec_latest_minmax$workers[1]`** million over the period.
+The steepest annual decline in the share of workers was recorded at **`r emp_sec_latest_minmax$prop_chg_yoy[1]`** percentage points in the `r str_to_lower(emp_sec_latest_minmax$sector[1])` sector, which brought the share to **`r emp_sec_latest_minmax$prop[1]`** percent in `r format(emp_sec_latest_minmax$date[1], "%B %Y")`.
 
 <aside>
 
@@ -334,10 +272,10 @@ See also [economic growth by sector](gdp.html#by-sector)
 
 </aside>
 
-Meanwhile, the `r str_to_lower(last(emp_sec_latest_minmax$sector))` sector recorded a **`r last(emp_sec_latest_minmax$workers_pct_chg_yoy)`** percent yoy increase in the number of workers to **`r last(emp_sec_latest_minmax$workers)`** million, leading to an increase of **`r last(emp_sec_latest_minmax$prop_chg_yoy)`** percentage points yoy in the share of workers to **`r last(emp_sec_latest_minmax$prop)`** percent.
+Meanwhile, the `r str_to_lower(last(emp_sec_latest_minmax$sector))` sector recorded an annual increase of **`r last(emp_sec_latest_minmax$prop_chg_yoy)`** percentage points in the share of workers to **`r last(emp_sec_latest_minmax$prop)`** percent.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the number and distribution of workers, broken down by sector. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every May and November  
@@ -347,22 +285,21 @@ Meanwhile, the `r str_to_lower(last(emp_sec_latest_minmax$sector))` sector recor
 </details>
 
 
-### Number of workers affected by COVID-19
+### Pandemic-hit workers
 
 (millions)
 
 ```{r script: overall affected workers}
 source("script/emp_pandemic-hit_script.R", local = knitr::knit_global())
-
 div(plot_phw_total)
 ```
 
-*Tips: click the legend item to select or deselect a trace.*
+*Tip: click the legend item(s) to select or remove data*
 
-The number of workers affected by the pandemic was `r ier_compare_up(phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "total"])` by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "total"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "total"]`** million in February from August. They accounted for **`r phw_share_tidy$share_of_working_age_pop[phw_share_tidy$date == ymd("2021-02-01") & phw_share_tidy$category == "total"]`** percent of the working age population. The majority of them faced reduced working hours.
+The number of workers affected by the pandemic was `r ier_compare_up(phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "total"])` by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "total"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "total"]`** million in February from August. They accounted for **`r phw_share_tidy$share_of_working_age_pop[phw_share_tidy$date == ymd("2021-02-01") & phw_share_tidy$category == "total"]`** percent of the working age population.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: people who have been laid off or furloughed because of the pandemic in the period starting from February 2020, broken down by status. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every May and November  
@@ -372,9 +309,9 @@ The number of workers affected by the pandemic was `r ier_compare_up(phw_trf_tot
 </details>
 
 
-### Number of pandemic-hit workers by gender
+#### By gender
 
-```{r script: affected workers by gender, layout="l-body-outset"}
+```{r script: affected workers by gender"}
 reactable_phw_sex
 ```
 
@@ -385,7 +322,7 @@ reactable_phw_sex
 Between August and February, the total number of pandemic-hit male workers `r ier_compare_rise(phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "men"])` by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "men"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "men"]`** million and female workers by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "women"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "women"]`** million.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: people who have been laid off or furloughed because of the pandemic in the period starting from February 2020, broken down by gender. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every May and November  
@@ -395,9 +332,9 @@ Between August and February, the total number of pandemic-hit male workers `r ie
 </details>
 
 
-### Number of pandemic-hit workers by area
+#### By area
 
-```{r script: affected workers by area, layout="l-body-outset"}
+```{r script: affected workers by area}
 reactable_phw_area
 ```
 
@@ -408,7 +345,7 @@ reactable_phw_area
 The total number of pandemic-hit workers in urban areas `r ier_compare_rise(phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "urban"])` by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "urban"]`** percent to **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "urban"]`** million  and in rural areas by **`r phw_trf_tot_dis$pct_chg[phw_trf_tot_dis$category == "rural"]`** percent **`r phw_trf_tot_dis$workers[phw_trf_tot_dis$category == "rural"]`** million in February from August.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: people who have been laid off or furloughed because of the pandemic in the period starting from February 2020, broken down by area. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Update frequency**: every May and November  

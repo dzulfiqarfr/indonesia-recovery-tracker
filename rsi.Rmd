@@ -1,21 +1,20 @@
 ---
 title: "Retail sales"
 description: |
-  Retail sales have been declining and unusually low during Ramadan, Idul Fitri, Christmas and year end due to the COVID-19 pandemic. While retail sales across categories remain below the usual level before the pandemic, some categories have shown signs of improvements.
+  Retail sales have somewhat picked up from last year’s slump. But the pandemic emergency curbs are expected to delay the recovery.
 output: 
   distill::distill_article:
     toc: true
     toc_float: true
+    toc_depth: 4
 preview: fig/ier_rsi_void_plot.png
 ---
-
 
 ```{r setup, include=FALSE}
 # chunk options
 knitr::opts_chunk$set(echo = FALSE)
 
 # packages
-library(tidyverse)
 library(xaringanExtra)
 library(htmltools)
 library(mime)
@@ -24,12 +23,12 @@ library(mime)
 xaringanExtra::use_panelset()
 
 # source url
-source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SPE_Maret_2021.aspx"
+source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SPE_Mei_2021.aspx"
 
 # date of last update
-source_last_update <- "May 11, 2021"
+source_last_update <- "July 9, 2021"
 
-# description functions
+# functions to describe data
 ## rise or fall
 ier_compare_rise <- function(x) {
   if (x > 0) {
@@ -45,15 +44,6 @@ ier_compare_up <- function(x) {
     "up"
   } else {
     "down"
-  }
-}
-
-## less or more severe
-ier_compare_sev <- function(x, y) {
-  if (x > y) {
-    "less severe"
-  } else {
-    "more severe"
   }
 }
 
@@ -115,7 +105,6 @@ embed_chart_rsi_cat <- xfun::embed_file(
 
 ```{r plot: rsi change}
 source("script/rsi_script.R", local = knitr::knit_global())
-
 div(plot_rsi_change)
 ```
 
@@ -133,9 +122,9 @@ div(plot_rsi_index)
 
 :::::
 
-<p style="color: #999; font-size: 12px;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.</p>  
+<p style="color: #999; font-size: 12px;">Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate</p>  
 
-The Retail Sales Index was estimated to `r ier_compare_rise(last(rsi_trf$pct_change_yoy))` by **`r last(rsi_trf$pct_change_yoy)`** percent year-on-year (yoy) to **`r last(rsi_trf$rsi)`** in `r format(last(rsi_trf$date), "%B")`, `r ier_compare_sev(last(rsi_trf$pct_change_yoy),  rsi_trf$pct_change_yoy[nrow(rsi_trf) - 1])` than the previous month. 
+The Retail Sales Index was estimated to `r ier_compare_rise(last(rsi_trf$pct_change_yoy))` by **`r last(rsi_trf$pct_change_yoy)`** percent year-on-year (yoy) to **`r last(rsi_trf$rsi)`** in `r format(last(rsi_trf$date), "%B")`. 
 
 <aside>
 
@@ -143,10 +132,10 @@ See also [community mobility](mobility.html)
 
 </aside>
 
-The pandemic has led the index to fall by its steepest decline at **20.61** percent yoy to **198.3** in May 2020, when Ramadan and Idul Fitri took place.
+The pandemic led the index to fall by its steepest decline at **20.61** percent yoy to **198.3** in May 2020, when Ramadan and Idul Fitri took place.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the Retail Sales Index indicates the retail sales performance in a given month. The base year for the index is January 2010. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [Bank Indonesia (BI)](`r source_url`){target="_blank"}  
@@ -156,19 +145,18 @@ The pandemic has led the index to fall by its steepest decline at **20.61** perc
 </details>
 
 
-### By category
+#### By category
 
 ::::: {.panelset}
 
 ::: {.panel}
 
-#### Change {.panel-name}
+##### Change {.panel-name}
 
 (percent change from a year earlier)
 
 ```{r plot: rsi change by category}
 source("script/rsi_category_script.R", local = knitr::knit_global())
-
 div(sm_rsi_by_cat_chg)
 ```
 
@@ -176,7 +164,7 @@ div(sm_rsi_by_cat_chg)
 
 ::: {.panel}
 
-#### Index {.panel-name}
+##### Index {.panel-name}
 
 ```{r plot: rsi by category}
 div(sm_rsi_by_cat_idx)
@@ -212,8 +200,8 @@ rsi_by_cat_worse_lower <- str_to_lower(rsi_by_cat_worse$Indices)
 
 <div style="color: #999; font-size: 12px;">
 <sup>*</sup>Information and communication tools  
-<sup>&#10013;</sup>Cultural and recreational goods  
-Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate.  
+<sup>&#8224;</sup>Cultural and recreational goods  
+Note: `r format(last(rsi_trf$date), "%B %Y")` figure is an estimate  
 </div>
 
 The Retail Sales Index of `r rsi_by_cat_imp_lower[-length(rsi_by_cat_imp_lower)]` and `r rsi_by_cat_imp_lower[length(rsi_by_cat_imp_lower)]` improved in `r format(last(rsi_trf$date), "%B")` from the previous month in terms of change from a year earlier.
@@ -224,10 +212,10 @@ See also [inflation by expenditure group](inflation.html#by-expenditure-group)
 
 </aside>
 
-Meanwhile, `r rsi_by_cat_worse_lower[-length(rsi_by_cat_worse_lower)]` and `r rsi_by_cat_worse_lower[length(rsi_by_cat_worse_lower)]` showed steeper declines than the previous month in terms of percent change from a year earlier.
+Meanwhile, `r rsi_by_cat_worse_lower[1]`, for example, showed steeper declines than in the previous month.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the Retail Sales Index, broken down by category, also indicates the retail sales performance in a given month. The base year for the index is January 2010. See [appendix](#note) for further details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [BI](`r source_url`){target="_blank"}  

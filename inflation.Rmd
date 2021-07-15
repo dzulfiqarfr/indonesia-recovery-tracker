@@ -1,21 +1,20 @@
 ---
 title: "Inflation"
 description: |
-  The inflation rate has remained low and below Bank Indonesia’s target since the middle of 2020, around two months after the COVID-19 pandemic started battering the country.
+  Consumer price inflation has stay muted and below Bank Indonesia’s target since the middle of 2020, around two months into the COVID-19 pandemic.
 output: 
   distill::distill_article:
     toc: true
     toc_float: true
+    toc_depth: 4
 preview: fig/ier_inflation-annual_void_plot.png
 ---
-
 
 ```{r setup, include=FALSE}
 # chunk options
 knitr::opts_chunk$set(echo = FALSE)
 
 # packages
-library(tidyverse)
 library(htmltools)
 library(xaringanExtra)
 library(crosstalk)
@@ -25,7 +24,7 @@ library(mime)
 # use panelset
 xaringanExtra::use_panelset()
 
-# description functions
+# functions to describe data
 ## inflation or deflation
 ier_compare_inf <- function(x) {
   if (x > 0) {
@@ -89,8 +88,9 @@ embed_chart_inf_comp <- xfun::embed_file(
 )
 ```
 
-
 ### Overall
+
+(percent)
 
 ::::: {.panelset}
 
@@ -98,11 +98,8 @@ embed_chart_inf_comp <- xfun::embed_file(
 
 #### Monthly {.panel-name}
 
-(percent)
-
 ```{r plot: monthly overall inflation}
 source("script/inflation_script.R", local = knitr::knit_global())
-
 div(plot_inf_mom)
 ```
 
@@ -111,8 +108,6 @@ div(plot_inf_mom)
 ::: {.panel}
 
 #### Annual {.panel-name}
-
-(percent)
 
 ```{r plot: annual overall inflation}
 div(plot_inf_yoy)
@@ -173,7 +168,7 @@ source_last_update_static <- inf_yoy_parsed$data %>%
   format("%B %d, %Y")
 ```
 
-The monthly `r ier_compare_inf(inf_mom_latest$rate_mom[2])` rate was recorded at **`r inf_mom_latest$rate_mom[2]`** percent in `r format(inf_mom_latest$date[2], "%B")`, `r ier_compare_high(inf_mom_latest$rate_mom[2], inf_mom_latest$rate_mom[1])` than the rate in the same month in the previous year.
+The Consumer Price Index (CPI) posted a monthly `r ier_compare_inf(inf_mom_latest$rate_mom[2])` of **`r inf_mom_latest$rate_mom[2]`** percent in `r format(inf_mom_latest$date[2], "%B")`. On an annual basis, the `r ier_compare_inf(inf_yoy_latest$rate_yoy[2])` rate stood at **`r inf_yoy_latest$rate_yoy[2]`** percent.
 
 <aside>
 
@@ -181,13 +176,11 @@ See also [unemployment](employment.html#unemployment)
 
 </aside>
 
-On an annual basis, the `r ier_compare_inf(inf_yoy_latest$rate_yoy[2])` rate stood at **`r inf_yoy_latest$rate_yoy[2]`** percent in `r format(inf_yoy_latest$date[2], "%B")`, `r ier_compare_high(inf_yoy_latest$rate_yoy[2], inf_yoy_latest$rate_yoy[1])` than the rate in the same month a year earlier.
-
-The pandemic has led to a record-low full-year annual inflation rate at **1.68** percent in 2020.
+In 2020, the pandemic led to a record-low full-year annual inflation rate at **1.68** percent.
 
 <details>
-<summary>Documentation</summary>
-**Description**:  the rise in consumer prices as measured in terms of the percent change on the Consumer Price Index either from a month earlier or a year earlier. Since 2020, the base year for the index is 2018. See [appendix](#note) for more details.  
+<summary>Documentation and download options</summary>
+**Description**:  the rise in consumer prices as measured in terms of the percent change on the CPI either from a month earlier or a year earlier. Since 2020, the base year for the index is 2018. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: Statistics Indonesia (BPS) ([monthly](https://www.bps.go.id/statictable/2014/09/26/913/tingkat-inflasi-bulanan-gabungan-90-kota-sup-1-sup-2018-100-.html){target="_blank"}; [annual](https://www.bps.go.id/statictable/2014/09/26/915/tingkat-inflasi-tahun-ke-tahun-gabungan-90-kota-sup-1-sup-2018-100-.html){target="_blank"})  
 **Data and update frequency**: monthly  
@@ -196,13 +189,12 @@ The pandemic has led to a record-low full-year annual inflation rate at **1.68**
 </details>
 
 
-### By component
+#### By component
 
-Monthly inflation (percent)
+CPI (percent change from a month earlier)
 
 ```{r plot: inflation by component}
 source("script/inflation_comp_script.R", local = knitr::knit_global())
-
 div(sm_inf_comp)
 ```
 
@@ -213,13 +205,13 @@ inf_comp_tidy_latest <- inf_comp_tidy %>%
   tail(2)
 ```
 
-The monthly core `r ier_compare_inf(inf_comp_tidy_latest$core[2])` rate was recorded at **`r inf_comp_tidy_latest$core[2]`** percent in `r format(inf_comp_tidy_latest$date[2], "%B")`, `r ier_compare_high(inf_comp_tidy_latest$core[2], inf_comp_tidy_latest$core[1])` than the level in the same month in the previous year. 
+The monthly core `r ier_compare_inf(inf_comp_tidy_latest$core[2])` rate was recorded at **`r inf_comp_tidy_latest$core[2]`** percent in `r format(inf_comp_tidy_latest$date[2], "%B")`. 
 
-For administered prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$adm_prices[2])` rate stood at **`r inf_comp_tidy_latest$adm_prices[2]`** percent, `r ier_compare_high(inf_comp_tidy_latest$adm_prices[2], inf_comp_tidy_latest$adm_prices[1])` than a year earlier. For volatile prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$volatile_prices[2])` stood at **`r inf_comp_tidy_latest$volatile_prices[2]`** percent, `r ier_compare_high(inf_comp_tidy_latest$volatile_prices[2], inf_comp_tidy_latest$volatile_prices[1])` than a year earlier.
+For administered prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$adm_prices[2])` rate stood at **`r inf_comp_tidy_latest$adm_prices[2]`** percent. For volatile prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$volatile_prices[2])` rate stood at **`r inf_comp_tidy_latest$volatile_prices[2]`** percent.
 
 <details>
-<summary>Documentation</summary>
-**Description**:  the rise in consumer prices as measured in terms of the monthly percent change on the Consumer Price Index, broken down by the component. Since 2020, the base year for the index is 2018. See [appendix](#note) for more details.  
+<summary>Documentation and download options</summary>
+**Description**:  the rise in consumer prices as measured in terms of the monthly percent change on the CPI, broken down by the component. Since 2020, the base year for the index is 2018. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [BPS](https://www.bps.go.id/statictable/2012/02/02/908/inflasi-umum-inti-harga-yang-diatur-pemerintah-dan-barang-bergejolak-inflasi-indonesia-2009-2021.html){target="_blank"}  
 **Data and update frequency**: monthly  
@@ -228,9 +220,9 @@ For administered prices, the monthly `r ier_compare_inf(inf_comp_tidy_latest$adm
 </details>
 
 
-### By expenditure group
+#### By expenditure group
 
-Monthly inflation (percent)
+CPI (percent change from a month earlier)
 
 ```{r script: inflation by expenditure}
 source("script/inflation_exp_script.R", local = knitr::knit_global())
@@ -247,7 +239,7 @@ filter_inf_exp <- filter_select(
 unstrap(filter_inf_exp)
 ```
 
-```{r table: inflation by expenditure, layout="l-body-outset"}
+```{r table: inflation by expenditure, layout="l-page"}
 reactable_inf_exp
 ```
 
@@ -268,8 +260,8 @@ See also [retail sales index by category](rsi.html#by-category)
 </aside>
 
 <details>
-<summary>Documentation</summary>
-**Description**:  the rise in consumer prices as measured in terms of the monthly percent change on the Consumer Price Index, broken down by the expenditure group. See [appendix](#note) for more details.  
+<summary>Documentation and download options</summary>
+**Description**:  the rise in consumer prices as measured in terms of the monthly percent change on the CPI, broken down by the expenditure group. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [BPS](https://www.bps.go.id/statictable/2020/02/04/2083/inflasi-indonesia-menurut-kelompok-pengeluaran-2020-2021.html){target="_blank"}  
 **Data and update frequency**: monthly  
@@ -280,7 +272,7 @@ See also [retail sales index by category](rsi.html#by-category)
 
 # Note {.appendix}
 
-BPS builds the Consumer Price Index based on the 2018 Cost of Living Survey, which covered 90 cities and 853 commodities. Of the commodities, 711 were core components, 101 were volatile prices and the rest were government-administered prices.
+BPS builds the CPI based on the 2018 Cost of Living Survey, which covered 90 cities and 853 commodities. Of the commodities, 711 were core components, 101 were volatile prices and the rest were government-administered prices.
 
 Bank Indonesia has set a target of maintaining the annual inflation rate between 2 and 4 percent.
 

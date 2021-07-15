@@ -1,16 +1,15 @@
 # indonesia economic recovery
 
-# key indicator table
+# key indicator tables
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-04-14
+# last updated: 2021-07-14
 # page: index
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -18,6 +17,10 @@ library(httr)
 library(jsonlite)
 library(reactable)
 library(htmltools)
+library(rvest)
+
+
+# data --------------------------------------------------------------------
 
 # api key
 BPS_KEY <- Sys.getenv("BPS_KEY")
@@ -30,9 +33,9 @@ base_url_dynamic <- "https://webapi.bps.go.id/v1/api/list"
 base_url_static <- "https://webapi.bps.go.id/v1/api/view"
 
 
-# data --------------------------------------------------------------------
+## economic indicators ----
 
-# gdp ---------------------------------------------------------------------
+### gdp ----
 
 # request data
 growth_req <- GET(
@@ -100,26 +103,14 @@ growth_raw <- as_tibble(growth_parsed$datacontent)
 
 # separate keys, subset quarterly observations
 growth_tidy <- growth_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "pct_change_yoy"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_exp", "key_period"),
-    sep = "108"
-  ) %>%
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "pct_change_yoy") %>% 
+  separate(key, into = c("key_exp", "key_period"), sep = "108") %>%
   mutate(
     key_period_obs = str_sub(key_period, end = 1),
     key_yr = str_sub(key_period, 2, 4),
     key_q = str_sub(key_period, 5, 6)
   ) %>% 
-  dplyr::filter(
-    key_exp == "800",
-    key_period_obs == "5",
-    key_q != "35"
-  )
+  dplyr::filter(key_exp == "800", key_period_obs == "5", key_q != "35")
 
 # replace year key
 growth_tidy$key_yr <- growth_tidy$key_yr %>% 
@@ -142,7 +133,7 @@ growth_tidy <- growth_tidy %>%
   select(date, pct_change_yoy)
 
 
-# inflation ---------------------------------------------------------------
+### inflation ----
 
 # request data
 inf_yoy_req <- GET(
@@ -157,9 +148,8 @@ inf_yoy_req <- GET(
 )
 
 # parse response
-inf_yoy_resp <- content(inf_yoy_req, "text")
-
-inf_yoy_parsed <- fromJSON(inf_yoy_resp)
+inf_yoy_parsed <- content(inf_yoy_req, "text") %>% 
+  fromJSON()
 
 # download data as temporary file
 GET(
@@ -192,30 +182,20 @@ inf_yoy_raw <- inf_yoy_raw %>%
 
 # tidy data
 inf_yoy_tidy <- inf_yoy_raw %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "yr",
-    values_to = "rate_yoy"
-  ) %>% 
+  pivot_longer(2:ncol(.), names_to = "yr", values_to = "rate_yoy") %>% 
   mutate(mo = format(Bulan, "-%m-01")) %>% 
   arrange(yr, mo) %>% 
   group_by(yr, Bulan) %>% 
-  mutate(
-    date = str_c(yr, mo), 
-    mo = month(date)
-  ) %>% 
+  mutate(date = str_c(yr, mo), mo = month(date)) %>% 
   ungroup() %>% 
   select(date, mo, yr, rate_yoy) %>% 
-  dplyr::filter(
-    !is.na(rate_yoy),
-    yr >= 2020 
-  )
+  dplyr::filter(!is.na(rate_yoy), yr >= 2020)
 
 # correct data type
 inf_yoy_tidy$date <- ymd(inf_yoy_tidy$date)
 
 
-# poverty -----------------------------------------------------------------
+### poverty ----
 
 # request data
 pov_req <- GET(
@@ -240,16 +220,8 @@ pov_raw <- as_tibble(pov_parsed$datacontent)
 
 # tidy data
 pov_tidy <- pov_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "pov_rate"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_area", "key_date"),
-    sep = "1840"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "pov_rate") %>% 
+  separate(key, into = c("key_area", "key_date"), sep = "1840") %>% 
   mutate(
     key_yr = as.numeric(
       case_when(
@@ -289,7 +261,7 @@ pov_tidy_sub$key_area <- pov_tidy_sub$key_area %>%
   as_factor()
 
 
-# unemployment ------------------------------------------------------------
+### unemployment ----
 
 # request data
 unemployment_req <- GET(
@@ -318,16 +290,8 @@ unemployment_raw <- as_tibble(unemployment_parsed$datacontent)
 
 # tidy data
 unemployment_tidy <- unemployment_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "val"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_act", "key_date"),
-    sep = "5290"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "val") %>% 
+  separate(key, into = c("key_act", "key_date"), sep = "5290") %>% 
   mutate(
     key_yr = case_when(
       str_detect(key_date, "^[8|9]") ~ as.numeric(str_sub(key_date, 1, 2)),
@@ -354,10 +318,7 @@ unemployment_tidy$key_mo <- unemployment_tidy$key_mo %>%
 
 # create date variable
 unemployment_tidy <- unemployment_tidy %>% 
-  mutate(
-    date = ymd(str_c(key_yr, key_mo)),
-    mo = month(date)
-  ) %>% 
+  mutate(date = ymd(str_c(key_yr, key_mo)), mo = month(date)) %>% 
   rename(yr = key_yr) %>% 
   select(key_act, date, yr, mo, val)
 
@@ -373,7 +334,39 @@ unemp_rate <- unemployment_tidy %>%
   rename(unemployment_rate = val)
 
 
-# merge econ indicators ---------------------------------------------------
+### manufacturing pmi ----
+
+# url for indonesia's manufacturing pmi data on investing.com
+base_url_investing <- "https://www.investing.com/economic-calendar/indonesia-nikkei-pmi-1096"
+
+# scrape pmi data
+pmi_raw <- read_html(base_url_investing) %>% 
+  html_elements("#eventTabDiv_history_0 tbody") %>% 
+  html_elements("tr") %>% 
+  html_text2()
+
+# subset latest pmi data
+pmi_unlist <- pmi_raw %>% 
+  .[[2]] %>% 
+  str_split("\\t") %>% 
+  unlist()
+
+# extract latest date in most recent pmi data
+pmi_latest_date <- str_c(
+  str_sub(pmi_unlist[[1]], 15, 17),
+  format(Sys.Date(), " '%y")
+)
+
+# tidy pmi data
+pmi_latest <- tibble(
+  indicator = "Manufacturing PMI",
+  unit = "(index point)",
+  latest_date = pmi_latest_date,
+  latest_fig = str_c(pmi_unlist[[3]], "<sup>&#8225;</sup>")
+)
+
+
+### merge indicators ----
 
 # extract latest data, add indicator, unit variables
 ## gdp
@@ -422,18 +415,19 @@ unemp_latest <- unemp_rate %>%
 
 # merge data
 key_indicators <- growth_latest %>% 
-  rbind(inf_latest, pov_latest, unemp_latest)
+  rbind(inf_latest, pov_latest, unemp_latest, pmi_latest)
 
 
-# projection, government target -------------------------------------------
+### add projection, govt target ----
 
 # projection
 key_ind_proj <- tribble(
   ~indicator, ~proj_fig,
-  "Economic growth", "4.3*",
-  "Inflation rate", "2.8*",
-  "Poverty rate", "9.2-9.7<sup>&#8224;</sup>",
-  "Unemployment rate", "6.5*"
+  "Economic growth", "3.7-4.5*",
+  "Inflation rate", "2.3**",
+  "Poverty rate", "9.2-9.7*",
+  "Unemployment rate", "6.5<sup>&#8224;</sup>",
+  "Manufacturing PMI", "-"
 )
 
 # merge latest data with projection, government target
@@ -441,7 +435,7 @@ key_econ_ind <- key_indicators %>%
   left_join(key_ind_proj, by = "indicator")
 
 
-# covid -------------------------------------------------------------------
+## covid-19 indicators ----
 
 # import
 covid_raw <- read_csv(
@@ -498,17 +492,9 @@ pos_rate <- covid_ntl %>%
 
 # latest daily new case, death
 case_death <- covid_ntl %>% 
-  select(
-    date, 
-    new_cases,
-    new_deaths
-  ) %>% 
+  select(date, new_cases, new_deaths) %>% 
   dplyr::filter(date == last(date)) %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "indicator",
-    values_to = "latest_fig"
-  ) %>% 
+  pivot_longer(2:ncol(.), names_to = "indicator", values_to = "latest_fig") %>% 
   mutate(
     date = format(date, "%b %d, '%y"),
     indicator = str_replace_all(
@@ -532,11 +518,7 @@ vaccination <- covid_ntl %>%
   ) %>% 
   dplyr::filter(!is.na(people_vaccinated_per_hundred)) %>% 
   tail(1) %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "indicator",
-    values_to = "latest_fig"
-  ) %>% 
+  pivot_longer(2:ncol(.), names_to = "indicator", values_to = "latest_fig") %>% 
   mutate(
     date = format(date, "%b %d, '%y"),
     indicator = str_replace_all(
@@ -550,7 +532,6 @@ vaccination <- covid_ntl %>%
   ) %>% 
   rename(latest_date = date)
 
-
 # merge, create empty column for projection
 key_covid_ind <- case_death %>% 
   rbind(pos_rate, vaccination) %>% 
@@ -560,12 +541,12 @@ key_covid_ind <- case_death %>%
 
 # table -------------------------------------------------------------------
 
-# economic indicators
+## economic indicators ----
 reactable_key_econ <- key_econ_ind %>% 
   reactable(
     columns = list(
       indicator = colDef(
-        name = "Indicators",
+        name = "",
         cell = function(value, index) {
           
           unit <- key_econ_ind$unit[index]
@@ -607,7 +588,7 @@ reactable_key_econ <- key_econ_ind %>%
     sortable = F,
     compact = T,
     striped = T,
-    style = list(fontSize = "15px"),
+    style = list(fontSize = "14px"),
     theme = reactableTheme(
       headerStyle = list(borderColor = "black"),
       cellStyle = list(
@@ -619,12 +600,12 @@ reactable_key_econ <- key_econ_ind %>%
     )
   )
 
-# covid-19
+## covid-19 ----
 reactable_key_covid <- key_covid_ind %>% 
   reactable(
     columns = list(
       indicator = colDef(
-        name = "Indicators",
+        name = "",
         cell = function(value, index) {
           
           unit <- key_covid_ind$unit[index]
@@ -657,7 +638,7 @@ reactable_key_covid <- key_covid_ind %>%
     sortable = F,
     compact = T,
     striped = T,
-    style = list(fontSize = "15px"),
+    style = list(fontSize = "14px"),
     theme = reactableTheme(
       headerStyle = list(borderColor = "black"),
       cellStyle = list(

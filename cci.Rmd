@@ -1,31 +1,30 @@
 ---
 title: "Consumer confidence"
 description: |
-  The COVID-19 pandemic has brought down the consumer confidence to its record-low in the pessimistic territory last year. The sign of recovery has so far appeared to be an upward blip, as seen among consumers with an income above Rp 4.1 million since the year end. Most consumers are still largely pessimistic.
+  The COVID-19 pandemic led consumer confidence to its record-low last year. More than one year into the pandemic, consumers across all income groups have regained their optimism.
 output: 
   distill::distill_article:
     toc: true
     toc_float: true
+    toc_depth: 4
 preview: fig/ier_cci-income_void_plot.png
 ---
-
 
 ```{r setup, include=FALSE}
 # chunk options
 knitr::opts_chunk$set(echo = FALSE)
 
 # packages
-library(tidyverse)
 library(htmltools)
 library(mime)
 
 # source url
 source_url <- "https://www.bi.go.id/id/publikasi/laporan/Pages/SK-April-2021.aspx"
 
-# date of last update
-source_last_update <- "May 10, 2021"
+# date of most recent observation
+source_last_update <- "July 8, 2021"
 
-# description functions
+# functions to describe data
 ## above or below
 ier_compare_above <- function(x) {
   if (x > 100) {
@@ -59,7 +58,7 @@ ier_extract_income <- function(x) {
   }
 }
 
-# embed file
+# embed csv for download
 ## cci overall
 embed_cci_overall <- xfun::embed_file(
   "data/ier_cci-overall_cleaned.csv", 
@@ -93,9 +92,8 @@ embed_chart_cci_income <- xfun::embed_file(
 
 ### Overall
 
-```{r plot: cci overall}
+```{r plot overall cci}
 source("script/cci_script.R", local = knitr::knit_global())
-
 div(plot_cci)
 ```
 
@@ -104,7 +102,7 @@ In `r format(last(cci_tidy$date), "%B")`, the Consumer Confidence Index was reco
 The pandemic has brought the index to a record-low for the second time at **79.02** in October. Previously, it fell to **77.8** in May, around two months into the outbreak.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the overall Consumer Confidence Index indicates whether consumers are optimistic about an improvement in the economy based on the current condition and their expectation for the future condition. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [Bank Indonesia (BI)](`r source_url`){target="_blank"}  
@@ -114,17 +112,16 @@ The pandemic has brought the index to a record-low for the second time at **79.0
 </details>
 
 
-### By income group
+#### By income group
 
-```{r plot: cci by income group}
+```{r plot cci by income group}
 source("script/cci_income_script.R", local = knitr::knit_global())
-
 div(plot_cci_by_income)
 ```
 
-*Tips: click the legend item to select or deselect a trace.*
+*Tip: click the legend item(s) to select or remove data*
 
-```{r description: cci by income group}
+```{r latest cci by income group data}
 # subset latest values
 cci_by_income_latest <- cci_by_income_tidy %>% 
   dplyr::filter(date == last(date))
@@ -133,15 +130,15 @@ cci_by_income_latest <- cci_by_income_tidy %>%
 cci_by_income_latest_highest <- cci_by_income_latest %>% 
   dplyr::filter(cci == max(cci))
 
-# most pessimistic
+# lowest confidence
 cci_by_income_latest_lowest <- cci_by_income_latest %>% 
   dplyr::filter(cci == min(cci))
 ```
 
-The confidence index was highest among consumers with an income `r ier_extract_income(cci_by_income_latest_highest$Indices)` and lowest among consumers with an income `r ier_extract_income(cci_by_income_latest_lowest$Indices)` in `r format(ymd(cci_by_income_latest$date[1]), "%B")`.
+The confidence index was highest among consumers with income `r ier_extract_income(cci_by_income_latest_highest$Indices)` and lowest among those with income `r ier_extract_income(cci_by_income_latest_lowest$Indices)` in `r format(ymd(cci_by_income_latest$date[1]), "%B")`.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the Consumer Confidence Index, broken down by income group, also indicates whether consumers are optimistic about an improvement in the economy based on the current condition and their expectation for the future condition. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Source**: [BI](`r source_url`){target="_blank"}  

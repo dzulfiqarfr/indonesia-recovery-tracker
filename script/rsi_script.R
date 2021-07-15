@@ -4,13 +4,12 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-25
-# last updated: 2021-07-09
+# last updated: 2021-07-15
 # page: retail sales
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -18,13 +17,13 @@ library(plotly)
 library(ggtext)
 library(magick)
 
-# date of most recent observation
-if(exists("rsi_last_date") == F) {
-  rsi_last_date <- "2021-06-01"
-}
-
 
 # data --------------------------------------------------------------------
+
+# date of most recent observation
+if(!exists("rsi_last_date")) {
+  rsi_last_date <- "2021-06-01"
+}
 
 # import
 rsi_raw <- read_excel(
@@ -49,10 +48,7 @@ rsi_date_seq <- seq(ymd("2012-01-01"), ymd(rsi_last_date), by = "month")
 ## correct sorting
 rsi_date_seq <- rsi_date_seq %>%
   tibble() %>% 
-  mutate(
-    yr = date(rsi_date_seq), 
-    mo = month(rsi_date_seq)
-  ) %>% 
+  mutate(yr = date(rsi_date_seq), mo = month(rsi_date_seq)) %>% 
   arrange(yr, mo) %>% 
   rename(date = 1)
 
@@ -64,16 +60,11 @@ rsi_raw$Indices[1] <- "rsi"
 
 # tidy data
 rsi_tidy <- rsi_raw %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "date", 
-    values_to = "rsi"
-  ) %>% 
+  pivot_longer(2:ncol(.), names_to = "date", values_to = "rsi") %>% 
   select(!Indices)
 
 # correct data types
 rsi_tidy$date <- ymd(rsi_tidy$date)
-
 rsi_tidy$rsi <- as.numeric(rsi_tidy$rsi)
 
 # round to two decimal places
@@ -93,31 +84,25 @@ rsi_trf <- rsi_tidy %>%
 
 # subset data for seasonal plot
 rsi_trf_sub <- rsi_trf %>% 
-  mutate(
-    mo = month(date), 
-    yr = year(date)
-  ) %>% 
+  mutate(mo = month(date), yr = year(date)) %>% 
   dplyr::filter(yr >= 2016) %>% 
   select(date, mo, yr, rsi)
 
 
 # plot --------------------------------------------------------------------
 
-# rsi change --------------------------------------------------------------
+## rsi change ----
+
+# y-axis range
+rsi_change_y_axis_range <- c(-45, 31)
 
 # plot
-plot_rsi_change <- plot_ly(
-  rsi_trf,
-  height = 300
-) %>%
+plot_rsi_change <- plot_ly(rsi_trf, height = 300) %>%
   add_lines(
     x = ~date, 
     y = ~pct_change_yoy,
-    hovertemplate = "Growth: %{y} percent<br>Date: %{x}<extra></extra>",
-    line = list(
-      color = "#1d81a2",
-      width = 3
-    )
+    hovertemplate = "Change: %{y} percent<br>Date: %{x}<extra></extra>",
+    line = list(color = "#2477B3", width = 3)
   ) %>% 
   plotly::layout(
     xaxis = list (
@@ -133,7 +118,7 @@ plot_rsi_change <- plot_ly(
       dtick = "M12",
       ticks = "outside",
       automargin = T,
-      hoverformat = "%b '%y",
+      hoverformat = "%B %Y",
       showline = T,
       showgrid = F
     ),
@@ -141,14 +126,14 @@ plot_rsi_change <- plot_ly(
       title = NA,
       type = "linear",
       autorange = F,
-      range = c(-45, 31),
+      range = rsi_change_y_axis_range,
       fixedrange = T,
       dtick = 15,
       showline = F,
       linewidth = 0,
       showgrid = T,
       gridcolor = "#CFD8DC",
-      zerolinecolor = "#ff856c",
+      zerolinecolor = "#E68F7E",
       side = "right"
     ),
     shapes = list(
@@ -159,8 +144,8 @@ plot_rsi_change <- plot_ly(
         x0 = "2020-03-02",
         x1 = "2020-03-02",
         yref = "y",
-        y0 = -45,
-        y1 = 30,
+        y0 = rsi_change_y_axis_range[1],
+        y1 = rsi_change_y_axis_range[2] - 1,
         line = list(color = "#90A4AE", dash = "dash")
       )
     ),
@@ -175,7 +160,7 @@ plot_rsi_change <- plot_ly(
         x = "2020-02-01",
         xanchor = "right",
         yref = "y",
-        y = 29,
+        y = rsi_change_y_axis_range[2] - 2,
         yanchor = "top"
       )
     ),
@@ -186,13 +171,13 @@ plot_rsi_change <- plot_ly(
   plotly::config(displayModeBar = F)
 
 
-# index -------------------------------------------------------------------
+## index ----
 
 # annotations
 # 2016-2019
 anno_1619 <- list(
   text = "<b>2016-2019</b>",
-  font = list(size = 12, color = "#90A4AE"),
+  font = list(size = 12, color = "lightgrey"),
   bgcolor = "white",
   showarrow = F,
   xref = "x",
@@ -206,7 +191,7 @@ anno_1619 <- list(
 # 2020
 anno_2020 <- list(
   text = "<b>2020</b>",
-  font = list(size = 12, color = "#1d81a2"),
+  font = list(size = 12, color = "#36A3D9"),
   bgcolor = "white",
   showarrow = F,
   xref = "x",
@@ -220,7 +205,7 @@ anno_2020 <- list(
 # 2021
 anno_2021 <- list(
   text = "<b>2021</b>",
-  font = list(size = 12, color = "#ff725b"),
+  font = list(size = 12, color = "#2477B3"),
   bgcolor = "white",
   showarrow = F,
   xref = "x",
@@ -237,8 +222,8 @@ plot_rsi_index <- plot_ly(
   type = "scatter",
   mode = "markers+lines",
   line = list(width = 3),
-  colors = c("#CFD8DC", "#CFD8DC", "#CFD8DC", "#CFD8DC", "#1d81a2", "#ff725b"),
-  text = ~format(date, "%b %Y"),
+  colors = c(rep("lightgrey", 4), "#36A3D9", "#2477B3"),
+  text = ~format(date, "%B %Y"),
   hovertemplate = "Index: %{y}<br>Date: %{text}<extra></extra>",
   height = 300
 ) %>% 
@@ -253,8 +238,8 @@ plot_rsi_index <- plot_ly(
       autorange = T,
       fixedrange = T,
       tickmode = "array",
-      tickvals = c(3, 6, 9, 12),
-      ticktext = c("Mar", "Jun", "Sep", "Dec"),
+      tickvals = seq(1, 12),
+      ticktext = format(seq(ymd("2021-01-01"), ymd("2021-12-01"), "1 month"), "%b"),
       ticks = "outside",
       automargin = T,
       showline = T,
@@ -282,25 +267,35 @@ plot_rsi_index <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-# latest observation in most recent csv
+# rename column for csv 
 rsi_csv <- rsi_trf %>% 
   rename(retail_sales_index = 2) %>% 
   select(-diff_yoy)
 
+# path to rsi data
+path_data_rsi_ov <- "data/ier_rsi-overall_cleaned.csv"
+
 # export chart
-if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
+if (nrow(rsi_csv) != nrow(read_csv(path_data_rsi_ov))) {
   
-  # rsi change ----
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
+  
+  ## rsi change ----
   
   # plot
   ggplot(rsi_trf, aes(date, pct_change_yoy)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
-    geom_line(color = "#1d81a2", lwd = 1) +
+    geom_line(color = "#2477B3", lwd = 1) +
+    scale_x_date(
+      breaks = seq(ymd("2013-01-01"), ymd("2021-01-01"), "1 year"),
+      labels = c("2013", str_c("'", seq(14, 21)))
+    ) +
     scale_y_continuous(
       breaks = seq(-45, 30, 15),
       limits = c(-45, 30),
@@ -312,7 +307,7 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
       x = ymd("2020-04-01"),
       y = 22.5,
       label = "COVID-19\npandemic \u2192",
-      size = 2.75,
+      size = 3,
       hjust = 0,
       color = "#90A4AE"
     ) +
@@ -324,66 +319,23 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
         "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
       )
     ) +
-    theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_rsi-change_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
-    )
+    theme_ier()
+    
+  # path to the plot
+  path_plot_rsi_chg <- "fig/ier_rsi-change_plot.png"
+    
+  # save the plot
+  ggsave(path_plot_rsi_chg, width = 6, height = 3.708, dpi = 300)
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
-  
-  # add base plot
-  plot_rsi_change_png <- image_read("fig/ier_rsi-change_plot.png")
-  
-  # get plot height
-  plot_height <- magick::image_info(plot_rsi_change_png)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(plot_rsi_change_png)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  plot_rsi_change_png %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_rsi-change_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_rsi_chg)
   
   
-  # index ----
+  ## index ----
   
   # annotations
   anno_year <- tibble(
-    x = c(0.5, 11, 9),
+    x = c(2.75, 11, 9),
     y = c(175, 175, 225),
     label = c("2021", "2020", "2016-2019")
   )
@@ -393,8 +345,8 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
     geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
     geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
     scale_x_continuous(
-      breaks = seq(2, 12, 2),
-      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
+      breaks = seq(1, 12),
+      labels = format(seq(ymd("2021-01-01"), ymd("2021-12-01"), "1 month"), "%b")
     ) +
     scale_y_continuous(
       breaks = seq(150, 250, 25),
@@ -402,13 +354,13 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_color_manual(values = c("#CFD8DC", "#CFD8DC", "#CFD8DC", "#CFD8DC", "#1d81a2", "#ff725b")) +
+    scale_color_manual(values = c(rep("lightgrey", 4), "#36A3D9", "#2477B3")) +
     geom_richtext(
       data = anno_year,
       aes(x, y, label = label),
       fill = "white",
       label.color = NA,
-      text.color = c("#ff725b", "#1d81a2", "#90A4AE"),
+      text.color = c("#2477B3", "#36A3D9", "lightgrey"),
       hjust = 0,
       size = 3,
       fontface = "bold"
@@ -420,62 +372,17 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
         "Chart: Dzulfiqar Fathur Rahman | Source: Bank Indonesia"
       )
     ) +
-    theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      legend.title = element_blank(),
-      legend.key = element_rect(fill = "transparent"),
-      legend.position = c(0.0925, 1.175),
-      legend.direction = "horizontal",
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold", margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_rsi_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
-    )
+    theme_ier() +
+    theme(plot.title = element_text(margin = margin(b = 25)))
+    
+  # path to the plot
+  path_plot_rsi_idx <- "fig/ier_rsi_plot.png"
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # save the plot
+  ggsave(path_plot_rsi_idx, width = 6, height = 3.708, dpi = 300)
   
-  # add base plot
-  plot_rsi_index_png <- image_read("fig/ier_rsi_plot.png")
-  
-  # get plot height
-  plot_height <- magick::image_info(plot_rsi_index_png)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(plot_rsi_index_png)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  plot_rsi_index_png %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_rsi_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_rsi_idx)
   
   # message
   message("The Retail Sales Index charts have been updated")
@@ -487,36 +394,30 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
 }
 
 
-# preview -----------------------------------------------------------------
 
-if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
+# export preview chart ----------------------------------------------------
+
+if (nrow(rsi_csv) != nrow(read_csv(path_data_rsi_ov))) {
   
   # plot
   ggplot(rsi_trf_sub, aes(mo, rsi)) +
-    geom_line(aes(color = as_factor(yr)), lwd = 2, show.legend = F) +
-    geom_point(aes(color = as_factor(yr)), size = 3.5, show.legend = F) +
-    scale_x_continuous(
-      breaks = seq(2, 12, 2),
-      labels = c("Feb", "Apr", "Jun", "Aug", "Oct", "Dec")
-    ) +
+    geom_line(aes(color = as_factor(yr)), lwd = 1.5, show.legend = F) +
+    geom_point(aes(color = as_factor(yr)), size = 2.5, show.legend = F) +
     scale_y_continuous(
       breaks = seq(150, 250, 25),
       limits = c(150, 250),
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_color_manual(values = c("#CFD8DC", "#CFD8DC", "#CFD8DC", "#CFD8DC", "#1d81a2", "#ff725b")) +
+    scale_color_manual(values = c(rep("lightgrey", 4), "#36A3D9", "#2477B3")) +
     theme_void() +
-    theme(
-      plot.background = element_rect(fill = "#263238", color = NA),
-      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-    ) +
-    ggsave(
-      "fig/ier_rsi_void_plot.png",
-      width = 13.3,
-      height = 6.6,
-      dpi = 300
-    )
+    theme_ier_pre()
+  
+  # path to preview plot
+  path_plot_rsi_pre <- "fig/ier_rsi_void_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_rsi_pre, width = 13.3, height = 6.6, dpi = 300)
   
   #message
   message("The Retail Sales Index preview chart has been updated")
@@ -530,16 +431,15 @@ if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
 
 # export data -------------------------------------------------------------
 
-# write csv
-if (file.exists("data/ier_rsi-overall_cleaned.csv") == F) {
+if (!file.exists(path_data_rsi_ov)) {
   
-  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
+  write_csv(rsi_csv, path_data_rsi_ov)
   
   message("The Retail Sales Index dataset has been exported")
   
-} else if (nrow(rsi_csv) != nrow(read_csv("data/ier_rsi-overall_cleaned.csv"))) {
+} else if (nrow(rsi_csv) != nrow(read_csv(path_data_rsi_ov))) {
   
-  write_csv(rsi_csv, "data/ier_rsi-overall_cleaned.csv")
+  write_csv(rsi_csv, path_data_rsi_ov)
   
   message("The Retail Sales Index dataset has been updated")
   

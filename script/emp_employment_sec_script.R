@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# employment
-# by sector
+# employment by sector
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-25
-# last updated: 2021-03-28
+# last updated: 2021-07-13
 # page: employment
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -21,18 +19,18 @@ library(reactable)
 library(paletteer)
 library(crosstalk)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url_static") == F) {
+if (!exists("base_url_static")) {
   base_url_static <- "https://webapi.bps.go.id/v1/api/view"
 }
-
-
-# data --------------------------------------------------------------------
 
 # request data
 emp_sec_req <- GET(
@@ -104,14 +102,14 @@ emp_sec_lab_eng <- emp_sec_raw %>%
   mutate(
     label_eng = c(
       "Agriculture, forestry and fishery",
-      "Mining and excavation",
+      "Mining",
       "Manufacturing",
       "Electricity, gas, steam/hot water and cold air procurement",
       "Water, waste and recycling management procurement",
       "Construction",
-      "Wholesale and retail trade; car and motorcycle repair and maintenance",
+      "Wholesale trade and retail; car and motorcycle maintenance",
       "Transportation and warehouse",
-      "Accommodation and food and beverage services",
+      "Accommodation, food and beverage services",
       "Information and communication",
       "Financial and insurance services",
       "Real estate",
@@ -163,61 +161,19 @@ emp_sec_trf[, 4:6] <- lapply(
   function(x) {round(x, 2)}
 )
 
-# dates of latest observation
-emp_sec_date_latest <- emp_sec_trf %>% 
-  select(date) %>% 
-  dplyr::filter(!duplicated(date)) %>% 
-  mutate(month = month(date)) %>% 
-  tail(4) %>% 
-  dplyr::filter(month == last(month)) %>% 
-  select(date) %>% 
-  deframe()
-
 # subset latest data
 emp_sec_wide <- emp_sec_trf %>% 
-  dplyr::filter(date %in% emp_sec_date_latest) %>% 
+  dplyr::filter(date == last(date)) %>% 
   pivot_wider(
     names_from = date, 
     values_from = c(workers, workers_pct_chg_yoy, prop, prop_chg_yoy)
   ) %>% 
-  select(!matches(str_c("[workers_pct|prop]_chg_yoy_", emp_sec_date_latest[[1]]))) %>%
   rename(
-    workers_1 = 2,
-    workers_2 = 3,
-    workers_pct_chg_yoy = 4,
-    prop_1 = 5,
-    prop_2 = 6,
-    prop_chg_yoy = 7
+    workers = 2,
+    workers_pct_chg_yoy = 3,
+    prop = 4,
+    prop_chg_yoy = 5
   )
-
-
-# export ------------------------------------------------------------------
-
-# latest observation in recent csv
-emp_sec_csv_latest <- read_csv("data/ier_employment-sector_cleaned.csv") %>% 
-  select(date) %>% 
-  dplyr::filter(!duplicated(date), date == last(date)) %>% 
-  deframe()
-
-
-# write csv
-if (file.exists("data/ier_employment-sector_cleaned.csv") == F) {
-  
-  write_csv(emp_sec_trf, "data/ier_employment-sector_cleaned.csv")
-  
-  message("The number of workers by sector dataset has been exported")
-  
-} else if (emp_date_seq_latest != emp_sec_csv_latest) {
-  
-  write_csv(emp_sec_trf, "data/ier_employment-sector_cleaned.csv")
-  
-  message("The number of workers by sector dataset has been updated")
-  
-} else {
-  
-  message("The number of workers by sector dataset is up to date")
-  
-}
 
 
 # table -------------------------------------------------------------------
@@ -256,20 +212,13 @@ reactable_emp_sec <- reactable(
   emp_sec_wide_shared,
   columns = list(
     sector = colDef(
-      name = "",
-      minWidth = 200
+      name = "", 
+      sortable = F,
+      minWidth = 250
     ),
-    workers_1 = colDef(
+    workers = colDef(
       name = str_c(
-        format(emp_sec_date_latest[[1]], "%b '%y"),
-        "<br>",
-        '<div style="color: #999; font-size: 12px">(millions)</div>'
-      ),
-      html = T
-    ),
-    workers_2 = colDef(
-      name = str_c(
-        format(emp_sec_date_latest[[2]], "%b '%y"),
+        format(last(emp_sec_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(millions)</div>'
       ),
@@ -283,17 +232,9 @@ reactable_emp_sec <- reactable(
       ),
       html = T
     ),
-    prop_1 = colDef(
+    prop = colDef(
       name = str_c(
-        format(emp_sec_date_latest[[1]], "%b '%y"),
-        "<br>",
-        '<div style="color: #999; font-size: 12px">(percent)</div>'
-      ),
-      html = T
-    ),
-    prop_2 = colDef(
-      name = str_c(
-        format(emp_sec_date_latest[[2]], "%b '%y"),
+        format(last(emp_sec_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(percent)</div>'
       ),
@@ -324,12 +265,12 @@ reactable_emp_sec <- reactable(
   columnGroups = list(
     colGroup(
       name = "<b>Number of workers</b>", 
-      columns = c("workers_1", "workers_2", "workers_pct_chg_yoy"),
+      columns = c("workers", "workers_pct_chg_yoy"),
       html = T
     ),
     colGroup(
       name = "<b>Distribution</b>",
-      columns = c("prop_1", "prop_2", "prop_chg_yoy"),
+      columns = c("prop", "prop_chg_yoy"),
       html = T
     )
   ),
@@ -340,7 +281,7 @@ reactable_emp_sec <- reactable(
   pageSizeOptions = c(10, 17),
   showPageInfo = F,
   highlight = T,
-  style = list(fontSize = "15px"),
+  style = list(fontSize = "14px"),
   theme = reactableTheme(
     headerStyle = list(borderColor = "black")
   )
@@ -353,3 +294,34 @@ filter_emp_sec <- filter_select(
   emp_sec_wide_shared,
   ~sector
 )
+
+
+# export ------------------------------------------------------------------
+
+# path to employment by sector data
+path_data_emp_sec <- "data/ier_employment-sector_cleaned.csv"
+
+# latest observation in recent csv
+emp_sec_csv_latest <- read_csv(path_data_emp_sec) %>% 
+  select(date) %>% 
+  dplyr::filter(!duplicated(date), date == last(date)) %>% 
+  deframe()
+
+# write csv
+if (!file.exists(path_data_emp_sec)) {
+  
+  write_csv(emp_sec_trf, path_data_emp_sec)
+  
+  message("The number of workers by sector dataset has been exported")
+  
+} else if (emp_date_seq_latest != emp_sec_csv_latest) {
+  
+  write_csv(emp_sec_trf, path_data_emp_sec)
+  
+  message("The number of workers by sector dataset has been updated")
+  
+} else {
+  
+  message("The number of workers by sector dataset is up to date")
+  
+}

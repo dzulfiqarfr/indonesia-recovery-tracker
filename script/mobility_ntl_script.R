@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# google covid-19 community mobility reports
-# national
+# national community mobility
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-01
-# last updated: 2021-04-14
+# last updated: 2021-07-14
 # page: mobility
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(zoo)
@@ -19,16 +17,16 @@ library(plotly)
 library(magick)
 library(ggrepel)
 
-# download url
-if (exists("mob_url") == F) {
-  mob_url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
-}
-
 
 # data --------------------------------------------------------------------
 
+# download url
+if (!exists("mob_url")) {
+  mob_url <- "https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv"
+}
+
 # import global dataset
-if (exists("mob_gbl_raw") == F) {
+if (!exists("mob_gbl_raw")) {
   
   mob_gbl_raw <- read_csv(
     mob_url,
@@ -47,7 +45,7 @@ if (exists("mob_gbl_raw") == F) {
 }
 
 # subset indonesia observations
-if (exists("mob_idn_raw") == F) {
+if (!exists("mob_idn_raw")) {
   
   # subset, rename variable
   mob_idn_raw <- mob_gbl_raw %>% 
@@ -212,6 +210,9 @@ anno_sub_res <- list(
 # variable names
 mob_ntl_trf_var <- names(mob_ntl_trf)[2:7]
 
+# y-axis range
+mob_ntl_y_axis_range <- c(-100, 55)
+
 # plot
 plot_mob_ntl <- lapply(
   mob_ntl_trf_var,
@@ -232,7 +233,12 @@ plot_mob_ntl <- lapply(
         showlegend = ifelse(x == "retail_recreation", T, F),
         legendgroup = "group1",
         hovertemplate = "<b>Category: %{text}</b><br><br>Headline: %{y} percent<br>Date: %{x}<extra></extra>",
-        marker = list(size = 2.5, color = "#CFD8DC")
+        opacity = 0.5,
+        marker = list(
+          size = 2.5, 
+          color = "#36A3D9",
+          line = list(width = 0.5, color = "white")
+        )
       ) %>%
       add_lines(
         x = ~date,
@@ -241,7 +247,7 @@ plot_mob_ntl <- lapply(
         showlegend = ifelse(x == "retail_recreation", T, F),
         legendgroup = "group2",
         hovertemplate = "<b>Category: %{text}</b><br><br>7-day moving average: %{y} percent<br>Date: %{x}<extra></extra>",
-        line = list(width = 2, color = "#1d81a2")
+        line = list(width = 1.5, color = "#2477B3")
       ) %>%
       plotly::layout(
         xaxis = list (
@@ -264,14 +270,14 @@ plot_mob_ntl <- lapply(
           title = NA,
           type = "linear",
           autorange = F,
-          range = c(-100, 55),
+          range = mob_ntl_y_axis_range,
           fixedrange = T,
           dtick = 25,
           tickfont = list(size = 8),
           showline = F,
           showgrid = T,
           gridcolor = "#CFD8DC",
-          zerolinecolor = "#ff856c",
+          zerolinecolor = "#E68F7E",
           side = "left"
         ),
         shapes = list(
@@ -282,8 +288,8 @@ plot_mob_ntl <- lapply(
             x0 = "2020-03-02",
             x1 = "2020-03-02",
             yref = "y",
-            y0 = -100,
-            y1 = 50,
+            y0 = mob_ntl_y_axis_range[1],
+            y1 = mob_ntl_y_axis_range[2] - 5,
             line = list(color = "#90A4AE", width = 1, dash = "dot")
           )
         ),
@@ -334,9 +340,12 @@ mob_idn_raw_last <- mob_idn_raw %>%
   dplyr::filter(date == last(date), !duplicated(date)) %>% 
   deframe()
 
+# path to tidy data on indonesian observations
+path_data_mob_tidy <- "data/ier_mobility-idn_tidy.csv"
+
 # latest observation in most recent csv
 mob_idn_raw_csv_last <- read_csv(
-  "data/ier_mobility-idn_tidy.csv",
+  path_data_mob_tidy,
   col_types = cols(province = col_character())
 ) %>% 
   select(date) %>% 
@@ -345,6 +354,9 @@ mob_idn_raw_csv_last <- read_csv(
 
 # export chart
 if (mob_idn_raw_last != mob_idn_raw_csv_last) {
+  
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
   
   # data
   mob_ntl_headline <- mob_ntl_trf %>% 
@@ -400,31 +412,35 @@ if (mob_idn_raw_last != mob_idn_raw_csv_last) {
   
   # plot
   ggplot(mob_ntl_trf_tidy_02, aes(date)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
     geom_point(
       aes(y = change_from_baseline), 
       pch = 21,
       color = "white",
-      fill = "#CFD8DC",
-      size = 1, 
-      alpha = 0.5
+      fill = "#36A3D9",
+      size = 0.5, 
+      alpha = 0.25
     ) +
     geom_line(
       aes(y = avg_change_from_baseline), 
-      color = "#1d81a2",
-      lwd = 0.75
+      color = "#2477B3",
+      lwd = 0.5
     ) + 
     scale_x_date(
-      breaks = seq(first(mob_ntl_trf_tidy_02$date), last(mob_ntl_trf_tidy_02$date), "3 month"),
+      breaks = seq(
+        first(mob_ntl_trf_tidy_02$date),
+        last(mob_ntl_trf_tidy_02$date), 
+        "4 month"
+      ),
       date_labels = "%b\n'%y"
     ) +
     scale_y_continuous(
-      breaks = seq(-100, 50, 25),
+      breaks = seq(-100, 50, 50),
       limits = c(-100, 50),
       expand = c(0, 0),
       position = "right"
@@ -446,14 +462,14 @@ if (mob_idn_raw_last != mob_idn_raw_csv_last) {
       hjust = 0,
       size = 2,
       color = "#1d81a2",
-      nudge_x = 50,
-      nudge_y = -30,
+      nudge_x = 75,
+      nudge_y = -35,
       fontface = "bold",
-      segment.curvature = -0.25,
+      segment.curvature = -0.5,
       segment.ncp = 3
     ) +
     labs(
-      title = "Community mobility in Indonesia",
+      title = "National mobility",
       subtitle = "Number of visitors, by place category\n(percent change from baseline in Jan-Feb 2020 period)",
       caption = str_c(
         "*Length of stay\n",
@@ -468,40 +484,29 @@ if (mob_idn_raw_last != mob_idn_raw_csv_last) {
       scales = "free_x",
       labeller = labeller(place_categories = labs_mob_ntl)
     ) +
+    theme_ier(rel_size = 0.7) +
     theme(
-      text = element_text(size = 10),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      legend.direction = "horizontal",
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.spacing = unit(1.5, "lines"),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 20)),
-      plot.caption = element_text(
-        color = "#757575",
+      panel.spacing = unit(1, "lines"),
+      strip.background = element_blank(),
+      strip.text = element_text(
+        size = rel(0.7),
         hjust = 0,
-        margin = margin(t = 20)
-      ),
-      strip.background = element_rect(fill = "white", color = "white"),
-      strip.text = element_text(hjust = 0, vjust = 1, margin = margin(b = 10))
-    ) +
-    ggsave(
-      "fig/ier_mobility-ntl_plot.png",
-      width = 7,
-      height = 5,
-      dpi = 300
-    )
+        vjust = 1, 
+        margin = margin(b = 10)
+      )
+    ) 
+  
+  # path to the plot
+  path_plot_mob_ntl <- "fig/ier_mobility-ntl_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_mob_ntl, width = 7, height = 5, dpi = 300)
   
   # add logo
   ier_logo <- image_read("images/ier_hexsticker_small.png")
   
   # add base plot
-  base_plot <- image_read("fig/ier_mobility-ntl_plot.png")
+  base_plot <- image_read(path_plot_mob_ntl)
   
   # get plot height
   plot_height <- magick::image_info(base_plot)$height
@@ -519,12 +524,12 @@ if (mob_idn_raw_last != mob_idn_raw_csv_last) {
   pos_bottom <- plot_height - logo_height - plot_height * 0.015
   
   # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
+  pos_right <- plot_width - logo_width - 0.005 * plot_width
   
   # overwrite plot
   base_plot %>% 
     image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_mobility-ntl_plot.png")
+    image_write(path_plot_mob_ntl)
   
   # message
   message("The national mobility chart has been updated")
@@ -536,36 +541,41 @@ if (mob_idn_raw_last != mob_idn_raw_csv_last) {
 }
 
 
-# preview -----------------------------------------------------------------
+# export preview chart ----------------------------------------------------
 
 if (mob_idn_raw_last != mob_idn_raw_csv_last) {
   
   # plot
   ggplot(mob_ntl_trf_tidy_02, aes(date)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
     geom_point(
       aes(y = change_from_baseline), 
-      pch = 16,
-      color = "#CFD8DC",
-      size = 1, 
+      pch = 21,
+      color = "white",
+      fill = "#36A3D9",
+      size = 0.5, 
       alpha = 0.25
     ) +
     geom_line(
       aes(y = avg_change_from_baseline), 
-      color = "#1d81a2",
-      lwd = 0.75
+      color = "#2477B3",
+      lwd = 0.5
     ) + 
     scale_x_date(
-      breaks = seq(first(mob_ntl_trf_tidy_02$date), last(mob_ntl_trf_tidy_02$date), "3 month"),
+      breaks = seq(
+        first(mob_ntl_trf_tidy_02$date),
+        last(mob_ntl_trf_tidy_02$date), 
+        "4 month"
+      ),
       date_labels = "%b\n'%y"
     ) +
     scale_y_continuous(
-      breaks = seq(-100, 50, 25),
+      breaks = seq(-100, 50, 50),
       limits = c(-100, 50),
       expand = c(0, 0),
       position = "right"
@@ -577,17 +587,14 @@ if (mob_idn_raw_last != mob_idn_raw_csv_last) {
       labeller = labeller(place_categories = labs_mob_ntl)
     ) +
     theme_void() +
-    theme(
-      plot.background = element_rect(fill = "#263238", color = NA),
-      plot.margin = margin(t = 50, r = 50, b = 50, l = 50),
-      strip.text = element_blank()
-    ) +
-    ggsave(
-      "fig/ier_mobility-ntl_void_plot.png",
-      width = 13.3,
-      height = 6.6,
-      dpi = 300
-    )
+    theme(strip.text = element_blank()) +
+    theme_ier_pre()
+    
+  # path to preview plot
+  path_plot_mob_pre <- "fig/ier_mobility-ntl_void_plot.png"
+  
+  # save the plot
+  ggsave(path_plot_mob_pre, width = 13.3, height = 6.6, dpi = 300)
   
   # message
   message("The national mobility preview chart has been updated")
@@ -619,16 +626,17 @@ mob_ntl_trf_tidy <- mob_ntl_trf %>%
   )
 
 # write csv
+
 ## raw indonesian observations
-if (file.exists("data/ier_mobility-idn_tidy.csv") == F) {
+if (!file.exists(path_data_mob_tidy)) {
   
-  write_csv(mob_idn_csv, "data/ier_mobility-idn_tidy.csv")
+  write_csv(mob_idn_csv, path_data_mob_tidy)
   
   message("The raw mobility dataset has been exported")
   
 } else if (mob_idn_raw_last != mob_idn_raw_csv_last) {
   
-  write_csv(mob_idn_csv, "data/ier_mobility-idn_tidy.csv")
+  write_csv(mob_idn_csv, path_data_mob_tidy)
   
   message("The raw mobility dataset has been updated")
   
@@ -639,15 +647,20 @@ if (file.exists("data/ier_mobility-idn_tidy.csv") == F) {
 }
 
 ## national mobility
-if (file.exists("data/ier_mobility-ntl_cleaned.csv") == F) {
+
+### path to national mobility data
+path_data_mob_ntl <- "data/ier_mobility-ntl_cleaned.csv"
+
+### csv
+if (!file.exists(path_data_mob_ntl)) {
   
-  write_csv(mob_ntl_trf_tidy, "data/ier_mobility-ntl_cleaned.csv")
+  write_csv(mob_ntl_trf_tidy, path_data_mob_ntl)
   
   message("The national mobility dataset has been exported")
   
 } else if (mob_idn_raw_last != mob_idn_raw_csv_last) {
   
-  write_csv(mob_ntl_trf_tidy, "data/ier_mobility-ntl_cleaned.csv")
+  write_csv(mob_ntl_trf_tidy, path_data_mob_ntl)
   
   message("The national mobility dataset has been updated")
   

@@ -1,41 +1,25 @@
 ---
 title: "Economic growth"
 description: |
-  Indonesia’s economy plunged into a recession in the third quarter of 2020, the country’s first recession since the 1998 Asian Financial Crisis. The economy shrank as household consumption and investment contracted due to the COVID-19 pandemic. Most sectors showed declines, with a few exceptions such as the information and communication sector. But there are signs of recovery.
+  Indonesia’s economy plunged into recession in the third quarter of 2020, the country’s first recession since the Asian financial crisis. The economy has shown signs of recovery since then, but the pandemic emergency curbs have forced the government and analysts to slash growth forecast for 2021.
 output: 
   distill::distill_article:
     toc: true
     toc_float: true
+    toc_depth: 4
 preview: fig/ier_gdp-growth_void_plot.png
 ---
-
 
 ```{r setup, include=FALSE}
 # chunk options
 knitr::opts_chunk$set(echo = FALSE)
 
 # packages
-library(tidyverse)
-library(lubridate)
-library(httr)
-library(jsonlite)
-library(crosstalk)
 library(htmltools)
 library(govdown)
 library(mime)
 
-# bps api
-## key
-if (exists("BPS_KEY") == F) {
-  BPS_KEY <- Sys.getenv("BPS_KEY")
-}
-
-## base url
-if (exists("base_url") == F) {
-  base_url <- "https://webapi.bps.go.id/v1/api/list"
-}
-
-# description functions
+# functions to describe data
 ## period
 ier_period <- function(x) {
   if (str_detect(x, "-01-01")) {
@@ -59,15 +43,6 @@ ier_compare_grow <- function(x) {
   }
 }
   
-## less or more severe
-ier_compare_sev <- function(x, y) {
-  if (x > y) {
-    "less severe"
-  } else {
-    "more severe"
-  }
-}
-
 # embed file
 ## econ growth by expenditure
 embed_growth_exp <- xfun::embed_file(
@@ -106,7 +81,6 @@ embed_chart_ctg <- xfun::embed_file(
 )
 ```
 
-
 ### Overall
 
 Gross domestic product (GDP) (percent change from a year earlier)
@@ -123,7 +97,7 @@ growth_latest <- growth_tidy$pct_change_yoy %>%
   tail(2)
 ```
 
-The country's GDP `r ier_compare_grow(last(growth_tidy$pct_change_yoy))` by **`r last(growth_tidy$pct_change_yoy)`** percent year-on-year (yoy) in the `r ier_period(last(growth_tidy$date))`, `r ier_compare_sev(growth_latest[2], growth_latest[1])` than the previous quarter.
+The country's GDP `r ier_compare_grow(last(growth_tidy$pct_change_yoy))` by **`r last(growth_tidy$pct_change_yoy)`** percent year-on-year (yoy) in the `r ier_period(last(growth_tidy$date))`.
 
 <aside>
 
@@ -131,7 +105,7 @@ See also [community mobility](mobility.html)
 
 </aside>
 
-The pandemic has led the GDP to contract by **5.32** percent yoy in the second quarter of 2020 and pushed it to the first recession in two decades as it contracted by **3.49** percent yoy in the third quarter of last year.
+The pandemic led the economy to contract by **5.32** percent yoy in the second quarter of 2020 and pushed it to its first recession in two decades as it contracted by **3.49** percent yoy in the third quarter of last year.
 
 ```{r documentation: gdp}
 # date of last update
@@ -162,9 +136,8 @@ source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>%
   format("%B %d, %Y")
 ```
 
-
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the value of final goods and services produced by all residents in a given quarter in constant 2010 prices, as measured in terms of percent change from the same quarter a year earlier. See [appendix](#note) for more details.  
 **Chart**: Dzulfiqar Fathur Rahman  
 **Data and update frequency**: quarterly  
@@ -174,7 +147,7 @@ source_last_update <- as_tibble(pressrelease_resp$data[[2]]) %>%
 </details>
 
 
-### By expenditure
+#### By expenditure
 
 GDP (percent change from a year earlier)
 
@@ -194,7 +167,6 @@ unstrap(filter_growth_exp)
 ```
 
 ```{r table: econ growth by expenditure, layout="l-body-outset"}
-# tabel
 reactable_growth_exp
 ```
 
@@ -209,10 +181,10 @@ growth_exp_hh_latest <- growth_exp_tidy %>%
 <sup>*</sup>Non-profit institutions serving households (NPISHs)
 </div>
 
-The household consumption, the largest contributor to the GDP by expenditure, `r ier_compare_grow(growth_exp_hh_latest$pct_change_yoy[2])` by **`r growth_exp_hh_latest$pct_change_yoy[2]`** percent yoy in the `r ier_period(last(growth_exp_tidy$date))`, `r ier_compare_sev(growth_exp_hh_latest$pct_change_yoy[2], growth_exp_hh_latest$pct_change_yoy[1])` than the previous quarter.
+The household consumption, the largest contributor to GDP by expenditure, `r ier_compare_grow(growth_exp_hh_latest$pct_change_yoy[2])` by **`r growth_exp_hh_latest$pct_change_yoy[2]`** percent yoy in the `r ier_period(last(growth_exp_tidy$date))`.
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the value of final expenditure of goods and services at purchasers’ prices minus the value of imports of goods and services in a given quarter in constant 2010 prices, as measured in terms of percent change from the same quarter a year earlier. See [appendix](#note) for more details.  
 **Table**: Dzulfiqar Fathur Rahman  
 **Data and update frequency**: quarterly  
@@ -222,42 +194,7 @@ The household consumption, the largest contributor to the GDP by expenditure, `r
 </details>
 
 
-### Contribution to growth
-
-By expenditure (percentage points)
-
-```{r plot: contribution to growth}
-source("script/gdp_ctg_exp_script.R", local = knitr::knit_global())
-
-div(plot_ctg)
-```
-
-*Tips: click the legend item to select or deselect a trace.*
-
-```{r description: contribution to growth}
-# latest values
-latest_ctg_pc <- last(ctg_exp_trf$`Private consumption`)
-latest_ctg_inv <- last(ctg_exp_trf$Investment)
-latest_ctg_nx <- last(ctg_exp_trf$`Net export`)
-latest_ctg_govt <- last(ctg_exp_trf$`Government consumption`)
-```
-
-The private consumption contributed **`r latest_ctg_pc`** percentage points and the investment **`r latest_ctg_inv`** percentage points to the annual GDP growth in the `r ier_period(last(ctg_exp_trf$date))`. 
-
-The net exports and government consumption offset the contractions in other expenditure components by contributing **`r latest_ctg_nx`** and **`r latest_ctg_govt`** percentage points, respectively.
-
-<details>
-<summary>Documentation</summary>
-**Description**: the contribution to growth is a component’s growth weighted by its share in the GDP at constant 2010 prices in the previous quarter. Private consumption consists of household consumption and NPISHs consumption. Investment consists of gross fixed capital formation and changes in inventories.  
-**Chart**: Dzulfiqar Fathur Rahman  
-**Data and update frequency**: quarterly  
-**Source**: [BPS](https://bps.go.id/indicator/169/1956/1/-seri-2010-pdb-triwulanan-atas-dasar-harga-konstan-menurut-pengeluaran.html){target="_blank"}  
-**Last updated**: `r source_last_update`  
-**Download**: `r embed_growth_ctg`; `r embed_chart_ctg`  
-</details>
-
-
-### By sector
+#### By sector
 
 GDP (percent change from a year earlier)
 
@@ -290,22 +227,55 @@ manufacturing <- growth_sec_tidy %>%
   deframe()
 ```
 
-The manufacturing sector, the largest contributor to the GDP by sector, `r ier_compare_grow(manufacturing[2])` by **`r manufacturing[2]`** percent yoy in the `r ier_period(last(growth_sec_tidy$date))`, `r ier_compare_sev(manufacturing[2], manufacturing[1])` than the previous quarter.
+The manufacturing sector, the largest contributor to GDP by sector, `r ier_compare_grow(manufacturing[2])` by **`r manufacturing[2]`** percent yoy in the `r ier_period(last(growth_sec_tidy$date))`.
 
 <aside>
 
-See also [employment by sector](employment.html#employment-by-sector)
+See also [employment by sector](employment.html#by-sector)
 
 </aside>
 
 <details>
-<summary>Documentation</summary>
+<summary>Documentation and download options</summary>
 **Description**: the total value added generated by all resident production units broken down by industrial classification of economic activities in a given quarter in constant 2010 prices, as measured in terms of percent change from the same quarter a year earlier. See [appendix](#note) for more details.  
 **Table**: Dzulfiqar Fathur Rahman  
 **Data and update frequency**: quarterly  
 **Source**: [BPS](https://bps.go.id/indicator/11/104/1/-seri-2010-laju-pertumbuhan-pdb-seri-2010.html){target="_blank"}  
 **Last updated**: `r source_last_update`  
 **Download**: `r embed_growth_sec`  
+</details>
+
+### Contribution to growth
+
+By expenditure (percentage point)
+
+```{r plot: contribution to growth}
+source("script/gdp_ctg_exp_script.R", local = knitr::knit_global())
+div(plot_ctg)
+```
+
+*Tip: click the legend item(s) to select or remove data*
+
+```{r description: contribution to growth}
+# latest values
+latest_ctg_pc <- last(ctg_exp_trf$`Private consumption`)
+latest_ctg_inv <- last(ctg_exp_trf$Investment)
+latest_ctg_nx <- last(ctg_exp_trf$`Net export`)
+latest_ctg_govt <- last(ctg_exp_trf$`Government consumption`)
+```
+
+Private consumption contributed **`r latest_ctg_pc`** percentage points and investment **`r latest_ctg_inv`** percentage points to annual GDP growth in the `r ier_period(last(ctg_exp_trf$date))`. 
+
+Net export and government consumption offset the contractions in other expenditure components by contributing **`r latest_ctg_nx`** and **`r latest_ctg_govt`** percentage points, respectively.
+
+<details>
+<summary>Documentation and download options</summary>
+**Description**: the contribution to growth is a component’s growth weighted by its share in the GDP at constant 2010 prices in the previous quarter. Private consumption consists of household consumption and NPISHs consumption. Investment consists of gross fixed capital formation and changes in inventories.  
+**Chart**: Dzulfiqar Fathur Rahman  
+**Data and update frequency**: quarterly  
+**Source**: [BPS](https://bps.go.id/indicator/169/1956/1/-seri-2010-pdb-triwulanan-atas-dasar-harga-konstan-menurut-pengeluaran.html){target="_blank"}  
+**Last updated**: `r source_last_update`  
+**Download**: `r embed_growth_ctg`; `r embed_chart_ctg`  
 </details>
 
 

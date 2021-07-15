@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# poverty rate & poor poor
-# by province
+# poverty by province
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-05
-# last updated: 2021-05-24
+# last updated: 2021-07-14
 # page: poverty
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(httr)
@@ -21,21 +19,20 @@ library(reactable)
 library(htmltools)
 library(crosstalk)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url") == F) {
+if (!exists("base_url")) {
   base_url <- "https://webapi.bps.go.id/v1/api/list"
 }
 
-
-
-# data --------------------------------------------------------------------
-
-# rate --------------------------------------------------------------------
+## poverty rate ----
 
 # request data
 pov_prov_req <- GET(
@@ -64,16 +61,8 @@ pov_prov_raw <- as_tibble(pov_prov_parsed$datacontent)
 
 # tidy data, subset 2010s observations
 pov_prov_tidy <- pov_prov_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "pov_rate"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_prov", "key_area_date"),
-    sep = "192"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "pov_rate") %>% 
+  separate(key, into = c("key_prov", "key_area_date"), sep = "192") %>% 
   mutate(
     key_area = as.numeric(str_sub(key_area_date, 1, 3)),
     key_yr = as.numeric(str_sub(key_area_date, 4, 6)),
@@ -114,7 +103,7 @@ pov_prov_trf <- pov_prov_tidy %>%
   ungroup()
 
 
-# number of poor ----------------------------------------------------------
+## number of poor people ----
 
 # request data
 poor_prov_req <- GET(
@@ -143,16 +132,8 @@ poor_prov_raw <- as_tibble(poor_prov_parsed$datacontent)
 
 # tidy data, subset 2010s observations
 poor_prov_tidy <- poor_prov_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "poor"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_prov", "key_area_date"),
-    sep = "185"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "poor") %>% 
+  separate(key, into = c("key_prov", "key_area_date"), sep = "185") %>% 
   mutate(
     key_area = as.numeric(str_sub(key_area_date, 1, 3)),
     key_yr = as.numeric(str_sub(key_area_date, 4, 6)), 
@@ -193,38 +174,26 @@ poor_prov_trf <- poor_prov_tidy %>%
   ungroup()
 
 
-# merge data --------------------------------------------------------------
+## merge poverty rate, number of poor data ----
 
 # merge
 pov_poor_prov <- poor_prov_trf %>% 
   left_join(pov_prov_trf, by = c("key_prov", "key_area", "date")) %>% 
   rename(prov = key_prov, area = key_area)
 
-# date
-pov_date_latest <- pov_poor_prov %>% 
-  select(date) %>%
-  mutate(mo = month(date)) %>%
-  tail(4) %>% 
-  dplyr::filter(mo == last(month(date))) %>% 
-  select(-mo) %>% 
-  deframe()
-  
 # subset latest data, total
 pov_poor_sub_wide <- pov_poor_prov %>% 
-  dplyr::filter(date %in% pov_date_latest, area == "Total") %>% 
+  dplyr::filter(date == last(date), area == "Total") %>% 
   select(-area) %>% 
   pivot_wider(
     names_from = date,
     values_from = c(poor, diff.x, pov_rate, diff.y)
-  ) %>% 
-  select(!matches(str_c("diff.", "[x|y]_", pov_date_latest[[1]]))) %>% 
+  ) %>%
   rename(
-    poor_1 = 2,
-    poor_2 = 3,
-    poor_diff = 4,
-    pov_rate_1 = 5,
-    pov_rate_2 = 6,
-    pov_rate_diff = 7
+    poor = 2,
+    poor_diff = 3,
+    pov_rate = 4,
+    pov_rate_diff = 5
   )
 
 # replace province names with english names
@@ -258,54 +227,6 @@ pov_poor_sub_wide$prov <- pov_poor_sub_wide$prov %>%
     )
   ) %>% 
   str_to_title()
-
-
-# export ------------------------------------------------------------------
-
-# data
-pov_poor_prov_csv <- pov_poor_prov %>% 
-  dplyr::filter(area == "Total", date %in% pov_date_latest) %>% 
-  select(!area) %>% 
-  rename(poor_diff = 4, rate_diff = 6)
-
-# rename variables
-pov_poor_prov_csv <- pov_poor_prov_csv %>% 
-  rename(
-    number_of_poor_ppl = poor,
-    poor_change_yoy = poor_diff,
-    pov_ppt_change_yoy = rate_diff
-  )
-
-# latest observation in most recent data
-pov_poor_prov_last <-  pov_poor_prov_csv %>% 
-  select(date) %>% 
-  dplyr::filter(!duplicated(date), date == last(date)) %>% 
-  deframe()
-
-# latest observation in csv
-pov_poor_prov_csv_last <-  read_csv("data/ier_poverty-province_cleaned.csv") %>% 
-  select(date) %>% 
-  dplyr::filter(!duplicated(date), date == last(date)) %>% 
-  deframe()
-
-# write csv
-if (file.exists("data/ier_poverty-province_cleaned.csv") == F) {
-  
-  write_csv(pov_poor_prov_csv, "data/ier_poverty-province_cleaned.csv")
-  
-  message("The regional poverty dataset has been exported")
-  
-} else if (pov_poor_prov_last != pov_poor_prov_csv_last) {
-  
-  write_csv(pov_poor_prov_csv, "data/ier_poverty-province_cleaned.csv")
-  
-  message("The regional poverty dataset has been updated")
-  
-} else {
-  
-  message("The regional poverty dataset is up to date")
-  
-}
 
 
 # table -------------------------------------------------------------------
@@ -343,19 +264,10 @@ reactable_col_pal <- function(x) {
 reactable_pov_poor <- reactable(
   pov_poor_sub_wide_shared,
     columns = list(
-      prov = colDef(name = "", minWidth = 150),
-      poor_1 = colDef(
+      prov = colDef(name = "", sortable = F, minWidth = 200),
+      poor = colDef(
         name = str_c(
-          format(pov_date_latest[[1]], "%b '%y"),
-          "<br>",
-          '<div style="color: #999; font-size: 12px">(thousand)</div>'
-        ),
-        format = colFormat(separators = T),
-        html = T
-      ),
-      poor_2 = colDef(
-        name = str_c(
-          format(pov_date_latest[[2]], "%b '%y"),
+          format(last(pov_poor_prov$date), "%b '%y"),
           "<br>",
           '<div style="color: #999; font-size: 12px">(thousand)</div>'
         ),
@@ -371,17 +283,9 @@ reactable_pov_poor <- reactable(
         format = colFormat(separators = T),
         html = T
       ),
-      pov_rate_1 = colDef(
+      pov_rate = colDef(
         name = str_c(
-          format(pov_date_latest[[1]], "%b '%y"),
-          "<br>",
-          '<div style="color: #999; font-size: 12px">(percent)</div>'
-        ),
-        html = T
-      ),
-      pov_rate_2 = colDef(
-        name = str_c(
-          format(pov_date_latest[[2]], "%b '%y"),
+          format(last(pov_poor_prov$date), "%b '%y"),
           "<br>",
           '<div style="color: #999; font-size: 12px">(percent)</div>'
         ),
@@ -411,13 +315,13 @@ reactable_pov_poor <- reactable(
     ),
     columnGroups = list(
       colGroup(
-        name = "<b>Number of poor</b>", 
-        columns = c("poor_1", "poor_2", "poor_diff"),
+        name = "<b>Number of poor people</b>", 
+        columns = c("poor", "poor_diff"),
         html = T
       ),
       colGroup(
         name = "<b>Poverty rate</b>",
-        columns = c("pov_rate_1", "pov_rate_2", "pov_rate_diff"),
+        columns = c("pov_rate", "pov_rate_diff"),
         html = T
       )
     ),
@@ -428,8 +332,57 @@ reactable_pov_poor <- reactable(
     pageSizeOptions = c(10, 20, 34),
     showPageInfo = F,
     highlight = T,
-    style = list(fontSize = "15px"),
-    theme = reactableTheme(
-      headerStyle = list(borderColor = "black")
-    )
+    style = list(fontSize = "14px"),
+    theme = reactableTheme(headerStyle = list(borderColor = "black"))
   )
+
+
+# export data -------------------------------------------------------------
+
+# data
+pov_poor_prov_csv <- pov_poor_prov %>% 
+  dplyr::filter(area == "Total", date == last(date)) %>% 
+  select(!area) %>% 
+  rename(poor_diff = 4, rate_diff = 6)
+
+# rename variables
+pov_poor_prov_csv <- pov_poor_prov_csv %>% 
+  rename(
+    number_of_poor_ppl = poor,
+    poor_change_yoy = poor_diff,
+    pov_ppt_change_yoy = rate_diff
+  )
+
+# latest observation in most recent data
+pov_poor_prov_last <-  pov_poor_prov_csv %>% 
+  select(date) %>% 
+  dplyr::filter(!duplicated(date), date == last(date)) %>% 
+  deframe()
+
+# path to poverty by province data
+path_data_pov_prov <- "data/ier_poverty-province_cleaned.csv"
+
+# latest observation in csv
+pov_poor_prov_csv_last <-  read_csv(path_data_pov_prov) %>% 
+  select(date) %>% 
+  dplyr::filter(!duplicated(date), date == last(date)) %>% 
+  deframe()
+
+# write csv
+if (!file.exists(path_data_pov_prov)) {
+  
+  write_csv(pov_poor_prov_csv, path_data_pov_prov)
+  
+  message("The regional poverty dataset has been exported")
+  
+} else if (pov_poor_prov_last != pov_poor_prov_csv_last) {
+  
+  write_csv(pov_poor_prov_csv, path_data_pov_prov)
+  
+  message("The regional poverty dataset has been updated")
+  
+} else {
+  
+  message("The regional poverty dataset is up to date")
+  
+}

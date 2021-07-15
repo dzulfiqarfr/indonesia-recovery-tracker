@@ -2,7 +2,7 @@ name: "indonesia-recovery-tracker"
 title: "Indonesia EconRecovery"
 description: |
   Charts and tables to track Indonesia's economic recovery 
-  from the COVID-19 pandemic.
+  from the COVID-19 pandemic
 favicon: images/ier_hexsticker_favicon.png
 base_url: http://dzulfiqarfr.github.io/indonesia-recovery-tracker
 repository_url: https://github.com/dzulfiqarfr/indonesia-recovery-tracker
@@ -13,7 +13,7 @@ twitter:
 navbar:
   search: true
   right:
-    - text: "Indicators"
+    - text: "Data"
       menu:
         - text: "Consumer confidence"
           href: cci.html

@@ -4,13 +4,12 @@
 
 # author: dzulfiqar fathur rahman
 # created: 2021-05-08
-# last updated: 2021-05-09
+# last updated: 2021-07-14
 # page: employment
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(plotly)
@@ -24,7 +23,8 @@ phw_raw <- read_csv("data/bps_pandemic-hit-workers_raw.csv")
 
 # column names containing category and date
 phw_col_names <- str_c(
-  c(rep("men", 2),
+  c(
+    rep("men", 2),
     rep("women", 2), 
     rep("urban", 2), 
     rep("rural", 2),
@@ -36,7 +36,6 @@ phw_col_names <- str_c(
 
 # replace column names
 names(phw_raw)[2:ncol(phw_raw)] <- phw_col_names
-
 names(phw_raw)[1] <- "status"
 
 # subset
@@ -59,11 +58,7 @@ phw_raw <- phw_raw %>%
 phw_tidy <- phw_raw %>% 
   slice(-c(5:6)) %>% 
   pivot_longer(2:ncol(.), names_to = "group", values_to = "workers") %>% 
-  separate(
-    group,
-    into = c("category", "date"),
-    sep = "_"
-  ) %>% 
+  separate(group, into = c("category", "date"), sep = "_") %>% 
   mutate(
     category = as_factor(category), 
     date = ymd(date),
@@ -74,11 +69,7 @@ phw_tidy <- phw_raw %>%
 phw_total_dis <- phw_raw %>% 
   dplyr::filter(status == "total_dis") %>% 
   pivot_longer(2:ncol(.), names_to = "group", values_to = "workers") %>% 
-  separate(
-    group,
-    into = c("category", "date"),
-    sep = "_"
-  ) %>% 
+  separate(group, into = c("category", "date"), sep = "_") %>% 
   mutate(
     category = as_factor(category),
     date = ymd(date),
@@ -90,18 +81,14 @@ phw_share_tidy <- phw_raw %>%
   dplyr::filter(status == "share_of_working_age_pop") %>% 
   pivot_longer(2:ncol(.), names_to = "group", values_to = "share_of_working_age_pop") %>% 
   select(-1) %>%
-  separate(
-    group,
-    into = c("category", "date"),
-    sep = "_"
-  ) %>% 
+  separate(group, into = c("category", "date"), sep = "_") %>% 
   mutate(
     category = as_factor(category),
     date = ymd(date),
     share_of_working_age_pop = as.numeric(str_replace_all(share_of_working_age_pop, ",", "."))
   )
 
-# extract total, wide
+# extract total, reshape to wide
 phw_total_wide <- phw_tidy %>% 
   dplyr::filter(category == "total") %>% 
   pivot_wider(names_from = status, values_from = workers)
@@ -170,7 +157,7 @@ plot_phw_total <- plot_ly(
     "Date: %{x}",
     "<extra></extra>"
   ),
-  marker = list(color = "#1d81a2"),
+  marker = list(color = "#2477B3"),
   height = 375
 ) %>% 
   add_trace(
@@ -182,7 +169,7 @@ plot_phw_total <- plot_ly(
       "Date: %{x}",
       "<extra></extra>"
     ),
-    marker = list(color = "#60b4d7")
+    marker = list(color = "#36A3D9")
   ) %>% 
   add_trace(
     name = "Furloughed",
@@ -193,7 +180,7 @@ plot_phw_total <- plot_ly(
       "Date: %{x}",
       "<extra></extra>"
     ),
-    marker = list(color = "#ff725b")
+    marker = list(color = "#55CBF2")
   ) %>% 
   add_trace(
     name = "Not in workforce",
@@ -204,7 +191,7 @@ plot_phw_total <- plot_ly(
       "Date: %{x}",
       "<extra></extra>"
     ),
-    marker = list(color = "#ffd882")
+    marker = list(color = "lightgrey")
   ) %>% 
   plotly::layout(
     xaxis = list (
@@ -215,7 +202,7 @@ plot_phw_total <- plot_ly(
       ticks = "outside",
       automargin = T,
       tickformat = "%b<br>%Y",
-      hoverformat = "%b %Y",
+      hoverformat = "%B %Y",
       showline = T,
       showgrid = F
     ),
@@ -235,7 +222,7 @@ plot_phw_total <- plot_ly(
       orientation = "h",
       itemsizing = "constant",
       xanchor = "left",
-      y = -.15,
+      y = -0.15,
       yanchor = "top"
     ),
     margin = list(l = 0, r = 0, t = 15, b = 0),
@@ -246,14 +233,13 @@ plot_phw_total <- plot_ly(
 
 
 ## by sex ----
-
 reactable_phw_sex <- reactable(
   phw_trf_sex,
   columns = list(
-    status = colDef(name = "", minWidth = 150),
+    status = colDef(name = "", sortable = F, minWidth = 200),
     workers_men = colDef(
       name = str_c(
-        "Feb '21",
+        format(last(phw_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(millions)</div>'
       ),
@@ -280,7 +266,7 @@ reactable_phw_sex <- reactable(
     ),
     workers_women = colDef(
       name = str_c(
-        "Feb '21",
+        format(last(phw_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(millions)</div>'
       ),
@@ -320,7 +306,7 @@ reactable_phw_sex <- reactable(
   ),
   showPageInfo = F,
   highlight = T,
-  style = list(fontSize = "15px"),
+  style = list(fontSize = "14px"),
   theme = reactableTheme(
     headerStyle = list(borderColor = "black")
   )
@@ -328,14 +314,13 @@ reactable_phw_sex <- reactable(
 
 
 ## by area ----
-
 reactable_phw_area <- reactable(
   phw_trf_area,
   columns = list(
-    status = colDef(name = "", minWidth = 150),
+    status = colDef(name = "", sortable = F, minWidth = 200),
     workers_urban = colDef(
       name = str_c(
-        "Feb '21",
+        format(last(phw_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(millions)</div>'
       ),
@@ -362,7 +347,7 @@ reactable_phw_area <- reactable(
     ),
     workers_rural = colDef(
       name = str_c(
-        "Feb '21",
+        format(last(phw_trf$date), "%b '%y"),
         "<br>",
         '<div style="color: #999; font-size: 12px">(millions)</div>'
       ),
@@ -402,7 +387,7 @@ reactable_phw_area <- reactable(
   ),
   showPageInfo = F,
   highlight = T,
-  style = list(fontSize = "15px"),
+  style = list(fontSize = "14px"),
   theme = reactableTheme(
     headerStyle = list(borderColor = "black")
   )
@@ -411,15 +396,19 @@ reactable_phw_area <- reactable(
 
 # export data -------------------------------------------------------------
 
-if (file.exists("data/ier_pandemic-hit-workers_cleaned.csv") == F) {
+# path to pandemic-hit worker data
+path_data_phw <- "data/ier_pandemic-hit-workers_cleaned.csv"
+
+# write csv
+if (!file.exists(path_data_phw)) {
   
-  write_csv(phw_trf_overall, "data/ier_pandemic-hit-workers_cleaned.csv")
+  write_csv(phw_trf_overall, path_data_phw)
   
   message("The pandemic-hit workers dataset has been exported")
   
-} else if (nrow(phw_trf_overall) != nrow(read_csv("data/ier_pandemic-hit-workers_cleaned.csv"))) {
+} else if (nrow(phw_trf_overall) != nrow(read_csv(path_data_phw))) {
   
-  write_csv(phw_trf_overall, "data/ier_pandemic-hit-workers_cleaned.csv")
+  write_csv(phw_trf_overall, path_data_phw)
   
   message("The pandemic-hit workers dataset has been updated")
   

@@ -10,7 +10,7 @@ For key economic indicators, the website adds projections made by the Internatio
 
 Although the website gets updated regularly, in some cases there are delays in reporting. For example, although BPS updates the inflation data on the first day of every month, the inflation by component dataset does not get updated on the same day. The same is also true for other datasets that still come in what the agency called a static table.
 
-As of the latest update released on April 4, 2021, the indicators included on the website are as follow:
+As of July 2021, the indicators included on the website are as follow:
 
 Data | Source  
 ------ | ----------  
@@ -22,6 +22,7 @@ Data | Source
 [Poverty](https://dzulfiqarfr.github.io/indonesia-recovery-tracker/poverty.html) | BPS  
 [Retail sales index](https://dzulfiqarfr.github.io/indonesia-recovery-tracker/rsi.html) | BI  
 [COVID-19](https://dzulfiqarfr.github.io/indonesia-recovery-tracker/index.html) | OWID  
+[Manufacturing PMI](https://dzulfiqarfr.github.io/indonesia-recovery-tracker/index.html) | Investing.com  
 
 The datasets are available in a tidy format in CSVs, which you can find in the [data 📁](/data).
 

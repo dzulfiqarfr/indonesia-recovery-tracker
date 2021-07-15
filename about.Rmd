@@ -1,7 +1,7 @@
 ---
 title: "About"
 description: |
-  Charts and tables to track Indonesia's economic recovery from the COVID-19 pandemic.
+  Charts and tables to track Indonesia's economic recovery from the COVID-19 pandemic
 preview: images/ier_social_media_card.png
 ---
 
@@ -20,9 +20,9 @@ knitr::include_graphics("images/ier_hexsticker.png")
 
 To see how the pandemic has affected people and businesses and their recovery from the shock, the Indonesia EconRecovery puts together key social and economic indicators such as economic growth, employment, poverty, inflation and community mobility in charts and tables. 
 
-With the recovery hinging on the country’s pandemic handling, this website also adds COVID-19 metrics including vaccinations on the summary table displayed on the home page.
+With the recovery hinging on the country’s pandemic handling, this website also adds COVID-19 metrics including vaccinations in a table displayed on the home page.
 
-While this website is aimed at giving readers a glimpse of what is happening to the economy as the pandemic unfolds, there are delays in reporting and therefore the data may show a lagged observation compared with the present situation. Of all datasets, only the community mobility data from Google gets updated every two or three days.
+While this website seeks to give readers a glimpse of what is happening to the economy as the pandemic unfolds, there are delays in reporting and therefore the data may show a lagged observation compared with the present situation. Of all datasets, only the community mobility data from Google gets updated every two or three days.
 
 Since its inception, the main goal of this website remains to provide a tool for those wanting to casually keep tabs on Indonesia’s recovery from the pandemic without getting too caught up in it  or going through the trouble of collecting, cleaning and visualizing the data themselves.
 
@@ -33,12 +33,6 @@ If you find a bug or want to give a suggestion on datasets or features or anythi
 
 Hi, I am Dzulfiqar Fathur Rahman. Currently, I work as a Jakarta-based journalist covering economic issues. Prior to working as a journalist, I did an internship at two research organizations.
 
-<aside>
-```{r profile photo, fig.width = 6, out.width = "70%", fig.asp = 0.618, fig.align="center"}
-knitr::include_graphics("images/profile_photo.png")
-```
-</aside>
-
-Outside work (and this website), I play Mario Kart, draw or spend an unhealthy amount of time watching cat and dog videos, anime or other shows.
+Outside work (and this website), I play Mario Kart, make some illustrations or spend an unhealthy amount of time watching cat and dog videos, anime or other shows.
 
 You can reach me through [e-mail](mailto:frdzulfiqar@gmail.com) or connect with me on [Twitter](https://twitter.com/dzulfiqarfr), [Medium](https://medium.com/@DzulfiqarFR), [LinkedIn](https://www.linkedin.com/in/dzulfiqarfr/) or [GitHub](https://github.com/dzulfiqarfr).

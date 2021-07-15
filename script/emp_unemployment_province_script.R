@@ -1,17 +1,15 @@
 # indonesia economic recovery
 
-# unemployment rate
-# by province
+# unemployment rate by province
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-24
-# last updated: 2021-06-05
+# last updated: 2021-07-14
 # page: employment
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(httr)
@@ -20,18 +18,18 @@ library(plotly)
 library(ggtext)
 library(magick)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url") == F) {
+if (!exists("base_url")) {
   base_url <- "https://webapi.bps.go.id/v1/api/list"
 }
-
-
-# data --------------------------------------------------------------------
 
 # request data
 unemp_prov_req <- GET(
@@ -95,16 +93,8 @@ unemp_prov_raw <- as_tibble(unemp_prov_parsed$datacontent)
 
 # tidy data
 unemp_prov_tidy <- unemp_prov_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "unemployment_rate"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_prov", "key_date"),
-    sep = "5430"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "unemployment_rate") %>% 
+  separate(key, into = c("key_prov", "key_date"), sep = "5430") %>% 
   mutate(
     key_yr = case_when(
       str_detect(key_date, "^[8|9]") ~ as.numeric(str_sub(key_date, 1, 2)),
@@ -196,37 +186,38 @@ plot_unemp_prov <- plot_ly(
     y = ~unemp_rate_1,
     yend = ~unemp_rate_2,
     showlegend = F,
-    line = list(width = 5, color = "#FBE9E7")
+    opacity = 0.5,
+    line = list(width = 5, color = "#55CBF2")
   ) %>% 
   add_markers(
     y = ~unemp_rate_1,
-    name = format(unemp_prov_date_latest[1], "%b '%y"),
+    name = format(unemp_prov_date_latest[1], "%B %Y"),
     hovertemplate = str_c(
       "Province: %{x}<br>",
       "Unemployment rate: %{y} percent<br>",
       "Date: ",
-      format(unemp_prov_date_latest[1], "%b '%y"),
+      format(unemp_prov_date_latest[1], "%B %Y"),
       "<extra></extra>"
     ),
     marker = list(
       size = 10, 
-      color = "#FFCCBC",
+      color = "#55CBF2",
       line = list(width = 1, color = "white")
     )
   ) %>% 
   add_markers(
     y = ~unemp_rate_2,
-    name = format(unemp_prov_date_latest[2], "%b '%y"),
+    name = format(unemp_prov_date_latest[2], "%B %Y"),
     hovertemplate = str_c(
       "Province: %{x}<br>",
       "Unemployment rate: %{y} percent<br>",
       "Date: ",
-      format(unemp_prov_date_latest[2], "%b '%y"),
+      format(unemp_prov_date_latest[2], "%B %Y"),
       "<extra></extra>"
     ),
     marker = list(
       size = 10, 
-      color = "#F4511E", 
+      color = "#2477B3", 
       line = list(width = 1, color = "white")
     )
   ) %>% 
@@ -258,8 +249,8 @@ plot_unemp_prov <- plot_ly(
     ),
     annotations = list(
       list(
-        text = "&#8592; Lower increase | Higher increase &#8594;",
-        font = list(size = 12, color = "#FF3D00"),
+        text = "&#8592; lower increase | higher increase &#8594;",
+        font = list(size = 12, color = "#90A4AE"),
         align = "center",
         bgcolor = "white",
         showarrow = F,
@@ -290,7 +281,14 @@ plot_unemp_prov <- plot_ly(
 
 # export chart ------------------------------------------------------------
 
-if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleaned.csv"))) {
+# path to unemployment rate by province data
+path_data_unemp_prov <- "data/ier_unemployment-province_cleaned.csv"
+
+# export chart
+if (nrow(unemp_prov_trf) != nrow(read_csv(path_data_unemp_prov))) {
+  
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
   
   # annotations
   ## province name for y-positions
@@ -307,29 +305,30 @@ if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleane
       str_c("\u25CF ", format(unemp_prov_date_latest[1], "%b '%y")),
       str_c("\u25CF ", format(unemp_prov_date_latest[2], "%b '%y"))
     ),
-    color = c("#FFAB91", "#F4511E")
+    color = c("#55CBF2", "#2477B3")
   )
   
   # plot
   ggplot(data = unemp_prov_wide, aes(y = province)) +
     geom_segment(
       aes(yend = province, x = unemp_rate_1, xend = unemp_rate_2),
-      color = "#FBE9E7",
-      lwd = 1.25
+      color = "#55CBF2",
+      alpha = 0.25,
+      lwd = 1.5
     ) +
     geom_point(
       aes(x = unemp_rate_1), 
       pch = 21,
-      fill = "#FFCCBC",
+      fill = "#55CBF2",
       color = "white",
-      size = 3
+      size = 2.5
     ) +
     geom_point(
       aes(x = unemp_rate_2), 
       pch = 21,
-      fill = "#F4511E",
+      fill = "#2477B3",
       color = "white",
-      size = 3
+      size = 2.5
     ) +
     geom_richtext(
       data = anno_legend,
@@ -349,64 +348,56 @@ if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleane
       position = "top"
     ) +
     labs(
-      title = "Unemployment",
-      subtitle = "Unemployment rate, by province (in percent)",
+      title = "Unemployment rate",
+      subtitle = "By province (percent)",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
     ) +
+    theme_ier() +
     theme(
-      text = element_text(size = 10),
-      axis.title = element_blank(),
       axis.text.y = element_text(hjust = 0),
-      axis.ticks = element_blank(),
       axis.line.x = element_blank(),
       axis.line.y = element_line(color = "black"),
-      panel.background = element_rect(fill = "white"),
+      axis.ticks.x = element_blank(),
       panel.grid.major.x = element_line(color = "#CFD8DC"),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold"),
-      plot.title.position = "plot",
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(color = "#757575", hjust = 0, margin = margin(t = 35)),
-      plot.caption.position = "plot"
-    ) +
-    ggsave(
-      "fig/ier_unemployment-province_plot.png",
-      width = 5,
-      height = 7,
-      dpi = 300,
-      scale = 1
     )
   
+  # path to the plot
+  path_plot_unemp_prov <- "fig/ier_unemployment-province_plot.png"
+  
+  # save the plot
+  ggsave(
+    path_plot_unemp_prov,
+    width = 5,
+    height = 7,
+    dpi = 300,
+    scale = 1
+  )
+  
   # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  logo <- image_read("images/ier_hexsticker_small.png")
   
-  # add base plot
-  base_plot <- image_read("fig/ier_unemployment-province_plot.png")
+  # import base plot
+  base_plot <- image_read(path_plot_unemp_prov)
   
-  # get plot height
+  # get the plot dimension
   plot_height <- magick::image_info(base_plot)$height
-  
-  # get plot width
   plot_width <- magick::image_info(base_plot)$width
   
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
+  # get the logo dimension
+  logo_width <- magick::image_info(logo)$width
+  logo_height <- magick::image_info(logo)$height
   
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
+  # get number of pixels to be 1% from the bottom of the plot
+  # while accounting for the logo height
+  pos_bottom <- plot_height - logo_height - plot_height * 0.01
   
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
+  # get number of pixels to be 0.025% from the left of the plot
+  pos_right <- plot_width - logo_width - 0.0025 * plot_width
   
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  base_plot %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_unemployment-province_plot.png")
+  # export the plot with a logo
+  base_plot %>%
+    image_composite(logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>%
+    image_write(path_plot_unemp_prov)
   
   # message
   message("The unemployment rate by province chart has been updated")
@@ -420,16 +411,15 @@ if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleane
 
 # export data -------------------------------------------------------------
 
-# write csv
-if (file.exists("data/ier_unemployment-province_cleaned.csv") == F) {
+if (!file.exists(path_data_unemp_prov)) {
   
-  write_csv(unemp_prov_trf, "data/ier_unemployment-province_cleaned.csv")
+  write_csv(unemp_prov_trf, path_data_unemp_prov)
   
   message("The unemployment rate by province dataset has been exported")
   
-} else if (nrow(unemp_prov_trf) != nrow(read_csv("data/ier_unemployment-province_cleaned.csv"))) {
+} else if (nrow(unemp_prov_trf) != nrow(read_csv(path_data_unemp_prov))) {
   
-  write_csv(unemp_prov_trf, "data/ier_unemployment-province_cleaned.csv")
+  write_csv(unemp_prov_trf, path_data_unemp_prov)
   
   message("The unemployment rate by province dataset has been updated")
   

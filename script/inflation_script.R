@@ -1,16 +1,15 @@
 # indonesia economic recovery
 
-# inflation
+# overall inflation
 
 # author: dzulfiqar fathur rahman
 # created: 2021-03-08
-# last updated: 2021-06-05
+# last updated: 2021-07-15
 # page: inflation
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -20,8 +19,11 @@ library(plotly)
 library(magick)
 library(ggtext)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
@@ -31,9 +33,6 @@ base_url_dynamic <- "https://webapi.bps.go.id/v1/api/list"
 
 ## static table
 base_url_static <- "https://webapi.bps.go.id/v1/api/view"
-
-
-# data --------------------------------------------------------------------
 
 ## annual inflation rate ----
 
@@ -84,24 +83,14 @@ inf_yoy_raw <- inf_yoy_raw %>%
 
 # tidy data
 inf_yoy_tidy <- inf_yoy_raw %>% 
-  pivot_longer(
-    2:ncol(.),
-    names_to = "yr",
-    values_to = "rate_yoy"
-  ) %>% 
+  pivot_longer(2:ncol(.), names_to = "yr", values_to = "rate_yoy") %>% 
   mutate(mo = format(Bulan, "-%m-01")) %>% 
   arrange(yr, mo) %>% 
   group_by(yr, Bulan) %>% 
-  mutate(
-    date = ymd(str_c(yr, mo)), 
-    mo = month(date)
-  ) %>% 
+  mutate(date = ymd(str_c(yr, mo)), mo = month(date)) %>% 
   ungroup() %>% 
   select(date, mo, yr, rate_yoy) %>% 
-  dplyr::filter(
-    !is.na(rate_yoy),
-    yr >= 2020 
-  )
+  dplyr::filter(!is.na(rate_yoy), yr >= 2020)
 
 
 ## monthly inflation rate ----
@@ -134,16 +123,8 @@ inf_mom_raw <- as_tibble(inf_mom_parsed$datacontent)
 
 # subset national inflation
 inf_mom_tidy <- inf_mom_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "rate_mom"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_exp", "key_period"),
-    sep = "17080"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "rate_mom") %>% 
+  separate(key, into = c("key_exp", "key_period"), sep = "17080") %>% 
   mutate(
     key_yr = str_sub(key_period, 1, 3),
     key_mo = str_sub(key_period, 4, 5)
@@ -170,7 +151,6 @@ inf_mom_trf <- inf_mom_tidy %>%
 
 
 ## merge annual, monthly inflation data ----
-
 inf_mom_yoy <- inf_mom_trf %>% 
   left_join(inf_yoy_tidy, by = c("date", "mo", "yr"))
 
@@ -183,7 +163,7 @@ inf_mom_yoy <- inf_mom_trf %>%
 # 2020
 anno_mom_2020 <- list(
   text = "<b>2020</b>",
-  font = list(size = 12, color = "#90A4AE"),
+  font = list(size = 12, color = "lightgrey"),
   bgcolor = "white",
   showarrow = F,
   xref = "x",
@@ -197,7 +177,7 @@ anno_mom_2020 <- list(
 # 2021
 anno_mom_2021 <- list(
   text = "<b>2021</b>",
-  font = list(size = 12, color = "#1d81a2"),
+  font = list(size = 12, color = "#2477B3"),
   bgcolor = "white",
   showarrow = F,
   xref = "x",
@@ -214,7 +194,7 @@ plot_inf_mom <- plot_ly(
   type = "scatter",
   mode = "markers+lines",
   line = list(width = 3),
-  colors = c("#CFD8DC", "#1d81a2"),
+  colors = c("lightgrey", "#2477B3"),
   text = ~format(date, "%b %Y"),
   hovertemplate = "Inflation rate: %{y} percent<br>Date: %{text}<extra></extra>",
   height = 300
@@ -230,8 +210,8 @@ plot_inf_mom <- plot_ly(
       autorange = T,
       fixedrange = T,
       tickmode = "array",
-      tickvals = c(3, 6, 9, 12),
-      ticktext = c("Mar", "Jun", "Sep", "Dec"),
+      tickvals = seq(1, 12),
+      ticktext = format(seq(ymd("2021-01-01"), ymd("2021-12-01"), "1 month"), "%b"),
       ticks = "outside",
       automargin = T,
       showline = T,
@@ -247,7 +227,7 @@ plot_inf_mom <- plot_ly(
       showline = F,
       showgrid = T,
       gridcolor = "#CFD8DC",
-      zerolinecolor = "#ff856c",
+      zerolinecolor = "#E68F7E",
       side = "right"
     ),
     annotations = list(anno_mom_2020, anno_mom_2021),
@@ -264,7 +244,7 @@ plot_inf_mom <- plot_ly(
 # 2020
 anno_yoy_2020 <- list(
   text = "<b>2020</b>",
-  font = list(size = 12, color = "#90A4AE"),
+  font = list(size = 12, color = "lightgrey"),
   bgcolor = "white",
   showarrow = F,
   xref = "x",
@@ -278,7 +258,7 @@ anno_yoy_2020 <- list(
 # 2021
 anno_yoy_2021 <- list(
   text = "<b>2021</b>",
-  font = list(size = 12, color = "#1d81a2"),
+  font = list(size = 12, color = "#2477B3"),
   bgcolor = "white",
   showarrow = F,
   xref = "x",
@@ -296,7 +276,7 @@ plot_inf_yoy <- inf_mom_yoy %>%
     type = "scatter",
     mode = "markers+lines",
     line = list(width = 3),
-    colors = c("#CFD8DC", "#1d81a2"),
+    colors = c("lightgrey", "#2477B3"),
     text = ~format(date, "%b %Y"),
     hovertemplate = "Inflation rate: %{y} percent<br>Date: %{text}<extra></extra>",
     height = 300
@@ -312,8 +292,8 @@ plot_inf_yoy <- inf_mom_yoy %>%
       autorange = T,
       fixedrange = T,
       tickmode = "array",
-      tickvals = c(3, 6, 9, 12),
-      ticktext = c("Mar", "Jun", "Sep", "Dec"),
+      tickvals = seq(1, 12),
+      ticktext = format(seq(ymd("2021-01-01"), ymd("2021-12-01"), "1 month"), "%b"),
       ticks = "outside",
       automargin = T,
       showline = T,
@@ -329,7 +309,7 @@ plot_inf_yoy <- inf_mom_yoy %>%
       showline = F,
       showgrid = T,
       gridcolor = "#CFD8DC",
-      zerolinecolor = "#ff856c",
+      zerolinecolor = "#E68F7E",
       side = "right"
     ),
     annotations = list(anno_yoy_2020, anno_yoy_2021),
@@ -342,15 +322,21 @@ plot_inf_yoy <- inf_mom_yoy %>%
 
 # export chart ------------------------------------------------------------
 
-# latest data
+# rename column for csv
 inf_mom_yoy_tidy <- inf_mom_yoy %>% 
   select(-c("mo", "yr")) %>% 
   rename(inflation_mom = 2, inflation_yoy = 3)
 
+# path to inflation data
+path_data_inf_ov <- "data/ier_inflation-overall_cleaned.csv"
+
 
 ## monthly inflation rate ----
 
-if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+if (nrow(inf_mom_yoy_tidy) != nrow(read_csv(path_data_inf_ov))) {
+  
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
   
   # annotations
   anno_year_mom <- tibble(
@@ -361,12 +347,12 @@ if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.
   
   # plot
   ggplot(inf_mom_yoy, aes(mo, rate_mom)) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
     geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
     scale_x_continuous(
-      breaks = seq(2, 12, 2),
-      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
+      breaks = seq(1, 12),
+      labels = format(seq(ymd("2021-01-01"), ymd("2021-12-01"), "1 month"), "%b")
     ) +
     scale_y_continuous(
       breaks = seq(-0.5, 0.5, 0.25),
@@ -375,76 +361,32 @@ if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    scale_color_manual(values = c("lightgrey", "#2477B3")) +
     geom_richtext(
       data = anno_year_mom,
       aes(x, y, label = label),
       fill = "white",
       label.color = NA,
-      text.color = c("#1d81a2", "#90A4AE"),
+      text.color = c("#2477B3", "lightgrey"),
       hjust = 0,
       size = 3,
       fontface = "bold"
     ) +
     labs(
-      title = "Inflation",
-      subtitle = "Monthly inflation rate (in percent)",
+      title = "Monthly inflation",
+      subtitle = "(percent)",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
     ) +
-    theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.spacing.x = unit(2, "lines"),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_inflation-monthly_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
-    )
+    theme_ier()
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # path to the plot
+  path_plot_inf_mom <- "fig/ier_inflation-monthly_plot.png"
   
-  # add base plot
-  plot_inf_mom_png <- image_read("fig/ier_inflation-monthly_plot.png")
+  # save the plot
+  ggsave(path_plot_inf_mom, width = 6, height = 3.708, dpi = 300)
   
-  # get plot height
-  plot_height <- magick::image_info(plot_inf_mom_png)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(plot_inf_mom_png)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  plot_inf_mom_png %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_inflation-monthly_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_inf_mom)
   
   # message
   message("The monthly inflation rate chart has been updated")
@@ -460,6 +402,9 @@ if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.
 
 if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$inflation_yoy))) {
   
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
+  
   # annotations
   anno_year_yoy <- tibble(
     x = c(1.5, 5.5),
@@ -474,8 +419,8 @@ if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$
     geom_line(aes(color = as_factor(yr)), lwd = 1, show.legend = F) +
     geom_point(aes(color = as_factor(yr)), size = 1.5, show.legend = F) +
     scale_x_continuous(
-      breaks = seq(2, 12, 2),
-      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
+      breaks = seq(1, 12),
+      labels = format(seq(ymd("2021-01-01"), ymd("2021-12-01"), "1 month"), "%b")
     ) +
     scale_y_continuous(
       breaks = seq(0, 3, 0.6),
@@ -484,76 +429,32 @@ if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    scale_color_manual(values = c("lightgrey", "#2477B3")) +
     geom_richtext(
       data = anno_year_yoy,
       aes(x, y, label = label),
       fill = "white",
       label.color = NA,
-      text.color = c("#1d81a2", "#90A4AE"),
+      text.color = c("#2477B3", "lightgrey"),
       hjust = 0,
       size = 3,
       fontface = "bold"
     ) +
     labs(
-      title = "Inflation",
-      subtitle = "Annual inflation rate (in percent)",
+      title = "Annual inflation",
+      subtitle = "(percent)",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
     ) +
-    theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.spacing.x = unit(2, "lines"),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 35)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_inflation-annual_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
-    )
+    theme_ier()
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # path to the plot
+  path_plot_inf_yoy <- "fig/ier_inflation-annual_plot.png"
   
-  # add base plot
-  plot_inf_yoy_png <- image_read("fig/ier_inflation-annual_plot.png")
+  # save the plot
+  ggsave(path_plot_inf_yoy, width = 6, height = 3.708, dpi = 300)
   
-  # get plot height
-  plot_height <- magick::image_info(plot_inf_yoy_png)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(plot_inf_yoy_png)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  plot_inf_yoy_png %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_inflation-annual_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_inf_yoy)
   
   # message
   message("The annual inflation rate chart has been updated")
@@ -565,18 +466,14 @@ if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$
 }
 
 
-# preview -----------------------------------------------------------------
+# export preview chart ----------------------------------------------------
 
 if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$inflation_yoy))) {
   
   # plot
   ggplot(inf_mom_yoy, aes(mo, rate_yoy)) +
-    geom_line(aes(color = as_factor(yr)), lwd = 2, show.legend = F) +
-    geom_point(aes(color = as_factor(yr)), size = 3.5, show.legend = F) +
-    scale_x_continuous(
-      breaks = seq(2, 12, 2),
-      labels = c("Feb", "April", "June", "Aug", "Oct", "Dec")
-    ) +
+    geom_line(aes(color = as_factor(yr)), lwd = 1.5, show.legend = F) +
+    geom_point(aes(color = as_factor(yr)), size = 2.5, show.legend = F) +
     scale_y_continuous(
       breaks = seq(0, 3, 0.6),
       labels = c(0, seq(0.6, 2.4, 0.6), 3),
@@ -584,18 +481,15 @@ if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_color_manual(values = c("#CFD8DC", "#1d81a2")) +
+    scale_color_manual(values = c("lightgrey", "#2477B3")) +
     theme_void() +
-    theme(
-      plot.background = element_rect(fill = "#263238", color = NA),
-      plot.margin = margin(t = 50, r = 50, b = 50, l = 50)
-    ) +
-    ggsave(
-      "fig/ier_inflation-annual_void_plot.png",
-      width = 13.3,
-      height = 6.6,
-      dpi = 300
-    )
+    theme_ier_pre()
+  
+  # path to preview chart
+  path_plot_inf_pre <- "fig/ier_inflation-annual_void_plot.png"
+  
+  # save the plot  
+  ggsave(path_plot_inf_pre, width = 13.3, height = 6.6, dpi = 300)
   
   # message
   message("The annual inflation rate preview chart has been updated")
@@ -609,16 +503,15 @@ if (!is.na(last(inf_mom_yoy_tidy$inflation_mom)) && is.na(last(inf_mom_yoy_tidy$
 
 # export data -------------------------------------------------------------
 
-# write csv
-if (file.exists("data/ier_inflation-overall_cleaned.csv") == F) {
+if (!file.exists(path_data_inf_ov)) {
   
-  write_csv(inf_mom_yoy_tidy, "data/ier_inflation-overall_cleaned.csv")
+  write_csv(inf_mom_yoy_tidy, path_data_inf_ov)
   
   message("The overall inflation dataset has been exported")
   
-} else if (nrow(inf_mom_yoy_tidy) != nrow(read_csv("data/ier_inflation-overall_cleaned.csv"))) {
+} else if (nrow(inf_mom_yoy_tidy) != nrow(read_csv(path_data_inf_ov))) {
   
-  write_csv(inf_mom_yoy_tidy, "data/ier_inflation-overall_cleaned.csv")
+  write_csv(inf_mom_yoy_tidy, path_data_inf_ov)
   
   message("The overall inflation dataset has been updated")
   
