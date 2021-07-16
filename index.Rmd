@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <hr style="width: 50%;">  
 
-Explore key social and economic indicators to see how the pandemic has affected people and businesses in Indonesia using interactive charts and tables.
+Explore social and economic indicators to see how the pandemic has affected people and businesses in Indonesia using interactive charts and tables.
 
 <b>&rarr; Economy</b>
 
@@ -47,11 +47,11 @@ Source: Our World in Data
 
 <b>Latest</b>  
 
+* The poverty rate slightly fell to 10.14 percent in March from 10.19 percent in August, but remained higher than a year earlier. ([Read more](poverty.html))
+
 * On July 8, the government revised downward its economic growth projection for this year to between 3.7 and 4.5 percent from between 4.5 and 5.3 percent.
 
 * The retail sales index grew by 14.7 percent year-on-year (yoy) in May and was projected to grow slower by 4.53 percent yoy in June. ([Read more](rsi.html))  
-
-* The consumer confidence index rose further to 107.36 in June. The improvement was seen across all income groups. ([Read more](cci.html))
 
 
 ## Explore

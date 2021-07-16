@@ -6,7 +6,6 @@ preview: images/ier_social_media_card.png
 ---
 
 ```{r setup, include=FALSE}
-# chunk options
 knitr::opts_chunk$set(echo = FALSE)
 ```
 

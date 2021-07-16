@@ -179,7 +179,7 @@ plot_growth <- growth_tidy %>%
       showline = F,
       showgrid = T,
       gridcolor = "#CFD8DC",
-      zerolinecolor = "#ff856c",
+      zerolinecolor = "#E68F7E",
       side = "right"
     ),
     shapes = list(

@@ -1,18 +1,15 @@
 # indonesia economic recovery
 
-# gdp
-# by expenditure
-# percent change on a year earlier
+# economic growth by expenditure
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-21
-# last updated: 2021-04-08
+# last updated: 2021-07-15
 # page: gdp
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(jsonlite)
@@ -23,20 +20,20 @@ library(ggthemes)
 library(paletteer)
 library(crosstalk)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url") == F) {
+if (!exists("base_url")) {
   base_url <- "https://webapi.bps.go.id/v1/api/list"
 }
 
-
-# data --------------------------------------------------------------------
-
-if (exists("growth_raw") == F) {
+if (!exists("growth_raw")) {
   
   # request data
   growth_req <- GET(
@@ -106,16 +103,8 @@ if (exists("growth_raw") == F) {
 
 # separate keys, subset quarterly observations
 growth_exp_tidy <- growth_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "pct_change_yoy"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_exp", "key_period"),
-    sep = "108"
-  ) %>%
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "pct_change_yoy") %>% 
+  separate(key, into = c("key_exp", "key_period"), sep = "108") %>%
   mutate(
     key_period_obs = str_sub(key_period, end = 1),
     key_yr = str_sub(key_period, 2, 4),
@@ -156,32 +145,6 @@ growth_exp_wide <- growth_exp_tidy %>%
   dplyr::filter(key_exp %in% c(100, 200, 300, 400, 600, 700)) %>% 
   select(-key_exp) %>% 
   pivot_wider(names_from = date, values_from = pct_change_yoy)
-
-
-# export ------------------------------------------------------------------
-
-# data
-growth_exp_csv <- growth_exp_tidy %>% 
-  rename(expenditure_key = 1, expenditure_component = 2)
-
-# write csv
-if (file.exists("data/ier_gdp-growth-exp_cleaned.csv") == F) {
-  
-  write_csv(growth_exp_csv, "data/ier_gdp-growth-exp_cleaned.csv")
-  
-  message("The GDP growth by expenditure dataset has been exported")
-  
-} else if (nrow(growth_exp_csv) != nrow(read_csv("data/ier_gdp-growth-exp_cleaned.csv"))) {
-  
-  write_csv(growth_exp_csv, "data/ier_gdp-growth-exp_cleaned.csv")
-  
-  message("The GDP growth by expenditure dataset has been updated")
-  
-} else {
-  
-  message("The GDP growth by expenditure dataset is up to date")
-
-}
 
 
 # table -------------------------------------------------------------------
@@ -248,6 +211,7 @@ reactable_growth_exp <- reactable(
   columns = list(
     label_eng = colDef(
       name = "",
+      sortable = F,
       minWidth = 200,
       style = style_sticky,
       headerStyle = style_sticky
@@ -273,8 +237,37 @@ reactable_growth_exp <- reactable(
   ),
   defaultSortOrder = "desc",
   highlight = T,
-  style = list(fontSize = "15px"),
+  style = list(fontSize = "14px"),
   theme = reactableTheme(
     headerStyle = list(borderColor = "black")
   )
 )
+
+
+# export data -------------------------------------------------------------
+
+# data
+growth_exp_csv <- growth_exp_tidy %>% 
+  rename(expenditure_key = 1, expenditure_component = 2)
+
+# path to the data
+path_data_growth_exp <- "data/ier_gdp-growth-exp_cleaned.csv"
+
+# write csv
+if (!file.exists(path_data_growth_exp)) {
+  
+  write_csv(growth_exp_csv, path_data_growth_exp)
+  
+  message("The GDP growth by expenditure dataset has been exported")
+  
+} else if (nrow(growth_exp_csv) != nrow(read_csv(path_data_growth_exp))) {
+  
+  write_csv(growth_exp_csv, path_data_growth_exp)
+  
+  message("The GDP growth by expenditure dataset has been updated")
+  
+} else {
+  
+  message("The GDP growth by expenditure dataset is up to date")
+  
+}

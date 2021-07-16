@@ -1,18 +1,15 @@
 # indonesia economic recovery
 
-# gdp
-# by sector
-# percent change from a year earlier
+# economic growth by sector
 
 # author: dzuliqar fathur rahman
 # created: 2021-02-23
-# last updated: 2021-03-28
+# last updated: 2021-07-15
 # page: gdp
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(jsonlite)
@@ -23,18 +20,18 @@ library(ggthemes)
 library(paletteer)
 library(crosstalk)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url") == F) {
+if (!exists("base_url")) {
   base_url <- "https://webapi.bps.go.id/v1/api/list"
 }
-
-
-# data --------------------------------------------------------------------
 
 # request data
 growth_sec_req <- GET(
@@ -63,16 +60,8 @@ growth_sec_raw <- as_tibble(growth_sec_parsed$datacontent)
 
 # separate keys, subset quarterly observations
 growth_sec_tidy <- growth_sec_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "pct_change_yoy"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_sector", "key_period"),
-    sep = "104"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "pct_change_yoy") %>% 
+  separate(key, into = c("key_sector", "key_period"), sep = "104") %>% 
   mutate(
     key_period_obs = str_sub(key_period, 1, 1),
     key_yr = str_sub(key_period, 2, 4),
@@ -137,32 +126,6 @@ growth_sec_wide <- growth_sec_tidy %>%
   pivot_wider(names_from = date, values_from = pct_change_yoy)
 
 
-# export ------------------------------------------------------------------
-
-#data
-growth_sec_csv <- growth_sec_tidy %>% 
-  rename(sector = 1)
-
-# write csv
-if (file.exists("data/ier_gdp-growth-sector_cleaned.csv") == F) {
-  
-  write_csv(growth_sec_csv, "data/ier_gdp-growth-sector_cleaned.csv")
-  
-  message("The GDP growth by sector dataset has been updated")
-  
-} else if (nrow(growth_sec_csv) != nrow(read_csv("data/ier_gdp-growth-sector_cleaned.csv"))) {
-  
-  write_csv(growth_sec_csv, "data/ier_gdp-growth-sector_cleaned.csv")
-  
-  message("The GDP growth by sector dataset has been updated")
-  
-} else {
-  
-  message("The GDP growth by sector dataset is up to date")
-  
-}
-
-
 # table -------------------------------------------------------------------
 
 # rename column
@@ -224,6 +187,7 @@ reactable_growth_sec <- reactable(
   columns = list(
     key_sector = colDef(
       name = "",
+      sortable = F,
       minWidth = 200,
       style = style_sticky,
       headerStyle = style_sticky
@@ -253,8 +217,35 @@ reactable_growth_sec <- reactable(
   pageSizeOptions = c(6, 12, 17),
   showPageInfo = F,
   highlight = T,
-  style = list(fontSize = "15px"),
-  theme = reactableTheme(
-    headerStyle = list(borderColor = "black")
-  )
+  style = list(fontSize = "14px"),
+  theme = reactableTheme(headerStyle = list(borderColor = "black"))
 )
+
+
+# export data -------------------------------------------------------------
+
+#data
+growth_sec_csv <- growth_sec_tidy %>% 
+  rename(sector = 1)
+
+# path to the data
+path_data_growth_sec <- "data/ier_gdp-growth-sector_cleaned.csv"
+
+# write csv
+if (!file.exists(path_data_growth_sec)) {
+  
+  write_csv(growth_sec_csv, path_data_growth_sec)
+  
+  message("The GDP growth by sector dataset has been updated")
+  
+} else if (nrow(growth_sec_csv) != nrow(read_csv(path_data_growth_sec))) {
+  
+  write_csv(growth_sec_csv, path_data_growth_sec)
+  
+  message("The GDP growth by sector dataset has been updated")
+  
+} else {
+  
+  message("The GDP growth by sector dataset is up to date")
+  
+}

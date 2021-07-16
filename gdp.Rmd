@@ -87,7 +87,6 @@ Gross domestic product (GDP) (percent change from a year earlier)
 
 ```{r plot: overall econ growth}
 source("script/gdp_growth_script.R", local = knitr::knit_global())
-
 div(plot_growth)
 ```
 
@@ -213,8 +212,7 @@ filter_growth_sec <- filter_select(
 unstrap(filter_growth_sec)
 ```
 
-```{r table: econ growth by sector, layout="l-body-outset"}
-# tabel
+```{r table: econ growth by sector, layout="l-page"}
 reactable_growth_sec
 ```
 
@@ -244,6 +242,7 @@ See also [employment by sector](employment.html#by-sector)
 **Last updated**: `r source_last_update`  
 **Download**: `r embed_growth_sec`  
 </details>
+
 
 ### Contribution to growth
 

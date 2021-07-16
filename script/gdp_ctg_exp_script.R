@@ -1,18 +1,15 @@
 # indonesia economic recovery
 
-# gdp
-# by expenditure
-# contribution to annual growth
+# contribution to gdp growth by expenditure
 
 # author: dzulfiqar fathur rahman
 # created: 2021-02-23
-# last updated: 2021-05-08
+# last updated: 2021-07-15
 # page: gdp
 
 
-# setup -------------------------------------------------------------------
+# packages ----------------------------------------------------------------
 
-# packages
 library(tidyverse)
 library(lubridate)
 library(jsonlite)
@@ -20,18 +17,18 @@ library(httr)
 library(plotly)
 library(magick)
 
+
+# data --------------------------------------------------------------------
+
 # api key
-if (exists("BPS_KEY") == F) {
+if (!exists("BPS_KEY")) {
   BPS_KEY <- Sys.getenv("BPS_KEY")
 }
 
 # bps api url
-if (exists("base_url") == F) {
+if (!exists("base_url")) {
   base_url <- "https://webapi.bps.go.id/v1/api/list"
 }
-
-
-# data --------------------------------------------------------------------
 
 # request data
 ctg_req <- GET(
@@ -60,16 +57,8 @@ ctg_raw <- as_tibble(ctg_parsed$datacontent)
 
 # subset quarterly observations
 ctg_exp_tidy <- ctg_raw %>% 
-  pivot_longer(
-    1:ncol(.),
-    names_to = "key",
-    values_to = "exp"
-  ) %>% 
-  separate(
-    key,
-    into = c("key_exp", "key_period"),
-    sep = "19560"
-  ) %>% 
+  pivot_longer(1:ncol(.), names_to = "key", values_to = "exp") %>% 
+  separate(key, into = c("key_exp", "key_period"), sep = "19560") %>% 
   mutate(
     key_yr = str_sub(key_period, 1, 3),
     key_q = str_sub(key_period, 4, 5)
@@ -120,7 +109,7 @@ ctg_main_exp$key_exp <- ctg_main_exp$key_exp %>%
       "5. Perubahan Inventori" = "Changes in inventories",
       "6. Ekspor Barang dan Jasa" = "Exports of goods and services",
       "7. Dikurangi Impor Barang dan Jasa" = "Imports of goods and services",
-      "Diskrepansi Statistik" = "Statistics discrepancy"
+      "Diskrepansi Statistik" = "Statistic discrepancy"
     )
   )
 
@@ -139,7 +128,7 @@ ctg_main_exp_wide <- ctg_main_exp %>%
     Investment,
     `Net export`,
     `Government consumption`,
-    `Statistics discrepancy`
+    `Statistic discrepancy`
   )
 
 # subset total gdp
@@ -154,11 +143,7 @@ ctg_exp_wide <- ctg_main_exp_wide %>%
 
 # calculate change, proportion, contribution to growth
 ctg_exp_trf <- ctg_exp_wide %>% 
-  pivot_longer(
-    2:(ncol(.) - 1),
-    names_to = "comp",
-    values_to = "exp"
-  ) %>% 
+  pivot_longer(2:(ncol(.) - 1), names_to = "comp", values_to = "exp") %>% 
   select(comp, date, exp, gdp) %>% 
   group_by(comp) %>% 
   mutate(
@@ -183,6 +168,9 @@ ctg_exp_trf[, 2:ncol(ctg_exp_trf)] <- lapply(
 # quarter labels
 labs_q <- str_c("Q", quarter(ctg_exp_trf$date))
 
+# y-axis range
+ctg_y_axis_range <- c(-12, 13)
+
 # plot
 plot_ctg <- plot_ly(
   data = ctg_exp_trf,
@@ -191,10 +179,13 @@ plot_ctg <- plot_ly(
   x = ~date,
   y = ~`Private consumption`,
   text = labs_q,
-  marker = list(color = "#1d81a2"),
+  marker = list(
+    color = "#2477B3",
+    line = list(width = 0.25, color = "white")
+  ),
   hovertemplate = str_c(
     "<b>Component: private consumption</b><br><br>",
-    "Contribution to growth: %{y} percentage points<br>",
+    "Contribution: %{y} percentage points<br>",
     "Date: %{text} ",
     "%{x}",
     "<extra></extra>"
@@ -204,10 +195,13 @@ plot_ctg <- plot_ly(
   add_trace(
     name = "Investment",
     y = ~Investment,
-    marker = list(color = "#60b4d7"),
+    marker = list(
+      color = "#36A3D9", 
+      line = list(width = 0.25, color = "white")
+    ),
     hovertemplate = str_c(
       "<b>Component: investment</b><br><br>",
-      "Contribution to growth: %{y} percentage points<br>",
+      "Contribution: %{y} percentage points<br>",
       "Date: %{text} ",
       "%{x}",
       "<extra></extra>"
@@ -216,10 +210,13 @@ plot_ctg <- plot_ly(
   add_trace(
     name = "Government consumption",
     y = ~`Government consumption`,
-    marker = list(color = "#ff725b"),
+    marker = list(
+      color = "#E66439", 
+      line = list(width = 0.25, color = "white")
+    ),
     hovertemplate = str_c(
       "<b>Component: government consumption</b><br><br>",
-      "Contribution to growth: %{y} percentage points<br>",
+      "Contribution: %{y} percentage points<br>",
       "Date: %{text} ",
       "%{x}",
       "<extra></extra>"
@@ -228,22 +225,28 @@ plot_ctg <- plot_ly(
   add_trace(
     name = "Net export",
     y = ~`Net export`,
-    marker = list(color = "#ffd882"),
+    marker = list(
+      color = "#F2AA61", 
+      line = list(width = 0.25, color = "white")
+    ),
     hovertemplate = str_c(
       "<b>Component: net export</b><br><br>",
-      "Contribution to growth: %{y} percentage points<br>",
+      "Contribution: %{y} percentage points<br>",
       "Date: %{text} ",
       "%{x}",
       "<extra></extra>"
     )
   ) %>% 
   add_trace(
-    name = "Statistics discrepancy",
-    y = ~`Statistics discrepancy`,
-    marker = list(color = "#B0BEC5"),
+    name = "Statistic discrepancy",
+    y = ~`Statistic discrepancy`,
+    marker = list(
+      color = "lightgrey", 
+      line = list(width = 0.25, color = "white")
+    ),
     hovertemplate = str_c(
-      "<b>Component: Statistics discrepancy</b><br><br>",
-      "Contribution to growth: %{y} percentage points<br>",
+      "<b>Component: Statistic discrepancy</b><br><br>",
+      "Contribution: %{y} percentage points<br>",
       "Date: %{text} ",
       "%{x}",
       "<extra></extra>"
@@ -268,13 +271,13 @@ plot_ctg <- plot_ly(
       title = NA,
       type = "linear",
       autorange = F,
-      range = c(-12, 13),
+      range = ctg_y_axis_range,
       fixedrange = T,
       dtick = 4,
       showline = F,
       showgrid = T,
       gridcolor = "#CFD8DC",
-      zerolinecolor = "#ff856c",
+      zerolinecolor = "#E68F7E",
       side = "right"
     ),
     shapes = list(
@@ -285,8 +288,8 @@ plot_ctg <- plot_ly(
         x0 = "2020-03-02",
         x1 = "2020-03-02",
         yref = "y",
-        y0 = -12,
-        y1 = 12,
+        y0 = ctg_y_axis_range[1],
+        y1 = ctg_y_axis_range[2] - 1,
         line = list(color = "#90A4AE", dash = "dash")
       )
     ),
@@ -301,7 +304,7 @@ plot_ctg <- plot_ly(
         x = "2020-02-01",
         xanchor = "right",
         yref = "y",
-        y = 12,
+        y = ctg_y_axis_range[2] - 1,
         yanchor = "top"
       )
     ),
@@ -309,12 +312,12 @@ plot_ctg <- plot_ly(
       orientation = "h",
       itemsizing = "constant",
       xanchor = "left",
-      y = -.15,
+      y = -0.15,
       yanchor = "top"
     ),
     margin = list(l = 0, r = 0, t = 15, b = 0),
     barmode = "relative",
-    bargap = 0.35
+    bargap = 0.3
   ) %>% 
   plotly::config(displayModeBar = F)
 
@@ -329,8 +332,14 @@ ctg_exp_trf_tidy <- ctg_exp_trf %>%
     values_to = "contribution_to_growth"
   )
 
+# path to ctg data
+path_data_ctg <- "data/ier_gdp-ctg_cleaned.csv"
+
 # export chart
-if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
+if (nrow(ctg_exp_trf_tidy) != nrow(read_csv(path_data_ctg))) {
+  
+  # import functions to apply custom ggplot2 theme and add logo
+  source("script/ggplot2_theme.R")
   
   # reorder factor
   ctg_exp_trf_tidy <- ctg_exp_trf_tidy %>% 
@@ -354,13 +363,13 @@ if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
     ctg_exp_trf_tidy, 
     aes(date, contribution_to_growth, fill = expenditure_component)
   ) +
-    geom_hline(yintercept = 0, color = "#ff856c") +
+    geom_hline(yintercept = 0, color = "#E68F7E") +
     geom_vline(
       xintercept = ymd("2020-03-01"),
       color = "#90A4AE",
-      linetype = 2
+      lty = "dashed"
     ) +
-    geom_col(width = 60) +
+    geom_col(width = 60, color = "white", lwd = 0.25) +
     scale_x_date(
       breaks = seq(ymd("2012-01-01"), ymd("2020-01-01"), by = "2 year"),
       labels = labs_ctg
@@ -371,80 +380,47 @@ if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
       expand = c(0, 0),
       position = "right"
     ) +
-    scale_fill_manual(values = c("#B0BEC5", "#ffd882", "#ff725b", "#60b4d7", "#1d81a2")) +
+    scale_fill_manual(
+      values = c(
+        "Private consumption" = "#2477B3",
+        "Investment" = "#36A3D9",
+        "Net export" = "#E66439",
+        "Government consumption" = "#F2AA61",
+        "Statistic discrepancy" = "lightgrey"
+      ) 
+    ) +
     annotate(
       "text",
       x = ymd("2020-04-01"),
       y = 10,
       label = "COVID-19\npandemic \u2192",
-      size = 2,
+      size = 3,
       hjust = 0,
       color = "#90A4AE"
     ) +
     labs(
-      title = "Economic growth",
-      subtitle = "GDP, contribution to annual growth by expenditure component\n(percentage points)",
+      title = "Contribution to economic growth",
+      subtitle = "By expenditure component (percentage point)",
       caption = "Chart: Dzulfiqar Fathur Rahman | Source: Statistics Indonesia (BPS)"
     ) +
-    guides(fill = guide_legend(reverse = T)) +
+    theme_ier() +
     theme(
-      text = element_text(size = 12),
-      axis.title = element_blank(),
-      axis.ticks.y = element_blank(),
-      axis.line.x = element_line(color = "black"),
       legend.title = element_blank(),
+      legend.text = element_text(size = rel(0.6)),
       legend.key = element_rect(fill = "transparent"),
-      legend.key.size = unit(0.3, "cm"),
-      legend.position = c(0.495, 1.175),
-      legend.direction = "horizontal",
-      panel.background = element_rect(fill = "white"),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_line(color = "#CFD8DC"),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      plot.title = element_text(face = "bold"),
-      plot.subtitle = element_text(margin = margin(b = 55)),
-      plot.caption = element_text(
-        color = "#757575",
-        hjust = 0,
-        margin = margin(t = 35)
-      )
-    ) +
-    ggsave(
-      "fig/ier_gdp-ctg_plot.png",
-      width = 7,
-      height = 4,
-      dpi = 300
+      legend.key.size = unit(0.25, "cm"),
+      legend.position = c(0.45, 1.075),
+      legend.direction = "horizontal"
     )
   
-  # add logo
-  ier_logo <- image_read("images/ier_hexsticker_small.png")
+  # path to the plot
+  path_plot_ctg <- "fig/ier_gdp-ctg_plot.png"
   
-  # add base plot
-  base_plot <- image_read("fig/ier_gdp-ctg_plot.png")
+  # save the plot
+  ggsave(path_plot_ctg, width = 6, height = 3.708, dpi = 300)
   
-  # get plot height
-  plot_height <- magick::image_info(base_plot)$height
-  
-  # get plot width
-  plot_width <- magick::image_info(base_plot)$width
-  
-  # get logo height
-  logo_width <- magick::image_info(ier_logo)$width
-  
-  # get logo width
-  logo_height <- magick::image_info(ier_logo)$height
-  
-  # position for the bottom 1.5 percent
-  pos_bottom <- plot_height - logo_height - plot_height * 0.015
-  
-  # position for the right 1.5 percent
-  pos_right <- plot_width - logo_width - 0.015 * plot_width
-  
-  # overwrite plot
-  base_plot %>% 
-    image_composite(ier_logo, offset = str_c("+", pos_right, "+", pos_bottom)) %>% 
-    image_write("fig/ier_gdp-ctg_plot.png")
+  # add ier logo to the plot
+  add_ier_logo(path_plot_ctg)
   
   # message
   message("The contribution to GDP growth chart has been updated")
@@ -458,16 +434,15 @@ if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
 
 # export data -------------------------------------------------------------
 
-# write csv
-if (file.exists("data/ier_gdp-ctg_cleaned.csv") == F) {
+if (!file.exists(path_data_ctg)) {
   
-  write_csv(ctg_exp_trf_tidy, "data/ier_gdp-ctg_cleaned.csv")
+  write_csv(ctg_exp_trf_tidy, path_data_ctg)
   
   message("The contribution to GDP growth dataset has been exported")
   
-} else if (nrow(ctg_exp_trf_tidy) != nrow(read_csv("data/ier_gdp-ctg_cleaned.csv"))) {
+} else if (nrow(ctg_exp_trf_tidy) != nrow(read_csv(path_data_ctg))) {
   
-  write_csv(ctg_exp_trf_tidy, "data/ier_gdp-ctg_cleaned.csv") 
+  write_csv(ctg_exp_trf_tidy, path_data_ctg) 
   
   message("The contribution to GDP growth dataset has been updated")
   
